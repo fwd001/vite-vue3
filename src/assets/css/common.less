@@ -1,0 +1,314 @@
+@import './theme.less';
+
+/*** 重写 ant-design 样式写这里 ***/
+.ant-menu-dark {
+  &.ant-menu-inline {
+    width: 200px;
+    overflow: auto;
+  }
+  .anticon {
+    margin-left: -4px;
+  }
+}
+.ant-table-small > .ant-table-content > .ant-table-body {
+  margin: 0;
+}
+.ant-table-thead {
+  background-color: @bg-tint;
+}
+.ant-table-pagination.ant-pagination {
+  margin: 10px 0;
+}
+.ant-form-item {
+  margin-bottom: 0;
+}
+// 修改表单错误提示样式, keep-origin 表示不需要重置
+.ant-form:not(.keep-origin) {
+  .ant-form-explain {
+    position: absolute;
+    min-height: 0;
+    padding-top: 1px;
+    margin-top: -6px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #d8534f !important;
+    &::before {
+      position: relative;
+      top: 2px;
+      display: inline-block;
+      width: 13px;
+      height: 13px;
+      margin-right: 5px;
+      background: url('~@/assets/img/warning.png') no-repeat;
+      content: '';
+      background-size: 100%;
+    }
+  }
+  .form-tips {
+    margin-bottom: 6px;
+    font-size: 12px;
+    line-height: 18px;
+    color: @text-color-secondary;
+  }
+}
+
+// 去掉阴影 扁平化 is dooG
+.ant-input:focus,
+.has-error .ant-input:focus,
+.has-error .ant-input-affix-wrapper .ant-input:focus,
+.ant-select-focused .ant-select-selection,
+.ant-select-selection:focus,
+.ant-select-selection:active,
+.has-error .ant-select-open .ant-select-selection,
+.has-error .ant-select-focused .ant-select-selection {
+  box-shadow: none;
+}
+span.ant-radio + * {
+  padding: 4px;
+}
+.ant-radio {
+  top: -1px;
+}
+// 让必输的star不占位 vertical模式下不设置
+.form-box:not(.ant-form-vertical) {
+  .ant-form-item-label {
+    overflow: visible;
+    label {
+      &::before {
+        position: absolute;
+        left: -10px;
+        top: 3px;
+      }
+    }
+  }
+}
+
+// 模拟必输
+.is-required {
+  position: relative;
+  &:before {
+    position: absolute;
+    left: -10px;
+    top: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    color: #f5222d;
+    font-size: 14px;
+    font-family: SimSun, sans-serif;
+    line-height: 1;
+    content: '*';
+  }
+}
+
+.ant-modal-content {
+  .ant-modal-close-x {
+    height: auto;
+    line-height: 46px;
+  }
+  .ant-modal-header {
+    padding: 12px 24px;
+  }
+  .ant-modal-body {
+    max-height: 68vh;
+    overflow: auto;
+  }
+}
+.ant-statistic-content {
+  color: inherit;
+}
+.ant-collapse-borderless {
+  background: transparent;
+  .ant-collapse-item {
+    border-bottom: none;
+    .ant-collapse-header {
+      padding: 16px 0 0 16px;
+      .ant-collapse-arrow {
+        left: 0;
+        margin-top: 8px;
+      }
+    }
+  }
+  .ant-collapse-content {
+    .ant-collapse-content-box {
+      padding: 0;
+    }
+  }
+}
+// 扩展warning 和 success btn style。
+.ant-btn {
+  &.btn-warning {
+    color: #fff;
+    background: @warning-color;
+    border-color: @warning-color;
+  }
+  &.btn-success {
+    color: #fff;
+    background: @success-color;
+    border-color: @success-color;
+  }
+}
+// checkbox-group 垂直展示
+.vertical-checkbox-group {
+  .ant-checkbox-group-item {
+    display: block;
+    margin: 6px 0;
+  }
+}
+// 禁止 form-model wrapper 设置flex: 0 0 xpx; 后仍被撑开
+.wrapper-over-hidden {
+  .ant-form-item-control-wrapper {
+    width: 0;
+  }
+}
+//
+.ant-modal-confirm-content {
+  word-break: break-all;
+  overflow: hidden; // 不要文字环绕效果
+}
+
+// 扩展成功btn
+.ant-btn-success {
+  color: #fff;
+  background-color: @success-color;
+  border-color: @success-color;
+  &:hover,
+  &:focus {
+    color: #fff;
+    background-color: @success-color;
+    border-color: @success-color;
+    opacity: 0.8;
+  }
+}
+// 扩展警告btn
+.ant-btn-warning {
+  color: #fff;
+  background-color: @warning-color;
+  border-color: @warning-color;
+  &:hover,
+  &:focus {
+    color: #fff;
+    background-color: @warning-color;
+    border-color: @warning-color;
+    opacity: 0.85;
+  }
+}
+
+.hll-btn-link {
+  padding: 0;
+  border: 0;
+}
+
+.hll-btn-link + .hll-btn-link {
+  padding-left: 10px;
+}
+/*** 重写 antdv end ***/
+
+/*** 业务相关 又比较常用的样式写这里 start ***/
+.text-danger {
+  color: @error-color;
+}
+.text-orange {
+  color: @warning-color;
+}
+.text-info {
+  color: @link-color;
+}
+.text-success {
+  color: @success-color;
+}
+.text-disabled {
+  color: @disabled-color;
+}
+.text-gray {
+  color: #eee;
+}
+.pointer {
+  cursor: pointer;
+}
+.page-box {
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  padding: 15px;
+  background: #fff;
+}
+.w-full {
+  width: 100%;
+}
+.h-full {
+  height: 100%;
+}
+.wh-full {
+  width: 100%;
+  height: 100%;
+}
+.w-full-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+.h-full-scroll {
+  height: 100%;
+  overflow-y: auto;
+}
+.wh-full-scroll {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+// 让search内的form label支持批量通过flex设置固定长度
+.search-box.ant-form {
+  margin-bottom: 6px;
+  .ant-form-item {
+    display: inline-flex;
+    margin-bottom: 6px;
+  }
+}
+// 统一表单的间距
+.form-box {
+  &.ant-form-vertical {
+    .ant-form-item-control {
+      line-height: 40px;
+    }
+    .ant-form-item-label {
+      padding: 0 0 2px;
+    }
+  }
+  .ant-form-item {
+    margin-bottom: 12px;
+  }
+}
+// 表单错误提示
+.error-custom {
+  line-height: 18px;
+  font-size: 13px;
+}
+// 搜索输入框 输入时已选项淡化 原来是0.4，看起来很乱
+.ant-select-open {
+  .ant-select-selection-selected-value {
+    opacity: 0.15 !important;
+  }
+}
+/*** 业务相关 又比较常用的样式写这里 end ***/
+
+/*** 富文本样式 ***/
+.rich-editor-pre {
+  table {
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-spacing: 0;
+    th {
+      border-bottom: 1px solid #ccc;
+      text-align: center;
+      background-color: #f1f1f1;
+    }
+    td,
+    th {
+      padding: 3px 5px;
+      height: 30px;
+      margin: 0;
+      border-bottom: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+  }
+}
