@@ -20,6 +20,7 @@
     "qs": "^6.11.0",
     "terser": "^5.14.2",
     "vue": "^3.2.37",
+    "vue-request": "^1.2.4",
     "vue-router": "^4.1.2"
   },
   "devDependencies": {

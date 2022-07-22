@@ -1,28 +1,33 @@
 const navList = [
   {
-    name: '首页',
-    path: '/welcome',
-    icon: 'HomeOutlined',
+    name: "首页",
+    path: "/welcome",
+    icon: "HomeOutlined",
   },
   {
-    name: '社区团购管理',
-    path: 'groupon',
-    icon: 'ShopOutlined',
+    name: "杨j需求",
+    path: "/yj",
+    icon: "BoxPlotOutlined",
+  },
+  {
+    name: "分组管理",
+    path: "groupon",
+    icon: "ShopOutlined",
     children: [
       {
-        name: '网格仓信息管理',
-        path: '/groupon/warehouse',
-        power: 'warehouse.page.list',
+        name: "网格仓信息管理",
+        path: "/groupon/warehouse",
+        power: "warehouse.page.list",
       },
       {
-        name: 'fwd-demo',
-        path: '/groupon/fwd-demo',
-        power: '',
+        name: "fwd-demo",
+        path: "/groupon/fwd-demo",
+        power: "",
       },
       {
-        name: 'leyong-demo',
-        path: '/groupon/leyong-demo',
-        power: '',
+        name: "leyong-demo",
+        path: "/groupon/leyong-demo",
+        power: "",
       },
     ],
   },

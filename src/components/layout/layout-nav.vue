@@ -21,7 +21,7 @@
       theme="dark"
       :selectable="false"
       :inline-collapsed="props.collapsed"
-      :inline-indent="20"
+      :inline-indent="24"
       :default-open-keys="openKeys"
       @click="menuClick"
     >

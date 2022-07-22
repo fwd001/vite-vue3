@@ -8,22 +8,16 @@
     />
     <div class="content-box fx fx-0-1 fx-v">
       <LayoutHeader class="fx-n"></LayoutHeader>
+
       <div class="content-view-box flex-basis-1">
         <!-- 优先加载完用户权限和用户信息，再加载页面 -->
         <div v-if="isReady" id="content-view" class="content-view">
-          <router-view v-slot="{ Component }">
-            <component :is="Component" />
-          </router-view>
+          <a-spin :spinning="false">
+            <router-view v-slot="{ Component }">
+              <component :is="Component" />
+            </router-view>
+          </a-spin>
         </div>
-      </div>
-    </div>
-    <!--loading动画-->
-    <div
-      v-if="false"
-      :class="[{ 'load-mask': loadMask }, { 'load-opacity': loadOpacity }]"
-    >
-      <div class="loading-icon">
-        <HllLoading />
       </div>
     </div>
 
@@ -46,7 +40,6 @@ export default defineComponent({
 <script lang="ts" setup>
 import LayoutNav from "@/components/layout/layout-nav.vue";
 import LayoutHeader from "@/components/layout/layout-header.vue";
-import HllLoading from "@/components/layout/hll-loading.vue";
 import { RouterView } from "vue-router";
 import { getQueryString } from "@/common";
 import { computed, onBeforeMount, ref } from "vue";
@@ -100,37 +93,17 @@ onBeforeMount(async () => {
 }
 .content-view-box {
   position: relative;
-  padding-left: 15px;
+  // padding-left: 15px;
   padding-right: 0;
   overflow: hidden;
 }
 .content-view {
   width: 100%;
   height: 100%;
-  padding: 15px 15px 15px 0;
+  // padding: 15px 15px 15px 0;
   overflow: auto;
 }
-.load-mask {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0);
-  z-index: 10000;
-}
-.load-opacity {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-.loading-icon {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 60px;
-  height: 60px;
-  transform: translate(-50%, -50%);
-  z-index: 10001;
-}
+
 .copy-input {
   position: fixed;
   top: -200px;
