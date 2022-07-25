@@ -21,10 +21,10 @@ export default defineConfig({
     port: 8888,
     host: "0.0.0.0",
     proxy: {
-      "/api": {
-        target: "123",
+      "/proxy": {
+        target: "http://10.1.50.85:8006", // 要访问的跨域的域名
         changeOrigin: true,
-        rewrite: (path) => path.replace(/\/api/, ""),
+        rewrite: (path) => path.replace(/\/proxy/, ""),
       },
     },
   },
