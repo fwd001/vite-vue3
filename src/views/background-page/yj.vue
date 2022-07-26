@@ -139,17 +139,17 @@ const columns = [
   {
     title: "Gender",
     dataIndex: "gender",
-     width: "120",
+    width: "120",
   },
   {
     title: "Gender",
     dataIndex: "gender",
-     width: "120",
+    width: "120",
   },
   {
     title: "Gender",
     dataIndex: "gender",
-     width: "120",
+    width: "120",
   },
   {
     title: "Email",
