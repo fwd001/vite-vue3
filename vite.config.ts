@@ -61,7 +61,7 @@ export default defineConfig({
       output: {
         // 最小化拆分包
         manualChunks: (id: any) => {
-          if (id.includes("node_modules")) {
+          if (id?.includes("node_modules")) {
             return id
               .toString()
               .split("node_modules/")[1]
