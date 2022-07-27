@@ -4,8 +4,9 @@
   "version": "0.0.2",
   "type": "module",
   "scripts": {
-    "start": "npm run dev",
-    "dev": "vite --open",
+    "preinstall": "only-allow yarn",
+    "start": "yarn run dev",
+    "dev": "vite --mode development --open",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
@@ -26,17 +27,21 @@
     "@types/lodash-es": "^4.17.6",
     "@types/qs": "^6.9.7",
     "@vitejs/plugin-vue": "^3.0.0",
-    "terser": "^5.14.2",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.3.0",
     "less": "^4.1.3",
     "less-loader": "^11.0.0",
+    "only-allow": "^1.1.1",
     "prettier": "^2.7.1",
+    "terser": "^5.14.2",
     "typescript": "^4.6.4",
     "unplugin-vue-components": "^0.21.2",
     "vite": "^3.0.3",
     "vue-tsc": "^0.39.0"
+  },
+  "engines": {
+    "node": ">=16"
   }
 }
