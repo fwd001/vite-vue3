@@ -1,7 +1,7 @@
 {
   "name": "vite-vue3",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "start": "npm run dev",
@@ -12,13 +12,12 @@
   "dependencies": {
     "ant-design-vue": "^3.2.10",
     "axios": "^0.27.2",
-    "dayjs": "^1.11.3",
+    "dayjs": "^1.11.4",
     "lodash-es": "^4.17.21",
     "mitt": "^3.0.0",
     "number-precision": "^1.5.2",
-    "pinia": "^2.0.16",
+    "pinia": "^2.0.17",
     "qs": "^6.11.0",
-    "terser": "^5.14.2",
     "vue": "^3.2.37",
     "vue-request": "^1.2.4",
     "vue-router": "^4.1.2"
@@ -27,16 +26,17 @@
     "@types/lodash-es": "^4.17.6",
     "@types/qs": "^6.9.7",
     "@vitejs/plugin-vue": "^3.0.0",
+    "terser": "^5.14.2",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-vue": "^9.2.0",
+    "eslint-plugin-vue": "^9.3.0",
     "less": "^4.1.3",
     "less-loader": "^11.0.0",
     "prettier": "^2.7.1",
     "typescript": "^4.6.4",
-    "unplugin-vue-components": "^0.21.1",
-    "vite": "^3.0.0",
-    "vue-tsc": "^0.38.4"
+    "unplugin-vue-components": "^0.21.2",
+    "vite": "^3.0.3",
+    "vue-tsc": "^0.39.0"
   }
 }

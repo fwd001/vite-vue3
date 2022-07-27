@@ -14,11 +14,9 @@ import Request from "./request";
  什么时候需要创建多个实例？
  比如baseURL不同，且在这个baseURL下请求多次，这个时候创建一个公用的请求实例能够提升代码的可维护性
  */
-console.log('import.meta.env.BASE_URL', import.meta.env.BASE_URL);
-
 
  export const haRequest = new Request({
-  baseURL: '/proxy',
+  baseURL: import.meta.env.VITE_APP_BASE_URL,
   timeout: 1000 * 60 * 1,
 });
 
