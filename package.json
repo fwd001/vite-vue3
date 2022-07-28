@@ -6,20 +6,23 @@
   "scripts": {
     "preinstall": "only-allow yarn",
     "start": "yarn run dev",
-    "dev": "vite --mode development --open",
+    "dev": "vite --mode development",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tinymce/tinymce-vue": "^5.0.0",
     "ant-design-vue": "^3.2.10",
     "axios": "^0.27.2",
     "dayjs": "^1.11.4",
+    "echarts": "^5.3.3",
     "lodash-es": "^4.17.21",
     "mitt": "^3.0.0",
     "mockjs": "^1.1.0",
     "number-precision": "^1.5.2",
     "pinia": "^2.0.17",
     "qs": "^6.11.0",
+    "tinymce": "^6.1.1",
     "vue": "^3.2.37",
     "vue-request": "^1.2.4",
     "vue-router": "^4.1.2"

@@ -1,9 +1,14 @@
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({ name: "Qr2Text" });
+</script>
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch, watchEffect, toRaw } from "vue";
-
 import { useUserStore } from "@/store/index";
 import { apiList } from "@/api/demo";
 import { useRequest } from "vue-request";
+
 const userStore = useUserStore();
 
 const count = ref(0);
@@ -182,6 +187,46 @@ onMounted(() => {});
       <code>components/HelloWorld.vue</code> to test HMR
     </p>
     {{ data }}
+
+    <editor
+      api-key="no-api-key"
+      :init="{
+        branding: false, // 去水印
+        language: 'zh_CN',
+        height: 500,
+        menubar: false,
+        plugins: [
+          'a11ychecker',
+          'advlist',
+          'advcode',
+          'advtable',
+          'autolink',
+          'checklist',
+          'export',
+          'lists',
+          'link',
+          'image',
+          'charmap',
+          'preview',
+          'anchor',
+          'searchreplace',
+          'visualblocks',
+          'powerpaste',
+          'fullscreen',
+          'formatpainter',
+          'insertdatetime',
+          'media',
+          'table',
+          'help',
+          'wordcount',
+        ],
+        toolbar:
+          'undo redo | casechange blocks | bold italic backcolor | \
+           alignleft aligncenter alignright alignjustify | \
+           bullist numlst checklist outdent indent | removeformat | a11ycheck code table help',
+      }"
+      initial-value="Welcome to TinyMCE Vue"
+    />
   </div>
 </template>
 
