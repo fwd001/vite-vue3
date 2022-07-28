@@ -1,20 +1,24 @@
 /**
  * 配置信息
  */
-import { navPathMap, navList } from '@/config/nav-config';
-import { isDev, envVar } from '@/config/env-init';
+ import { navPathMap, navList } from "@/config/nav-config";
 
-// api链接配置
-const originApiUrl = `https://ebms${envVar}.huolala.work`; // php api地址
-
-// 公共链接配置
-const localDomainUrl = `//ebms${envVar}.huolala.work`;
-
-
-export const globalConfig = {
-  isDev,
-  localDomainUrl,
-  originApiUrl,
-  navPathMap,
-  navList,
-};
+ // api链接配置
+ const originApiUrl = `https://xxx.work`; // php api地址
+ 
+ // 公共链接配置
+ const localDomainUrl = `//xxxx.work`;
+ 
+ // 是否启用mock, 改后需要重启
+ const isMock = true;
+ 
+ const globalConfig = {
+   localDomainUrl,
+   originApiUrl,
+   navPathMap,
+   navList,
+   isMock,
+ };
+ 
+ export { globalConfig };
+ 

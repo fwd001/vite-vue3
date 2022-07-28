@@ -1,4 +1,4 @@
-// 全息档案 Holographic Archives
+// demo
 import { haRequest } from "@/common/ha-http";
 
 export const getAjxxSfbz = () => {

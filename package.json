@@ -16,6 +16,7 @@
     "dayjs": "^1.11.4",
     "lodash-es": "^4.17.21",
     "mitt": "^3.0.0",
+    "mockjs": "^1.1.0",
     "number-precision": "^1.5.2",
     "pinia": "^2.0.17",
     "qs": "^6.11.0",
@@ -39,6 +40,7 @@
     "typescript": "^4.6.4",
     "unplugin-vue-components": "^0.21.2",
     "vite": "^3.0.3",
+    "vite-plugin-mock": "^2.9.6",
     "vue-tsc": "^0.39.0"
   },
   "engines": {

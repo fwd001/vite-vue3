@@ -1,14 +1,24 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, watch, watchEffect, toRaw } from "vue";
 
 import { useUserStore } from "@/store/index";
+import { apiList } from "@/api/demo";
+import { useRequest } from "vue-request";
 const userStore = useUserStore();
 
 const count = ref(0);
 
 const updataUser = () => {
   userStore.updataUser("welcome,名字");
+  run({});
 };
+
+const { data, run, loading } = useRequest(apiList);
+
+watchEffect(() => {
+  console.log("data:::", toRaw(data.value));
+  console.log("loading:::", toRaw(loading.value));
+});
 
 document.addEventListener("keyup", (e) => {
   // console.log("e.key", e.key);
@@ -171,6 +181,7 @@ onMounted(() => {});
       Edit
       <code>components/HelloWorld.vue</code> to test HMR
     </p>
+    {{ data }}
   </div>
 </template>
 

@@ -18,8 +18,14 @@
       "@/*": ["*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src/mock/**/*.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }],
-   // ts 排除的文件
-   "exclude": ["node_modules"]
+  // ts 排除的文件
+  "exclude": ["node_modules"]
 }
