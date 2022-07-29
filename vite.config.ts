@@ -5,6 +5,7 @@ import antdvVars from "./src/assets/css/antdv-vars";
 import Components from "unplugin-vue-components/vite";
 import { AntDesignVueResolver } from "unplugin-vue-components/resolvers";
 import { viteMockServe } from "vite-plugin-mock";
+import legacy from "@vitejs/plugin-legacy";
 
 const prodMock = false;
 // https://vitejs.dev/config/
@@ -17,6 +18,24 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       vue(),
       Components({
         resolvers: [AntDesignVueResolver()],
+      }),
+      // 兼容性配置
+      legacy({
+        targets: [
+          "> 1%",
+          "last 2 version",
+          "ie >= 11",
+          "Chrome >= 71",
+          "Safari >= 14",
+          "Firefox >= 78",
+          "Edge >= 71",
+        ],
+        modernPolyfills: [
+          "es.object.from-entries",
+          "es.array.flat",
+          "es.global-this",
+        ],
+        additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
       }),
       viteMockServe({
         mockPath: "./src/mock", // 设置模拟.ts 文件的存储文件夹

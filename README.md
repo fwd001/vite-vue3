@@ -22,3 +22,12 @@ yarn dev
 
 ### 构建打包
 yarn build
+
+### 浏览器兼容
+- "> 1%",
+- "last 2 version",
+- "ie >= 11",
+- "Chrome >= 71",
+- "Safari >= 14",
+- "Firefox >= 78",
+- "Edge >= 71",
