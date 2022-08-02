@@ -30,11 +30,11 @@
   "devDependencies": {
     "@types/lodash-es": "^4.17.6",
     "@types/qs": "^6.9.7",
-    "@typescript-eslint/eslint-plugin": "^5.31.0",
-    "@typescript-eslint/parser": "^5.31.0",
+    "@typescript-eslint/eslint-plugin": "^5.32.0",
+    "@typescript-eslint/parser": "^5.32.0",
     "@vitejs/plugin-legacy": "^2.0.0",
     "@vitejs/plugin-vue": "^3.0.0",
-    "eslint": "^8.19.0",
+    "eslint": "^8.21.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.3.0",
@@ -46,9 +46,9 @@
     "terser": "^5.14.2",
     "typescript": "^4.6.4",
     "unplugin-vue-components": "^0.21.2",
-    "vite": "^3.0.3",
+    "vite": "^3.0.4",
     "vite-plugin-mock": "^2.9.6",
-    "vue-tsc": "^0.39.2"
+    "vue-tsc": "^0.39.4"
   },
   "engines": {
     "node": ">=16"
