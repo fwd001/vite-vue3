@@ -6,9 +6,8 @@
  * @Description:
  */
 import { createRouter, createWebHashHistory } from 'vue-router'
-import type { RouteLocationNormalized } from 'vue-router'
 import routes from './routes'
-const HomeLogin = () => import('@/views/background-page/login.vue')
+const HomeLogin = () => import('@/views/background-page/login-view.vue')
 
 // 此处由【new VueRouter】的方式修改为【createRouter】的方式 其余无变化
 const router = createRouter({

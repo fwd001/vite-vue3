@@ -105,7 +105,7 @@
 </template>
 <script lang="ts">
   import { defineComponent, reactive, ref, computed } from 'vue'
-  import { DownOutlined, UpOutlined } from '@ant-design/icons-vue'
+  // import { DownOutlined, UpOutlined } from '@ant-design/icons-vue'
   import type { FormInstance } from 'ant-design-vue'
   import { usePagination } from 'vue-request'
   import axios from 'axios'
@@ -162,8 +162,8 @@
 
   export default defineComponent({
     components: {
-      DownOutlined,
-      UpOutlined
+      // DownOutlined,
+      // UpOutlined
     },
     setup() {
       const expand = ref(false)

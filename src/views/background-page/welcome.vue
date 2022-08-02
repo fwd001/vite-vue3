@@ -4,7 +4,7 @@
   export default defineComponent({ name: 'Qr2Text' })
 </script>
 <script setup lang="ts">
-  import { ref, onMounted, onUnmounted, watch, watchEffect, toRaw } from 'vue'
+  import { ref, onMounted, watchEffect, toRaw } from 'vue'
   import { useUserStore } from '@/store/index'
   import { apiList } from '@/api/demo'
   import { useRequest } from 'vue-request'

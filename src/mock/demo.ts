@@ -1,7 +1,7 @@
 // mock demo
 import { MockMethod } from 'vite-plugin-mock'
 // 使⽤⾃⼰的返回数据，可以不⽤引⼊mockjs:http://mockjs.com/examples.html
-import Mock, { Random } from 'mockjs'
+import Mock from 'mockjs'
 import { createMockUrl } from './index'
 
 const demoMock: MockMethod[] = [

@@ -29,30 +29,23 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
   export default defineComponent({
-    name: 'Main'
+    name: 'MainLayout'
   })
 </script>
 <script lang="ts" setup>
   import LayoutNav from '@/components/layout/layout-nav.vue'
   import LayoutHeader from '@/components/layout/layout-header.vue'
   import { RouterView } from 'vue-router'
-  import { getQueryString } from '@/common'
+  // import { getQueryString } from '@/common'
   import { computed, onBeforeMount, ref } from 'vue'
-  import { useRoute } from 'vue-router'
-  import { globalConfig } from '@/config'
+  // import { useRoute } from 'vue-router'
+  // import { globalConfig } from '@/config'
 
   // 侧边菜单栏是否为mini开关
   const collapsed = ref(false)
   const toggleCollapsed = () => {
     collapsed.value = !collapsed.value
   }
-
-  const loadMask = computed(() => {
-    return false
-  })
-  const loadOpacity = computed(() => {
-    return false
-  })
 
   const copyContent = computed(() => {
     return false
