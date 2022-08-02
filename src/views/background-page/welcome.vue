@@ -1,17 +1,19 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
 
-  export default defineComponent({ name: 'Qr2Text' })
+  export default defineComponent({ name: 'WelcomeView' })
 </script>
 <script setup lang="ts">
   import { ref, onMounted, watchEffect, toRaw } from 'vue'
-  import { useUserStore } from '@/store/index'
+  import { useUserStore } from 'store/index'
   import { apiList } from '@/api/demo'
   import { useRequest } from 'vue-request'
+  import { useRouter } from 'vue-router'
 
   const userStore = useUserStore()
 
   const count = ref(0)
+  const router = useRouter()
 
   const updataUser = () => {
     userStore.updataUser('welcome,名字')
@@ -42,12 +44,16 @@
   })
 
   onMounted(() => {})
+  function toLoginView() {
+    router.push({ path: '/login' })
+  }
 </script>
 
 <template>
   <h2>{{ userStore.name }}</h2>
   <h2>{{ userStore.nameLength }}</h2>
   <button @click="updataUser">修改</button>
+  <button @click="toLoginView">toLoginView</button>
   <div class="card">
     <button type="button" @click="count++">count is {{ count }}</button>
     <p>

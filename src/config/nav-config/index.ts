@@ -5,8 +5,8 @@ const navList = [
     icon: 'HomeOutlined',
   },
   {
-    name: '杨j需求',
-    path: '/yj',
+    name: '查询',
+    path: '/keywords',
     icon: 'BoxPlotOutlined',
   },
   {

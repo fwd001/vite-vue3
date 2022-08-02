@@ -82,7 +82,7 @@
         </a-col>
         <a-col style="text-align: right">
           <a-button type="primary" html-type="submit">查询</a-button>
-          <a-button style="margin: 0 8px" @click="() => formRef?.resetFields()"> 重制 </a-button>
+          <a-button style="margin: 0 8px" @click="() => formRef?.resetFields()">重置</a-button>
         </a-col>
       </a-row>
     </a-form>
@@ -103,9 +103,9 @@
     </a-table>
   </div>
 </template>
+<!-- keywords -->
 <script lang="ts">
   import { defineComponent, reactive, ref, computed } from 'vue'
-  // import { DownOutlined, UpOutlined } from '@ant-design/icons-vue'
   import type { FormInstance } from 'ant-design-vue'
   import { usePagination } from 'vue-request'
   import axios from 'axios'

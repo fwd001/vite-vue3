@@ -6,9 +6,7 @@
 </script>
 
 <script lang="ts" setup>
-  // import enUS from 'ant-design-vue/es/locale/en_US';
   import zhCN from 'ant-design-vue/es/locale/zh_CN'
-
   import dayjs from 'dayjs'
   import 'dayjs/locale/zh-cn'
   dayjs.locale('cn')
@@ -20,7 +18,6 @@
   <a-config-provider :locale="locale">
     <div id="app-wrap">
       <router-view></router-view>
-      <!-- <LayoutMain></LayoutMain> -->
     </div>
   </a-config-provider>
 </template>

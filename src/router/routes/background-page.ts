@@ -14,10 +14,10 @@ const routes = [
         meta: { title: '欢迎' },
       },
       {
-        path: 'yj',
-        name: 'YJ',
+        path: 'keywords',
+        name: 'KeyWords',
         component: YJPage,
-        meta: { title: 'yj需求' },
+        meta: { title: 'KeyWords' },
       },
     ],
   },

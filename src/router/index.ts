@@ -7,6 +7,7 @@
  */
 import { createRouter, createWebHashHistory } from 'vue-router'
 import routes from './routes'
+import type { RouteLocationNormalized } from 'vue-router'
 const HomeLogin = () => import('@/views/background-page/login-view.vue')
 
 // 此处由【new VueRouter】的方式修改为【createRouter】的方式 其余无变化
@@ -28,9 +29,14 @@ const router = createRouter({
 })
 
 // 检查权限
-// const checkRoutePower = (to: RouteLocationNormalized) => {};
+const checkRoutePower = (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+  console.log('to', to)
+  console.log('from', from)
+  if (to.fullPath === '/keywords') return { path: '/login' }
+  return true
+}
 
 // // 权限守卫
-// router.beforeEach((to) => checkRoutePower(to));
+router.beforeEach(checkRoutePower)
 
 export default router
