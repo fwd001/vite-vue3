@@ -21,7 +21,7 @@ const globarCss = {
   'disabled-color': '#757575',
   'border-radius-base': '2px',
   'border-color-base': '#dbdfeb',
-  'box-shadow-base': '0 2px 8px rgba(0, 0, 0, 0.15)'
+  'box-shadow-base': '0 2px 8px rgba(0, 0, 0, 0.15)',
 }
 
 export default globarCss

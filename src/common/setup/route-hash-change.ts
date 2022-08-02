@@ -8,7 +8,7 @@ export function useRouteChange() {
 
   // 内部示例
   const _instance = {
-    routeHashChangeCallback: () => null
+    routeHashChangeCallback: () => null,
   }
 
   const routeHashChange = (callback: any) => {

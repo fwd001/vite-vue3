@@ -17,5 +17,5 @@ import Request from './request'
 
 export const haRequest = new Request({
   baseURL: import.meta.env.VITE_APP_BASE_URL,
-  timeout: 1000 * 60 * 1
+  timeout: 1000 * 60 * 1,
 })

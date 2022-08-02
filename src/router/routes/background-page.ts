@@ -11,16 +11,16 @@ const routes = [
         path: 'welcome',
         name: 'HomeWelcome',
         component: HomeWelcome,
-        meta: { title: '欢迎' }
+        meta: { title: '欢迎' },
       },
       {
         path: 'yj',
         name: 'YJ',
         component: YJPage,
-        meta: { title: 'yj需求' }
-      }
-    ]
-  }
+        meta: { title: 'yj需求' },
+      },
+    ],
+  },
 ]
 
 export default routes

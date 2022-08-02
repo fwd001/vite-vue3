@@ -21,13 +21,13 @@ const demoMock: MockMethod[] = [
               sfbz: '@id',
               title: '@csentence(8, 12)',
               dataSoruce: '@string(11)',
-              context: '@cparagraph(3, 4)'
-            }
-          ]
-        })
+              context: '@cparagraph(3, 4)',
+            },
+          ],
+        }),
       }
-    }
-  }
+    },
+  },
 ]
 
 export default demoMock

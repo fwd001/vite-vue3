@@ -18,7 +18,7 @@ export default defineConfig(({ command }) => {
     plugins: [
       vue(),
       Components({
-        resolvers: [AntDesignVueResolver()]
+        resolvers: [AntDesignVueResolver()],
       }),
       // 兼容性配置
       legacy({
@@ -29,10 +29,10 @@ export default defineConfig(({ command }) => {
           'Chrome >= 71',
           'Safari >= 14',
           'Firefox >= 78',
-          'Edge >= 71'
+          'Edge >= 71',
         ],
         modernPolyfills: ['es.object.from-entries', 'es.array.flat', 'es.global-this'],
-        additionalLegacyPolyfills: ['regenerator-runtime/runtime']
+        additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
       }),
       viteMockServe({
         mockPath: './src/mock', // 设置模拟.ts 文件的存储文件夹
@@ -48,7 +48,7 @@ export default defineConfig(({ command }) => {
         injectCode: `
           import { setupProdMockServer } from './mockProdServer';
           setupProdMockServer();
-        `
+        `,
       }),
       // gzip压缩 生产环境生成 .gz 文件
       viteCompression({
@@ -56,8 +56,8 @@ export default defineConfig(({ command }) => {
         disable: false,
         threshold: 10240,
         algorithm: 'gzip',
-        ext: '.gz'
-      })
+        ext: '.gz',
+      }),
     ],
     server: {
       port: 8080,
@@ -68,23 +68,23 @@ export default defineConfig(({ command }) => {
         '/api': {
           target: 'http://10.1.50.85:8006', // 要访问的跨域的域名
           changeOrigin: true,
-          rewrite: (path) => path.replace(/\/api/, '')
-        }
-      }
+          rewrite: (path) => path.replace(/\/api/, ''),
+        },
+      },
     },
     resolve: {
       alias: {
         '@': resolve(__dirname, 'src'),
-        store: resolve(__dirname, 'src/store')
-      }
+        store: resolve(__dirname, 'src/store'),
+      },
     },
     css: {
       preprocessorOptions: {
         less: {
           modifyVars: antdvVars,
-          javascriptEnabled: true
-        }
-      }
+          javascriptEnabled: true,
+        },
+      },
     },
     build: {
       target: 'es2020',
@@ -98,8 +98,8 @@ export default defineConfig(({ command }) => {
         compress: {
           keep_infinity: true,
           drop_console: true,
-          drop_debugger: true
-        }
+          drop_debugger: true,
+        },
       },
       rollupOptions: {
         output: {
@@ -111,9 +111,9 @@ export default defineConfig(({ command }) => {
           }, // 用于从入口点创建的块的打包输出格式[name]表示文件名,[hash]表示该文件内容hash值
           entryFileNames: 'js/[name].[hash].js', // 用于命名代码拆分时创建的共享块的输出命名
           chunkFileNames: 'js/[name].[hash].js', // 用于输出静态资源的命名，[ext]表示文件扩展名
-          assetFileNames: '[ext]/[name].[hash].[ext]' // 拆分js到模块文件夹 // chunkFileNames: (chunkInfo) => { //     const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/') : []; //     const fileName = facadeModuleId[facadeModuleId.length - 2] || '[name]'; //     return `js/${fileName}/[name].[hash].js`; // },
-        }
-      }
-    }
+          assetFileNames: '[ext]/[name].[hash].[ext]', // 拆分js到模块文件夹 // chunkFileNames: (chunkInfo) => { //     const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/') : []; //     const fileName = facadeModuleId[facadeModuleId.length - 2] || '[name]'; //     return `js/${fileName}/[name].[hash].js`; // },
+        },
+      },
+    },
   }
 })

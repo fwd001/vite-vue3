@@ -81,51 +81,6 @@ export const arrToMap = (arr: any, label: any) => {
   return mapTemp
 }
 
-/**
- * 时间格式化
- * @param timeStamp 时间戳（秒）
- * @param fmt 日期格式
- * return str 返回fmt格式
- */
-export const formatDate = (timeStamp: any, fmt = 'yyyy-MM-dd') => {
-  if (!timeStamp || timeStamp === '0000-00-00 00:00:00') {
-    return ''
-  }
-  if (Number(timeStamp) && timeStamp.toString().length === 10) {
-    timeStamp = timeStamp * 1000
-  }
-  let date = new Date(timeStamp)
-  if (date.toString() === 'Invalid Date') {
-    timeStamp = timeStamp.toString().replace(/\-/g, '/')
-    date = new Date(timeStamp)
-  }
-  const o: any = {
-    'M+': date.getMonth() + 1, // 月份
-    'd+': date.getDate(), // 日
-    'h+': date.getHours(), // 小时
-    'm+': date.getMinutes(), // 分
-    's+': date.getSeconds(), // 秒
-    'q+': Math.floor((date.getMonth() + 3) / 3), // 季度
-    S: date.getMilliseconds() // 毫秒
-  }
-  if (/(y+)/.test(fmt)) {
-    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
-  }
-  for (const k in o) {
-    if (Object.prototype.hasOwnProperty.call(o, k)) {
-      const element = o[k]
-      if (new RegExp('(' + k + ')').test(fmt)) {
-        fmt = fmt.replace(
-          RegExp.$1,
-          RegExp.$1.length === 1 ? element : ('00' + element).substr(('' + element).length)
-        )
-      }
-    }
-  }
-
-  return fmt
-}
-
 export const copyContent = (inputId: any) => {
   const input = document.querySelector(inputId)
   if (!input) return
@@ -235,7 +190,7 @@ export const intersectArrs = (list1: any, ...arrs: any) => {
       list1.filter((item: any) => {
         return arrs.every((arr: any) => arr.indexOf(item) !== -1)
       })
-    )
+    ),
   ]
 }
 
@@ -244,7 +199,7 @@ export const compareArr = (oldArr = [], newArr = []) => {
   const result = {
     delete: [], // 删除的
     add: [], // 新增的
-    retain: [] // 两边都有的
+    retain: [], // 两边都有的
   }
   // 两边转字符串后值相等 则表示没变化
   if (oldArr.join() === newArr.join()) {
@@ -402,7 +357,7 @@ export const timeFormat = (day: any) => new Date(day).getTime()
  */
 export const getTime = (time = [], name = []) => ({
   [name[0]]: time[0] ? timeFormat(`${time[0]} 00:00:00`) : undefined,
-  [name[1]]: time[1] ? timeFormat(`${time[1]} 23:59:59`) : undefined
+  [name[1]]: time[1] ? timeFormat(`${time[1]} 23:59:59`) : undefined,
 })
 
 // 解决ts解析key值报错
@@ -422,5 +377,5 @@ export const regCommon = {
   float: /^(-?\d+)(\.\d+)?$/, // 浮点数
   specialLimit1: /[^a-zA-Z0-9_\-，,、/（）()\u4e00-\u9fff]/, // 中英文数字大小写字母及指定字母（限制输入特殊字符）
   specialLimit2: /[^a-zA-Z0-9_\-，,、/（）()#&\u4e00-\u9fff]/, // 中英文数字大小写字母及指定字母（限制输入特殊字符）
-  idCard: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/ // 省份证
+  idCard: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/, // 省份证
 }

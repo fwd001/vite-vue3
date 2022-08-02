@@ -29,7 +29,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
   export default defineComponent({
-    name: 'MainLayout'
+    name: 'MainLayout',
   })
 </script>
 <script lang="ts" setup>

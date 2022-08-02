@@ -15,16 +15,16 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/welcome'
+      redirect: '/welcome',
     },
     {
       path: '/login',
       name: 'HomeLogin',
       component: HomeLogin,
-      meta: { title: '登陆' }
+      meta: { title: '登陆' },
     },
-    ...routes
-  ]
+    ...routes,
+  ],
 })
 
 // 检查权限

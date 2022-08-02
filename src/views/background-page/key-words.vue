@@ -113,32 +113,32 @@
     {
       title: 'Name',
       dataIndex: 'name',
-      width: '120'
+      width: '120',
     },
     {
       title: 'Gender',
       dataIndex: 'gender',
-      width: '120'
+      width: '120',
     },
     {
       title: 'Gender',
       dataIndex: 'gender',
-      width: '120'
+      width: '120',
     },
     {
       title: 'Gender',
       dataIndex: 'gender',
-      width: '120'
+      width: '120',
     },
     {
       title: 'Gender',
       dataIndex: 'gender',
-      width: '120'
+      width: '120',
     },
     {
       title: 'Email',
-      dataIndex: 'email'
-    }
+      dataIndex: 'email',
+    },
   ]
 
   type APIParams = {
@@ -178,19 +178,19 @@
         run,
         loading,
         current,
-        pageSize
+        pageSize,
       } = usePagination(queryData, {
         formatResult: (res) => res.data.results,
         pagination: {
           currentKey: 'page',
-          pageSizeKey: 'results'
-        }
+          pageSizeKey: 'results',
+        },
       })
 
       const pagination = computed(() => ({
         total: 200,
         current: current.value,
-        pageSize: pageSize.value
+        pageSize: pageSize.value,
       }))
 
       const handleTableChange: any = (
@@ -203,7 +203,7 @@
           page: pag?.current,
           sortField: sorter.field,
           sortOrder: sorter.order,
-          ...filters
+          ...filters,
         })
       }
       return {
@@ -215,9 +215,9 @@
         pagination,
         loading,
         columns,
-        handleTableChange
+        handleTableChange,
       }
-    }
+    },
   })
 </script>
 <style lang="less">

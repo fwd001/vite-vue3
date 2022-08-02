@@ -7,13 +7,13 @@ module.exports = defineConfig({
     parser: '@typescript-eslint/parser', // Specifies the ESLint parser
     ecmaVersion: 2020, // Allows for the parsing of modern ECMAScript features
     sourceType: 'module', // Allows for the use of imports
-    ecmaFeatures: {} // Allows for the parsing of JSX
+    ecmaFeatures: {}, // Allows for the parsing of JSX
   },
   extends: [
     'plugin:vue/vue3-recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
   ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -34,24 +34,24 @@ module.exports = defineConfig({
       'error',
       {
         argsIgnorePattern: '^h$',
-        varsIgnorePattern: '^h$'
-      }
+        varsIgnorePattern: '^h$',
+      },
     ],
     'no-unused-vars': [
       'error',
       {
         argsIgnorePattern: '^h$',
-        varsIgnorePattern: '^h$'
-      }
+        varsIgnorePattern: '^h$',
+      },
     ],
     'space-before-function-paren': 'off',
     quotes: ['error', 'single'],
-    'comma-dangle': ['error', 'never']
+    'comma-dangle': ['error', 'only-multiline'],
   },
   globals: {
     defineProps: 'readonly',
     defineEmits: 'readonly',
     defineExpose: 'readonly',
-    withDefaults: 'readonly'
-  }
+    withDefaults: 'readonly',
+  },
 })

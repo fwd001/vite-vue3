@@ -7,5 +7,5 @@ export default {
   install: (app: App) => {
     // 添加到全局
     app.config.globalProperties.$antdIcons = antdIcons
-  }
+  },
 }

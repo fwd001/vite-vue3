@@ -71,7 +71,7 @@
     collapsed?: boolean
   }
   const props = withDefaults(defineProps<Props>(), {
-    collapsed: false
+    collapsed: false,
   })
   const emit = defineEmits(['toggleCollapsed'])
 
@@ -120,7 +120,7 @@
   const menuClick = (info: any) => {
     if (route.path !== info.key) {
       router.push({
-        path: info.key
+        path: info.key,
       })
     }
   }

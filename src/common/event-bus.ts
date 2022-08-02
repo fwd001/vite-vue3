@@ -16,5 +16,5 @@ export default {
     app.provide('$EventBus', mitter)
     // 添加到全局
     app.config.globalProperties.$EventBus = mitter
-  }
+  },
 }

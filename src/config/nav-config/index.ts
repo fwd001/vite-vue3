@@ -2,12 +2,12 @@ const navList = [
   {
     name: '首页',
     path: '/welcome',
-    icon: 'HomeOutlined'
+    icon: 'HomeOutlined',
   },
   {
     name: '杨j需求',
     path: '/yj',
-    icon: 'BoxPlotOutlined'
+    icon: 'BoxPlotOutlined',
   },
   {
     name: '分组管理',
@@ -17,20 +17,20 @@ const navList = [
       {
         name: '网格仓信息管理',
         path: '/groupon/warehouse',
-        power: 'warehouse.page.list'
+        power: 'warehouse.page.list',
       },
       {
         name: 'fwd-demo',
         path: '/groupon/fwd-demo',
-        power: ''
+        power: '',
       },
       {
         name: 'leyong-demo',
         path: '/groupon/leyong-demo',
-        power: ''
-      }
-    ]
-  }
+        power: '',
+      },
+    ],
+  },
 ]
 
 // 将路由转为一个map 方便根据path查找路由的权限等信息

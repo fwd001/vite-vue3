@@ -17,7 +17,7 @@ const globalConfig = {
   originApiUrl,
   navPathMap,
   navList,
-  isMock
+  isMock,
 }
 
 export { globalConfig }

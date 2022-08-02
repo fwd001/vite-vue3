@@ -2,5 +2,5 @@
 const locationStatus: any[] = []
 
 export const dict = {
-  locationStatus
+  locationStatus,
 }
