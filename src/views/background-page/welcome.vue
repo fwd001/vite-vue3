@@ -1,47 +1,47 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+  import { defineComponent } from 'vue'
 
-export default defineComponent({ name: "Qr2Text" });
+  export default defineComponent({ name: 'Qr2Text' })
 </script>
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch, watchEffect, toRaw } from "vue";
-import { useUserStore } from "@/store/index";
-import { apiList } from "@/api/demo";
-import { useRequest } from "vue-request";
+  import { ref, onMounted, onUnmounted, watch, watchEffect, toRaw } from 'vue'
+  import { useUserStore } from '@/store/index'
+  import { apiList } from '@/api/demo'
+  import { useRequest } from 'vue-request'
 
-const userStore = useUserStore();
+  const userStore = useUserStore()
 
-const count = ref(0);
+  const count = ref(0)
 
-const updataUser = () => {
-  userStore.updataUser("welcome,名字");
-  run({});
-};
-
-const { data, run, loading } = useRequest(apiList);
-
-watchEffect(() => {
-  console.log("data:::", toRaw(data.value));
-  console.log("loading:::", toRaw(loading.value));
-});
-
-document.addEventListener("keyup", (e) => {
-  // console.log("e.key", e.key);
-  if (e.ctrlKey && e.altKey) {
-    console.log("e.ctrlKey && e.altKey", true);
+  const updataUser = () => {
+    userStore.updataUser('welcome,名字')
+    run({})
   }
 
-  if (e.key === "p") {
-    console.log("p");
-  }
+  const { data, run, loading } = useRequest(apiList)
 
-  if (e.ctrlKey && e.altKey && e.key === "p") {
-    // this.toggleLoginSign = false;
-    console.log("this.toggleLoginSign", "p");
-  }
-});
+  watchEffect(() => {
+    console.log('data:::', toRaw(data.value))
+    console.log('loading:::', toRaw(loading.value))
+  })
 
-onMounted(() => {});
+  document.addEventListener('keyup', (e) => {
+    // console.log("e.key", e.key);
+    if (e.ctrlKey && e.altKey) {
+      console.log('e.ctrlKey && e.altKey', true)
+    }
+
+    if (e.key === 'p') {
+      console.log('p')
+    }
+
+    if (e.ctrlKey && e.altKey && e.key === 'p') {
+      // this.toggleLoginSign = false;
+      console.log('this.toggleLoginSign', 'p')
+    }
+  })
+
+  onMounted(() => {})
 </script>
 
 <template>
@@ -188,7 +188,7 @@ onMounted(() => {});
     </p>
     {{ data }}
 
-    <editor
+    <TinymceEditor
       api-key="no-api-key"
       :init="{
         branding: false, // 去水印
@@ -218,12 +218,12 @@ onMounted(() => {});
           'media',
           'table',
           'help',
-          'wordcount',
+          'wordcount'
         ],
         toolbar:
           'undo redo | casechange blocks | bold italic backcolor | \
            alignleft aligncenter alignright alignjustify | \
-           bullist numlst checklist outdent indent | removeformat | a11ycheck code table help',
+           bullist numlst checklist outdent indent | removeformat | a11ycheck code table help'
       }"
       initial-value="Welcome to TinyMCE Vue"
     />
@@ -231,7 +231,7 @@ onMounted(() => {});
 </template>
 
 <style scoped>
-.read-the-docs {
-  color: #888;
-}
+  .read-the-docs {
+    color: #888;
+  }
 </style>

@@ -9,19 +9,19 @@
  */
 
 const globarCss = {
-  "primary-color": "#1890ff",
-  "link-color": "#37b1f1",
-  "success-color": "#52c41a",
-  "warning-color": "#f16622",
-  "error-color": "#d8534f",
-  "font-size-base": "14px",
-  "heading-color": "rgba(0, 0, 0, 0.85)",
-  "text-color": "rgba(0, 0, 0, 0.65)",
-  "text-color-secondary": "rgba(0, 0, 0, 0.45)",
-  "disabled-color": "#757575",
-  "border-radius-base": "2px",
-  "border-color-base": "#dbdfeb",
-  "box-shadow-base": "0 2px 8px rgba(0, 0, 0, 0.15)",
-};
+  'primary-color': '#1890ff',
+  'link-color': '#37b1f1',
+  'success-color': '#52c41a',
+  'warning-color': '#f16622',
+  'error-color': '#d8534f',
+  'font-size-base': '14px',
+  'heading-color': 'rgba(0, 0, 0, 0.85)',
+  'text-color': 'rgba(0, 0, 0, 0.65)',
+  'text-color-secondary': 'rgba(0, 0, 0, 0.45)',
+  'disabled-color': '#757575',
+  'border-radius-base': '2px',
+  'border-color-base': '#dbdfeb',
+  'box-shadow-base': '0 2px 8px rgba(0, 0, 0, 0.15)'
+}
 
-export default globarCss;
+export default globarCss

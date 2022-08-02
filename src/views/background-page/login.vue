@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useUserStore } from "@/store/index";
-const userStore = useUserStore();
+  import { ref } from 'vue'
+  import { useUserStore } from '@/store/index'
+  const userStore = useUserStore()
 
-const updataUser = () => {
-  userStore.updataUser("login,名字");
-};
+  const updataUser = () => {
+    userStore.updataUser('login,名字')
+  }
 </script>
 
 <template>

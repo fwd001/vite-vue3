@@ -1,11 +1,11 @@
-import { globalConfig } from "@/config/index";
+import { globalConfig } from '@/config/index'
 
 // 创建mockurl
-const createMockUrl = (url: string = "") => {
+const createMockUrl = (url = '') => {
   if (globalConfig?.isMock) {
-    return `/api${url}`;
+    return `/api${url}`
   } else {
-    return `/no-mock${url}`;
+    return `/no-mock${url}`
   }
-};
-export { createMockUrl };
+}
+export { createMockUrl }

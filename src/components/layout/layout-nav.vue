@@ -57,73 +57,73 @@
 </template>
 
 <script lang="ts" setup>
-  import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue';
-  import { globalConfig } from '@/config';
-  import { useRoute, useRouter } from 'vue-router';
-  import { ref, computed, getCurrentInstance, withDefaults } from 'vue';
+  import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
+  import { globalConfig } from '@/config'
+  import { useRoute, useRouter } from 'vue-router'
+  import { ref, computed, getCurrentInstance, withDefaults } from 'vue'
 
   // const { mixinPower } = useGlobalSetup();
-  const route = useRoute();
-  const router = useRouter();
-  const { proxy }: any = getCurrentInstance();
+  const route = useRoute()
+  const router = useRouter()
+  const { proxy }: any = getCurrentInstance()
 
   interface Props {
-    collapsed?: boolean;
+    collapsed?: boolean
   }
   const props = withDefaults(defineProps<Props>(), {
-    collapsed: false,
-  });
-  const emit = defineEmits(['toggleCollapsed']);
+    collapsed: false
+  })
+  const emit = defineEmits(['toggleCollapsed'])
 
   // 只有第一次创建的时候需要自动获取当前展开的菜单 后续以用户操作为准
-  let hash = location.hash;
-  let openKey = hash.split('/')[1];
+  let hash = location.hash
+  let openKey = hash.split('/')[1]
 
-  const openKeys = ref(openKey ? [openKey] : []);
+  const openKeys = ref(openKey ? [openKey] : [])
 
   const navPowerList = computed(() => {
-    let newArr: any = [];
+    let newArr: any = []
     globalConfig.navList.forEach((val) => {
       if (!val.children) {
-        newArr.push(Object.assign({}, val));
-        return;
+        newArr.push(Object.assign({}, val))
+        return
       }
       let children = val.children.filter((item: any) => {
-        const powerType = Object.prototype.toString.call(item.power);
-        let powerList: any = [];
+        const powerType = Object.prototype.toString.call(item.power)
+        let powerList: any = []
         if (powerType === '[object Array]') {
-          powerList = item.power;
+          powerList = item.power
         } else {
-          powerList.push(item.power);
+          powerList.push(item.power)
         }
-        let hasPower = false;
+        let hasPower = false
         for (let power of powerList) {
-          if (!power ) {
+          if (!power) {
             // 不需要权限或者有其中一个权限则有权限
-            hasPower = true;
-            break;
+            hasPower = true
+            break
           }
         }
-        return hasPower;
-      });
+        return hasPower
+      })
       if (children.length) {
-        let newVal = Object.assign({}, val);
-        newVal.children = children;
-        newArr.push(newVal);
+        let newVal = Object.assign({}, val)
+        newVal.children = children
+        newArr.push(newVal)
       }
-    });
+    })
 
-    return newArr;
-  });
+    return newArr
+  })
 
   // 菜单点击
   const menuClick = (info: any) => {
     if (route.path !== info.key) {
       router.push({
-        path: info.key,
-      });
+        path: info.key
+      })
     }
-  };
+  }
 </script>
 
 <style lang="less" scoped>

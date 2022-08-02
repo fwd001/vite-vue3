@@ -1,5 +1,5 @@
 // 全息档案 Holographic Archives
-import Request from "./request";
+import Request from './request'
 /*
 为什么要创建 axios 的实例（instance）
 当我们从 axios 模块中导入对象时，使用的实例是默认的实例
@@ -15,8 +15,7 @@ import Request from "./request";
  比如baseURL不同，且在这个baseURL下请求多次，这个时候创建一个公用的请求实例能够提升代码的可维护性
  */
 
- export const haRequest = new Request({
+export const haRequest = new Request({
   baseURL: import.meta.env.VITE_APP_BASE_URL,
-  timeout: 1000 * 60 * 1,
-});
-
+  timeout: 1000 * 60 * 1
+})
