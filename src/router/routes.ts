@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RouteRecordRaw } from 'vue-router'
 // 路由配置 和以前一样
 let routes: RouteRecordRaw[] = []

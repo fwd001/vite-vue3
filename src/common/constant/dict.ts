@@ -1,5 +1,5 @@
 // 点位状态
-const locationStatus: any[] = []
+const locationStatus: number[] = []
 
 export const dict = {
   locationStatus,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // @ts-ignore
 Array.prototype.at = function at(n: any): any {
   // Convert the argument to an integer

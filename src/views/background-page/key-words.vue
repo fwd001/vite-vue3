@@ -146,6 +146,7 @@
     page?: number
     sortField?: string
     sortOrder?: number
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any
   }
   type APIResult = {
@@ -168,7 +169,9 @@
     setup() {
       const expand = ref(false)
       const formRef = ref<FormInstance>()
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const formState = reactive<any>({})
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const onFinish = (values: any) => {
         // console.log("formState: ", formState);
         console.log('Received values of form: ', values)
@@ -192,12 +195,13 @@
         current: current.value,
         pageSize: pageSize.value,
       }))
-
-      const handleTableChange: any = (
+      function handleTableChange(
         pag: { pageSize: number; current: number },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         filters: any,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         sorter: any
-      ) => {
+      ) {
         run({
           results: pag.pageSize!,
           page: pag?.current,

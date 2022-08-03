@@ -32,13 +32,13 @@
           :class="[{ 'ant-menu-item-selected': $route.path.includes(menu.path) }]"
         >
           <template #icon>
-            <component :is="proxy.$antdIcons[menu.icon]" />
+            <component :is="proxy?.$antdIcons[menu.icon]" />
           </template>
           <span>{{ menu.name }}</span>
         </a-menu-item>
         <a-sub-menu v-else :key="menu.path">
           <template #icon>
-            <component :is="proxy.$antdIcons[menu.icon]" />
+            <component :is="proxy?.$antdIcons[menu.icon]" />
           </template>
           <template #title>
             <span>{{ menu.name }}</span>
@@ -65,6 +65,7 @@
   // const { mixinPower } = useGlobalSetup();
   const route = useRoute()
   const router = useRouter()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { proxy }: any = getCurrentInstance()
 
   interface Props {
@@ -82,14 +83,17 @@
   const openKeys = ref(openKey ? [openKey] : [])
 
   const navPowerList = computed(() => {
-    let newArr: any = []
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let newArr: any[] = []
     globalConfig.navList.forEach((val) => {
       if (!val.children) {
         newArr.push(Object.assign({}, val))
         return
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let children = val.children.filter((item: any) => {
         const powerType = Object.prototype.toString.call(item.power)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let powerList: any = []
         if (powerType === '[object Array]') {
           powerList = item.power
@@ -117,6 +121,7 @@
   })
 
   // 菜单点击
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const menuClick = (info: any) => {
     if (route.path !== info.key) {
       router.push({

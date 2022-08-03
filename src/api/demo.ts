@@ -8,6 +8,7 @@ export const getAjxxSfbz = () => {
   })
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const apiList = (params: any) => {
   return haRequest.request({
     url: '/es/qwjs/queryInfo',

@@ -20,7 +20,7 @@ module.exports = defineConfig({
     'no-debugger': 'warn',
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-var-requires': 'warn',
     '@typescript-eslint/no-empty-function': 'error',
     'vue/custom-event-name-casing': 'off',

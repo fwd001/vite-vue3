@@ -1,4 +1,4 @@
-// index.ts
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { message } from 'ant-design-vue'
