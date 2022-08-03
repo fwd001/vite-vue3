@@ -7,6 +7,7 @@
 - antd-vue: https://antdv.com/components/overview-cn/
 - VueRequest: https://next.attojs.com/
 - mockjs 规则: http://mockjs.com/examples.html#Array
+- eslint规则: https://typescript-eslint.io/rules/
 
 ## 环境
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { resolve } from 'path' // 此处如果报错则安装 node/path依赖
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
