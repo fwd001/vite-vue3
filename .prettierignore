@@ -5,3 +5,7 @@ run
 logs/
 coverage/
 public
+README.md
+*.lock
+.env.dev
+.env
