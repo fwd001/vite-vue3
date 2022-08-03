@@ -4,7 +4,7 @@
   export default defineComponent({ name: 'WelcomeView' })
 </script>
 <script setup lang="ts">
-  import { ref, onMounted, watchEffect, toRaw } from 'vue'
+  import { ref, watchEffect, toRaw } from 'vue'
   import { useUserStore } from 'store/index'
   import { apiList } from '@/api/demo'
   import { useRequest } from 'vue-request'
@@ -43,7 +43,6 @@
     }
   })
 
-  onMounted(() => {})
   function toLoginView() {
     router.push({ path: '/login' })
   }
