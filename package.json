@@ -9,7 +9,7 @@
     "dev": "vite --mode dev",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx",
+    "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx --ignore-path .gitignore README.md yarn.lock",
     "prettier": "prettier --write ."
   },
   "dependencies": {
