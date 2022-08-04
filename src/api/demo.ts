@@ -1,5 +1,5 @@
 // demo
-import { haRequest } from '@/common/ha-http'
+import { haRequest } from '@/common/http'
 
 export const getAjxxSfbz = () => {
   return haRequest.request({

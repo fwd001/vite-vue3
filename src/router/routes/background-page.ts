@@ -3,7 +3,7 @@ const HomeWelcome = () => import('@/views/background-page/welcome.vue')
 const YJPage = () => import('@/views/background-page/key-words.vue')
 const routes = [
   {
-    path: '/',
+    path: '/backstage',
     name: 'layout',
     component: LayoutMain,
     children: [

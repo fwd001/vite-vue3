@@ -6,13 +6,13 @@ import NP from 'number-precision'
 // 获取url参数 @hashCheck 是否从hash中取值
 export const getQueryString = (name: string, hashCheck?: boolean) => {
   const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
-  let str = window.location.search
+  let str = window.location?.search || ''
   if (hashCheck) {
     const index = window.location.hash.indexOf('?')
-    str = index === -1 ? '' : window.location.hash.substr(index)
+    str = index === -1 ? '' : window.location.hash?.substr(index)
   }
   const r = str.substr(1).match(reg)
-  if (r != null) return unescape(r[2])
+  if (r != null) return decodeURIComponent(r[2])
   return null
 }
 
@@ -156,6 +156,7 @@ export const sfenToYuan = (money: any, float = 3) => {
 export const exportApiFile = (url: string, params: any) => {
   let link = `${url}?${Qs.stringify(params)}`
   link = `${link}${params ? '&' : ''}_t=${new Date().getTime()}`
+  // eslint-disable-next-line no-console
   console.log('下载链接：', link)
   window.open(link)
 }

@@ -9,7 +9,7 @@
     userStore.updataUser('login,名字')
   }
   const toWelecomView = () => {
-    router.push({ path: '/welcome' })
+    router.push({ path: '/backstage/welcome' })
   }
 </script>
 

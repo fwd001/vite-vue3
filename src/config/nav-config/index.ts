@@ -1,12 +1,12 @@
 const navList = [
   {
     name: '首页',
-    path: '/welcome',
+    path: '/backstage/welcome',
     icon: 'HomeOutlined',
   },
   {
     name: '查询',
-    path: '/keywords',
+    path: '/backstage/keywords',
     icon: 'BoxPlotOutlined',
   },
   {
@@ -16,17 +16,17 @@ const navList = [
     children: [
       {
         name: '网格仓信息管理',
-        path: '/groupon/warehouse',
-        power: 'warehouse.page.list',
+        path: '/backstage/groupon/warehouse',
+        power: 'xxx',
       },
       {
         name: 'fwd-demo',
-        path: '/groupon/fwd-demo',
+        path: '/backstage/groupon/fwd-demo',
         power: '',
       },
       {
         name: 'leyong-demo',
-        path: '/groupon/leyong-demo',
+        path: '/backstage/groupon/leyong-demo',
         power: '',
       },
     ],

@@ -5,7 +5,6 @@
  * @LastEditTime: 2022-07-16 20:30:46
  * @Description:  antdv替换变量 请务必和theme.less中保持一致
  * 这里因为无法直接获取.less中的变量, 所以在js中复制一份，在config中覆盖原始antdv变量
- * 注意由于是vue.config.js使用，所以不能使用es6 module
  */
 
 const globarCss = {

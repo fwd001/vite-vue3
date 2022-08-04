@@ -16,7 +16,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/welcome',
+      redirect: '/backstage/welcome',
     },
     {
       path: '/login',
@@ -30,7 +30,9 @@ const router = createRouter({
 
 // 检查权限
 const checkRoutePower = (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+  // eslint-disable-next-line no-console
   console.log('to', to)
+  // eslint-disable-next-line no-console
   console.log('from', from)
   if (to.fullPath === '/keywords') return { path: '/login' }
   return true

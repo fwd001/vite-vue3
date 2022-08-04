@@ -1,6 +1,6 @@
 // 点位状态
-const locationStatus: number[] = []
+const aaa: number[] = []
 
 export const dict = {
-  locationStatus,
+  aaa,
 }

@@ -10,7 +10,6 @@ export const useUserStore = defineStore({
   },
   actions: {
     updataUser(data: string) {
-      console.log(data)
       this.name = data
     },
   },
