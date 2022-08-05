@@ -1,7 +1,9 @@
 # Vue 3 + TypeScript + Vite
 
-## 相关文档
+## 脚手架
+- 脚手架包地址：https://www.npmjs.com/package/lcfe-cli/access
 
+## 相关文档
 - vite: https://cn.vitejs.dev/
 - vue3: https://v3.cn.vuejs.org/
 - antd-vue: https://antdv.com/components/overview-cn/
