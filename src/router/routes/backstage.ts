@@ -1,6 +1,6 @@
 import LayoutMain from '@/components/layout/layout-main.vue'
-const HomeWelcome = () => import('@/views/background-page/welcome.vue')
-const YJPage = () => import('@/views/background-page/key-words.vue')
+const HomeWelcome = () => import('@/views/backstage-page/welcome.vue')
+const YJPage = () => import('@/views/backstage-page/key-words.vue')
 const routes = [
   {
     path: '/backstage',
