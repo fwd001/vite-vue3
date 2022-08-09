@@ -232,8 +232,7 @@
            alignleft aligncenter alignright alignjustify | \
            bullist numlst checklist outdent indent | removeformat | a11ycheck code table help',
       }"
-      initial-value="Welcome to TinyMCE Vue"
-    />
+      initial-value="Welcome to TinyMCE Vue" />
   </div>
 </template>
 

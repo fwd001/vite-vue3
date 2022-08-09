@@ -7,13 +7,11 @@
       <MenuUnfoldOutlined
         v-if="props.collapsed"
         :class="['collapsed-icon fx-n', { 'collapsed-icon-hide': props.collapsed }]"
-        @click="() => emit('toggleCollapsed')"
-      />
+        @click="() => emit('toggleCollapsed')" />
       <MenuFoldOutlined
         v-else
         :class="['collapsed-icon fx-n', { 'collapsed-icon-hide': props.collapsed }]"
-        @click="() => emit('toggleCollapsed')"
-      />
+        @click="() => emit('toggleCollapsed')" />
     </div>
     <a-menu
       class="menu-box fx-base-1"
@@ -23,14 +21,12 @@
       :inline-collapsed="props.collapsed"
       :inline-indent="24"
       :default-open-keys="openKeys"
-      @click="menuClick"
-    >
+      @click="menuClick">
       <template v-for="menu in navPowerList">
         <a-menu-item
           v-if="!menu.children"
           :key="`${menu.path}`"
-          :class="[{ 'ant-menu-item-selected': $route.path.includes(menu.path) }]"
-        >
+          :class="[{ 'ant-menu-item-selected': $route.path.includes(menu.path) }]">
           <template #icon>
             <component :is="proxy?.$antdIcons[menu.icon]" />
           </template>
@@ -46,8 +42,7 @@
           <a-menu-item
             v-for="sub in menu.children"
             :key="sub.path"
-            :class="[{ 'ant-menu-item-selected': $route.path.includes(sub.path) }]"
-          >
+            :class="[{ 'ant-menu-item-selected': $route.path.includes(sub.path) }]">
             {{ sub.name }}
           </a-menu-item>
         </a-sub-menu>

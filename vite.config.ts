@@ -31,6 +31,7 @@ export default defineConfig(({ command }) => {
           'Safari >= 14',
           'Firefox >= 78',
           'Edge >= 71',
+          'not ie <= 10',
         ],
         modernPolyfills: ['es.object.from-entries', 'es.array.flat', 'es.global-this'],
         additionalLegacyPolyfills: ['regenerator-runtime/runtime'],

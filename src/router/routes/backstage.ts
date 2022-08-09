@@ -1,11 +1,11 @@
-import LayoutMain from '@/components/layout/layout-main.vue'
+import { MainLayout } from '@/layouts'
 const HomeWelcome = () => import('@/views/backstage-page/welcome.vue')
-const YJPage = () => import('@/views/backstage-page/key-words.vue')
+const KeyWords = () => import('@/views/backstage-page/KeyWords.vue')
 const routes = [
   {
     path: '/backstage',
     name: 'layout',
-    component: LayoutMain,
+    component: MainLayout,
     children: [
       {
         path: 'welcome',
@@ -16,7 +16,7 @@ const routes = [
       {
         path: 'keywords',
         name: 'KeyWords',
-        component: YJPage,
+        component: KeyWords,
         meta: { title: 'KeyWords' },
       },
     ],

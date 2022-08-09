@@ -10,6 +10,7 @@
 - VueRequest: https://next.attojs.com/
 - mockjs 规则: http://mockjs.com/examples.html#Array
 - eslint规则: https://typescript-eslint.io/rules/
+- prettier: https://prettier.io/docs/en/options.html
 
 ## 环境
 node >=16

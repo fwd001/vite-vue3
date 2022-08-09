@@ -1,13 +1,12 @@
 <!-- 为所有页面套个壳，处理公共逻辑 -->
 <template>
   <div class="layout-main-box fx">
-    <LayoutNav
+    <NavLayout
       class="content-nav fx-n"
       :collapsed="collapsed"
-      @toggle-collapsed="toggleCollapsed"
-    />
+      @toggle-collapsed="toggleCollapsed" />
     <div class="content-box fx fx-0-1 fx-v">
-      <LayoutHeader class="fx-n"></LayoutHeader>
+      <HeaderLayout class="fx-n" />
 
       <div class="content-view-box flex-basis-1">
         <!-- 优先加载完用户权限和用户信息，再加载页面 -->
@@ -32,14 +31,12 @@
     name: 'MainLayout',
   })
 </script>
+
 <script lang="ts" setup>
-  import LayoutNav from '@/components/layout/layout-nav.vue'
-  import LayoutHeader from '@/components/layout/layout-header.vue'
+  import NavLayout from '@/layouts/NavLayout.vue'
+  import HeaderLayout from '@/layouts/HeaderLayout.vue'
   import { RouterView } from 'vue-router'
-  // import { getQueryString } from '@/common'
   import { computed, onBeforeMount, ref } from 'vue'
-  // import { useRoute } from 'vue-router'
-  // import { globalConfig } from '@/config'
 
   // 侧边菜单栏是否为mini开关
   const collapsed = ref(false)
