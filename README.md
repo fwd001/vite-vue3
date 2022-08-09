@@ -50,6 +50,7 @@ yarn build
 - chore: 构建过程或辅助工具的变动
 
 ### 文件目录结构
+```
 src
 |
 +-- api               # 全局请求
@@ -57,8 +58,6 @@ src
 +-- assets            # 静态资源
 |
 +-- components        # 公共组件
-|
-+-- common            # 其他ts文件
 |
 +-- config            # 全局配置
 |
@@ -75,3 +74,4 @@ src
 +-- types             # 全局类型文件
 |
 +-- utils             # 通用工具函数
+```

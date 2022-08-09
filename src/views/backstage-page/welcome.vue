@@ -46,7 +46,7 @@
   })
 
   function toLoginView() {
-    router.push({ path: '/login' })
+    router.push({ path: '/user/login' })
   }
 </script>
 

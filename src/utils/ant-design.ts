@@ -1,5 +1,6 @@
 import type { App } from 'vue'
 import 'ant-design-vue/es/message/style/css'
+import 'ant-design-vue/es/notification/style/css'
 
 import * as antdIcons from '@ant-design/icons-vue'
 

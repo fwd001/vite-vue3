@@ -64,7 +64,7 @@ export default defineConfig(({ command }) => {
     server: {
       port: 8080,
       host: '0.0.0.0',
-      open: true,
+      open: false,
       https: false,
       proxy: {
         '/api': {

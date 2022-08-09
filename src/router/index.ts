@@ -8,7 +8,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import routes from './routes'
 import type { RouteLocationNormalized } from 'vue-router'
-const HomeLogin = () => import('@/views/backstage-page/LoginView.vue')
 
 // 此处由【new VueRouter】的方式修改为【createRouter】的方式 其余无变化
 const router = createRouter({
@@ -17,12 +16,6 @@ const router = createRouter({
     {
       path: '/',
       redirect: '/backstage/welcome',
-    },
-    {
-      path: '/login',
-      name: 'HomeLogin',
-      component: HomeLogin,
-      meta: { title: '登陆' },
     },
     ...routes,
   ],
@@ -34,7 +27,7 @@ const checkRoutePower = (to: RouteLocationNormalized, from: RouteLocationNormali
   console.log('to', to)
   // eslint-disable-next-line no-console
   console.log('from', from)
-  if (to.fullPath === '/keywords') return { path: '/login' }
+  if (to.fullPath === '/keywords') return { path: '/user/login' }
   return true
 }
 
