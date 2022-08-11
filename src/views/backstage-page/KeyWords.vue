@@ -1,5 +1,5 @@
 <template>
-  <div class="yj-wrap">
+  <div class="keywords-wrap">
     <a-form
       ref="formRef"
       name="advanced_search"
@@ -216,7 +216,7 @@
   })
 </script>
 <style lang="less">
-  .yj-wrap {
+  .keywords-wrap {
     background-color: #fff;
     padding: 20px;
   }

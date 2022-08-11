@@ -1,6 +1,7 @@
 import { MainLayout } from '@/layouts'
 const HomeWelcome = () => import('@/views/backstage-page/welcome.vue')
 const KeyWords = () => import('@/views/backstage-page/KeyWords.vue')
+const FwdDemo = () => import('@/views/backstage-page/FwdDemo.vue')
 const routes = [
   {
     path: '/backstage',
@@ -18,6 +19,12 @@ const routes = [
         name: 'KeyWords',
         component: KeyWords,
         meta: { title: 'KeyWords' },
+      },
+      {
+        path: 'groupon/fwd-demo',
+        name: 'FwdDemo',
+        component: FwdDemo,
+        meta: { title: 'FwdDemo' },
       },
     ],
   },

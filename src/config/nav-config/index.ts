@@ -24,11 +24,6 @@ const navList = [
         path: '/backstage/groupon/fwd-demo',
         power: '',
       },
-      {
-        name: 'leyong-demo',
-        path: '/backstage/groupon/leyong-demo',
-        power: '',
-      },
     ],
   },
 ]
