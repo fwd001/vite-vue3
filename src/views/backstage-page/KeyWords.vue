@@ -191,7 +191,7 @@
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         filters: any,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        sorter: any
+        sorter: any,
       ) {
         run({
           results: pag.pageSize!,

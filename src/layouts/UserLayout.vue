@@ -1,7 +1,7 @@
 <template>
   <div id="userLayout" :class="['user-layout-wrapper']">
     <div class="container">
-      <div class="user-layout-lang"> </div>
+      <div class="user-layout-lang"></div>
       <div class="user-layout-content">
         <div class="top">
           <div class="header">
@@ -10,7 +10,7 @@
               <span class="title">Ant Design</span>
             </a>
           </div>
-          <div class="desc"> Ant Design 是西湖区最具影响力的 Web 设计规范 </div>
+          <div class="desc">Ant Design 是西湖区最具影响力的 Web 设计规范</div>
         </div>
 
         <router-view />
@@ -21,7 +21,7 @@
             <a href="_self">隐私</a>
             <a href="_self">条款</a>
           </div>
-          <div class="copyright"> Copyright &copy; 2018 vueComponent </div>
+          <div class="copyright">Copyright &copy; 2018 vueComponent</div>
         </div>
       </div>
     </div>

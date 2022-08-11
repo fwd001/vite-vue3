@@ -29,7 +29,7 @@ class Request {
       },
       (err: any) => {
         return Promise.reject(err)
-      }
+      },
     )
 
     this.instance.interceptors.response.use(
@@ -81,7 +81,7 @@ class Request {
         // 这里是AxiosError类型，所以一般我们只reject我们需要的响应即可
         message.error(msg)
         return Promise.reject(err.response)
-      }
+      },
     )
   }
 
@@ -97,7 +97,7 @@ class Request {
   public post<T = any>(
     url: string,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<Result<T>>> {
     return this.instance.post(url, data, config)
   }
@@ -105,14 +105,14 @@ class Request {
   public put<T = any>(
     url: string,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<Result<T>>> {
     return this.instance.put(url, data, config)
   }
 
   public delete<T = any>(
     url: string,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<Result<T>>> {
     return this.instance.delete(url, config)
   }

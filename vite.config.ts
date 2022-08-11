@@ -16,6 +16,19 @@ export default defineConfig(({ command }) => {
   return {
     base: './',
     root: './',
+    server: {
+      port: 8080,
+      host: '0.0.0.0',
+      open: false,
+      https: false,
+      proxy: {
+        '/api': {
+          target: 'http://10.1.50.85:8006', // 要访问的跨域的域名
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/\/api/, ''),
+        },
+      },
+    },
     plugins: [
       vue(),
       Components({
@@ -61,19 +74,6 @@ export default defineConfig(({ command }) => {
         ext: '.gz',
       }),
     ],
-    server: {
-      port: 8080,
-      host: '0.0.0.0',
-      open: false,
-      https: false,
-      proxy: {
-        '/api': {
-          target: 'http://10.1.50.85:8006', // 要访问的跨域的域名
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/\/api/, ''),
-        },
-      },
-    },
     resolve: {
       alias: {
         '@': resolve(__dirname, 'src'),

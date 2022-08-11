@@ -16,10 +16,12 @@
 node >=16
 
 ## 启动
-> 建议使用 yarn 安装依赖启动
+> 建议使用 yarn or pnpm 安装依赖启动
 
-### 安装 yarn
-npm i -g yarn
+### 安装 yarn or pnpm 
+npm install -g yarn
+
+npm install -g pnpm
 
 ### 安装项目依赖
 yarn install

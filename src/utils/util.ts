@@ -190,7 +190,7 @@ export const intersectArrs = (list1: any, ...arrs: any) => {
     ...new Set(
       list1.filter((item: any) => {
         return arrs.every((arr: any) => arr.indexOf(item) !== -1)
-      })
+      }),
     ),
   ]
 }
@@ -364,7 +364,7 @@ export const getTime = (time = [], name = []) => ({
 // 解决ts解析key值报错
 export function isValidKey(
   key: string | number | symbol,
-  object: object
+  object: object,
 ): key is keyof typeof object {
   return key in object
 }

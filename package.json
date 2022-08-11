@@ -8,14 +8,15 @@
     "dev": "vite --mode dev",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx",
-    "prettier": "prettier --write .",
+    "lint": "eslint --ext .ts,.tsx,.vue,.js,.jsx --ignore-path .gitignore --fix src",
+    "prettier": "prettier . --write",
     "prepare": "husky install"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
     "@tinymce/tinymce-vue": "^5.0.0",
-    "@vueuse/core": "^9.0.2",
-    "ant-design-vue": "^3.2.10",
+    "@vueuse/core": "^9.1.0",
+    "ant-design-vue": "^3.2.11",
     "axios": "^0.27.2",
     "dayjs": "^1.11.4",
     "echarts": "^5.3.3",
@@ -23,7 +24,7 @@
     "mitt": "^3.0.0",
     "mockjs": "^1.1.0",
     "number-precision": "^1.5.2",
-    "pinia": "^2.0.17",
+    "pinia": "^2.0.18",
     "qs": "^6.11.0",
     "vue": "^3.2.37",
     "vue-request": "^1.2.4",
@@ -33,11 +34,12 @@
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
     "@types/lodash-es": "^4.17.6",
+    "@types/node": "^18.7.1",
     "@types/qs": "^6.9.7",
-    "@typescript-eslint/eslint-plugin": "^5.32.0",
-    "@typescript-eslint/parser": "^5.32.0",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/parser": "^5.33.0",
     "@vitejs/plugin-legacy": "^2.0.0",
-    "@vitejs/plugin-vue": "^3.0.0",
+    "@vitejs/plugin-vue": "^3.0.1",
     "eslint": "^8.21.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-define-config": "^1.6.0",
@@ -50,20 +52,20 @@
     "prettier": "^2.7.1",
     "regenerator-runtime": "^0.13.9",
     "terser": "^5.14.2",
-    "typescript": "^4.6.4",
-    "unplugin-vue-components": "^0.22.3",
-    "vite": "^3.0.4",
+    "typescript": "^4.7.4",
+    "unplugin-vue-components": "^0.22.4",
+    "vite": "^3.0.5",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-mock": "^2.9.6",
-    "vue-tsc": "^0.39.4"
+    "vue-tsc": "^0.40.1"
   },
   "engines": {
     "node": ">=16"
   },
   "lint-staged": {
     "*.{js,vue,ts,jsx,tsx}": [
-      "npm run prettier",
-      "npm run lint"
+      "npm run lint",
+      "npm run prettier"
     ],
     "*.{html,css,less}": [
       "npm run prettier"
