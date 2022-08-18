@@ -1,3 +1,4 @@
+!.eslintrc.js
 node_modules
 index.html
 public
@@ -17,6 +18,7 @@ dist-ssr
 *.local
 components.d.ts
 package.lock.json
+pnpm-lock.yaml
 
 # Editor directories and files
 .vscode/*
