@@ -23,7 +23,6 @@ module.exports = defineConfig({
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-var-requires': 'warn',
     '@typescript-eslint/no-empty-function': 'error',
-    'vue/custom-event-name-casing': 'off',
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
@@ -47,11 +46,20 @@ module.exports = defineConfig({
     'space-before-function-paren': 'off',
     quotes: ['error', 'single'],
     'comma-dangle': ['error', 'only-multiline'],
+    'vue/multi-word-component-names': 'off',
+    'vue/custom-event-name-casing': 'off',
   },
   globals: {
     defineProps: 'readonly',
     defineEmits: 'readonly',
     defineExpose: 'readonly',
     withDefaults: 'readonly',
+
+    document: 'readonly',
+    localStorage: 'readonly',
+    baiduMap: 'readonly',
+    window: 'readonly',
+    // 腾讯地图
+    TMap: 'readonly',
   },
 })
