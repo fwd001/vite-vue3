@@ -108,7 +108,16 @@ export default defineConfig(({ command }) => {
           // 最小化拆分包
           manualChunks: (id: any) => {
             if (id.includes('node_modules')) {
-              const chunkName = id.toString().split('node_modules/')[1].split('/')[0].toString()
+              let chunkName = 'index'
+              if (id.includes('registry.npmjs.org')) {
+                chunkName = id
+                  .toString()
+                  .split(/\+(\S*)@/)[1]
+                  .split('/')[0]
+                  .toString()
+              } else {
+                chunkName = id.toString().split('node_modules/')[1].split('/')[0].toString()
+              }
               return chunkName
             }
           }, // 用于从入口点创建的块的打包输出格式[name]表示文件名,[hash]表示该文件内容hash值
