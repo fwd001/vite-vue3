@@ -32,7 +32,7 @@ export default defineConfig(({ command }) => {
     plugins: [
       vue(),
       Components({
-        resolvers: [AntDesignVueResolver()],
+        resolvers: [AntDesignVueResolver({ importStyle: 'less' })],
       }),
       // 兼容性配置
       legacy({

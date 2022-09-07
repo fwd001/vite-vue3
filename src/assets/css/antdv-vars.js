@@ -9,7 +9,7 @@
 
 const globarCss = {
   'primary-color': '#1890ff',
-  'link-color': '#37b1f1',
+  'link-color': '#1890ff',
   'success-color': '#52c41a',
   'warning-color': '#f16622',
   'error-color': '#d8534f',
