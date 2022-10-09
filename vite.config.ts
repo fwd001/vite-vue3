@@ -39,8 +39,6 @@ export default defineConfig(({ command }) => {
         targets: [
           '> 1%',
           'last 2 version',
-          'ie >= 11',
-          'not ie <= 10',
           'Chrome >= 71',
           'Safari >= 14',
           'Firefox >= 78',
