@@ -53,27 +53,49 @@ yarn build
 
 ### 文件目录结构
 ```
-src
-|
-+-- api               # 全局请求
-|
-+-- assets            # 静态资源
-|
-+-- components        # 公共组件
-|
-+-- config            # 全局配置
-|
-+-- views             # 页面模块
-|
-+-- hooks             # 公用hooks
-|
-+-- route             # 路由配置
-|
-+-- store             # 全局状态store
-|
-+-- test              # 测试工具、mock服务器
-|
-+-- types             # 全局类型文件
-|
-+-- utils             # 通用工具函数
+.
+├── vite.config.js              # vite 配置文件；
+├── config/                     # 与项目构建相关的常用的配置选项；
+│   └── index.js                # 主配置文件
+├── src/
+│   ├── 
+│   ├── main.js                 # 程序的入口文件；
+│   ├── vite-env.d.ts           # 全局变量环境申明文件
+│   ├── style.less              # 全局样式
+│   ├── types/                  # 公共类型文件夹；
+│   ├── assets/                 # 共用的代码以外的资源，如：图片、图标、视频 等；
+│   ├── api/                    # 网络模块，如：接口；
+│   ├── router/                 # 路由模块
+│   ├── hooks/                  # 公用hooks
+│   ├── layouts/                # 布局组件
+│   ├── mock/                   # mock工具
+│   ├── store/                  # 组件共享状态
+│   ├── components/             # 共用的组件；； 这里的存放的组件应该都是展示组件
+│   │   ├── base/               # 基本组件，如：共用的弹窗组件，loading加载组件，提示组件。
+│   │   ├── common/             # 共用的全局组件，封装的导航条，底部组件等等
+│   │   ├── temp/               # 模板组件，如：相同的页面封装成一个组件。
+│   │   ├── UItemp/             # UI组件，如：项目中特定的按钮，消息数字，等等一些样式可以封装成组件的。
+│   ├── utils/                  # 共用的工具资源，如：常用的图片、图标，共用的组件、模块、样式，常量文件等等；
+│   │   ├── compatible/         # 兼容模块，如：适合App和微信各种接口的模块；
+│   │   ├── extension/          # 已有类的扩展模块，如：对 Array 类型进行扩展的模块；
+│   │   ├── libraries/          # 存放自己封装的或者引用的库；
+│   │   ├── tools/              # 自己封装的一些工具
+│   │   ├── constant.js         # 存放js的常量；
+│   │   ├── constant.scss       # 存放scss的常量；
+│   │   └── ...
+│   ├── views/                  # 存放项目页面文件夹；
+│   └── App.vue                 # app 的根组件；
+├── public/                     # 纯静态资源，该目录下的文件不会被vite处理，该目录会被拷贝到输出目录下；
+├── .prettierrc.js              # prettier 的配置文件
+├── .eslintrc.js                # eslint 的配置文件
+├── .env                        # 全局环境变量
+├── .env.dev                    # 开发环境变量
+├── .prettierignore             # prettier 忽略规则
+├── .eslintignore               # eslint 的忽略规则
+├── .gitignore                  # git的忽略配置文件
+├── index.html                  # HTML模板
+├── tsconfig.json               # ts 配置文件
+├── tsconfig.json               # ts-node 配置文件
+├── package.json                # npm包配置文件，里面定义了项目的npm脚本，依赖包等信息
+└── README.md                   # 项目信息文档
 ```
