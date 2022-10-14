@@ -1,0 +1,6 @@
+FROM repository.lhczke.local/jenkins/nginx:1.20.1
+MAINTAINER gongyijie <gongyijie1986@126.com>
+COPY default.conf /etc/nginx/conf.d
+ADD dist.tar.gz /opt/website
+#RUN chown nginx:nginx -R /opt/website
+EXPOSE 80

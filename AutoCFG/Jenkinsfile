@@ -1,0 +1,65 @@
+node('jenkins-slave') {
+
+    // git代码路径
+    def gitrepoUrl = 'http://xxx'
+    env.GIT_BRANCH = GIT_BRANCH.replace('origin/','')
+    // k8s项目命名空间
+    env.ProjectName = 'xxx'
+    env.imgrepoAddr = 'repository.lhczke.local'
+    
+    env.FE_PRONAME = "xxx-fe"
+    env.BDATE = new Date().format("yyyyMMdd_HHmmss")
+
+    // 清空工作目录
+    // deleteDir()
+
+    stage('get clone') {
+        //check CODE
+        container('jnlp') {
+            sh "echo ${GIT_BRANCH}"
+            git branch: "${GIT_BRANCH}", credentialsId: 'jenkins_robot', url: "${gitrepoUrl}"
+            env.GIT_COMMIT_ID = sh(returnStdout: true, script: 'git rev-parse --short=10 HEAD').trim()
+        }
+    }
+
+    stage('build'){
+        // 编译打包
+        container('jnlp') {
+            nodejs(cacheLocationStrategy: workspace(), nodeJSInstallationName: 'Node-v16') {
+                sh "npm config set cache ${AGENT_WORKDIR}/workspace"
+                sh "npm config set registry https://registry.yarnpkg.com/"
+                sh "node -v"
+                sh "npm -v"
+                // sh "rm -rf node_modules && rm -f package-lock.json"
+                sh "npm install"
+                sh "npm run build"
+            }
+        }
+    }
+    
+    stage('build image') {
+        container('docker') {
+            sh "echo \"192.168.240.146 ${imgrepoAddr}\" >> /etc/hosts"
+            sh "cat /etc/hosts"
+            sh "tar cfvz AutoCFG/BuildIMG/dist.tar.gz dist"
+            sh "envsubst < AutoCFG/BuildIMG/Dockerfile_tpl > AutoCFG/BuildIMG/Dockerfile"
+            sh "chown 1000:1000 -R AutoCFG/BuildIMG"
+            sh "cd AutoCFG/BuildIMG && docker build -t ${imgrepoAddr}/${ProjectName}/${FE_PRONAME}:${GIT_BRANCH}-${BDATE}-${GIT_COMMIT_ID} ."
+        }
+    }
+
+    stage('push image') {
+        container('docker') {
+            withDockerRegistry(credentialsId: 'Registry', url: "http://${imgrepoAddr}") {
+                sh "docker push ${imgrepoAddr}/${ProjectName}/${FE_PRONAME}:${GIT_BRANCH}-${BDATE}-${GIT_COMMIT_ID}"
+            }
+        }
+    }
+    
+    stage('kubernetes deploy') {
+        container('docker') {
+            sh "envsubst < AutoCFG/K8S_Templates/deployment.tpl > AutoCFG/K8S_Templates/deployment.yaml"
+            sh "kubectl apply -f AutoCFG/K8S_Templates/deployment.yaml"
+        }
+    }
+}
