@@ -1,3 +1,4 @@
+import type { App } from 'vue'
 /*
  * @Author: wedong.fu
  * @Date: 2022-07-18 13:07:13
@@ -31,7 +32,14 @@ const checkRoutePower = (to: RouteLocationNormalized, from: RouteLocationNormali
   return true
 }
 
-// // 权限守卫
-router.beforeEach(checkRoutePower)
+export async function setupRouter(app: App) {
+  // 权限守卫
+  router.beforeEach(checkRoutePower)
+
+  app.use(router)
+
+  // 路由准备就绪后挂载APP实例
+  await router.isReady()
+}
 
 export default router

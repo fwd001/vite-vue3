@@ -127,7 +127,6 @@
 </script>
 
 <style lang="less" scoped>
-  @import url('@/assets/css/theme.less');
   .layout-nav-box {
     background: @bg-main;
     height: 100vh;

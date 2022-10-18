@@ -66,7 +66,6 @@
   }
 </style>
 <style lang="less" scoped>
-  @import url('@/assets/css/theme.less');
   .header-box {
     width: 100%;
     height: 44px;

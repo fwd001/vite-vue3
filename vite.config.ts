@@ -1,23 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { resolve } from 'path' // 此处如果报错则安装 node/path依赖
 import { defineConfig } from 'vite'
+import type { ConfigEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import antdvVars from './src/assets/css/antdv-vars'
+// import antdvVars from './src/styles/antdv-vars'
 import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import { viteMockServe } from 'vite-plugin-mock'
 import legacy from '@vitejs/plugin-legacy'
 import viteCompression from 'vite-plugin-compression'
+import Unocss from 'unocss/vite'
+import { loadEnv } from 'vite'
 
+const CWD = process.cwd()
 const prodMock = false
 // https://vitejs.dev/config/
-export default defineConfig(({ command }) => {
+export default defineConfig(({ command, mode }: ConfigEnv) => {
+  const { VITE_DROP_CONSOLE } = loadEnv(mode, CWD)
   const isServer = command === 'serve'
   return {
     base: './',
     root: './',
     server: {
-      port: 8080,
+      port: 8088,
       host: '0.0.0.0',
       open: false,
       https: false,
@@ -32,20 +37,15 @@ export default defineConfig(({ command }) => {
     plugins: [
       vue(),
       Components({
-        resolvers: [AntDesignVueResolver({ importStyle: 'less' })],
+        resolvers: [AntDesignVueResolver({ importStyle: 'less', exclude: ['AButton'] })],
       }),
+      Unocss(),
       // 兼容性配置
       legacy({
-        targets: [
-          '> 1%',
-          'last 2 version',
-          'Chrome >= 71',
-          'Safari >= 14',
-          'Firefox >= 78',
-          'Edge >= 71',
-        ],
-        modernPolyfills: ['es.object.from-entries', 'es.array.flat', 'es.global-this'],
+        targets: ['defaults', 'not IE 11', 'chrome 79', 'maintained node versions'],
         additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+        // 根据你自己需要导入相应的polyfill:  https://github.com/vitejs/vite/tree/main/packages/plugin-legacy#polyfill-specifiers
+        modernPolyfills: ['es.promise.finally', 'es/array', 'es/map', 'es/set'],
       }),
       viteMockServe({
         mockPath: './src/mock', // 设置模拟.ts 文件的存储文件夹
@@ -54,12 +54,9 @@ export default defineConfig(({ command }) => {
         supportTs: true, // 打开后，可以读取 ts ⽂件模块。请注意，打开后将⽆法监视.js ⽂件。
         watchFiles: true, // 监视⽂件更改，并重新加载 mock 数据
         logger: false, //是否在控制台显示请求日志
-        /* 如果生产环境开启了 mock 功能,即prodEnabled=true.则该代码会被注入到injectFile对应的文件的底部。默认为main.{ts,js}
-        这样做的好处是,可以动态控制生产环境是否开启 mock 且在没有开启的时候 mock.js 不会被打包。
-        如果代码直接写在main.ts内，则不管有没有开启,最终的打包都会包含mock.js
-        */
         injectCode: `
           import { setupProdMockServer } from './mockProdServer';
+
           setupProdMockServer();
         `,
       }),
@@ -81,26 +78,29 @@ export default defineConfig(({ command }) => {
     css: {
       preprocessorOptions: {
         less: {
-          modifyVars: antdvVars,
           javascriptEnabled: true,
+          modifyVars: {},
+          additionalData: `
+            @import "ant-design-vue/lib/style/themes/default.less";
+            @import "@/styles/variables.less";
+          `,
         },
       },
     },
-    build: {
-      target: 'es2020',
-      outDir: 'dist', //指定打包输出路径
-      assetsDir: 'assets', //指定静态资源存放路径
-      cssCodeSplit: true, //css代码拆分,禁用则所有样式保存在一个css里面
-      sourcemap: true,
-      minify: 'terser',
-      terserOptions: {
-        // 生产环境移除console
-        compress: {
-          keep_infinity: true,
-          drop_console: true,
-          drop_debugger: true,
-        },
+    esbuild: {
+      pure: VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : [],
+      supported: {
+        // https://github.com/vitejs/vite/pull/8665
+        'top-level-await': true,
       },
+    },
+    build: {
+      assetsDir: 'assets', // 指定静态资源存放路径
+      cssCodeSplit: true, // css代码拆分,禁用则所有样式保存在一个css里面
+      sourcemap: true,
+      minify: 'esbuild',
+      cssTarget: 'chrome79',
+      chunkSizeWarningLimit: 2000,
       rollupOptions: {
         output: {
           // 最小化拆分包

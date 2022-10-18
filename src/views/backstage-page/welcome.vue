@@ -5,7 +5,7 @@
 </script>
 <script setup lang="ts">
   import { ref, watchEffect, toRaw } from 'vue'
-  import { useUserStore } from 'store/index'
+  import { useUserStore } from 'store/modules/user'
   import { apiList } from '@/api/demo'
   import { useRequest } from 'vue-request'
   import { useRouter } from 'vue-router'

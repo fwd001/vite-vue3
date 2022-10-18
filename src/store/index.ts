@@ -1,16 +1,10 @@
-import { defineStore } from 'pinia'
+import { createPinia } from 'pinia'
+import type { App } from 'vue'
 
-export const useUserStore = defineStore({
-  id: 'user',
-  state: () => ({
-    name: '用户名',
-  }),
-  getters: {
-    nameLength: (state) => state.name.length,
-  },
-  actions: {
-    updataUser(data: string) {
-      this.name = data
-    },
-  },
-})
+const store = createPinia()
+
+export function setupStore(app: App<Element>) {
+  app.use(store)
+}
+
+export { store }

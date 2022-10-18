@@ -1,20 +1,35 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from '@/router/index'
-import antd from '@/utils/ant-design'
-import mitt from '@/utils/event-bus'
-import { createPinia } from 'pinia'
+import { setupRouter } from '@/router/index'
+import { setupMitt } from '@/utils/event-bus'
+import { setupStore } from 'store'
 import './style.less'
 import '@/utils/polyfill'
-import '@/assets/css/public.less'
-import '@/assets/css/common.less'
 import Editor from '@tinymce/tinymce-vue'
+import { setupAntd, setupAssets } from '@/plugins'
 
 const app = createApp(App)
-app.component('TinymceEditor', Editor)
-app.use(router)
-app.use(createPinia())
-app.use(antd)
-app.use(mitt)
 
-app.mount('#app')
+function setupPlugins() {
+  // 注册全局常用的ant-design-vue组件
+  setupAntd(app)
+  // 引入静态资源
+  setupAssets()
+  // 编辑器
+  app.component('TinymceEditor', Editor)
+  // 初始化事件总线
+  setupMitt(app)
+}
+
+async function setupApp() {
+  // 挂载vuex状态管理
+  setupStore(app)
+  // 挂载路由
+  await setupRouter(app)
+
+  app.mount('#app')
+}
+
+setupPlugins()
+
+setupApp()

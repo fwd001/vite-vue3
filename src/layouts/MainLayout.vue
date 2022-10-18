@@ -62,7 +62,6 @@
 </script>
 
 <style lang="less" scoped>
-  @import url('@/assets/css/theme.less');
   .layout-main-box {
     position: relative;
     width: 100%;
