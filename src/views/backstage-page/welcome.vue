@@ -4,7 +4,7 @@
   export default defineComponent({ name: 'WelcomeView' })
 </script>
 <script setup lang="ts">
-  import { ref, watchEffect, toRaw } from 'vue'
+  import { ref } from 'vue'
   import { useUserStore } from 'store/modules/user'
   import { apiList } from '@/api/demo'
   import { useRequest } from 'vue-request'
@@ -20,14 +20,14 @@
     run({})
   }
 
-  const { data, run, loading } = useRequest(apiList)
+  const { data, run } = useRequest(apiList)
 
-  watchEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log('data:::', toRaw(data.value))
-    // eslint-disable-next-line no-console
-    console.log('loading:::', toRaw(loading.value))
-  })
+  // watchEffect(() => {
+  //   // eslint-disable-next-line no-console
+  //   console.log('data:::', toRaw(data.value))
+  //   // eslint-disable-next-line no-console
+  //   console.log('loading:::', toRaw(loading.value))
+  // })
 
   document.addEventListener('keyup', (e) => {
     // console.log("e.key", e.key);
@@ -46,7 +46,7 @@
   })
 
   function toLoginView() {
-    router.push({ path: '/user/login' })
+    router.push({ path: '/keywords' })
   }
 </script>
 

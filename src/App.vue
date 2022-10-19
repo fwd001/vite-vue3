@@ -8,7 +8,6 @@
 <script lang="ts" setup>
   import zhCN from 'ant-design-vue/es/locale/zh_CN'
   import dayjs from 'dayjs'
-  import 'dayjs/locale/zh-cn'
   dayjs.locale('cn')
 
   const locale = zhCN

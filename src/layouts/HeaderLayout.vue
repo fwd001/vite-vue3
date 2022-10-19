@@ -36,35 +36,7 @@
   }
 </script>
 
-<style lang="less">
-  .layout-header-box {
-    .tip-tag-box {
-      .anticon-close {
-        display: none;
-        position: absolute;
-        right: -1px;
-        top: 3px;
-        width: 18px;
-        height: 18px;
-        line-height: 22px;
-        color: #fff;
-        border-radius: 50%;
-        background-color: @disabled-color;
-        &:hover {
-          color: @text-color-secondary;
-        }
-      }
-      .route-tag {
-        padding-right: 16px !important;
-        &:hover {
-          .anticon-close {
-            display: block;
-          }
-        }
-      }
-    }
-  }
-</style>
+<style lang="less"></style>
 <style lang="less" scoped>
   .header-box {
     width: 100%;

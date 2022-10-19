@@ -97,7 +97,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
     build: {
       assetsDir: 'assets', // 指定静态资源存放路径
       cssCodeSplit: true, // css代码拆分,禁用则所有样式保存在一个css里面
-      sourcemap: true,
+      sourcemap: false,
       minify: 'esbuild',
       cssTarget: 'chrome79',
       chunkSizeWarningLimit: 2000,

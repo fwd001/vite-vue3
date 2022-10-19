@@ -72,7 +72,7 @@
           </a-form-item>
         </a-col>
         <a-col style="text-align: right">
-          <a-button type="primary" html-type="submit">查询</a-button>
+          <a-button type="primary" html-type="submit" @click="onSubmit">查询</a-button>
           <a-button style="margin: 0 8px" @click="() => formRef?.resetFields()">重置</a-button>
         </a-col>
       </a-row>
@@ -177,6 +177,9 @@
           pageSizeKey: 'results',
         },
       })
+      function onSubmit() {
+        current.value = 1
+      }
 
       const pagination = computed(() => ({
         total: 200,
@@ -200,6 +203,7 @@
       }
       return {
         formRef,
+        onSubmit,
         formState,
         expand,
         onFinish,

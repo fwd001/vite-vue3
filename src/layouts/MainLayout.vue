@@ -3,7 +3,7 @@
   <div class="layout-main-box flex">
     <NavLayout class="content-nav" :collapsed="collapsed" @toggle-collapsed="toggleCollapsed" />
     <div class="content-box flex flex-col">
-      <HeaderLayout class="flex-1" />
+      <HeaderLayout class="flex-basis-44px" />
 
       <div class="content-view-box">
         <!-- 优先加载完用户权限和用户信息，再加载页面 -->

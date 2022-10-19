@@ -44,16 +44,6 @@
 <style lang="less" scoped>
   #userLayout.user-layout-wrapper {
     height: 100%;
-
-    &.mobile {
-      .container {
-        .main {
-          max-width: 368px;
-          width: 98%;
-        }
-      }
-    }
-
     .container {
       max-width: 100%;
       width: 100%;

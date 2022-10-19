@@ -1,4 +1,3 @@
-import type { App } from 'vue'
 /*
  * @Author: wedong.fu
  * @Date: 2022-07-18 13:07:13
@@ -6,9 +5,11 @@ import type { App } from 'vue'
  * @LastEditTime: 2022-07-18 13:13:05
  * @Description:
  */
+import 'nprogress/css/nprogress.css' // 进度条样式
+import type { App } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouterGuards } from './router-guards'
 import routes from './routes'
-import type { RouteLocationNormalized } from 'vue-router'
 
 // 此处由【new VueRouter】的方式修改为【createRouter】的方式 其余无变化
 const router = createRouter({
@@ -22,19 +23,9 @@ const router = createRouter({
   ],
 })
 
-// 检查权限
-const checkRoutePower = (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
-  // eslint-disable-next-line no-console
-  console.log('to', to)
-  // eslint-disable-next-line no-console
-  console.log('from', from)
-  if (to.fullPath === '/keywords') return { path: '/user/login' }
-  return true
-}
-
 export async function setupRouter(app: App) {
   // 权限守卫
-  router.beforeEach(checkRoutePower)
+  createRouterGuards(router)
 
   app.use(router)
 
