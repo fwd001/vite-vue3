@@ -1,14 +1,11 @@
 <!-- 为所有页面套个壳，处理公共逻辑 -->
 <template>
-  <div class="layout-main-box fx">
-    <NavLayout
-      class="content-nav fx-n"
-      :collapsed="collapsed"
-      @toggle-collapsed="toggleCollapsed" />
-    <div class="content-box fx fx-0-1 fx-v">
-      <HeaderLayout class="fx-n" />
+  <div class="layout-main-box flex">
+    <NavLayout class="content-nav" :collapsed="collapsed" @toggle-collapsed="toggleCollapsed" />
+    <div class="content-box flex flex-col">
+      <HeaderLayout class="flex-1" />
 
-      <div class="content-view-box flex-basis-1">
+      <div class="content-view-box">
         <!-- 优先加载完用户权限和用户信息，再加载页面 -->
         <div v-if="isReady" id="content-view" class="content-view">
           <a-spin :spinning="false">

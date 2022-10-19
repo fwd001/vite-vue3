@@ -55,6 +55,7 @@
     }
 
     .container {
+      max-width: 100%;
       width: 100%;
       min-height: 100%;
       background: #f0f2f5 url(@/assets/img/background.svg) no-repeat 50%;

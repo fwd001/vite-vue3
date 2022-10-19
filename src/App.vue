@@ -24,7 +24,6 @@
 
 <style scoped>
   #app-wrap {
-    width: 100vw;
     height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

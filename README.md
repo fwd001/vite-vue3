@@ -33,13 +33,10 @@ yarn dev
 yarn build
 
 ### 浏览器兼容
-- "> 1%",
-- "last 2 version",
-- "ie >= 11",
-- "Chrome >= 71",
-- "Safari >= 14",
-- "Firefox >= 78",
-- "Edge >= 71",
+- 'defaults' 
+- 'not IE 11' 
+- 'chrome 79' 
+- 'maintained node versions'
 
 ### GIT提交代码规则
 - commit内容，只允许使用下面7个标识，否则提交失败。

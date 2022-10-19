@@ -1,6 +1,6 @@
 {
   "name": "vite-vue3",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "private": true,
   "description": "前端框架",
   "scripts": {
@@ -37,7 +37,7 @@
     "@commitlint/config-conventional": "^17.1.0",
     "@types/lodash-es": "^4.17.6",
     "@types/mockjs": "^1.0.7",
-    "@types/node": "^18.11.0",
+    "@types/node": "18.8.0",
     "@types/qs": "^6.9.7",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
@@ -57,7 +57,7 @@
     "regenerator-runtime": "^0.13.10",
     "terser": "^5.15.1",
     "typescript": "^4.8.4",
-    "unocss": "^0.45.29",
+    "unocss": "^0.45.30",
     "unplugin-vue-components": "^0.22.8",
     "vite": "^3.1.8",
     "vite-plugin-compression": "^0.5.1",

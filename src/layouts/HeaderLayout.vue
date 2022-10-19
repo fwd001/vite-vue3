@@ -1,10 +1,10 @@
 <template>
   <div class="layout-header-box">
     <div class="header-box">
-      <div class="user-box">
+      <div class="user-box flex justify-end">
         <a-dropdown>
-          <span class="user-avatar-wrap">
-            <span class="user-avatar">u</span>
+          <span class="user-avatar-wrap flex items-center">
+            <span class="user-avatar text-center">u</span>
             <span>xxms</span>
           </span>
           <template #overlay>
@@ -76,14 +76,10 @@
     color: #fff;
   }
   .user-box {
-    display: flex;
-    justify-content: flex-end;
     padding: 0 30px;
     .user-avatar-wrap {
       padding: 0 12px;
       height: 44px;
-      display: flex;
-      align-items: center;
       user-select: none;
       &:hover {
         background-color: rgba(255, 255, 255, 0.1);
@@ -97,7 +93,6 @@
       font-size: 16px;
       line-height: 24px;
       color: @active-color;
-      text-align: center;
       background: #fff;
       border-radius: 50%;
     }

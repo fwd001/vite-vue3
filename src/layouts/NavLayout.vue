@@ -1,7 +1,7 @@
 <template>
-  <div class="layout-nav-box fx fx-v">
-    <div class="nav-top fx fx-justify-center fx-align-center">
-      <div class="nav-top-logo fx-1">
+  <div class="layout-nav-box flex flex-col">
+    <div class="nav-top flex justify-center items-center">
+      <div class="nav-top-logo flex-auto">
         <span v-if="!props.collapsed" class="logo-box">xxms</span>
       </div>
       <MenuUnfoldOutlined
@@ -142,6 +142,7 @@
     line-height: 44px;
     .nav-top-logo {
       padding-left: 16px;
+      height: 100%;
       .logo-box {
         width: 72px;
         font-size: 18px;
