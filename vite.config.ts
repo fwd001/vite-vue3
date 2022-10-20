@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { resolve } from 'path' // 此处如果报错则安装 node/path依赖
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import type { ConfigEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 // import antdvVars from './src/styles/antdv-vars'
@@ -10,7 +10,6 @@ import { viteMockServe } from 'vite-plugin-mock'
 import legacy from '@vitejs/plugin-legacy'
 import viteCompression from 'vite-plugin-compression'
 import Unocss from 'unocss/vite'
-import { loadEnv } from 'vite'
 
 const CWD = process.cwd()
 const prodMock = false
