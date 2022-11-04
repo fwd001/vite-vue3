@@ -32,7 +32,7 @@ specifiers:
   lodash-es: ^4.17.21
   mitt: ^3.0.0
   mockjs: ^1.1.0
-  nprogress: ~0.2.0
+  nprogress: ~1.0.0-1
   number-precision: ^1.6.0
   pinia: ^2.0.23
   prettier: ^2.7.1
@@ -62,7 +62,7 @@ dependencies:
   lodash-es: 4.17.21
   mitt: 3.0.0
   mockjs: 1.1.0
-  nprogress: 0.2.0
+  nprogress: 1.0.0-1
   number-precision: 1.6.0
   pinia: 2.0.23_l7r24p6nevbtlimqmqcwa3ouhu
   qs: 6.11.0
@@ -866,13 +866,13 @@ packages:
     resolution: {integrity: sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA==}
     dependencies:
       '@types/eslint': 8.4.9
-      '@types/estree': 0.0.51
+      '@types/estree': 1.0.0
     dev: true
 
   /@types/eslint/8.4.9:
     resolution: {integrity: sha512-jFCSo4wJzlHQLCpceUhUnXdrPuCNOjGFMQ8Eg6JXxlz3QaCKOb7eGi2cephQdM4XTYsNej69P9JDJ1zqNIbncQ==}
     dependencies:
-      '@types/estree': 0.0.51
+      '@types/estree': 1.0.0
       '@types/json-schema': 7.0.11
     dev: true
 
@@ -3738,8 +3738,8 @@ packages:
       path-key: 4.0.0
     dev: true
 
-  /nprogress/0.2.0:
-    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
+  /nprogress/1.0.0-1:
+    resolution: {integrity: sha512-Gr/Km0nIMbR7hOB0fjGx7nR0oRjTy9M61dXiQL5bfTBq0cQ+hNgt6gxE062j7Bxm+L/IjNVOr41iu2hrDeuedw==}
     dev: false
 
   /nth-check/2.1.1:
