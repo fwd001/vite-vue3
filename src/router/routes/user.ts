@@ -11,7 +11,7 @@ const routes = [
         path: 'login',
         name: 'HomeLogin',
         component: HomeLogin,
-        meta: { title: '登陆' },
+        meta: { title: '登录' },
       },
     ],
   },

@@ -1,8 +1,8 @@
 // demo
-import { haRequest } from '@/utils/http'
+import { http } from '@/utils/http/http'
 
 export const getAjxxSfbz = () => {
-  return haRequest.request({
+  return http.request({
     url: '/es/ajxx/findAjSfbz/6309',
     method: 'get',
   })
@@ -10,7 +10,7 @@ export const getAjxxSfbz = () => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const apiList = (params: any) => {
-  return haRequest.request({
+  return http.request({
     url: '/es/qwjs/queryInfo',
     method: 'post',
     data: Object.assign({}, params),

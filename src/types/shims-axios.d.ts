@@ -16,3 +16,5 @@ declare module 'axios' {
     patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>
   }
 }
+
+declare type Recordable<T = any> = Record<string, T>

@@ -18,7 +18,7 @@ const routes = [
         path: 'keywords',
         name: 'KeyWords',
         component: KeyWords,
-        meta: { title: 'KeyWords' },
+        meta: { title: '关键词' },
       },
       {
         path: 'groupon/fwd-demo',

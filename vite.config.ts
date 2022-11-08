@@ -18,8 +18,6 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
   const { VITE_DROP_CONSOLE } = loadEnv(mode, CWD)
   const isServer = command === 'serve'
   return {
-    base: './',
-    root: './',
     server: {
       port: 8088,
       host: '0.0.0.0',
@@ -78,7 +76,11 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       preprocessorOptions: {
         less: {
           javascriptEnabled: true,
-          modifyVars: {},
+          modifyVars: {
+            'primary-color': '#1DA57A',
+            'link-color': '#1DA57A',
+            'border-radius-base': '2px',
+          },
           additionalData: `
             @import "ant-design-vue/lib/style/themes/default.less";
             @import "@/styles/variables.less";
@@ -99,7 +101,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       sourcemap: false,
       minify: 'esbuild',
       cssTarget: 'chrome79',
-      chunkSizeWarningLimit: 2000,
+      chunkSizeWarningLimit: 2300,
       rollupOptions: {
         output: {
           // 最小化拆分包

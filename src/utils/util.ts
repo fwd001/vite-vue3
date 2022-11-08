@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Qs from 'qs'
 import NP from 'number-precision'
+import dayjs from 'dayjs'
 
 // 公用方法写这里
 // 获取url参数 @hashCheck 是否从hash中取值
@@ -334,6 +335,30 @@ export const downloadFile = (url: string, name = 'undefined') => {
   aLink.dispatchEvent(new MouseEvent('click'))
 }
 
+// Blob文件下载
+export function downLoadBlob(url: string) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return new Promise((resolve: (blob: any) => void) => {
+    const xhr = new XMLHttpRequest()
+    // url oss地址
+    xhr.open('get', url, true)
+    // 响应方式
+    xhr.responseType = 'blob'
+    xhr.onload = function () {
+      if (this.status == 200 && this.readyState === 4) {
+        const blob = this.response
+        resolve({ code: 200, blob })
+      } else {
+        resolve({ code: 500, msg: this.response.msg || '下载失败' })
+      }
+    }
+    xhr.send() // 发送请求
+    xhr.onerror = function () {
+      resolve({ code: 500, msg: this.response.msg || '下载失败' })
+    }
+  })
+}
+
 /**
  * @description: 通过code获取状态列表的desc(描述文案)
  * @param {string|number} targetCode
@@ -379,4 +404,87 @@ export const regCommon = {
   specialLimit1: /[^a-zA-Z0-9_\-，,、/（）()\u4e00-\u9fff]/, // 中英文数字大小写字母及指定字母（限制输入特殊字符）
   specialLimit2: /[^a-zA-Z0-9_\-，,、/（）()#&\u4e00-\u9fff]/, // 中英文数字大小写字母及指定字母（限制输入特殊字符）
   idCard: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/, // 省份证
+}
+
+/**
+ * 动态添加js
+ * */
+export const dynamicLoad = (src: string, call: Function) => {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script')
+    script.type = 'text/javascript'
+    script.onerror = reject
+    script.src = src
+    document.body.appendChild(script)
+    script.onload = function () {
+      call && call(resolve)
+    }
+  })
+}
+
+/**
+ * 判断时间是否有效
+ * @param date any
+ * @returns boolean
+ */
+export function isValidDate(date: any): boolean {
+  return !isNaN(dayjs(date).valueOf())
+}
+
+// 自定义排序
+export const customSort = (data: any, sortBy: any, sortField: any) => {
+  const sortByObject = sortBy.reduce(
+    (obj: any, item: any, index: any) => ({
+      ...obj,
+      [item]: index,
+    }),
+    {},
+  )
+  return data.sort((a: any, b: any) => sortByObject[a[sortField]] - sortByObject[b[sortField]])
+}
+
+/**
+ * 判断是否 url
+ * */
+export function isUrl(url: string) {
+  return /^(http|https):\/\//g.test(url)
+}
+// 生成uuid
+export function uuid() {
+  const s: string[] = []
+  const hexDigits = '0123456789abcdef'
+  for (let i = 0; i < 36; i++) {
+    const ri = Math.floor(Math.random() * 0x10)
+    s[i] = hexDigits.substring(ri, ri + 1)
+  }
+  s[14] = '4' // bits 12-15 of the time_hi_and_version field to 0010
+  // @ts-ignore
+  const rn = (s[19] & 0x3) | 0x8
+  s[19] = hexDigits.substring(rn, rn + 1) // bits 6-7 of the clock_seq_hi_and_reserved to 01
+  s[8] = s[13] = s[18] = s[23] = '-'
+
+  const uuid = s.join('')
+  return uuid
+}
+
+/**
+ * @description 查找包含自身节点的父代节点
+ * @param tree 需要查找的树数据
+ * @param curKey 当前节点key
+ * @param keyField 自定义 key 字段
+ * @param node 找到的node 可以不传
+ */
+export function findCurNode(tree: any, curKey: any, keyField: string, node = null) {
+  tree.forEach((item: any) => {
+    if (item[keyField] === curKey) {
+      node = item
+    }
+    if (item.children && item.children.length) {
+      const findChildren = findCurNode(item.children, curKey, keyField, node)
+      if (findChildren) {
+        node = findChildren
+      }
+    }
+  })
+  return node
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="fwd-demo-wrap">
-    111
+    test:
     {{ msg }}
   </div>
 </template>
@@ -10,7 +10,7 @@
 </script>
 <script setup lang="ts">
   import { ref } from 'vue'
-  const msg = ref('msg111')
+  const msg = ref('message 0.3')
 </script>
 <style lang="less">
   .fwd-demo-wrap {

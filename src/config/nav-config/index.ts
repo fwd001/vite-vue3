@@ -15,11 +15,6 @@ const navList = [
     icon: 'ShopOutlined',
     children: [
       {
-        name: '网格仓信息管理',
-        path: '/backstage/groupon/warehouse',
-        power: 'xxx',
-      },
-      {
         name: 'fwd-demo',
         path: '/backstage/groupon/fwd-demo',
         power: '',

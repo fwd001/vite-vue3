@@ -11,6 +11,13 @@
 - mockjs 规则: http://mockjs.com/examples.html#Array
 - eslint规则: https://typescript-eslint.io/rules/
 - prettier: https://prettier.io/docs/en/options.html
+- unocss: https://github.com/unocss/unocss
+- cz-git: https://cz-git.qbb.sh/zh/guide/introduction.html
+
+## 修改antdv主题
+- 文档：https://www.antdv.com/docs/vue/customize-theme-cn
+- 修改文件路径 `vite.config.ts/.../modifyVars: {}` & `@/styles/variables.less`
+- 默认颜色为 `#1890ff`
 
 ## 环境
 node >=16

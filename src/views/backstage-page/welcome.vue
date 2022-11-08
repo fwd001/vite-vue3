@@ -46,7 +46,7 @@
   })
 
   function toLoginView() {
-    router.push({ path: '/keywords' })
+    router.push({ path: '/user/login' })
   }
 </script>
 
