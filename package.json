@@ -1,6 +1,6 @@
 {
   "name": "vite-vue3",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "description": "前端框架",
   "scripts": {
@@ -28,6 +28,7 @@
     "nprogress": "~1.0.0-1",
     "number-precision": "^1.6.0",
     "pinia": "^2.0.23",
+    "pinia-plugin-persistedstate": "^2.3.0",
     "qs": "^6.11.0",
     "vue": "^3.2.41",
     "vue-request": "^1.2.4",

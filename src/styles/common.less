@@ -27,6 +27,13 @@
 }
 
 /*** 业务相关 又比较常用的样式写这里 start ***/
+/* 文字单行溢出省略号 */
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .text-danger {
   color: @error-color;
 }
@@ -44,38 +51,5 @@
 }
 .text-gray {
   color: #eee;
-}
-.pointer {
-  cursor: pointer;
-}
-.page-box {
-  width: 100%;
-  height: auto;
-  min-height: 100%;
-  padding: 15px;
-  background: #fff;
-}
-.w-full {
-  width: 100%;
-}
-.h-full {
-  height: 100%;
-}
-.wh-full {
-  width: 100%;
-  height: 100%;
-}
-.w-full-scroll {
-  width: 100%;
-  overflow-x: auto;
-}
-.h-full-scroll {
-  height: 100%;
-  overflow-y: auto;
-}
-.wh-full-scroll {
-  width: 100%;
-  height: 100%;
-  overflow: auto;
 }
 /*** 业务相关 又比较常用的样式写这里 end ***/

@@ -1,9 +1,11 @@
 # Vue 3 + TypeScript + Vite
 
 ## 脚手架
-- 脚手架包地址：https://www.npmjs.com/package/lcfe-cli
+- 脚手架npm地址: https://www.npmjs.com/package/lcfe-cli
+- 脚手架工具仓库: http://gitlab.lhcz.co/fe/lcfe-cli
+- 脚手架文档: http://192.168.240.169:9696/zh/%E5%89%8D%E7%AB%AF/fe-cli
 
-## 相关文档
+## 工具相关文档
 - vite: https://cn.vitejs.dev/
 - vue3: https://v3.cn.vuejs.org/
 - antd-vue: https://antdv.com/components/overview-cn/
@@ -14,8 +16,14 @@
 - unocss: https://github.com/unocss/unocss
 - cz-git: https://cz-git.qbb.sh/zh/guide/introduction.html
 
+## 开发文档
+- 开发流程: http://192.168.240.169:9696/zh/%E5%89%8D%E7%AB%AF/R-D-process
+- 开发规范: http://192.168.240.169:9696/zh/%E5%89%8D%E7%AB%AF/development-specification
+- Jenkins前端使用: http://192.168.240.169:9696/zh/%E5%89%8D%E7%AB%AF/Jenkins-use
+- 工作流: http://192.168.240.169:9696/zh/%E5%89%8D%E7%AB%AF/git-flow
+
 ## 修改antdv主题
-- 文档：https://www.antdv.com/docs/vue/customize-theme-cn
+- 文档: https://www.antdv.com/docs/vue/customize-theme-cn
 - 修改文件路径 `vite.config.ts/.../modifyVars: {}` & `@/styles/variables.less`
 - 默认颜色为 `#1890ff`
 

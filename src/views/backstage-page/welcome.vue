@@ -22,29 +22,6 @@
 
   const { data, run } = useRequest(apiList)
 
-  // watchEffect(() => {
-  //   // eslint-disable-next-line no-console
-  //   console.log('data:::', toRaw(data.value))
-  //   // eslint-disable-next-line no-console
-  //   console.log('loading:::', toRaw(loading.value))
-  // })
-
-  document.addEventListener('keyup', (e) => {
-    // console.log("e.key", e.key);
-    if (e.ctrlKey && e.altKey) {
-      // console.log('e.ctrlKey && e.altKey', true)
-    }
-
-    if (e.key === 'p') {
-      // console.log('p')
-    }
-
-    if (e.ctrlKey && e.altKey && e.key === 'p') {
-      // this.toggleLoginSign = false;
-      // console.log('this.toggleLoginSign', 'p')
-    }
-  })
-
   function toLoginView() {
     router.push({ path: '/user/login' })
   }

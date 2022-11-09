@@ -35,6 +35,7 @@ specifiers:
   nprogress: ~1.0.0-1
   number-precision: ^1.6.0
   pinia: ^2.0.23
+  pinia-plugin-persistedstate: ^2.3.0
   prettier: ^2.7.1
   qs: ^6.11.0
   regenerator-runtime: ^0.13.10
@@ -65,6 +66,7 @@ dependencies:
   nprogress: 1.0.0-1
   number-precision: 1.6.0
   pinia: 2.0.23_l7r24p6nevbtlimqmqcwa3ouhu
+  pinia-plugin-persistedstate: 2.3.0_pinia@2.0.23
   qs: 6.11.0
   vue: 3.2.41
   vue-request: 1.2.4_vue@3.2.41
@@ -3930,6 +3932,17 @@ packages:
     engines: {node: '>=6'}
     dev: true
     optional: true
+
+  /pinia-plugin-persistedstate/2.3.0_pinia@2.0.23:
+    resolution: {integrity: sha512-K7vzt68Z3lbMDjb23Ki2vgHVBP2QFvjl7WNwzIwqY/DAkhSt8mi/z6bN/cXTst7fJjXWF0lC9NyxFKHfxWehuw==}
+    peerDependencies:
+      pinia: ^2.0.0
+    peerDependenciesMeta:
+      pinia:
+        optional: true
+    dependencies:
+      pinia: 2.0.23_l7r24p6nevbtlimqmqcwa3ouhu
+    dev: false
 
   /pinia/2.0.23_l7r24p6nevbtlimqmqcwa3ouhu:
     resolution: {integrity: sha512-N15hFf4o5STrxpNrib1IEb1GOArvPYf1zPvQVRGOO1G1d74Ak0J0lVyalX/SmrzdT4Q0nlEFjbURsmBmIGUR5Q==}
