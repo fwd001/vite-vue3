@@ -79,7 +79,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
           modifyVars: {
             'primary-color': '#1DA57A',
             'link-color': '#1DA57A',
-            'border-radius-base': '6px',
+            'border-radius-base': '2px',
           },
           additionalData: `
             @import "ant-design-vue/lib/style/themes/default.less";
