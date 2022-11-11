@@ -34,7 +34,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
     plugins: [
       vue(),
       Components({
-        resolvers: [AntDesignVueResolver({ importStyle: 'less', exclude: ['AButton'] })],
+        resolvers: [AntDesignVueResolver({ importStyle: 'less' })],
       }),
       Unocss(),
       // 兼容性配置
@@ -79,7 +79,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
           modifyVars: {
             'primary-color': '#1DA57A',
             'link-color': '#1DA57A',
-            'border-radius-base': '2px',
+            'border-radius-base': '6px',
           },
           additionalData: `
             @import "ant-design-vue/lib/style/themes/default.less";

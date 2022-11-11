@@ -30,6 +30,7 @@
 <template>
   <h2>{{ userStore.name }}</h2>
   <h2>{{ userStore.nameLength }}</h2>
+  <a-button>按钮</a-button>
   <button @click="updataUser">修改</button>
   <button @click="toLoginView">toLoginView</button>
   <div class="card">
