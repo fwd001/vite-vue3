@@ -19,6 +19,7 @@ dist-ssr
 components.d.ts
 package.lock.json
 pnpm-lock.yaml
+!.prettierrc.js
 
 # Editor directories and files
 .vscode/*

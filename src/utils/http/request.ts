@@ -48,10 +48,7 @@ const transform: AxiosTransform = {
           config.params = undefined
         }
         if (joinParamsToUrl) {
-          config.url = setObjToUrlParams(
-            config.url as string,
-            Object.assign({}, config.params, config.data),
-          )
+          config.url = setObjToUrlParams(config.url as string, Object.assign({}, config.params, config.data))
         }
       } else {
         // 兼容restful风格
@@ -77,7 +74,7 @@ class Request {
     this.instance.interceptors.request.use(
       (config: AxiosRequestConfig) => {
         // 一般会请求拦截里面加token
-        const token = sessionStorage.getItem('token') as string
+        const token = sessionStorage.getItem('token') || ''
         config.headers!.Authorization = token
 
         return config
@@ -148,10 +145,7 @@ class Request {
   }
 
   // 定义请求方法
-  public request<T = any>(
-    config: AxiosRequestConfig,
-    options: RequestOptions = {},
-  ): Promise<Result<T>> {
+  public request<T = any>(config: AxiosRequestConfig, options: RequestOptions = {}): Promise<Result<T>> {
     const cf = transform.beforeRequestHook?.(config, options) || {}
     return this.instance.request(cf)
   }

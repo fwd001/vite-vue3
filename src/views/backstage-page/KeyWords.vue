@@ -1,11 +1,6 @@
 <template>
   <div class="keywords-wrap">
-    <a-form
-      ref="formRef"
-      name="advanced_search"
-      class="ant-advanced-search-form"
-      :model="formState"
-      @finish="onFinish">
+    <a-form ref="formRef" name="advanced_search" class="ant-advanced-search-form" :model="formState" @finish="onFinish">
       <a-row :gutter="24">
         <a-col :span="12">
           <a-form-item
@@ -24,31 +19,18 @@
           </a-form-item>
         </a-col>
         <a-col :span="8">
-          <a-form-item
-            :name="`field-3`"
-            label="QB发起人"
-            :rules="[{ required: false, message: 'input something' }]">
+          <a-form-item :name="`field-3`" label="QB发起人" :rules="[{ required: false, message: 'input something' }]">
             <a-input v-model:value="formState[`field-3`]" placeholder="placeholder"></a-input>
           </a-form-item>
         </a-col>
         <a-col :span="8">
-          <a-form-item
-            :name="`field-4`"
-            label="QB发时间"
-            :rules="[{ required: false, message: 'input something' }]">
+          <a-form-item :name="`field-4`" label="QB发时间" :rules="[{ required: false, message: 'input something' }]">
             <a-date-picker v-model:value="formState[`field-4`]" style="width: 100%" />
           </a-form-item>
         </a-col>
         <a-col :span="8">
-          <a-form-item
-            :name="`field-5`"
-            label="QB来源"
-            :rules="[{ required: false, message: 'input something' }]">
-            <a-select
-              v-model:value="formState[`field-5`]"
-              placeholder="placeholder"
-              allow-clear
-              style="width: 100%">
+          <a-form-item :name="`field-5`" label="QB来源" :rules="[{ required: false, message: 'input something' }]">
+            <a-select v-model:value="formState[`field-5`]" placeholder="placeholder" allow-clear style="width: 100%">
               <a-select-option value="jack">Jack</a-select-option>
               <a-select-option value="lucy">Lucy</a-select-option>
               <a-select-option value="Yiminghe">yiminghe</a-select-option>
@@ -56,15 +38,8 @@
           </a-form-item>
         </a-col>
         <a-col :span="8">
-          <a-form-item
-            :name="`field-6`"
-            label="估值"
-            :rules="[{ required: false, message: 'input something' }]">
-            <a-select
-              v-model:value="formState[`field-6`]"
-              placeholder="placeholder"
-              allow-clear
-              style="width: 100%">
+          <a-form-item :name="`field-6`" label="估值" :rules="[{ required: false, message: 'input something' }]">
+            <a-select v-model:value="formState[`field-6`]" placeholder="placeholder" allow-clear style="width: 100%">
               <a-select-option value="jack">Jack</a-select-option>
               <a-select-option value="lucy">Lucy</a-select-option>
               <a-select-option value="Yiminghe">yiminghe</a-select-option>
@@ -95,130 +70,130 @@
 </template>
 <!-- keywords -->
 <script lang="ts">
-  import { defineComponent, reactive, ref, computed } from 'vue'
-  import type { FormInstance } from 'ant-design-vue'
-  import { usePagination } from 'vue-request'
-  import axios from 'axios'
-  const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      width: '120',
-    },
-    {
-      title: 'Gender',
-      dataIndex: 'gender',
-      width: '120',
-    },
-    {
-      title: 'Gender',
-      dataIndex: 'gender',
-      width: '120',
-    },
-    {
-      title: 'Gender',
-      dataIndex: 'gender',
-      width: '120',
-    },
-    {
-      title: 'Gender',
-      dataIndex: 'gender',
-      width: '120',
-    },
-    {
-      title: 'Email',
-      dataIndex: 'email',
-    },
-  ]
+import { defineComponent, reactive, ref, computed } from 'vue'
+import type { FormInstance } from 'ant-design-vue'
+import { usePagination } from 'vue-request'
+import axios from 'axios'
+const columns = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    width: '120',
+  },
+  {
+    title: 'Gender',
+    dataIndex: 'gender',
+    width: '120',
+  },
+  {
+    title: 'Gender',
+    dataIndex: 'gender',
+    width: '120',
+  },
+  {
+    title: 'Gender',
+    dataIndex: 'gender',
+    width: '120',
+  },
+  {
+    title: 'Gender',
+    dataIndex: 'gender',
+    width: '120',
+  },
+  {
+    title: 'Email',
+    dataIndex: 'email',
+  },
+]
 
-  type APIParams = {
-    results: number
-    page?: number
-    sortField?: string
-    sortOrder?: number
+type APIParams = {
+  results: number
+  page?: number
+  sortField?: string
+  sortOrder?: number
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any
+}
+type APIResult = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data: any
+}
+
+const queryData = (params: APIParams) => {
+  return axios.get<APIResult>('https://randomuser.me/api?noinfo', { params })
+}
+
+export default defineComponent({
+  components: {
+    // DownOutlined,
+    // UpOutlined
+  },
+  setup() {
+    const expand = ref(false)
+    const formRef = ref<FormInstance>()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: any
-  }
-  type APIResult = {
+    const formState = reactive<any>({})
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data: any
-  }
+    const onFinish = (values: any) => {
+      // console.log("formState: ", formState);
+      // eslint-disable-next-line no-console
+      console.log('Received values of form: ', values)
+    }
+    const {
+      data: dataSource,
+      run,
+      loading,
+      current,
+      pageSize,
+    } = usePagination(queryData, {
+      formatResult: (res) => res.data.results,
+      pagination: {
+        currentKey: 'page',
+        pageSizeKey: 'results',
+      },
+    })
+    function onSubmit() {
+      current.value = 1
+    }
 
-  const queryData = (params: APIParams) => {
-    return axios.get<APIResult>('https://randomuser.me/api?noinfo', { params })
-  }
-
-  export default defineComponent({
-    components: {
-      // DownOutlined,
-      // UpOutlined
-    },
-    setup() {
-      const expand = ref(false)
-      const formRef = ref<FormInstance>()
+    const pagination = computed(() => ({
+      total: 200,
+      current: current.value,
+      pageSize: pageSize.value,
+    }))
+    function handleTableChange(
+      pag: { pageSize: number; current: number },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const formState = reactive<any>({})
+      filters: any,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const onFinish = (values: any) => {
-        // console.log("formState: ", formState);
-        // eslint-disable-next-line no-console
-        console.log('Received values of form: ', values)
-      }
-      const {
-        data: dataSource,
-        run,
-        loading,
-        current,
-        pageSize,
-      } = usePagination(queryData, {
-        formatResult: (res) => res.data.results,
-        pagination: {
-          currentKey: 'page',
-          pageSizeKey: 'results',
-        },
+      sorter: any,
+    ) {
+      run({
+        results: pag.pageSize!,
+        page: pag?.current,
+        sortField: sorter.field,
+        sortOrder: sorter.order,
+        ...filters,
       })
-      function onSubmit() {
-        current.value = 1
-      }
-
-      const pagination = computed(() => ({
-        total: 200,
-        current: current.value,
-        pageSize: pageSize.value,
-      }))
-      function handleTableChange(
-        pag: { pageSize: number; current: number },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        filters: any,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        sorter: any,
-      ) {
-        run({
-          results: pag.pageSize!,
-          page: pag?.current,
-          sortField: sorter.field,
-          sortOrder: sorter.order,
-          ...filters,
-        })
-      }
-      return {
-        formRef,
-        onSubmit,
-        formState,
-        expand,
-        onFinish,
-        dataSource,
-        pagination,
-        loading,
-        columns,
-        handleTableChange,
-      }
-    },
-  })
+    }
+    return {
+      formRef,
+      onSubmit,
+      formState,
+      expand,
+      onFinish,
+      dataSource,
+      pagination,
+      loading,
+      columns,
+      handleTableChange,
+    }
+  },
+})
 </script>
 <style lang="less">
-  .keywords-wrap {
-    background-color: #fff;
-    padding: 20px;
-  }
+.keywords-wrap {
+  background-color: #fff;
+  padding: 20px;
+}
 </style>

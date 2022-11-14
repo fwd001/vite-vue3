@@ -9,12 +9,7 @@ README.md
 *.lock
 .env.dev
 .env
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+.husky
 
 dist/
 dist-ssr
@@ -22,6 +17,8 @@ dist-ssr
 components.d.ts
 package.lock.json
 pnpm-lock.yaml
+.npmrc
+.editorconfig
 
 # Editor directories and files
 .vscode/*

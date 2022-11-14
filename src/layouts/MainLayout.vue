@@ -23,72 +23,72 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
-  export default defineComponent({
-    name: 'MainLayout',
-  })
+import { defineComponent } from 'vue'
+export default defineComponent({
+  name: 'MainLayout',
+})
 </script>
 
 <script lang="ts" setup>
-  import NavLayout from '@/layouts/NavLayout.vue'
-  import HeaderLayout from '@/layouts/HeaderLayout.vue'
-  import { RouterView } from 'vue-router'
-  import { computed, onBeforeMount, ref } from 'vue'
+import NavLayout from '@/layouts/NavLayout.vue'
+import HeaderLayout from '@/layouts/HeaderLayout.vue'
+import { RouterView } from 'vue-router'
+import { computed, onBeforeMount, ref } from 'vue'
 
-  // 侧边菜单栏是否为mini开关
-  const collapsed = ref(false)
-  const toggleCollapsed = () => {
-    collapsed.value = !collapsed.value
+// 侧边菜单栏是否为mini开关
+const collapsed = ref(false)
+const toggleCollapsed = () => {
+  collapsed.value = !collapsed.value
+}
+
+const copyContent = computed(() => {
+  return false
+})
+
+const isReady = computed(() => {
+  return true
+})
+
+onBeforeMount(async () => {
+  try {
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error)
   }
-
-  const copyContent = computed(() => {
-    return false
-  })
-
-  const isReady = computed(() => {
-    return true
-  })
-
-  onBeforeMount(async () => {
-    try {
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error)
-    }
-  })
+})
 </script>
 
 <style lang="less" scoped>
-  .layout-main-box {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: @bg-tint;
-  }
-  .content-nav {
-    height: 100%;
-  }
-  .content-box {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
-  .content-view-box {
-    position: relative;
-    // padding-left: 15px;
-    padding-right: 0;
-    overflow: hidden;
-  }
-  .content-view {
-    width: 100%;
-    height: 100%;
-    // padding: 15px 15px 15px 0;
-    overflow: auto;
-  }
+.layout-main-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: @bg-tint;
+}
+.content-nav {
+  height: 100%;
+}
+.content-box {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.content-view-box {
+  position: relative;
+  // padding-left: 15px;
+  padding-right: 0;
+  overflow: hidden;
+}
+.content-view {
+  width: 100%;
+  height: 100%;
+  // padding: 15px 15px 15px 0;
+  overflow: auto;
+}
 
-  .copy-input {
-    position: fixed;
-    top: -200px;
-    left: 0;
-  }
+.copy-input {
+  position: fixed;
+  top: -200px;
+  left: 0;
+}
 </style>

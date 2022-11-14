@@ -1,30 +1,30 @@
 <script lang="ts">
-  import { defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 
-  export default defineComponent({ name: 'WelcomeView' })
+export default defineComponent({ name: 'WelcomeView' })
 </script>
 <script setup lang="ts">
-  import { ref } from 'vue'
-  import { useUserStore } from 'store/modules/user'
-  import { apiList } from '@/api/demo'
-  import { useRequest } from 'vue-request'
-  import { useRouter } from 'vue-router'
+import { ref } from 'vue'
+import { useUserStore } from 'store/modules/user'
+import { apiList } from '@/api/demo'
+import { useRequest } from 'vue-request'
+import { useRouter } from 'vue-router'
 
-  const userStore = useUserStore()
+const userStore = useUserStore()
 
-  const count = ref(0)
-  const router = useRouter()
+const count = ref(0)
+const router = useRouter()
 
-  const updataUser = () => {
-    userStore.updataUser('welcome,名字')
-    run({})
-  }
+const updataUser = () => {
+  userStore.updataUser('welcome,名字')
+  run({})
+}
 
-  const { data, run } = useRequest(apiList)
+const { data, run } = useRequest(apiList)
 
-  function toLoginView() {
-    router.push({ path: '/user/login' })
-  }
+function toLoginView() {
+  router.push({ path: '/user/login' })
+}
 </script>
 
 <template>
@@ -215,7 +215,7 @@
 </template>
 
 <style scoped>
-  .read-the-docs {
-    color: #888;
-  }
+.read-the-docs {
+  color: #888;
+}
 </style>

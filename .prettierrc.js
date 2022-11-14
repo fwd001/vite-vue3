@@ -1,9 +1,8 @@
 module.exports = {
-  printWidth: 100,
+  printWidth: 120,
   tabWidth: 2,
   useTabs: false,
   semi: false,
-  vueIndentScriptAndStyle: true,
   singleQuote: true,
   quoteProps: 'as-needed',
   bracketSpacing: true,
@@ -19,6 +18,12 @@ module.exports = {
   insertPragma: false,
   proseWrap: 'preserve',
   htmlWhitespaceSensitivity: 'css',
+  // vue 文件中的 script 和 style 内不用缩进
+  vueIndentScriptAndStyle: false,
   endOfLine: 'auto',
+  // 格式化嵌入的内容
+  embeddedLanguageFormatting: 'auto',
   bracketSameLine: true,
+  // html, vue, jsx 中每个属性占一行
+  singleAttributePerLine: false,
 }

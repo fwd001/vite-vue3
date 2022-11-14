@@ -21,58 +21,58 @@
 </template>
 
 <script lang="ts" setup>
-  function fnLogout() {
-    fnLogoutLocal()
-  }
-  // 清除本地token
-  async function fnLogoutLocal() {
-    try {
-    } catch (error) {}
-  }
+function fnLogout() {
+  fnLogoutLocal()
+}
+// 清除本地token
+async function fnLogoutLocal() {
+  try {
+  } catch (error) {}
+}
 </script>
 
 <style lang="less"></style>
 <style lang="less" scoped>
-  .header-box {
-    width: 100%;
+.header-box {
+  width: 100%;
+  height: 44px;
+  background: @bg-main;
+  line-height: 44px;
+  padding-left: 16px;
+  font-size: 13px;
+  color: #fff;
+}
+.user-box {
+  padding: 0 30px;
+  .user-avatar-wrap {
+    padding: 0 12px;
     height: 44px;
-    background: @bg-main;
-    line-height: 44px;
-    padding-left: 16px;
+    user-select: none;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+  .user-avatar {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    font-size: 16px;
+    line-height: 24px;
+    color: @active-color;
+    background: #fff;
+    border-radius: 50%;
+  }
+}
+.route-list {
+  margin: 10px 15px;
+  height: 26px;
+  .route-tag {
+    position: relative;
+    padding: 2px 8px;
     font-size: 13px;
-    color: #fff;
+    white-space: unset;
+    overflow: hidden;
   }
-  .user-box {
-    padding: 0 30px;
-    .user-avatar-wrap {
-      padding: 0 12px;
-      height: 44px;
-      user-select: none;
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-      }
-    }
-    .user-avatar {
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      margin-right: 10px;
-      font-size: 16px;
-      line-height: 24px;
-      color: @active-color;
-      background: #fff;
-      border-radius: 50%;
-    }
-  }
-  .route-list {
-    margin: 10px 15px;
-    height: 26px;
-    .route-tag {
-      position: relative;
-      padding: 2px 8px;
-      font-size: 13px;
-      white-space: unset;
-      overflow: hidden;
-    }
-  }
+}
 </style>

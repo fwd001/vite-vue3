@@ -1,16 +1,16 @@
 <script lang="ts">
-  import { defineComponent } from 'vue'
-  export default defineComponent({
-    name: 'App',
-  })
+import { defineComponent } from 'vue'
+export default defineComponent({
+  name: 'App',
+})
 </script>
 
 <script lang="ts" setup>
-  import zhCN from 'ant-design-vue/es/locale/zh_CN'
-  import dayjs from 'dayjs'
-  dayjs.locale('cn')
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import dayjs from 'dayjs'
+dayjs.locale('cn')
 
-  const locale = zhCN
+const locale = zhCN
 </script>
 
 <template>
@@ -22,9 +22,9 @@
 </template>
 
 <style scoped>
-  #app-wrap {
-    height: 100vh;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+#app-wrap {
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 </style>

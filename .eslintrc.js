@@ -2,10 +2,18 @@
 const { defineConfig } = require('eslint-define-config')
 
 module.exports = defineConfig({
+  root: true,
+  env: {
+    browser: true,
+    node: true,
+    jest: true,
+    es6: true,
+  },
+  plugins: ['vue'],
   parser: 'vue-eslint-parser',
   parserOptions: {
     parser: '@typescript-eslint/parser', // Specifies the ESLint parser
-    ecmaVersion: 2020, // Allows for the parsing of modern ECMAScript features
+    ecmaVersion: 'latest', // Allows for the parsing of modern ECMAScript features
     sourceType: 'module', // Allows for the use of imports
     ecmaFeatures: {}, // Allows for the parsing of JSX
   },
@@ -54,7 +62,6 @@ module.exports = defineConfig({
     defineEmits: 'readonly',
     defineExpose: 'readonly',
     withDefaults: 'readonly',
-
     document: 'readonly',
     localStorage: 'readonly',
     baiduMap: 'readonly',

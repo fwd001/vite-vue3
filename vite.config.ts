@@ -18,11 +18,13 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
   const { VITE_DROP_CONSOLE } = loadEnv(mode, CWD)
   const isServer = command === 'serve'
   return {
+    base: './',
     server: {
       port: 8088,
       host: '0.0.0.0',
       open: false,
       https: false,
+      cors: true,
       proxy: {
         '/api': {
           target: 'http://10.1.50.85:8006', // 要访问的跨域的域名
