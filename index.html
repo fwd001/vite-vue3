@@ -12,10 +12,12 @@
         align-items: center;
         flex-direction: column;
         min-height: 420px;
-        height: 100%;
+        height: 98vh;
+        color: rgba(0, 0, 0, 0.85);
+
       }
-      .first-loading-wrp > h1 {
-        font-size: 128px;
+      .first-loading-wrp > .loading-title {
+        font-size: 98px;
       }
       .first-loading-wrp .loading-wrp {
         padding: 98px;
@@ -23,7 +25,7 @@
         justify-content: center;
         align-items: center;
       }
-      .dot {
+      .first-loading-wrp .loading-dot {
         animation: antRotate 1.2s infinite linear;
         transform: rotate(45deg);
         position: relative;
@@ -33,7 +35,7 @@
         height: 32px;
         box-sizing: border-box;
       }
-      .dot i {
+      .first-loading-wrp .loading-dot i {
         width: 14px;
         height: 14px;
         position: absolute;
@@ -45,23 +47,23 @@
         opacity: 0.3;
         animation: antSpinMove 1s infinite linear alternate;
       }
-      .dot i:nth-child(1) {
+      .first-loading-wrp .loading-dot i:nth-child(1) {
         top: 0;
         left: 0;
       }
-      .dot i:nth-child(2) {
+      .first-loading-wrp .loading-dot i:nth-child(2) {
         top: 0;
         right: 0;
         -webkit-animation-delay: 0.4s;
         animation-delay: 0.4s;
       }
-      .dot i:nth-child(3) {
+      .first-loading-wrp .loading-dot i:nth-child(3) {
         right: 0;
         bottom: 0;
         -webkit-animation-delay: 0.8s;
         animation-delay: 0.8s;
       }
-      .dot i:nth-child(4) {
+      .first-loading-wrp .loading-dot i:nth-child(4) {
         bottom: 0;
         left: 0;
         -webkit-animation-delay: 1.2s;
@@ -101,11 +103,11 @@
     <div id="app">
       <!-- 首次加载界面 -->
       <div class="first-loading-wrp">
-        <h1>LHCZ</h1>
+        <h1 class="loading-title" style="margin: 0; padding: 0; font-weight: 600; line-height: 1em;">LHCZ</h1>
         <div class="loading-wrp">
-          <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
+          <span class="loading-dot"><i></i><i></i><i></i><i></i></span>
         </div>
-        <div style="display: flex; justify-content: center; align-items: center">loading...</div>
+        <div style="text-align: center;font-size: 16px;line-height: 1em;">loading...</div>
       </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
