@@ -15,16 +15,8 @@ const locale = zhCN
 
 <template>
   <a-config-provider :locale="locale">
-    <div id="app-wrap">
-      <router-view></router-view>
-    </div>
+    <router-view></router-view>
   </a-config-provider>
 </template>
 
-<style scoped>
-#app-wrap {
-  height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-</style>
+<style scoped></style>

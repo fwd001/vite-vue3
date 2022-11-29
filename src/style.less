@@ -3,17 +3,29 @@ body {
   height: 100%;
 }
 
-canvas {
-  display: block;
-}
-
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizelegibility;
 }
+#app {
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
+canvas {
+  display: block;
+}
 ul,
 ol {
   list-style: none;
+}
+
+// 页面公共样式
+.page-wrap {
+  margin: 16px;
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 2px;
 }

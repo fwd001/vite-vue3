@@ -1,5 +1,5 @@
 <template>
-  <div class="fwd-demo-wrap">
+  <div class="page-wrap">
     test:
     {{ msg }}
   </div>
@@ -12,9 +12,4 @@ export default defineComponent({ name: 'FwdDemo' })
 import { ref } from 'vue'
 const msg = ref('message 0.3')
 </script>
-<style lang="less">
-.fwd-demo-wrap {
-  background-color: #fff;
-  padding: 20px;
-}
-</style>
+<style lang="less"></style>

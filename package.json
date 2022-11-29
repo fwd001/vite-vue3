@@ -1,6 +1,6 @@
 {
   "name": "vite-vue3",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "private": true,
   "description": "前端框架",
   "scripts": {
@@ -8,6 +8,8 @@
     "dev": "vite --mode dev",
     "build": "vue-tsc --noEmit && vite build",
     "bud": "vite build",
+    "upload": "rm -f dist.zip && zip -r dist.zip ./dist && scp ./dist.zip root@192.168.240.169:/home/project/epcms-fe && rm -f dist.zip",
+    "r": "npm run build && npm run upload",
     "preview": "vite preview",
     "lint": "eslint --ext .ts,.tsx,.vue,.js,.jsx --fix src",
     "prettier": "prettier . --write",

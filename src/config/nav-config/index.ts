@@ -1,12 +1,12 @@
 const navList = [
   {
     name: '首页',
-    path: '/backstage/welcome',
+    path: '/index',
     icon: 'HomeOutlined',
   },
   {
     name: '查询',
-    path: '/backstage/keywords',
+    path: '/keywords',
     icon: 'BoxPlotOutlined',
   },
   {
@@ -16,7 +16,7 @@ const navList = [
     children: [
       {
         name: 'fwd-demo',
-        path: '/backstage/groupon/fwd-demo',
+        path: '/groupon/fwd-demo',
         power: '',
       },
     ],

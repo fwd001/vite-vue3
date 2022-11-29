@@ -1,5 +1,5 @@
 <template>
-  <div class="keywords-wrap">
+  <div class="keywords-wrap page-wrap">
     <a-form ref="formRef" name="advanced_search" class="ant-advanced-search-form" :model="formState" @finish="onFinish">
       <a-row :gutter="24">
         <a-col :span="12">
@@ -191,9 +191,4 @@ export default defineComponent({
   },
 })
 </script>
-<style lang="less">
-.keywords-wrap {
-  background-color: #fff;
-  padding: 20px;
-}
-</style>
+<style lang="less"></style>

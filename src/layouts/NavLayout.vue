@@ -1,26 +1,14 @@
 <template>
   <div class="layout-nav-box flex flex-col">
-    <div class="nav-top flex justify-center items-center">
-      <div class="nav-top-logo flex-auto">
-        <span v-if="!props.collapsed" class="logo-box">xxms</span>
-      </div>
-      <MenuUnfoldOutlined
-        v-if="props.collapsed"
-        :class="['collapsed-icon fx-n', { 'collapsed-icon-hide': props.collapsed }]"
-        @click="() => emit('toggleCollapsed')" />
-      <MenuFoldOutlined
-        v-else
-        :class="['collapsed-icon fx-n', { 'collapsed-icon-hide': props.collapsed }]"
-        @click="() => emit('toggleCollapsed')" />
-    </div>
     <a-menu
       class="menu-box fx-base-1"
+      style="padding-top: 12px"
       mode="inline"
-      theme="dark"
+      theme="light"
       :selectable="false"
       :inline-collapsed="props.collapsed"
       :inline-indent="24"
-      :default-open-keys="openKeys"
+      :open-keys="openKeys"
       @click="menuClick">
       <template v-for="menu in navPowerList">
         <a-menu-item
@@ -52,7 +40,7 @@
 </template>
 
 <script lang="ts" setup>
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
+// import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
 import { globalConfig } from '@/config'
 import { useRoute, useRouter } from 'vue-router'
 import { ref, computed, getCurrentInstance, withDefaults } from 'vue'
@@ -69,13 +57,16 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   collapsed: false,
 })
-const emit = defineEmits(['toggleCollapsed'])
+
+const defaultOpenKeys = ['groupon']
+// const emit = defineEmits(['toggleCollapsed'])
 
 // 只有第一次创建的时候需要自动获取当前展开的菜单 后续以用户操作为准
-let hash = location.hash
-let openKey = hash.split('/')[1]
+let pathname = location.pathname
+let openKey = pathname.split('/')[1]
+console.log('openKey', openKey)
 
-const openKeys = ref(openKey ? [openKey] : [])
+const openKeys = ref(defaultOpenKeys.includes(openKey) ? [openKey] : defaultOpenKeys)
 
 const navPowerList = computed(() => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -125,7 +116,6 @@ const menuClick = (info: any) => {
   }
 }
 </script>
-
 <style lang="less" scoped>
 .layout-nav-box {
   background: @bg-main;
@@ -137,16 +127,18 @@ const menuClick = (info: any) => {
 }
 .nav-top {
   width: 100%;
-  height: 44px;
+  height: 64px;
   font-size: 20px;
-  line-height: 44px;
+  line-height: 64px;
+  width: 256px;
+  position: relative;
   .nav-top-logo {
     padding-left: 16px;
     height: 100%;
     .logo-box {
       width: 72px;
       font-size: 18px;
-      color: #fff;
+      color: #333;
     }
   }
   .collapsed-icon {

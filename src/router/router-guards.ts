@@ -4,7 +4,7 @@ import type { Router } from 'vue-router'
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 import { useTitle } from '@vueuse/core'
 
-// const defaultRoutePath = '/dashboard/welcome'
+// const defaultRoutePath = '/index'
 
 export function createRouterGuards(router: Router) {
   router.beforeEach(async (to, _, next) => {

@@ -1,11 +1,11 @@
 <!-- 为所有页面套个壳，处理公共逻辑 -->
 <template>
-  <div class="layout-main-box flex">
-    <NavLayout class="content-nav" :collapsed="collapsed" @toggle-collapsed="toggleCollapsed" />
-    <div class="content-box flex flex-col">
-      <HeaderLayout class="flex-basis-44px" />
+  <div class="layout-main-box">
+    <HeaderLayout />
 
-      <div class="content-view-box">
+    <div class="content-box flex">
+      <NavLayout class="content-nav" :collapsed="collapsed" @toggle-collapsed="toggleCollapsed" />
+      <div class="content-view-box flex-1">
         <!-- 优先加载完用户权限和用户信息，再加载页面 -->
         <div v-if="isReady" id="content-view" class="content-view">
           <a-spin :spinning="false">
@@ -64,6 +64,7 @@ onBeforeMount(async () => {
   width: 100%;
   height: 100%;
   background: @bg-tint;
+  padding-top: @header-height;
 }
 .content-nav {
   height: 100%;

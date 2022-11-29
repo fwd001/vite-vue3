@@ -17,7 +17,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/backstage/welcome',
+      redirect: '/index',
     },
     ...routes,
     {

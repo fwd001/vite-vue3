@@ -1,223 +1,131 @@
+<script lang="ts">
+import { defineComponent } from 'vue'
+export default defineComponent({ name: 'LoginView' })
+</script>
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
+import { FormInstance, message } from 'ant-design-vue'
+import { LockOutlined, UserOutlined, DoubleRightOutlined, SafetyCertificateOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
-import { notification } from 'ant-design-vue'
-import {
-  UserOutlined,
-  LockOutlined,
-  MobileOutlined,
-  MailOutlined,
-  AlipayCircleOutlined,
-  TaobaoCircleOutlined,
-  WeiboCircleOutlined,
-} from '@ant-design/icons-vue'
-
 const router = useRouter()
 
-interface FormState {
-  username: string
-  password: string
-  remember: boolean
-}
-const formState = reactive<FormState>({
-  username: '',
+const formLoginRef = ref<FormInstance>()
+
+type LoginApiI = { account: string; password: string }
+
+const formState = reactive<LoginApiI>({
+  account: '',
   password: '',
-  remember: true,
-})
-const state = reactive({
-  time: 60,
-  loginBtn: false,
-  // login type: 0 email, 1 username, 2 telephone
-  loginType: 0,
-  smsSendBtn: false,
 })
 
-const isLoginError = ref(true)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const onFinish = (values: any) => {
-  console.log('Success:', values)
-  loginSuccess()
+// 是否为账号登录
+const isAccountLogin = ref(true)
+let isPasswordCorrect = true
+let errorMsg = ''
+
+function onAccountLoginChange() {
+  isAccountLogin.value = !isAccountLogin.value
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const onFinishFailed = (errorInfo: any) => {
+function checkPassword() {
+  if (isPasswordCorrect) {
+    return Promise.resolve()
+  }
+  return Promise.reject(new Error(errorMsg || '用户名或密码错误!'))
+}
+
+const onFinish = (values: LoginApiI) => {
+  if (isAccountLogin.value) {
+    // 账号密码登录
+    loginSuccess()
+  } else {
+    // 数字证书登录
+    message.warn('暂不支持数字证书！')
+  }
+}
+
+const onFinishFailed = (errorInfo: { errorFields: []; outOfDate: false; values: {} }) => {
+  // eslint-disable-next-line no-console
   console.log('Failed:', errorInfo)
 }
 
-const customActiveKey = ref('tab1')
-
-function handleTabClick(key: string) {
-  console.log(key)
-}
-
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-function getCaptcha() {}
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function loginSuccess(res?: any) {
-  console.log(res)
-  router.push({ path: '/' })
-  // 延迟 1 秒显示欢迎信息
+function loginSuccess() {
+  router.push('/')
   setTimeout(() => {
-    notification.success({
-      message: '欢迎',
-      description: `${'xxx'}，欢迎回来`,
-    })
-  }, 1000)
-  isLoginError.value = false
+    message.success('登录成功！')
+  }, 500)
 }
 </script>
 
 <template>
-  <div class="main">
+  <div class="login-wrap">
     <a-form
       id="formLogin"
-      ref="formLogin"
-      class="user-layout-login"
+      ref="formLoginRef"
+      class="user-layout-login rounded-2px"
       :model="formState"
       autocomplete="off"
       @finish-failed="onFinishFailed"
       @finish="onFinish">
-      <a-tabs v-model:activeKey="customActiveKey" centered animated :tab-bar-gutter="32" @change="handleTabClick">
-        <a-tab-pane key="tab1" tab="账户密码登录">
-          <a-alert
-            v-if="isLoginError"
-            type="error"
-            banner
-            style="margin-bottom: 24px"
-            message="账户或密码错误（admin/ant.design）" />
-          <a-form-item name="username" :rules="[{ required: true, message: '请输入帐户名或邮箱地址' }]">
-            <a-input v-model:value="formState.username" size="large" type="text" placeholder="账号：admin">
-              <template #prefix>
-                <user-outlined :style="{ color: 'rgba(0,0,0,.25)' }" />
-              </template>
-            </a-input>
-          </a-form-item>
-
-          <a-form-item name="password" :rules="[{ required: true, message: '请输入密码!' }]">
-            <a-input-password v-model:value="formState.password" size="large" placeholder="密码：admin">
-              <template #prefix>
-                <lock-outlined :style="{ color: 'rgba(0,0,0,.25)' }" />
-              </template>
-            </a-input-password>
-          </a-form-item>
-        </a-tab-pane>
-        <a-tab-pane key="tab2" tab="手机号登录">
-          <a-form-item>
-            <a-input v-model:value="formState.username" size="large" type="text" placeholder="手机号">
-              <template #prefix>
-                <mobile-outlined :style="{ color: 'rgba(0,0,0,.25)' }" />
-              </template>
-            </a-input>
-          </a-form-item>
-
-          <a-row :gutter="16">
-            <a-col class="gutter-row" :span="16">
-              <a-form-item>
-                <a-input v-model:value="formState.username" size="large" type="text" placeholder="验证码">
-                  <template #prefix>
-                    <mail-outlined :style="{ color: 'rgba(0,0,0,.25)' }" />
-                  </template>
-                </a-input>
-              </a-form-item>
-            </a-col>
-            <a-col class="gutter-row" :span="8">
-              <a-button class="getCaptcha" tabindex="-1" :disabled="state.smsSendBtn" @click.stop.prevent="getCaptcha">
-                {{ (!state.smsSendBtn && '获取验证码') || state.time + ' s' }}
-              </a-button>
-            </a-col>
-          </a-row>
-        </a-tab-pane>
-      </a-tabs>
-
-      <a-form-item name="remember">
-        <a-checkbox v-model:checked="formState.remember">自动登录</a-checkbox>
-        <router-link :to="{ path: '/' }" class="forge-password" style="float: right"> 忘记密码 </router-link>
+      <div class="text-center mb-30px font-500 text-size-24px">XX管理系统</div>
+      <template v-if="isAccountLogin">
+        <a-form-item name="account" :rules="[{ required: true, message: '请输入用户名！' }]">
+          <a-input v-model:value="formState.account" size="large" placeholder="用户名">
+            <template #prefix><UserOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
+          </a-input>
+        </a-form-item>
+        <a-form-item
+          name="password"
+          :rules="[{ required: true, message: '请输入密码！' }, { validator: checkPassword }]">
+          <a-input v-model:value="formState.password" size="large" type="password" placeholder="密码">
+            <template #prefix><LockOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
+          </a-input>
+        </a-form-item>
+      </template>
+      <!-- 证书登录 -->
+      <template v-else>
+        <div class="h-40.14px bg-#F6F7FB mb-24px rounded-2px pl-11px flex items-center select-none">
+          <safety-certificate-outlined class="font-color" style="font-size: 16px; margin-right: 4px" />
+          <span class="c-#AAAAAA">请插入数字证书</span>
+        </div>
+      </template>
+      <a-form-item>
+        <a-button size="large" type="primary" block html-type="submit"> 登录 </a-button>
       </a-form-item>
-
-      <a-form-item style="margin-top: 24px">
-        <a-button
-          class="login-button"
-          size="large"
-          type="primary"
-          html-type="submit"
-          :loading="state.loginBtn"
-          :disabled="state.loginBtn"
-          >登录</a-button
-        >
-      </a-form-item>
-
-      <div class="user-login-other">
-        <span>其他登录方式</span>
-        <a>
-          <alipay-circle-outlined class="item-icon"></alipay-circle-outlined>
-        </a>
-        <a>
-          <taobao-circle-outlined class="item-icon"></taobao-circle-outlined>
-        </a>
-        <a>
-          <weibo-circle-outlined class="item-icon"></weibo-circle-outlined>
-        </a>
-        <router-link class="register" :to="{ path: '/' }">注册账户</router-link>
+      <div v-if="false" class="change-btn-group">
+        <div v-if="isAccountLogin" class="font-color cursor-pointer select-none" @click="onAccountLoginChange">
+          数字证书登录<double-right-outlined />
+        </div>
+        <div v-else class="font-color cursor-pointer select-none" @click="onAccountLoginChange">
+          账号方式登录<double-right-outlined />
+        </div>
       </div>
     </a-form>
   </div>
 </template>
 
 <style lang="less" scoped>
-.user-layout-login {
-  label {
-    font-size: 14px;
+.login-wrap {
+  min-height: 100%;
+  position: relative;
+  background-color: #ccc;
+  // background-image: url(@/assets/img/Sign-in.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  .user-layout-login {
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    width: 350px;
+    transform: translateY(-50%);
+    background-color: #fff;
+    padding: 40px;
+    box-shadow: 1px 1px 7px 0px rgb(0 0 0 / 12%);
   }
-  .ant-tabs-tab {
-    padding: 12px 16px;
-  }
-
-  .getCaptcha {
-    display: block;
-    width: 100%;
-    height: 40px;
-  }
-
-  .forge-password {
-    font-size: 14px;
-  }
-
-  button.login-button {
-    padding: 0 15px;
-    font-size: 16px;
-    height: 40px;
-    width: 100%;
-  }
-
-  .user-login-other {
-    text-align: left;
-    margin-top: 24px;
-    line-height: 22px;
-
-    .item-icon {
-      font-size: 24px;
-      color: rgba(0, 0, 0, 0.2);
-      margin-left: 16px;
-      vertical-align: middle;
-      cursor: pointer;
-      transition: color 0.3s;
-
-      &:hover {
-        color: @primary-color;
-      }
-    }
-
-    .register {
-      float: right;
-    }
-  }
-}
-</style>
-<style lang="less">
-.user-layout-login {
-  .ant-tabs-tab {
-    padding: 12px 16px;
+  .font-color {
+    --un-text-opacity: 1;
+    color: @primary-color;
   }
 }
 </style>
