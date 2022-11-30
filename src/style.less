@@ -21,11 +21,14 @@ ul,
 ol {
   list-style: none;
 }
-
 // 页面公共样式
+@page-margin: 16px;
+@page-padding: 24px;
+
 .page-wrap {
-  margin: 16px;
+  margin: @page-margin;
   background-color: #fff;
-  padding: 24px;
-  border-radius: 2px;
+  padding: @page-padding;
+  border-radius: @border-radius-base;
+  min-height: calc(100vh - @header-height - (2 * @page-margin));
 }

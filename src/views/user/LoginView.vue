@@ -68,7 +68,7 @@ function loginSuccess() {
       autocomplete="off"
       @finish-failed="onFinishFailed"
       @finish="onFinish">
-      <div class="text-center mb-30px font-500 text-size-24px">XX管理系统</div>
+      <div class="text-center mb-30px font-500 text-size-24px">前端脚手架系统</div>
       <template v-if="isAccountLogin">
         <a-form-item name="account" :rules="[{ required: true, message: '请输入用户名！' }]">
           <a-input v-model:value="formState.account" size="large" placeholder="用户名">
@@ -90,9 +90,9 @@ function loginSuccess() {
           <span class="c-#AAAAAA">请插入数字证书</span>
         </div>
       </template>
-      <a-form-item>
+      <div class="pt-12px">
         <a-button size="large" type="primary" block html-type="submit"> 登录 </a-button>
-      </a-form-item>
+      </div>
       <div v-if="false" class="change-btn-group">
         <div v-if="isAccountLogin" class="font-color cursor-pointer select-none" @click="onAccountLoginChange">
           数字证书登录<double-right-outlined />
@@ -115,12 +115,12 @@ function loginSuccess() {
   background-size: cover;
   .user-layout-login {
     position: absolute;
-    top: 50%;
-    right: 10%;
-    width: 350px;
+    top: 48%;
+    right: 14%;
+    width: 400px;
     transform: translateY(-50%);
     background-color: #fff;
-    padding: 40px;
+    padding: 40px 50px 56px 50px;
     box-shadow: 1px 1px 7px 0px rgb(0 0 0 / 12%);
   }
   .font-color {

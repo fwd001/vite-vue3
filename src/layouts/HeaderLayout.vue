@@ -1,10 +1,10 @@
 <template>
   <div class="layout-header-box header-box flex justify-between">
     <div class="flex items-center pl-20px">
-      <div class="h-42px w-130px flex justify-center items-center relative overflow-hidden bg-#ccc">
+      <div class="h-42px w-130px flex justify-center items-center relative overflow-hidden bg-#eaeaea">
         <!-- <img class="h-100% user-drag" src="@/assets/img/logo.png" alt="log" /> -->
       </div>
-      <span class="ml-12px">XX管理系统</span>
+      <span class="ml-12px">前端脚手架系统</span>
     </div>
     <div class="user-box flex justify-end">
       <a-dropdown>
@@ -14,7 +14,7 @@
               <UserOutlined />
             </template>
           </a-avatar>
-          <span class="ml-12px">{{ 'xxx' }}</span>
+          <span class="ml-12px">{{ '前端开发' }}</span>
         </span>
         <template #overlay>
           <a-menu>

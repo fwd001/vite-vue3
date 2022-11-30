@@ -109,12 +109,8 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
           manualChunks: (id: any) => {
             if (id.includes('node_modules')) {
               let chunkName = 'index'
-              if (id.includes('registry.npmjs.org')) {
-                chunkName = id
-                  .toString()
-                  .split(/\+(\S*)@/)[1]
-                  .split('/')[0]
-                  .toString()
+              if (id.includes('/.pnpm/')) {
+                chunkName = id.toString().split('/.pnpm/')[1].split('/')[0].toString()
               } else {
                 chunkName = id.toString().split('node_modules/')[1].split('/')[0].toString()
               }
