@@ -11,18 +11,9 @@
       :open-keys="openKeys"
       @click="menuClick">
       <template v-for="menu in navPowerList">
-        <a-menu-item
-          v-if="!menu.children"
-          :key="`${menu.path}`"
-          :class="[{ 'ant-menu-item-selected': $route.path.includes(menu.path) }]">
+        <a-sub-menu v-if="menu?.children?.length" :key="`${menu.path}`">
           <template #icon>
-            <component :is="proxy?.$antdIcons[menu.icon]" />
-          </template>
-          <span>{{ menu.name }}</span>
-        </a-menu-item>
-        <a-sub-menu v-else :key="menu.path">
-          <template #icon>
-            <component :is="proxy?.$antdIcons[menu.icon]" />
+            <component :is="menu.icon" />
           </template>
           <template #title>
             <span>{{ menu.name }}</span>
@@ -30,10 +21,19 @@
           <a-menu-item
             v-for="sub in menu.children"
             :key="sub.path"
-            :class="[{ 'ant-menu-item-selected': $route.path.includes(sub.path) }]">
+            :class="['ant-menu-item', { 'ant-menu-item-selected': route.path.includes(menu.path) }]">
             {{ sub.name }}
           </a-menu-item>
         </a-sub-menu>
+        <a-menu-item
+          v-else
+          :key="`${menu.path}`"
+          :class="['ant-menu-item', { 'ant-menu-item-selected': route.path.includes(menu.path) }]">
+          <template #icon>
+            <component :is="menu.icon" />
+          </template>
+          <span>{{ menu.name }}</span>
+        </a-menu-item>
       </template>
     </a-menu>
   </div>
@@ -43,13 +43,11 @@
 // import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
 import { globalConfig } from '@/config'
 import { useRoute, useRouter } from 'vue-router'
-import { ref, computed, getCurrentInstance, withDefaults } from 'vue'
+import { ref, computed, withDefaults } from 'vue'
 
 // const { mixinPower } = useGlobalSetup();
 const route = useRoute()
 const router = useRouter()
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const { proxy }: any = getCurrentInstance()
 
 interface Props {
   collapsed?: boolean
@@ -64,7 +62,6 @@ const defaultOpenKeys = ['groupon']
 // 只有第一次创建的时候需要自动获取当前展开的菜单 后续以用户操作为准
 let pathname = location.pathname
 let openKey = pathname.split('/')[1]
-console.log('openKey', openKey)
 
 const openKeys = ref(defaultOpenKeys.includes(openKey) ? [openKey] : defaultOpenKeys)
 
@@ -122,36 +119,95 @@ const menuClick = (info: any) => {
   height: 100vh;
 }
 
-.menu-box {
+/**
+ * 重写antdvue菜单样式
+ */
+@menu-text-color: #000000e0;
+@menu-active-bg-color: #bae0ff;
+@menu-hover-bg-color: #0000000f;
+@menu-radius: 8px;
+
+:deep(.menu-box) {
   overflow: auto;
-}
-.nav-top {
-  width: 100%;
-  height: 64px;
-  font-size: 20px;
-  line-height: 64px;
-  width: 256px;
-  position: relative;
-  .nav-top-logo {
-    padding-left: 16px;
-    height: 100%;
-    .logo-box {
-      width: 72px;
-      font-size: 18px;
-      color: #333;
+  color: @menu-text-color !important;
+
+  // item样式
+  .ant-menu-item {
+    width: auto !important;
+    margin: 4px;
+    border-radius: @menu-radius;
+    user-select: none;
+    &:hover {
+      background-color: @menu-hover-bg-color;
+      .ant-menu-item-icon {
+        color: @menu-text-color;
+      }
+      .ant-menu-title-content {
+        color: @menu-text-color;
+      }
+      .ant-menu-submenu-arrow {
+        color: @menu-text-color;
+      }
+    }
+    &:active {
+      background-color: @menu-active-bg-color;
     }
   }
-  .collapsed-icon {
-    position: relative;
-    left: -4px;
-    width: 20px;
-    height: 20px;
-    font-size: 18px;
-    color: #fff;
-    transition: left 500ms 100ms;
+  // 折叠item标题
+  .ant-menu-submenu {
+    &:hover {
+      .ant-menu-item-icon {
+        color: @menu-text-color!important;
+      }
+      .ant-menu-title-content {
+        color: @menu-text-color!important;
+      }
+      .ant-menu-submenu-arrow {
+        color: @menu-text-color!important;
+      }
+    }
+    &.ant-menu-submenu-active {
+      .ant-menu-submenu-title {
+        background-color: transparent;
+        .ant-menu-item-icon {
+          color: @menu-text-color!important;
+        }
+        .ant-menu-title-content {
+          color: @menu-text-color!important;
+        }
+        .ant-menu-submenu-arrow {
+          color: @menu-text-color!important;
+        }
+      }
+    }
+    .ant-menu-submenu-title {
+      width: auto !important;
+      margin: 4px;
+      border-radius: 8px;
+      user-select: none;
+      &:hover {
+        background-color: @menu-hover-bg-color;
+      }
+      &:active {
+        background-color: @menu-active-bg-color;
+      }
+    }
   }
-  .collapsed-icon-hide {
-    left: -29px;
+  // 选中的item
+  .ant-menu-item-selected {
+    background-color: @menu-active-bg-color !important;
+    &::after {
+      display: none;
+    }
+    &:hover {
+      background-color: @menu-active-bg-color;
+    }
+    .ant-menu-item-icon {
+      color: @menu-text-color;
+    }
+    .ant-menu-title-content {
+      color: @menu-text-color;
+    }
   }
 }
 </style>

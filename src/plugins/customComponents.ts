@@ -11,3 +11,4 @@
 //   app.component(SvgIcon.name, SvgIcon);
 //   app.component(IconFont.name, IconFont);
 // }
+export {}

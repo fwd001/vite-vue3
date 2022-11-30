@@ -10,3 +10,4 @@
 //   // 权限控制指令（演示）
 //   app.directive('permission', permission);
 // }
+export {}

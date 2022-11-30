@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + Vue3 + TS</title>
     <style>
+      body,html {
+        margin: 0;
+        padding: 0;
+      }
       .first-loading-wrp {
         display: flex;
         justify-content: center;
@@ -103,11 +107,11 @@
     <div id="app">
       <!-- 首次加载界面 -->
       <div class="first-loading-wrp">
-        <h1 class="loading-title" style="margin: 0; padding: 0; font-weight: 600; line-height: 1em;">LHCZ</h1>
+        <h1 class="loading-title" style="margin: 0; padding: 0; font-weight: 600; line-height: 1em;">前端脚手架</h1>
         <div class="loading-wrp">
           <span class="loading-dot"><i></i><i></i><i></i><i></i></span>
         </div>
-        <div style="text-align: center;font-size: 16px;line-height: 1em;">loading...</div>
+        <div style="text-align: center;font-size: 16px;line-height: 1em;">加载中...</div>
       </div>
     </div>
     <script type="module" src="/src/main.ts"></script>

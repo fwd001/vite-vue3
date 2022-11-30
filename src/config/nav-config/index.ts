@@ -1,18 +1,19 @@
+import { FileSearchOutlined, HomeOutlined, MacCommandOutlined } from '@ant-design/icons-vue'
 const navList = [
   {
     name: '首页',
     path: '/index',
-    icon: 'HomeOutlined',
+    icon: HomeOutlined,
   },
   {
     name: '查询',
     path: '/keywords',
-    icon: 'BoxPlotOutlined',
+    icon: FileSearchOutlined,
   },
   {
     name: '分组管理',
     path: 'groupon',
-    icon: 'ShopOutlined',
+    icon: MacCommandOutlined,
     children: [
       {
         name: 'fwd-demo',

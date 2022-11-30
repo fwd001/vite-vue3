@@ -14,3 +14,4 @@
 //   // 全局挂载Reflect反射对象,以便在vue模板中使用
 //   app.config.globalProperties.Reflect = Reflect;
 // }
+export {}

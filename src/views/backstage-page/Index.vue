@@ -29,11 +29,12 @@ function toLoginView() {
 
 <template>
   <div class="page-wrap">
-    <h2>{{ userStore.name }}</h2>
-    <h2>{{ userStore.nameLength }}</h2>
-    <a-button block>按钮</a-button>
-    <button @click="updataUser">修改</button>
-    <button @click="toLoginView">toLoginView</button>
+    <div class="mb-12px">
+      <span>{{ userStore.name }}: </span>
+      <span>{{ userStore.nameLength }}</span>
+    </div>
+    <a-button class="mb-12px" block @click="updataUser">修改</a-button>
+    <button class="mb-12px" @click="toLoginView">toLoginView</button>
     <div class="card">
       <button type="button" @click="count++">count is {{ count }}</button>
       <p>

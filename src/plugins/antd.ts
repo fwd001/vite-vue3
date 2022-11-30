@@ -8,10 +8,9 @@ import 'ant-design-vue/es/notification/style/css'
 import 'ant-design-vue/es/modal/style/css'
 
 import 'dayjs/locale/zh-cn'
-import * as antdIcons from '@ant-design/icons-vue'
 
 export function setupAntd(app: App<Element>) {
   app.component('AButton', AButton)
   // 添加到全局
-  app.config.globalProperties.$antdIcons = antdIcons
+  // app.config.globalProperties.$antdIcons = antdIcons
 }

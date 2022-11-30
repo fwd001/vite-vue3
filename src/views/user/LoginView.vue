@@ -109,8 +109,8 @@ function loginSuccess() {
 .login-wrap {
   min-height: 100%;
   position: relative;
-  background-color: #ccc;
-  // background-image: url(@/assets/img/Sign-in.png);
+  background-color: #0000000f;
+  // background-image: url(@/assets/images/Sign-in.png);
   background-repeat: no-repeat;
   background-size: cover;
   .user-layout-login {
@@ -121,7 +121,7 @@ function loginSuccess() {
     transform: translateY(-50%);
     background-color: #fff;
     padding: 40px 50px 56px 50px;
-    box-shadow: 1px 1px 7px 0px rgb(0 0 0 / 12%);
+    box-shadow: @box-shadow-base;
   }
   .font-color {
     --un-text-opacity: 1;

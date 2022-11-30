@@ -1,8 +1,8 @@
 <template>
   <div class="layout-header-box header-box flex justify-between">
     <div class="flex items-center pl-20px">
-      <div class="h-42px w-130px flex justify-center items-center relative overflow-hidden bg-#eaeaea">
-        <!-- <img class="h-100% user-drag" src="@/assets/img/logo.png" alt="log" /> -->
+      <div class="logo-wrap h-42px w-130px flex justify-center items-center relative overflow-hidden bg-#eaeaea">
+        <img class="h-100% user-drag" src="@/assets/images/logo.svg" alt="logo.png" />
       </div>
       <span class="ml-12px">前端脚手架系统</span>
     </div>
@@ -52,17 +52,22 @@ async function fnLogoutLocal() {
   z-index: 2;
   height: @header-height;
   background: @bg-main;
-  color: #333;
-  box-shadow: -2px -1px 2px 1px rgb(0 0 0 / 20%);
+  color: @text-color;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 3%), 0 1px 6px -1px rgb(0 0 0 / 2%), 0 2px 4px 0 rgb(0 0 0 / 2%);
+  .logo-wrap {
+    border-radius: @border-radius-base;
+  }
 }
 .user-box {
   padding-right: 30px;
   .user-avatar-wrap {
     padding: 0 12px;
-    height: @header-height;
+    height: calc(@header-height - 8px);
+    border-radius: @border-radius-base;
     user-select: none;
+    margin: 4px;
     &:hover {
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: #0000000f;
     }
     .avatar {
       color: #fff;
