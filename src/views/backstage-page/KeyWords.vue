@@ -1,6 +1,11 @@
 <template>
   <div class="keywords-wrap page-wrap">
-    <a-form ref="formRef" name="advanced_search" class="ant-advanced-search-form" :model="formState" @finish="onFinish">
+    <a-form
+      ref="formRef"
+      name="advanced_search"
+      class="ant-advanced-search-form"
+      :model="formState"
+      @finish="onFinish">
       <a-row :gutter="24">
         <a-col :span="12">
           <a-form-item
@@ -19,18 +24,31 @@
           </a-form-item>
         </a-col>
         <a-col :span="8">
-          <a-form-item :name="`field-3`" label="QB发起人" :rules="[{ required: false, message: 'input something' }]">
+          <a-form-item
+            :name="`field-3`"
+            label="QB发起人"
+            :rules="[{ required: false, message: 'input something' }]">
             <a-input v-model:value="formState[`field-3`]" placeholder="placeholder"></a-input>
           </a-form-item>
         </a-col>
         <a-col :span="8">
-          <a-form-item :name="`field-4`" label="QB发时间" :rules="[{ required: false, message: 'input something' }]">
+          <a-form-item
+            :name="`field-4`"
+            label="QB发时间"
+            :rules="[{ required: false, message: 'input something' }]">
             <a-date-picker v-model:value="formState[`field-4`]" style="width: 100%" />
           </a-form-item>
         </a-col>
         <a-col :span="8">
-          <a-form-item :name="`field-5`" label="QB来源" :rules="[{ required: false, message: 'input something' }]">
-            <a-select v-model:value="formState[`field-5`]" placeholder="placeholder" allow-clear style="width: 100%">
+          <a-form-item
+            :name="`field-5`"
+            label="QB来源"
+            :rules="[{ required: false, message: 'input something' }]">
+            <a-select
+              v-model:value="formState[`field-5`]"
+              placeholder="placeholder"
+              allow-clear
+              style="width: 100%">
               <a-select-option value="jack">Jack</a-select-option>
               <a-select-option value="lucy">Lucy</a-select-option>
               <a-select-option value="Yiminghe">yiminghe</a-select-option>
@@ -38,8 +56,15 @@
           </a-form-item>
         </a-col>
         <a-col :span="8">
-          <a-form-item :name="`field-6`" label="估值" :rules="[{ required: false, message: 'input something' }]">
-            <a-select v-model:value="formState[`field-6`]" placeholder="placeholder" allow-clear style="width: 100%">
+          <a-form-item
+            :name="`field-6`"
+            label="估值"
+            :rules="[{ required: false, message: 'input something' }]">
+            <a-select
+              v-model:value="formState[`field-6`]"
+              placeholder="placeholder"
+              allow-clear
+              style="width: 100%">
               <a-select-option value="jack">Jack</a-select-option>
               <a-select-option value="lucy">Lucy</a-select-option>
               <a-select-option value="Yiminghe">yiminghe</a-select-option>

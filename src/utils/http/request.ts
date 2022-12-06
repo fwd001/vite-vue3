@@ -48,7 +48,10 @@ const transform: AxiosTransform = {
           config.params = undefined
         }
         if (joinParamsToUrl) {
-          config.url = setObjToUrlParams(config.url as string, Object.assign({}, config.params, config.data))
+          config.url = setObjToUrlParams(
+            config.url as string,
+            Object.assign({}, config.params, config.data),
+          )
         }
       } else {
         // 兼容restful风格
@@ -145,7 +148,10 @@ class Request {
   }
 
   // 定义请求方法
-  public request<T = any>(config: AxiosRequestConfig, options: RequestOptions = {}): Promise<Result<T>> {
+  public request<T = any>(
+    config: AxiosRequestConfig,
+    options: RequestOptions = {},
+  ): Promise<Result<T>> {
     const cf = transform.beforeRequestHook?.(config, options) || {}
     return this.instance.request(cf)
   }

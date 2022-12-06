@@ -1,7 +1,8 @@
 <template>
   <div class="layout-header-box header-box flex justify-between">
     <div class="flex items-center pl-20px">
-      <div class="logo-wrap h-42px w-130px flex justify-center items-center relative overflow-hidden bg-#eaeaea">
+      <div
+        class="logo-wrap h-42px w-130px flex justify-center items-center relative overflow-hidden bg-#eaeaea">
         <img class="h-100% user-drag" src="@/assets/images/logo.svg" alt="logo.png" />
       </div>
       <span class="ml-12px">前端脚手架系统</span>
@@ -53,7 +54,8 @@ async function fnLogoutLocal() {
   height: @header-height;
   background: @bg-main;
   color: @text-color;
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 3%), 0 1px 6px -1px rgb(0 0 0 / 2%), 0 2px 4px 0 rgb(0 0 0 / 2%);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 3%), 0 1px 6px -1px rgb(0 0 0 / 2%),
+    0 2px 4px 0 rgb(0 0 0 / 2%);
   .logo-wrap {
     border-radius: @border-radius-base;
   }

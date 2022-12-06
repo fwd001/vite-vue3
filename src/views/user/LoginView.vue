@@ -5,7 +5,12 @@ export default defineComponent({ name: 'LoginView' })
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { FormInstance, message } from 'ant-design-vue'
-import { LockOutlined, UserOutlined, DoubleRightOutlined, SafetyCertificateOutlined } from '@ant-design/icons-vue'
+import {
+  LockOutlined,
+  UserOutlined,
+  DoubleRightOutlined,
+  SafetyCertificateOutlined,
+} from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 
@@ -78,7 +83,11 @@ function loginSuccess() {
         <a-form-item
           name="password"
           :rules="[{ required: true, message: '请输入密码！' }, { validator: checkPassword }]">
-          <a-input v-model:value="formState.password" size="large" type="password" placeholder="密码">
+          <a-input
+            v-model:value="formState.password"
+            size="large"
+            type="password"
+            placeholder="密码">
             <template #prefix><LockOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
           </a-input>
         </a-form-item>
@@ -86,7 +95,9 @@ function loginSuccess() {
       <!-- 证书登录 -->
       <template v-else>
         <div class="h-40.14px bg-#F6F7FB mb-24px rounded-2px pl-11px flex items-center select-none">
-          <safety-certificate-outlined class="font-color" style="font-size: 16px; margin-right: 4px" />
+          <safety-certificate-outlined
+            class="font-color"
+            style="font-size: 16px; margin-right: 4px" />
           <span class="c-#AAAAAA">请插入数字证书</span>
         </div>
       </template>
@@ -94,7 +105,10 @@ function loginSuccess() {
         <a-button size="large" type="primary" block html-type="submit"> 登录 </a-button>
       </div>
       <div v-if="false" class="change-btn-group">
-        <div v-if="isAccountLogin" class="font-color cursor-pointer select-none" @click="onAccountLoginChange">
+        <div
+          v-if="isAccountLogin"
+          class="font-color cursor-pointer select-none"
+          @click="onAccountLoginChange">
           数字证书登录<double-right-outlined />
         </div>
         <div v-else class="font-color cursor-pointer select-none" @click="onAccountLoginChange">

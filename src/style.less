@@ -1,15 +1,16 @@
-html,
+html {
+  font-size: 4px; // * 方便unocss计算：1单位 = 0.25rem = 1px
+}
 body {
-  height: 100%;
   color: @text-color;
   font-size: @font-size-base;
-}
-
-body {
+  text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizelegibility;
 }
+
+html,
+body,
 #app {
   height: 100vh;
   -webkit-font-smoothing: antialiased;

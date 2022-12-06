@@ -1,5 +1,8 @@
 <template>
-  <Button v-bind="{ ...$attrs, ...props }" :type="buttonType" :class="[`ant-btn-${type}`, { 'basic-btn': colorVar }]">
+  <Button
+    v-bind="{ ...$attrs, ...props }"
+    :type="buttonType"
+    :class="[`ant-btn-${type}`, { 'basic-btn': colorVar }]">
     <template v-for="(_, key) in $slots" #[key]>
       <slot :name="key"></slot>
     </template>
@@ -17,9 +20,13 @@ const props = defineProps({
   ...buttonProps(),
   type: {
     type: String as PropType<ButtonType>,
+    default: undefined,
   },
   // 自定义按钮颜色
-  color: String,
+  color: {
+    type: String,
+    default: undefined,
+  },
 })
 
 const buttonType = computed(() => {

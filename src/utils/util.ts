@@ -387,7 +387,10 @@ export const getTime = (time = [], name = []) => ({
 })
 
 // 解决ts解析key值报错
-export function isValidKey(key: string | number | symbol, object: object): key is keyof typeof object {
+export function isValidKey(
+  key: string | number | symbol,
+  object: object,
+): key is keyof typeof object {
   return key in object
 }
 
