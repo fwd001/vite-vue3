@@ -39,7 +39,7 @@ function fnLogout() {
 // 清除本地token
 async function fnLogoutLocal() {
   try {
-    router.push('/user/login')
+    router.push('/login')
   } catch (error) {}
 }
 </script>

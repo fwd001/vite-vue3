@@ -11,8 +11,8 @@ export function createRouterGuards(router: Router) {
     NProgress.start() // start progress bar
     // eslint-disable-next-line no-console
     console.log('to', to)
-    if (to.fullPath === '/login') {
-      next({ path: '/user/login' })
+    if (to.fullPath === '/user/login') {
+      next({ path: '/login' })
     } else {
       next()
     }

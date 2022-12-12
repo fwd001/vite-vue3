@@ -2,7 +2,7 @@
 
 ## 脚手架
 - 脚手架npm地址: https://www.npmjs.com/package/lcfe-cli
-- 脚手架工具仓库: http://gitlab.lhcz.co/fe/lcfe-cli
+- 脚手架工具仓库: http://git.lhcz.co/fe/lcfe-cli
 - 脚手架文档: http://192.168.240.169:9696/zh/%E5%89%8D%E7%AB%AF/fe-cli
 
 ## 工具相关文档

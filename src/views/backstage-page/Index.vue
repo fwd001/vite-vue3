@@ -17,13 +17,13 @@ const router = useRouter()
 
 const updataUser = () => {
   userStore.updataUser('welcome,名字')
-  run({})
+  run({ query: 'string' })
 }
 
-const { data, run } = useRequest(apiList)
+const { data, run } = useRequest(apiList, { defaultParams: [{ query: 'string' }] })
 
 function toLoginView() {
-  router.push({ path: '/user/login' })
+  router.push({ path: '/login' })
 }
 </script>
 
@@ -37,144 +37,45 @@ function toLoginView() {
     <button class="mb-12px" @click="toLoginView">toLoginView</button>
     <div class="card">
       <button type="button" @click="count++">count is {{ count }}</button>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      <p>
-        Edit
-        <code>components/HelloWorld.vue</code> to test HMR
-      </p>
-      {{ data }}
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
 
+      <p>请求测试：</p>
+      <p>{{ data }}</p>
+
+      <p>富文本</p>
       <TinymceEditor
         api-key="no-api-key"
         :init="{

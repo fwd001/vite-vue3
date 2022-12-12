@@ -1,3 +1,11 @@
+<!-- keywords -->
+<script lang="ts">
+import { defineComponent } from 'vue'
+export default defineComponent({
+  name: 'Keywords',
+})
+</script>
+
 <template>
   <div class="keywords-wrap page-wrap">
     <a-form
@@ -93,9 +101,9 @@
     </a-table>
   </div>
 </template>
-<!-- keywords -->
-<script lang="ts">
-import { defineComponent, reactive, ref, computed } from 'vue'
+
+<script lang="ts" setup>
+import { reactive, ref, computed } from 'vue'
 import type { FormInstance } from 'ant-design-vue'
 import { usePagination } from 'vue-request'
 import axios from 'axios'
@@ -147,73 +155,51 @@ type APIResult = {
 const queryData = (params: APIParams) => {
   return axios.get<APIResult>('https://randomuser.me/api?noinfo', { params })
 }
-
-export default defineComponent({
-  components: {
-    // DownOutlined,
-    // UpOutlined
-  },
-  setup() {
-    const expand = ref(false)
-    const formRef = ref<FormInstance>()
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const formState = reactive<any>({})
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const onFinish = (values: any) => {
-      // console.log("formState: ", formState);
-      // eslint-disable-next-line no-console
-      console.log('Received values of form: ', values)
-    }
-    const {
-      data: dataSource,
-      run,
-      loading,
-      current,
-      pageSize,
-    } = usePagination(queryData, {
-      formatResult: (res) => res.data.results,
-      pagination: {
-        currentKey: 'page',
-        pageSizeKey: 'results',
-      },
-    })
-    function onSubmit() {
-      current.value = 1
-    }
-
-    const pagination = computed(() => ({
-      total: 200,
-      current: current.value,
-      pageSize: pageSize.value,
-    }))
-    function handleTableChange(
-      pag: { pageSize: number; current: number },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      filters: any,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      sorter: any,
-    ) {
-      run({
-        results: pag.pageSize!,
-        page: pag?.current,
-        sortField: sorter.field,
-        sortOrder: sorter.order,
-        ...filters,
-      })
-    }
-    return {
-      formRef,
-      onSubmit,
-      formState,
-      expand,
-      onFinish,
-      dataSource,
-      pagination,
-      loading,
-      columns,
-      handleTableChange,
-    }
+const formRef = ref<FormInstance>()
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const formState = reactive<any>({})
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const onFinish = (values: any) => {
+  // console.log("formState: ", formState);
+  // eslint-disable-next-line no-console
+  console.log('Received values of form: ', values)
+}
+const {
+  data: dataSource,
+  run,
+  loading,
+  current,
+  pageSize,
+} = usePagination(queryData, {
+  formatResult: (res) => res.data.results,
+  pagination: {
+    currentKey: 'page',
+    pageSizeKey: 'results',
   },
 })
+function onSubmit() {
+  current.value = 1
+}
+
+const pagination = computed(() => ({
+  total: 200,
+  current: current.value,
+  pageSize: pageSize.value,
+}))
+function handleTableChange(
+  pag: { pageSize: number; current: number },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  filters: any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  sorter: any,
+) {
+  run({
+    results: pag.pageSize!,
+    page: pag?.current,
+    sortField: sorter.field,
+    sortOrder: sorter.order,
+    ...filters,
+  })
+}
 </script>
 <style lang="less"></style>

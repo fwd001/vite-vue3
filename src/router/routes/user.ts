@@ -8,7 +8,7 @@ const routes = [
     component: UserLayout,
     children: [
       {
-        path: 'login',
+        path: '/login',
         name: 'HomeLogin',
         component: HomeLogin,
         meta: { title: '登录' },
