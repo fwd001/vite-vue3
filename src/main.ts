@@ -5,8 +5,8 @@ import { setupMitt } from '@/utils/event-bus'
 import { setupStore } from 'store'
 import './style.less'
 import '@/utils/polyfill'
-import Editor from '@tinymce/tinymce-vue'
-import { setupAntd, setupAssets } from '@/plugins'
+
+import { setupAntd, setupAssets, setupTinymce } from '@/plugins'
 
 const app = createApp(App)
 
@@ -16,7 +16,7 @@ function setupPlugins() {
   // 引入静态资源
   setupAssets()
   // 编辑器
-  app.component('TinymceEditor', Editor)
+  setupTinymce(app)
   // 初始化事件总线
   setupMitt(app)
 }
