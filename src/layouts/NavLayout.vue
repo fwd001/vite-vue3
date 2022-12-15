@@ -21,16 +21,13 @@
           <a-menu-item
             v-for="sub in menu.children"
             :key="sub.path"
-            :class="[
-              'ant-menu-item',
-              { 'ant-menu-item-selected': route.path.includes(menu.path) },
-            ]">
+            :class="['ant-menu-item', { 'ant-menu-item-selected': route.path.includes(sub.path) }]">
             {{ sub.name }}
           </a-menu-item>
         </a-sub-menu>
         <a-menu-item
           v-else
-          :key="`${menu.path}`"
+          :key="menu.path"
           :class="['ant-menu-item', { 'ant-menu-item-selected': route.path.includes(menu.path) }]">
           <template #icon>
             <component :is="menu.icon" />

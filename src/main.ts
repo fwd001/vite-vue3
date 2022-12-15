@@ -3,10 +3,9 @@ import App from './App.vue'
 import { setupRouter } from '@/router/index'
 import { setupMitt } from '@/utils/event-bus'
 import { setupStore } from 'store'
+import { setupAntd, setupAssets, setupTinymce } from '@/plugins'
 import './style.less'
 import '@/utils/polyfill'
-
-import { setupAntd, setupAssets, setupTinymce } from '@/plugins'
 
 const app = createApp(App)
 
