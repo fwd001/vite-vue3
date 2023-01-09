@@ -90,14 +90,16 @@ class Request {
     this.instance.interceptors.response.use(
       (response: AxiosResponse) => {
         const { code, msg } = response.data
-        if (code !== '0' && msg) {
-          message.error(msg)
-        }
         // token 失效
         if (code === 'AU0000') {
           sessionStorage.clear()
-          window.location.href = import.meta.env.VITE_AUTHORIZE_HREF
-          return response.data
+          // window.location.href = import.meta.env.VITE_AUTHORIZE_HREF
+          return Promise.reject(response.data)
+        }
+
+        if (code !== '0' && msg) {
+          message.error(msg)
+          return Promise.reject(response.data)
         }
         // 直接返回res，当然你也可以只返回res.data
         return response.data
