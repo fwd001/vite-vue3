@@ -89,7 +89,10 @@ class Request {
 
     this.instance.interceptors.response.use(
       (response: AxiosResponse) => {
-        const { code } = response.data
+        const { code, msg } = response.data
+        if (code !== '0' && msg) {
+          message.error(msg)
+        }
         // token 失效
         if (code === 'AU0000') {
           sessionStorage.clear()
