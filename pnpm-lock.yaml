@@ -22,7 +22,7 @@ specifiers:
   echarts: ^5.4.1
   eslint: ^8.31.0
   eslint-config-prettier: ^8.6.0
-  eslint-define-config: ^1.13.0
+  eslint-define-config: ^1.14.0
   eslint-plugin-prettier: ^4.2.1
   eslint-plugin-vue: ^9.8.0
   husky: ^8.0.3
@@ -86,7 +86,7 @@ devDependencies:
   cz-git: 1.4.1
   eslint: 8.31.0
   eslint-config-prettier: 8.6.0_eslint@8.31.0
-  eslint-define-config: 1.13.0
+  eslint-define-config: 1.14.0
   eslint-plugin-prettier: 4.2.1_iu5s7nk6dw7o3tajefwfiqfmge
   eslint-plugin-vue: 9.8.0_eslint@8.31.0
   husky: 8.0.3
@@ -2527,8 +2527,8 @@ packages:
       eslint: 8.31.0
     dev: true
 
-  /eslint-define-config/1.13.0:
-    resolution: {integrity: sha512-d0BfmPGBcMusfiz6QY/piAhWaEyJriJtvk9SHfuJzI7am9k4ce07SfmPkpcR0ckXNyu4FBons10akOO2Tx+X+Q==}
+  /eslint-define-config/1.14.0:
+    resolution: {integrity: sha512-NREt5SzMwKmLAY28YdaqIiTSJxfPpuZ+1ZLJxY2Wbj02dYF4QX81z0q9MPMjZB8C+SlCu66qAhcPpFJyhXOiuA==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0, npm: '>=6.14.13', pnpm: '>= 7.0.0'}
     dev: true
 
@@ -3228,8 +3228,8 @@ packages:
       supports-color: 8.1.1
     dev: true
 
-  /jiti/1.16.1:
-    resolution: {integrity: sha512-kJUp4Bj44uTaZAwG6R2/GjbodOWHULn8Swue0B7tY8v5BpTkUvDR+zBM5tsbC4x/jCeYDZ+mAdrUIScwIo4oPw==}
+  /jiti/1.16.2:
+    resolution: {integrity: sha512-OKBOVWmU3FxDt/UH4zSwiKPuc1nihFZiOD722FuJlngvLz2glX1v2/TJIgoA4+mrpnXxHV6dSAoCvPcYQtoG5A==}
     hasBin: true
     dev: true
 
@@ -4020,8 +4020,8 @@ packages:
     dev: true
     optional: true
 
-  /punycode/2.1.1:
-    resolution: {integrity: sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==}
+  /punycode/2.2.0:
+    resolution: {integrity: sha512-LN6QV1IJ9ZhxWTNdktaPClrNfp8xdSAYS0Zk2ddX7XsXZAxckMHPCBcHRo0cTcEIgYPRiGEkmji3Idkh2yFtYw==}
     engines: {node: '>=6'}
     dev: true
 
@@ -4659,7 +4659,7 @@ packages:
     dependencies:
       '@antfu/utils': 0.5.2
       defu: 6.1.1
-      jiti: 1.16.1
+      jiti: 1.16.2
     dev: true
 
   /undici/5.14.0:
@@ -4760,7 +4760,7 @@ packages:
   /uri-js/4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
     dependencies:
-      punycode: 2.1.1
+      punycode: 2.2.0
     dev: true
 
   /util-deprecate/1.0.2:
