@@ -78,8 +78,9 @@ class Request {
       (config: AxiosRequestConfig) => {
         // 一般会请求拦截里面加token
         const token = sessionStorage.getItem('token') || ''
-        config.headers!.Authorization = token
-
+        config.headers = {
+          Authorization: token,
+        }
         return config
       },
       (err: any) => {
