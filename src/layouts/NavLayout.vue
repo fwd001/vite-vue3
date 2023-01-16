@@ -69,7 +69,7 @@ const navPowerList = computed(() => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let newArr: any[] = []
   globalConfig.navList.forEach((val) => {
-    if (!val.children) {
+    if (!val?.children?.length) {
       newArr.push(Object.assign({}, val))
       return
     }
