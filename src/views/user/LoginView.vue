@@ -68,7 +68,7 @@ function loginSuccess() {
     <a-form
       id="formLogin"
       ref="formLoginRef"
-      class="user-layout-login rounded-2px"
+      class="user-layout-login rounded-2px shadow-drop-2-tl"
       :model="formState"
       autocomplete="off"
       @finish-failed="onFinishFailed"
@@ -121,18 +121,16 @@ function loginSuccess() {
 
 <style lang="less" scoped>
 .login-wrap {
-  min-height: 100%;
+  min-height: 100vh;
   position: relative;
   background-color: #0000000f;
-  // background-image: url(@/assets/images/Sign-in.png);
   background-repeat: no-repeat;
   background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .user-layout-login {
-    position: absolute;
-    top: 48%;
-    right: 14%;
     width: 400px;
-    transform: translateY(-50%);
     background-color: #fff;
     padding: 40px 50px 56px 50px;
     box-shadow: @box-shadow-base;
@@ -140,6 +138,26 @@ function loginSuccess() {
   .font-color {
     --un-text-opacity: 1;
     color: @primary-color;
+  }
+}
+
+.shadow-drop-2-tl {
+  -webkit-animation: shadow-drop-2-tl 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: shadow-drop-2-tl 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes shadow-drop-2-tl {
+  0% {
+    -webkit-transform: translateZ(0) translateX(0) translateY(0);
+    transform: translateZ(0) translateX(0) translateY(0);
+    -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+  100% {
+    -webkit-transform: translateZ(50px) translateX(12px) translateY(12px);
+    transform: translateZ(50px) translateX(12px) translateY(12px);
+    -webkit-box-shadow: -12px -12px 20px -12px rgba(0, 0, 0, 0.35);
+    box-shadow: -12px -12px 20px -12px rgba(0, 0, 0, 0.35);
   }
 }
 </style>
