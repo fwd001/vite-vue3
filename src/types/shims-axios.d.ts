@@ -1,11 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AxiosRequestConfig } from 'axios'
+import 'axios'
 /**
  * 自定义扩展axios模块
  * @author Maybe
  */
 declare module 'axios' {
-  export interface AxiosInstance {
+  // interface AxiosRequestConfig {}
+  interface AxiosHeaders {
+    Authorization?: string
+    'Content-Type'?: string
+  }
+  interface AxiosInstance {
     <T = any>(config: AxiosRequestConfig): Promise<T>
     request<T = any>(config: AxiosRequestConfig): Promise<T>
     get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>
@@ -15,6 +20,6 @@ declare module 'axios' {
     put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>
     patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>
   }
-}
 
-declare type Recordable<T = any> = Record<string, T>
+  type Recordable<T = any> = Record<string, T>
+}

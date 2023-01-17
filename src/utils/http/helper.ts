@@ -1,4 +1,4 @@
-import { Recordable } from '@/types/shims-axios'
+import type { Recordable } from 'axios'
 import { isObject, isString } from '@/utils/is'
 
 const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm'

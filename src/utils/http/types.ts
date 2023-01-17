@@ -1,5 +1,4 @@
-import { Recordable } from '@/types/shims-axios'
-import { AxiosRequestConfig } from 'axios'
+import type { Recordable, AxiosRequestConfig } from 'axios'
 import { AxiosTransform } from './axiosTransform'
 import { long } from '@/types/index'
 

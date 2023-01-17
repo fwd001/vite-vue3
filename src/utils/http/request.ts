@@ -5,7 +5,7 @@ import { message } from 'ant-design-vue'
 import { isString } from '@/utils/is/'
 import { isUrl } from '@/utils/util'
 import { setObjToUrlParams } from '@/utils/urlUtils'
-import { RequestEnum } from '@/enum/httpEnum'
+import { RequestEnum, ContentTypeEnum } from '@/enum/httpEnum'
 import { joinTimestamp, formatRequestDate } from './helper'
 import { AxiosTransform } from './axiosTransform'
 import type { Result, RequestOptions } from './types'
@@ -40,12 +40,17 @@ const transform: AxiosTransform = {
     } else {
       if (!isString(params)) {
         formatDate && formatRequestDate(params)
-        if (Reflect.has(config, 'data') && config.data && Object.keys(config.data).length > 0) {
+        if (config.headers?.['Content-Type'] === ContentTypeEnum.FORM_DATA) {
           config.data = data
           config.params = params
         } else {
-          config.data = params
-          config.params = undefined
+          if (Reflect.has(config, 'data') && config.data && Object.keys(config.data).length > 0) {
+            config.data = data
+            config.params = params
+          } else {
+            config.data = params
+            config.params = undefined
+          }
         }
         if (joinParamsToUrl) {
           config.url = setObjToUrlParams(
@@ -68,7 +73,13 @@ class Request {
   // axios 实例
   public instance: AxiosInstance
   // 基础配置，url和超时时间
-  baseConfig: AxiosRequestConfig = { baseURL: '/api', timeout: 60000 }
+  baseConfig: AxiosRequestConfig = {
+    baseURL: '',
+    timeout: 60000,
+    headers: {
+      'Content-Type': ContentTypeEnum.JSON,
+    },
+  }
 
   constructor(config: AxiosRequestConfig) {
     // 使用axios.create创建axios实例
@@ -78,9 +89,7 @@ class Request {
       (config: AxiosRequestConfig) => {
         // 一般会请求拦截里面加token
         const token = sessionStorage.getItem('token') || ''
-        config.headers = {
-          Authorization: token,
-        }
+        config.headers!.Authorization = token
         return config
       },
       (err: any) => {
