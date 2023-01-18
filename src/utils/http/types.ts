@@ -1,4 +1,5 @@
-import type { Recordable, AxiosRequestConfig } from 'axios'
+import type { Recordable } from '@/types'
+import type { AxiosRequestConfig } from 'axios'
 import { AxiosTransform } from './axiosTransform'
 import { long } from '@/types/index'
 
