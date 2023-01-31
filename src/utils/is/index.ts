@@ -28,7 +28,7 @@ export const isUnDef = <T = unknown>(val?: T): val is T => {
 /**
  * @description: 是否为对象
  */
-export const isObject = (val: any): val is Record<any, any> => {
+export const isObject = (val: unknown): val is Record<any, any> => {
   return val !== null && is(val, 'Object')
 }
 
@@ -77,8 +77,8 @@ export function isBoolean(val: unknown): val is boolean {
 /**
  * @description:  是否为数组
  */
-export function isArray(val: any): val is Array<any> {
-  return val && Array.isArray(val)
+export function isArray(val: unknown): val is any[] {
+  return !isNullOrUnDef(val) && is(val, 'Array')
 }
 
 /**
@@ -91,7 +91,7 @@ export const isClient = () => {
 /**
  * @description: 是否为浏览器
  */
-export const isWindow = (val: any): val is Window => {
+export const isWindow = (val: unknown): val is Window => {
   return typeof window !== 'undefined' && is(val, 'Window')
 }
 

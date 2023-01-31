@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import type {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from 'axios'
 import { message } from 'ant-design-vue'
 import { isString } from '@/utils/is/'
 import { isUrl } from '@/utils/util'
@@ -86,7 +91,7 @@ class Request {
     this.instance = axios.create(Object.assign(this.baseConfig, config))
 
     this.instance.interceptors.request.use(
-      (config: AxiosRequestConfig) => {
+      (config: InternalAxiosRequestConfig) => {
         // 一般会请求拦截里面加token
         const token = sessionStorage.getItem('token') || ''
         config.headers!.Authorization = token

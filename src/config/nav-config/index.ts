@@ -1,5 +1,17 @@
 import { FileSearchOutlined, HomeOutlined, MacCommandOutlined } from '@ant-design/icons-vue'
-const navList = [
+import { Recordable } from '@/types'
+import { FunctionalComponent } from 'vue'
+import type { AntdIconProps } from '@ant-design/icons-vue/es/components/AntdIcon'
+
+export type NavItem = {
+  name: string
+  path: string
+  icon?: FunctionalComponent<AntdIconProps>
+  power?: string | string[]
+  children?: NavItem[]
+}
+
+const navList: NavItem[] = [
   {
     name: '首页',
     path: '/index',
@@ -18,18 +30,16 @@ const navList = [
       {
         name: 'fwd-demo',
         path: '/groupon/fwd-demo',
-        power: '',
       },
     ],
   },
 ]
 
 // 将路由转为一个map 方便根据path查找路由的权限等信息
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const navPathMap: any = {}
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const setNavMap = (arr: any[]) => {
-  arr.forEach((nav) => {
+const navPathMap: Recordable<NavItem> = {}
+
+const setNavMap = (navList: NavItem[]) => {
+  navList.forEach((nav) => {
     navPathMap[nav.path] = nav
     if (nav.children) {
       setNavMap(nav.children)

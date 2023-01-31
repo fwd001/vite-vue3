@@ -54,7 +54,6 @@ const onFinishFailed = (errorInfo: { errorFields: []; outOfDate: false; values: 
   console.log('Failed:', errorInfo)
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function loginSuccess() {
   router.push('/')
   setTimeout(() => {

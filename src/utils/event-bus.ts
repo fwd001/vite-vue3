@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import mitt, { Emitter } from 'mitt'
 import type { App } from 'vue'
+import { MEventEnum } from '@/enum/mitter'
 
-// 示例导出
-export const mitter: Emitter<any> = mitt()
+// 总线导出
+export const mitter: Emitter<Record<MEventEnum, unknown>> = mitt()
 
 export function setupMitt(app: App<Element>) {
   /**

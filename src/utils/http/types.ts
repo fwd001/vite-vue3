@@ -1,7 +1,6 @@
-import type { Recordable } from '@/types'
 import type { AxiosRequestConfig } from 'axios'
 import { AxiosTransform } from './axiosTransform'
-import { long } from '@/types/index'
+import { long, Recordable } from '@/types'
 
 export interface CreateAxiosOptions extends AxiosRequestConfig {
   transform?: AxiosTransform
@@ -10,7 +9,7 @@ export interface CreateAxiosOptions extends AxiosRequestConfig {
 }
 
 // 上传文件
-export interface UploadFileParams {
+export interface UploadFileParams extends Recordable {
   // 其他参数
   data?: Recordable
   // 文件参数接口字段名
@@ -19,8 +18,6 @@ export interface UploadFileParams {
   file: File | Blob
   // 文件名称
   filename?: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any
 }
 
 export interface RequestOptions {

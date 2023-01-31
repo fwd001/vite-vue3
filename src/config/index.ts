@@ -2,6 +2,7 @@
  * 配置信息
  */
 import { navPathMap, navList } from '@/config/nav-config'
+export type { NavItem } from '@/config/nav-config'
 
 // api链接配置
 const originApiUrl = 'https://xxx.work' // php api地址
