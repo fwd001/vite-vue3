@@ -12,10 +12,15 @@ export const useUserStore = defineStore({
     updataUser(data: string) {
       this.name = data
     },
+    async logout() {
+      // eslint-disable-next-line no-console
+      console.log('logout')
+    },
   },
+
   // 持久化存储插件其他配置
   persist: {
-    // 修改存储中使用的键名称，默认为当前 Store的 id
+    // 修改存储中使用的键名称，默认为当前 Store 的 id
     key: 'user-store',
     // 修改为 sessionStorage，默认为 localStorage
     storage: sessionStorage,

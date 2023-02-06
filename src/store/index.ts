@@ -1,6 +1,7 @@
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import type { App } from 'vue'
+import { useUserStore } from './modules/user'
 
 const store = createPinia()
 
@@ -9,5 +10,5 @@ function setupStore(app: App<Element>) {
   app.use(store)
 }
 
-export { setupStore }
+export { setupStore, useUserStore }
 export default store

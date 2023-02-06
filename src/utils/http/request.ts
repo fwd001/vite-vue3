@@ -14,6 +14,7 @@ import { RequestEnum, ContentTypeEnum } from '@/enum/httpEnum'
 import { joinTimestamp, formatRequestDate } from './helper'
 import { AxiosTransform } from './axiosTransform'
 import type { Result, RequestOptions } from './types'
+import { useUserStore } from 'store'
 
 /**
  * @description: 数据处理，方便区分多种处理方式
@@ -107,9 +108,12 @@ class Request {
         const { code, msg } = response.data
         // token 失效
         if (code === 'AU0000') {
-          sessionStorage.clear()
-          // window.location.href = import.meta.env.VITE_AUTHORIZE_HREF
-          return Promise.reject(response.data)
+          if (import.meta.env.DEV) {
+            const store = useUserStore()
+            store.logout()
+            return Promise.reject(response.data)
+          }
+          location.href = import.meta.env.VITE_AUTHORIZE_HREF
         }
 
         if (code !== '0' && msg) {
