@@ -31,13 +31,13 @@ class Updater {
   }
 
   async getHtml() {
-    const html = await fetch('/').then((res) => res.text()) //读取index html
+    const html = await fetch('/').then((res) => res.text()) // 读取index html
     return html
   }
 
   parserScript(html: string) {
-    const reg = new RegExp(/<script(?:\s+[^>]*)?>(.*?)<\/script\s*>/gi) //script正则
-    return html.match(reg) as string[] //匹配script标签
+    const reg = new RegExp(/<script(?:\s+[^>]*)?>(.*?)<\/script\s*>/gi) // script正则
+    return html.match(reg) as string[] // 匹配script标签
   }
 
   compare(oldArr: string[], newArr: string[]) {
@@ -53,7 +53,7 @@ class Updater {
   }
 
   timing(time = 10000) {
-    //轮询
+    // 轮询
     this.timer = setInterval(async () => {
       const newHtml = await this.getHtml()
       this.newScript = this.parserScript(newHtml)
@@ -67,7 +67,8 @@ class Updater {
 }
 
 export function setupUpdater() {
-  //实例化该类
+  if (!import.meta.env.VITE_RELEASE_NOTICE) return
+  // 实例化该类
   const up = new Updater({
     time: 5000,
   })
