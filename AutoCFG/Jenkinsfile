@@ -27,7 +27,7 @@ node('jenkins-slave') {
         container('jnlp') {
             nodejs(cacheLocationStrategy: workspace(), nodeJSInstallationName: 'Node-v16') {
                 sh "npm config set cache ${AGENT_WORKDIR}/workspace"
-                sh "npm config set registry https://registry.yarnpkg.com/"
+                sh "npm config set registry http://registry.npmmirror.com"
                 sh "node -v"
                 sh "npm -v"
                 // sh "rm -rf node_modules && rm -f package-lock.json"
