@@ -67,7 +67,7 @@ class Updater {
 }
 
 export function setupUpdater() {
-  if (!import.meta.env.VITE_RELEASE_NOTICE) return
+  if (import.meta.env.VITE_RELEASE_NOTICE === 'false') return
   // 实例化该类
   const up = new Updater({
     time: 5000,
