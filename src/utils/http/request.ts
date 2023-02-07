@@ -105,7 +105,7 @@ class Request {
 
     this.instance.interceptors.response.use(
       (response: AxiosResponse) => {
-        const { code, msg } = response.data
+        const { code = '0', msg } = response.data
         // token 失效
         if (code === 'AU0000') {
           if (import.meta.env.DEV) {
