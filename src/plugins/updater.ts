@@ -75,9 +75,9 @@ export function setupUpdater() {
   const key = `update-${Date.now()}`
   const notifiWidth = 180
 
-  //   mitter.on(MEventEnum.PageNoUpdate, () => {
-  //     console.log('未更新')
-  //   })
+  //  mitter.on(MEventEnum.PageNoUpdate, () => {
+  //    console.log('未更新')
+  //  })
 
   mitter.on(MEventEnum.PageUpdate, () => {
     notification.open({
