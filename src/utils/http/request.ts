@@ -120,6 +120,22 @@ class Request {
           message.error(msg)
           return Promise.reject(response.data)
         }
+        // 二进制文件流响应处理
+        if (response.config.responseType === 'blob') {
+          const encodeFileName = response.headers['content-disposition'].split(';')[1].split('=')[1]
+          const type = response.headers['Content-Type'] as string
+          const fileName = decodeURIComponent(encodeFileName)
+          return {
+            msg: '成功',
+            code,
+            data: {
+              fileName,
+              type,
+              blob: response.data,
+            },
+          }
+        }
+
         // 直接返回res，当然你也可以只返回res.data
         return response.data
       },
