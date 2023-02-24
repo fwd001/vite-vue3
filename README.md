@@ -15,12 +15,13 @@
 - prettier: https://prettier.io/docs/en/options.html
 - unocss: https://github.com/unocss/unocss
 - cz-git: https://cz-git.qbb.sh/zh/guide/introduction.html
+- number-precision: https://www.npmjs.com/package/number-precision?activeTab=readme
 
 ## 开发文档
-- 开发流程: http://192.168.240.169:9696/zh/%E5%89%8D%E7%AB%AF/R-D-process
-- 开发规范: http://192.168.240.169:9696/zh/%E5%89%8D%E7%AB%AF/development-specification
-- Jenkins前端使用: http://192.168.240.169:9696/zh/%E5%89%8D%E7%AB%AF/Jenkins-use
-- 工作流: http://192.168.240.169:9696/zh/%E5%89%8D%E7%AB%AF/git-flow
+- 开发流程: http://wiki.lhcz.co/pages/viewpage.action?pageId=3375667
+- 开发规范: http://wiki.lhcz.co/pages/viewpage.action?pageId=3375487
+- Jenkins前端使用: http://wiki.lhcz.co/pages/viewpage.action?pageId=3375325
+- GIT工作流: http://wiki.lhcz.co/pages/viewpage.action?pageId=3375322
 
 ## 修改antdv主题
 - 文档: https://www.antdv.com/docs/vue/customize-theme-cn
@@ -31,21 +32,22 @@
 node >=16
 
 ## 启动
-> 建议使用 yarn or pnpm 安装依赖启动
+> 建议使用 pnpm or yarn 安装依赖启动
 
-### 安装 yarn or pnpm 
-npm install -g yarn
-
+### 安装 pnpm(推荐) or yarn
 npm install -g pnpm
 
+npm install -g yarn
+
 ### 安装项目依赖
-yarn install
+pnpm install or
+yarn install 
 
 ### 本地运行
-yarn dev
+npm run dev
 
 ### 构建打包
-yarn build
+npm build
 
 ### 浏览器兼容
 - 'defaults' 

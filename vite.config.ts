@@ -40,10 +40,29 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       Unocss(),
       // 兼容性配置
       legacy({
-        targets: ['defaults', 'not IE 11', 'chrome 79', 'maintained node versions'],
+        targets: ['defaults', '> 1%', 'not IE 11', 'chrome 65', 'not dead'],
         additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
-        // 根据你自己需要导入相应的polyfill:  https://github.com/vitejs/vite/tree/main/packages/plugin-legacy#polyfill-specifiers
-        modernPolyfills: ['es.promise.finally', 'es/array', 'es/map', 'es/set'],
+        renderLegacyChunks: true,
+        modernPolyfills: [
+          'es.symbol',
+          'es.array.filter',
+          'es.promise',
+          'es.promise.finally',
+          'es.promise.all-settled',
+          'es/map',
+          'es/set',
+          'es.array.for-each',
+          'es.object.define-properties',
+          'es.object.define-property',
+          'es.object.get-own-property-descriptor',
+          'es.object.get-own-property-descriptors',
+          'es.object.keys',
+          'es.object.to-string',
+          'web.dom-collections.for-each',
+          'es.global-this',
+          'esnext.global-this',
+          'esnext.string.match-all',
+        ],
       }),
       viteMockServe({
         mockPath: './src/mock', // 设置模拟.ts 文件的存储文件夹
@@ -101,7 +120,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       cssCodeSplit: true, // css代码拆分,禁用则所有样式保存在一个css里面
       sourcemap: false,
       minify: 'esbuild',
-      cssTarget: 'chrome79',
+      cssTarget: 'chrome65',
       chunkSizeWarningLimit: 2300,
       rollupOptions: {
         output: {
