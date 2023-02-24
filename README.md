@@ -1,9 +1,9 @@
 # Vue 3 + TypeScript + Vite
 
 ## 脚手架
-- 脚手架npm地址: https://www.npmjs.com/package/lcfe-cli
-- 脚手架工具仓库: http://git.lhcz.co/fe/lcfe-cli
-- 脚手架文档: http://192.168.240.169:9696/zh/%E5%89%8D%E7%AB%AF/fe-cli
+- npm地址: https://www.npmjs.com/package/lcfe-cli
+- 脚手架代码: http://git.lhcz.co/fe/lcfe-cli
+- 脚手架文档: http://wiki.lhcz.co/pages/viewpage.action?pageId=3375669
 
 ## 工具相关文档
 - vite: https://cn.vitejs.dev/
@@ -16,6 +16,13 @@
 - unocss: https://github.com/unocss/unocss
 - cz-git: https://cz-git.qbb.sh/zh/guide/introduction.html
 - number-precision: https://www.npmjs.com/package/number-precision?activeTab=readme
+- vueuse: https://vueuse.org/
+- dayjs: https://day.js.org/zh-CN/
+- echarts: https://echarts.apache.org/zh/index.html 
+- echarts(文档国内镜像): https://www.isqqw.com/echarts-doc/zh/option.html#title
+- lodash-es: https://www.lodashjs.com/
+
+
 
 ## 开发文档
 - 开发流程: http://wiki.lhcz.co/pages/viewpage.action?pageId=3375667
@@ -52,7 +59,7 @@ npm build
 ### 浏览器兼容
 - 'defaults' 
 - 'not IE 11' 
-- 'chrome 79' 
+- 'chrome 65' 
 - 'maintained node versions'
 
 ### GIT提交代码规则
