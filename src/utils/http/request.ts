@@ -111,28 +111,35 @@ class Request {
           if (import.meta.env.DEV) {
             const store = useUserStore()
             store.logout()
-            return Promise.reject(response.data)
+            throw response.data
           }
           location.href = import.meta.env.VITE_AUTHORIZE_HREF
         }
-
+        // 业务错误处理
         if (code !== '0' && msg) {
           message.error(msg)
-          return Promise.reject(response.data)
+          throw response.data
         }
         // 二进制文件流响应处理
         if (response.config.responseType === 'blob') {
-          const encodeFileName = response.headers['content-disposition'].split(';')[1].split('=')[1]
-          const type = response.headers['Content-Type'] as string
+          const encodeFileName = response.headers['content-disposition']
+            ?.split(';')?.[1]
+            ?.split('=')?.[1]
+          const type = response.headers['content-type'] as string
           const fileName = decodeURIComponent(encodeFileName)
-          return {
-            msg: '成功',
-            code,
-            data: {
-              fileName,
-              type,
-              blob: response.data,
-            },
+
+          if (encodeFileName) {
+            return {
+              msg: '成功',
+              code,
+              data: {
+                fileName,
+                type,
+                blob: response.data,
+              },
+            }
+          } else {
+            throw response
           }
         }
 
