@@ -3,7 +3,6 @@ import { resolve } from 'path' // 此处如果报错则安装 node/path依赖
 import { defineConfig, loadEnv } from 'vite'
 import type { ConfigEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
-// import antdvVars from './src/styles/antdv-vars'
 import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import { viteMockServe } from 'vite-plugin-mock'
