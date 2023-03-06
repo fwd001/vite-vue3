@@ -22,8 +22,17 @@ import { useUserStore } from 'store'
 const transform: AxiosTransform = {
   // 请求之前处理config
   beforeRequestHook: (config, options) => {
-    const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true } = options
+    const {
+      apiUrl,
+      joinPrefix,
+      joinParamsToUrl,
+      formatDate,
+      joinTime = true,
+      isShowErrorMessage = true,
+    } = options
     const isUrlStr = isUrl(config.url as string)
+
+    config.isShowErrorMessage = isShowErrorMessage
 
     if (!isUrlStr && joinPrefix) {
       config.url = `${config.url}`
@@ -105,7 +114,7 @@ class Request {
 
     this.instance.interceptors.response.use(
       (response: AxiosResponse) => {
-        const { code = '0', msg } = response.data
+        const { code = '0', msg = '服务发生错误！' } = response.data
         // token 失效
         if (code === 'AU0000') {
           if (import.meta.env.DEV) {
@@ -116,9 +125,11 @@ class Request {
           location.href = import.meta.env.VITE_AUTHORIZE_HREF
         }
         // 业务错误处理
-        if (code !== '0' && msg) {
-          message.error(msg)
-          throw response.data
+        if (code !== '0') {
+          if (response.config.isShowErrorMessage) {
+            message.error(msg)
+          }
+          return Promise.reject(response.data)
         }
         // 二进制文件流响应处理
         if (response.config.responseType === 'blob') {

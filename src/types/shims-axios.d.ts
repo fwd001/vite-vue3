@@ -5,7 +5,9 @@ import 'axios'
  * @author Maybe
  */
 declare module 'axios' {
-  // interface AxiosRequestConfig {}
+  interface AxiosRequestConfig {
+    isShowErrorMessage?: boolean
+  }
   interface AxiosHeaders {
     Authorization?: string
     'Content-Type'?: string
