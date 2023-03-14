@@ -4,6 +4,7 @@ export const useUserStore = defineStore({
   id: 'user',
   state: () => ({
     name: '用户名',
+    resources: [],
   }),
   getters: {
     nameLength: (state) => state.name.length,
@@ -15,6 +16,13 @@ export const useUserStore = defineStore({
     async logout() {
       // eslint-disable-next-line no-console
       console.log('logout')
+    },
+    hasPowerbyKey(key: string) {
+      let bool = false
+      if (Boolean(this.resources.find((v: { val: string }) => v.val === key))) {
+        bool = true
+      }
+      return bool
     },
   },
 

@@ -112,7 +112,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       },
     },
     esbuild: {
-      pure: VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : [],
+      pure: VITE_DROP_CONSOLE === 'true' ? ['console.log', 'debugger'] : [],
       supported: {
         // https://github.com/vitejs/vite/pull/8665
         'top-level-await': true,

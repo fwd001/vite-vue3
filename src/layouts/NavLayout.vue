@@ -44,8 +44,9 @@
 import { globalConfig } from '@/config'
 import { useRoute, useRouter } from 'vue-router'
 import { ref, computed, withDefaults } from 'vue'
-import { NavItem } from '@/config'
-import { isString, isDef } from '@/utils/is'
+import { useUserStore } from 'store'
+
+const userStore = useUserStore()
 
 // const { mixinPower } = useGlobalSetup();
 const route = useRoute()
@@ -68,25 +69,39 @@ let openKey = pathname.split('/')[1]
 const openKeys = ref(defaultOpenKeys.includes(openKey) ? [openKey] : defaultOpenKeys)
 
 const navPowerList = computed(() => {
-  let newArr: NavItem[] = []
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let newArr: any[] = []
   globalConfig.navList.forEach((val) => {
-    if (!val.children?.length) {
-      newArr.push(Object.assign({}, val))
-      return
-    }
-    let children = val.children.filter((item) => {
-      let powerList: string[] = []
-      if (isDef(item.power)) {
-        if (isString(item.power)) {
-          powerList.push(item.power)
-        } else {
-          powerList = item.power
+    if (!val?.children?.length) {
+      const powerType = Object.prototype.toString.call(val.power)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let powerList: any = []
+      if (powerType === '[object Array]') {
+        powerList = val.power
+      } else {
+        powerList.push(val.power)
+      }
+      for (let power of powerList) {
+        if (!power || userStore.hasPowerbyKey?.(power)) {
+          // 不需要权限或者有其中一个权限则有权限
+          newArr.push(Object.assign({}, val))
         }
       }
-
+      return
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let children = val.children.filter((item: any) => {
+      const powerType = Object.prototype.toString.call(item.power)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let powerList: any = []
+      if (powerType === '[object Array]') {
+        powerList = item.power
+      } else {
+        powerList.push(item.power)
+      }
       let hasPower = false
       for (let power of powerList) {
-        if (!power) {
+        if (!power || userStore.hasPowerbyKey?.(power)) {
           // 不需要权限或者有其中一个权限则有权限
           hasPower = true
           break

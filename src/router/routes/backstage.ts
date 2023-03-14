@@ -9,7 +9,7 @@ const routes = [
     component: MainLayout,
     children: [
       {
-        path: '/index',
+        path: 'index',
         name: 'HomeWelcome',
         component: HomeWelcome,
         meta: { title: '欢迎' },
@@ -21,7 +21,7 @@ const routes = [
         meta: { title: '关键词' },
       },
       {
-        path: '/groupon/fwd-demo',
+        path: 'groupon/fwd-demo',
         name: 'FwdDemo',
         component: FwdDemo,
         meta: { title: 'FwdDemo' },
