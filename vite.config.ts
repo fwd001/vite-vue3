@@ -15,7 +15,7 @@ const CWD = process.cwd()
 const prodMock = false
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }: ConfigEnv) => {
-  const { VITE_DROP_CONSOLE } = loadEnv(mode, CWD)
+  const { VITE_IS_DEBUG } = loadEnv(mode, CWD)
   const isServer = command === 'serve'
   return {
     server: {
@@ -112,7 +112,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       },
     },
     esbuild: {
-      pure: VITE_DROP_CONSOLE === 'true' ? ['console.log', 'debugger'] : [],
+      pure: VITE_IS_DEBUG === 'true' ? [] : ['console.log', 'debugger'],
       supported: {
         // https://github.com/vitejs/vite/pull/8665
         'top-level-await': true,
@@ -121,7 +121,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
     build: {
       assetsDir: 'assets', // 指定静态资源存放路径
       cssCodeSplit: true, // css代码拆分,禁用则所有样式保存在一个css里面
-      sourcemap: false,
+      sourcemap: VITE_IS_DEBUG === 'true',
       minify: 'esbuild',
       cssTarget: 'chrome65',
       chunkSizeWarningLimit: 2300,
