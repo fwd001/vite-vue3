@@ -54,8 +54,14 @@ module.exports = defineConfig({
     'space-before-function-paren': 'off',
     quotes: ['error', 'single'],
     'comma-dangle': ['error', 'only-multiline'],
-    'vue/multi-word-component-names': 'off',
     'vue/custom-event-name-casing': 'off',
+    'vue/multi-word-component-names': 0, // 驼峰报错-横线
+    'vue/require-default-prop': 0, // props默认值
+    'vue/valid-define-props': 0, // 引用本地声明的变量
+    'vue/v-on-event-hyphenation': 0, // 事件驼峰
+    'vue/no-unused-components': 0,
+    'vue/no-reserved-component-names': 0,
+    'vue/no-v-html': 0,
   },
   globals: {
     defineProps: 'readonly',

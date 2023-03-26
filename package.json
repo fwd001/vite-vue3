@@ -1,8 +1,8 @@
 {
   "name": "vite-vue3",
-  "version": "0.5.5",
+  "version": "0.6.0",
   "private": true,
-  "description": "前端框架",
+  "description": "web前端框架",
   "scripts": {
     "start": "npm run dev",
     "dev": "vite --mode dev",
@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "lint": "eslint --ext .ts,.tsx,.vue,.js,.jsx --fix src",
     "prettier": "prettier . --write",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "update": "pnpm update '!nprogress' --latest"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
@@ -75,10 +76,12 @@
   "lint-staged": {
     "*.{js,vue,ts,jsx,tsx}": [
       "npm run prettier",
-      "npm run lint"
+      "npm run lint",
+      "git add"
     ],
     "*.{html,css,less}": [
-      "npm run prettier"
+      "npm run prettier",
+      "git add"
     ]
   },
   "target": "web",

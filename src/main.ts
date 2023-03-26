@@ -3,7 +3,7 @@ import App from './App.vue'
 import { setupRouter } from '@/router/index'
 import { setupMitt } from '@/utils/event-bus'
 import { setupStore } from 'store'
-import { setupAntd, setupAssets, setupTinymce, setupUpdater } from '@/plugins'
+import { setupAntd, setupAssets, setupTinymce, setupUpdater, setupDirectives } from '@/plugins'
 import './style.less'
 import '@/utils/polyfill'
 
@@ -14,6 +14,8 @@ function setupPlugins() {
   setupAntd(app)
   // 引入静态资源
   setupAssets()
+  // 自定义指令
+  setupDirectives(app)
   // 编辑器
   setupTinymce(app)
   // 初始化事件总线

@@ -1,4 +1,5 @@
-# Vue 3 + TypeScript + Vite
+# 技术栈
+Vue 3 + TypeScript + Vite
 
 ## 脚手架
 - npm地址: https://www.npmjs.com/package/lcfe-cli
@@ -56,6 +57,7 @@ npm run dev
 ### 构建打包
 npm build
 
+
 ### 浏览器兼容
 - 'defaults' 
 - 'not IE 11' 
@@ -63,6 +65,7 @@ npm build
 - 'maintained node versions'
 
 ### GIT提交代码规则
+- 使用：先暂存本地，之后 git commit 替换 git cz
 - commit内容，只允许使用下面7个标识，否则提交失败。
 - feat: 新功能
 - fix: 修补bug
