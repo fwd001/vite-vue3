@@ -1,5 +1,4 @@
 // directives/ellipsis.ts
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { App, Directive, DirectiveBinding } from 'vue'
 
 let tooltipDom: HTMLElement
@@ -38,7 +37,7 @@ function bindEvent(el: HTMLElement, bindings: DirectiveBinding) {
 }
 
 /** 鼠标移入事件 */
-function handleMouseEnter(e: any) {
+function handleMouseEnter(evt: MouseEvent) {
   if (!tooltipDom) {
     // 创建浮层元素
     tooltipDom = document.createElement('div')
@@ -61,21 +60,22 @@ function handleMouseEnter(e: any) {
           word-break: break-all;
         `
   // 根据鼠标移入位置判断浮层位于左侧还是右侧，避免遮挡
-  if (window.innerWidth - e.clientX < maxWidth) {
-    cssText += `right:${window.innerWidth - e.clientX}px;`
+  if (window.innerWidth - evt.clientX < maxWidth) {
+    cssText += `right:${window.innerWidth - evt.clientX}px;`
   } else {
-    cssText += `left:${e.clientX + 20}px;`
+    cssText += `left:${evt.clientX + 20}px;`
   }
   // 根据鼠标移入位置判断浮层位于上方还是下方，避免遮挡
-  if (window.innerHeight - e.clientY < 600) {
-    cssText += `bottom:${window.innerHeight - e.clientY}px;`
+  if (window.innerHeight - evt.clientY < 600) {
+    cssText += `bottom:${window.innerHeight - evt.clientY}px;`
   } else {
-    cssText += `top:${e.clientY}px;`
+    cssText += `top:${evt.clientY}px;`
   }
 
   tooltipDom.style.cssText = cssText
   // 浮层中的文字
-  tooltipDom.innerHTML = e.currentTarget.innerText
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  tooltipDom.innerHTML = (evt?.currentTarget as any)?.innerText ?? ''
 }
 
 function removeTooltip() {

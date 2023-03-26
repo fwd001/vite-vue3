@@ -3,7 +3,7 @@
  */
 import { h } from 'vue'
 import { notification, Button } from 'ant-design-vue'
-import { mitter } from '@/utils/event-bus'
+import { mitter } from '@/plugins/event-bus'
 import { MEventEnum } from '@/enum/mitter'
 
 interface Options {
@@ -68,9 +68,12 @@ class Updater {
 
 export function setupUpdater() {
   if (import.meta.env.VITE_RELEASE_NOTICE === 'false') return
+  const time = isNaN(Number(import.meta.env.VITE_RELEASE_DETECTION_DURATION))
+    ? undefined
+    : Number(import.meta.env.VITE_RELEASE_DETECTION_DURATION)
   // 实例化该类
   const up = new Updater({
-    time: 5000,
+    time: time,
   })
   const key = `update-${Date.now()}`
   const notifiWidth = 180
