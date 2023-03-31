@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { EnumDataType } from '@/enum'
+
 const toString = Object.prototype.toString
 
 /**
@@ -116,4 +118,20 @@ export function isNullAndUnDef(val: unknown): val is null | undefined {
 
 export function isNullOrUnDef(val: unknown): val is null | undefined {
   return isUnDef(val) || isNull(val)
+}
+
+export function isUndefined(data: unknown) {
+  return Object.prototype.toString.call(data) === EnumDataType.undefined
+}
+export function isRegExp(data: unknown) {
+  return Object.prototype.toString.call(data) === EnumDataType.regexp
+}
+export function isSet(data: unknown) {
+  return Object.prototype.toString.call(data) === EnumDataType.set
+}
+export function isMap(data: unknown) {
+  return Object.prototype.toString.call(data) === EnumDataType.map
+}
+export function isFile(data: unknown) {
+  return Object.prototype.toString.call(data) === EnumDataType.file
 }

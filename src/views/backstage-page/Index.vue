@@ -75,7 +75,7 @@ const editorConfig = {
     <button class="mb-12px" @click="toLoginView">toLoginView</button>
     <div class="card">
       <button type="button" @click="count++">count is {{ count }}</button>
-      <p>TypeScript + vite + vue3 + pinia</p>
+      <p v-ellipsis class="w-100">TypeScript + vite + vue3 + pinia</p>
       <p>TypeScript + vite + vue3 + pinia</p>
       <p>TypeScript + vite + vue3 + pinia</p>
       <p>TypeScript + vite + vue3 + pinia</p>

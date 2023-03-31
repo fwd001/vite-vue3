@@ -1,4 +1,4 @@
-// directives/ellipsis.ts
+// 单行溢出显示插件
 import type { App, Directive, DirectiveBinding } from 'vue'
 
 let tooltipDom: HTMLElement

@@ -1,12 +1,11 @@
 import { createApp } from 'vue'
-import App from './App.vue'
 import { setupRouter } from '@/router/index'
 import { setupMitt } from '@/plugins/event-bus'
 import { setupStore } from 'store'
 import { setupAntd, setupAssets, setupTinymce, setupUpdater, setupDirectives } from '@/plugins'
+import App from './App.vue'
 import 'uno.css'
 import './style.less'
-import '@/utils/polyfill'
 
 const app = createApp(App)
 

@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getCurrentInstance, onUnmounted } from 'vue'
+import { onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { mitter } from '@/plugins/event-bus'
 
 export function useRouteChange() {
   const route = useRoute()
-  const { proxy }: any = getCurrentInstance()
 
   // 内部示例
-  const _instance = {
-    routeHashChangeCallback: () => null,
+  const _instance: { routeHashChangeCallback: () => void } = {
+    routeHashChangeCallback: () => undefined,
   }
 
-  const routeHashChange = (callback: any) => {
+  const routeHashChange = (callback: () => {}) => {
     if (callback) {
       _instance.routeHashChangeCallback = callback
     }
@@ -20,9 +20,9 @@ export function useRouteChange() {
   // 页面监听 routeHashChange
   const routeHashChangeName = 'routeHashChange' + route.path
   //监听
-  proxy.$EventBus?.on(routeHashChangeName, () => _instance?.routeHashChangeCallback())
+  mitter.on(routeHashChangeName as any, () => _instance?.routeHashChangeCallback())
   // 卸载监听
-  onUnmounted(() => proxy.$EventBus?.off(routeHashChangeName))
+  onUnmounted(() => mitter.off(routeHashChangeName as any))
 
   return { routeHashChange }
 }
