@@ -12,11 +12,11 @@ import UnoCSS from 'unocss/vite'
 import presetRemToPx from '@unocss/preset-rem-to-px'
 
 const CWD = process.cwd()
-const prodMock = false
 // https://vitejs.dev/config/
-export default defineConfig(({ command, mode }: ConfigEnv) => {
+export default defineConfig(({ mode }: ConfigEnv) => {
   const { VITE_IS_DEBUG } = loadEnv(mode, CWD)
-  const isServer = command === 'serve'
+
+  // const isServer = command === 'serve'
   return {
     server: {
       port: 8088,
@@ -68,17 +68,9 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
         ],
       }),
       viteMockServe({
-        mockPath: './src/mock', // 设置模拟.ts 文件的存储文件夹
-        localEnabled: isServer, // 设置是否启用本地 xxx.ts 文件，不要在生产环境中打开它.设置为 false 将禁用 mock 功能
-        prodEnabled: !isServer && prodMock, // 设置打包是否启用 mock 功能
-        supportTs: true, // 打开后，可以读取 ts ⽂件模块。请注意，打开后将⽆法监视.js ⽂件。
+        mockPath: './mock', // 设置模拟.ts 文件的存储文件夹
         watchFiles: true, // 监视⽂件更改，并重新加载 mock 数据
         logger: false, //是否在控制台显示请求日志
-        injectCode: `
-          import { setupProdMockServer } from './mockProdServer';
-
-          setupProdMockServer();
-        `,
       }),
       // gzip压缩 生产环境生成 .gz 文件
       viteCompression({
@@ -105,7 +97,6 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
             'border-radius-base': '2px',
           },
           additionalData: `
-            @import "ant-design-vue/lib/style/themes/default.less";
             @import "@/styles/variables.less";
           `,
         },

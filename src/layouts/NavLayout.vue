@@ -2,7 +2,7 @@
   <div class="layout-nav-box flex flex-col">
     <a-menu
       class="menu-box fx-base-1"
-      style="padding-top: 12px"
+      style="padding-top: 12px; width: 256px"
       mode="inline"
       theme="light"
       :selectable="false"
@@ -43,7 +43,7 @@
 // import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
 import { globalConfig } from '@/config'
 import { useRoute, useRouter } from 'vue-router'
-import { ref, computed, withDefaults } from 'vue'
+import { ref, computed } from 'vue'
 import { useUserStore } from 'store'
 
 const userStore = useUserStore()

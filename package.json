@@ -21,7 +21,7 @@
     "@antv/g6": "^4.8.13",
     "@tinymce/tinymce-vue": "^5.1.0",
     "@vueuse/core": "^10.1.2",
-    "ant-design-vue": "^3.2.20",
+    "ant-design-vue": "4.0.0-rc.1",
     "axios": "^1.4.0",
     "colord": "^2.9.3",
     "crypto-js": "^4.1.1",
@@ -37,7 +37,7 @@
     "qs": "^6.11.2",
     "ua-parser-js": "1.0.35",
     "vue": "^3.3.2",
-    "vue-request": "^1.2.4",
+    "vue-request": "2.0.0-rc.4",
     "vue-router": "^4.2.0",
     "vuedraggable": "^2.24.3",
     "xgplayer": "^3.0.2"

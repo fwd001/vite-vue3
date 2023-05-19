@@ -170,13 +170,21 @@ const {
   loading,
   current,
   pageSize,
-} = usePagination(queryData, {
-  formatResult: (res) => res.data.results,
-  pagination: {
-    currentKey: 'page',
-    pageSizeKey: 'results',
+} = usePagination(
+  async (params) => {
+    const result = await queryData(params)
+    return result.data?.results
   },
-})
+  {
+    pagination: {
+      currentKey: 'page',
+      pageSizeKey: 'results',
+    },
+    onSuccess(res) {
+      console.log(res)
+    },
+  },
+)
 function onSubmit() {
   current.value = 1
 }
