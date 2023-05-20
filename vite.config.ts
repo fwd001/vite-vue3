@@ -26,7 +26,7 @@ export default defineConfig(({ mode }: ConfigEnv) => {
       cors: true,
       proxy: {
         '/api': {
-          target: 'http://10.1.50.85:8006', // 要访问的跨域的域名
+          target: 'http://1.1.1.1:8000', // 要访问的跨域的域名
           changeOrigin: true,
           rewrite: (path) => path.replace(/\/api/, ''),
         },
@@ -38,7 +38,6 @@ export default defineConfig(({ mode }: ConfigEnv) => {
         resolvers: [AntDesignVueResolver({ importStyle: 'less' })],
       }),
       UnoCSS({
-        // @ts-ignore
         presets: [presetRemToPx({ baseFontSize: 4 })],
       }),
       // 兼容性配置

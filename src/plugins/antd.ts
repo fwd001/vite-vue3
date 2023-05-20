@@ -1,5 +1,5 @@
 import type { App } from 'vue'
-import { AButton } from '@/components/basic/button/index'
+import Antd from 'ant-design-vue'
 
 // https://www.antdv.com/docs/vue/getting-started-cn#按需加载
 // import 'ant-design-vue/es/message/style/css' //vite只能用 ant-design-vue/es 而非 ant-design-vue/lib
@@ -7,7 +7,7 @@ import { AButton } from '@/components/basic/button/index'
 // import 'ant-design-vue/es/modal/style/css'
 
 export function setupAntd(app: App<Element>) {
-  app.component('AButton', AButton)
+  app.use(Antd)
   // 添加到全局
   // app.config.globalProperties.$antdIcons = antdIcons
 }

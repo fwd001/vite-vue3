@@ -1,7 +1,3 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
-export default defineComponent({ name: 'LoginView' })
-</script>
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { FormInstance, message } from 'ant-design-vue'
@@ -12,6 +8,11 @@ import {
   SafetyCertificateOutlined,
 } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
+
+defineOptions({
+  name: 'LoginView',
+})
+
 const router = useRouter()
 
 const formLoginRef = ref<FormInstance>()
@@ -39,7 +40,7 @@ function checkPassword() {
   return Promise.reject(new Error(errorMsg || '用户名或密码错误!'))
 }
 
-const onFinish = (values: LoginApiI) => {
+const onFinish = () => {
   if (isAccountLogin.value) {
     // 账号密码登录
     loginSuccess()

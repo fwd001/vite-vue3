@@ -57,6 +57,11 @@ npm run dev
 ### 构建打包
 npm build
 
+### 升级包
+```sh
+pnpm up '!nprogress' '!ant-design-vue' '!vue-request' --latest
+```
+
 
 ### 浏览器兼容
 - 'defaults' 

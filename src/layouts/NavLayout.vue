@@ -46,6 +46,9 @@ import { useRoute, useRouter } from 'vue-router'
 import { ref, computed } from 'vue'
 import { useUserStore } from 'store'
 
+defineOptions({
+  name: 'NavLayout',
+})
 const userStore = useUserStore()
 
 // const { mixinPower } = useGlobalSetup();

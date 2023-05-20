@@ -1,11 +1,3 @@
-<!-- keywords -->
-<script lang="ts">
-import { defineComponent } from 'vue'
-export default defineComponent({
-  name: 'Keywords',
-})
-</script>
-
 <template>
   <div class="keywords-wrap page-wrap">
     <a-form
@@ -90,8 +82,8 @@ export default defineComponent({
       sticky
       bordered
       :columns="columns"
-      :row-key="(record: any) => record.login.uuid"
-      :data-source="dataSource"
+      :row-key="(record: any) => record.id"
+      :data-source="dataSource?.list"
       :pagination="pagination"
       :loading="loading"
       @change="handleTableChange">
@@ -103,39 +95,35 @@ export default defineComponent({
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, computed } from 'vue'
+import { reactive, ref } from 'vue'
 import type { FormInstance } from 'ant-design-vue'
-import { usePagination } from 'vue-request'
+import { useRequest } from 'vue-request'
 import axios from 'axios'
+
+defineOptions({
+  name: 'Keywords',
+})
+
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
+    title: 'id',
+    dataIndex: 'id',
     width: '120',
   },
   {
-    title: 'Gender',
-    dataIndex: 'gender',
+    title: 'dataSoruce',
+    dataIndex: 'dataSoruce',
     width: '120',
   },
   {
-    title: 'Gender',
-    dataIndex: 'gender',
+    title: 'context',
+    dataIndex: 'context',
     width: '120',
   },
   {
-    title: 'Gender',
-    dataIndex: 'gender',
+    title: 'title',
+    dataIndex: 'title',
     width: '120',
-  },
-  {
-    title: 'Gender',
-    dataIndex: 'gender',
-    width: '120',
-  },
-  {
-    title: 'Email',
-    dataIndex: 'email',
   },
 ]
 
@@ -153,7 +141,7 @@ type APIResult = {
 }
 
 const queryData = (params: APIParams) => {
-  return axios.get<APIResult>('https://randomuser.me/api?noinfo', { params })
+  return axios.post<APIResult>('/api/v1/list', { params })
 }
 const formRef = ref<FormInstance>()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -168,32 +156,26 @@ const {
   data: dataSource,
   run,
   loading,
-  current,
-  pageSize,
-} = usePagination(
+} = useRequest(
   async (params) => {
     const result = await queryData(params)
-    return result.data?.results
+    return result.data?.data
   },
   {
-    pagination: {
-      currentKey: 'page',
-      pageSizeKey: 'results',
-    },
     onSuccess(res) {
       console.log(res)
     },
   },
 )
 function onSubmit() {
-  current.value = 1
+  console.log('onsubmit')
 }
 
-const pagination = computed(() => ({
+const pagination = reactive({
   total: 200,
-  current: current.value,
-  pageSize: pageSize.value,
-}))
+  current: 1,
+  pageSize: 20,
+})
 function handleTableChange(
   pag: { pageSize: number; current: number },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -201,6 +183,8 @@ function handleTableChange(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sorter: any,
 ) {
+  pagination.current = pag.current
+  pagination.pageSize = pag.pageSize
   run({
     results: pag.pageSize!,
     page: pag?.current,

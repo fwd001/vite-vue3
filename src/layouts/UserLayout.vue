@@ -4,11 +4,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script setup lang="ts">
+defineOptions({
   name: 'UserLayout',
-  components: {},
-}
+})
 </script>
 
 <style lang="less" scoped>

@@ -1,8 +1,3 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
-export default defineComponent({ name: 'FwdDemo' })
-</script>
-
 <template>
   <div class="page-wrap">
     <span>test:</span>
@@ -12,6 +7,10 @@ export default defineComponent({ name: 'FwdDemo' })
 
 <script setup lang="ts">
 import { ref } from 'vue'
+
+defineOptions({
+  name: 'FwdDemo',
+})
 const msg = ref('message 0.3')
 </script>
 <style lang="less"></style>

@@ -1,14 +1,8 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
-export default defineComponent({
-  name: 'App',
-})
-</script>
-
 <script lang="ts" setup>
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
-import dayjs from 'dayjs'
-dayjs.locale('cn')
+defineOptions({
+  name: 'App',
+})
 
 const locale = zhCN
 </script>
