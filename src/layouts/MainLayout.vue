@@ -22,18 +22,14 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-export default defineComponent({
-  name: 'MainLayout',
-})
-</script>
-
 <script lang="ts" setup>
 import NavLayout from '@/layouts/NavLayout.vue'
 import HeaderLayout from '@/layouts/HeaderLayout.vue'
 import { RouterView } from 'vue-router'
 import { computed, onBeforeMount, ref } from 'vue'
+defineOptions({
+  name: 'MainLayout',
+})
 
 // 侧边菜单栏是否为mini开关
 const collapsed = ref(false)

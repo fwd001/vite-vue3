@@ -1,11 +1,3 @@
-<!-- keywords -->
-<script lang="ts">
-import { defineComponent } from 'vue'
-export default defineComponent({
-  name: 'Keywords',
-})
-</script>
-
 <template>
   <div class="keywords-wrap page-wrap">
     <a-form
@@ -107,6 +99,11 @@ import { reactive, ref, computed } from 'vue'
 import type { FormInstance } from 'ant-design-vue'
 import { usePagination } from 'vue-request'
 import axios from 'axios'
+
+defineOptions({
+  name: 'Keywords',
+})
+
 const columns = [
   {
     title: 'Name',
@@ -170,13 +167,18 @@ const {
   loading,
   current,
   pageSize,
-} = usePagination(queryData, {
-  formatResult: (res) => res.data.results,
-  pagination: {
-    currentKey: 'page',
-    pageSizeKey: 'results',
+} = usePagination(
+  async (params) => {
+    const res = await queryData(params)
+    return res.data?.results
   },
-})
+  {
+    pagination: {
+      currentKey: 'page',
+      pageSizeKey: 'results',
+    },
+  },
+)
 function onSubmit() {
   current.value = 1
 }

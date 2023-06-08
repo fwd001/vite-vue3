@@ -1,5 +1,5 @@
 import { UserLayout } from '@/layouts/index'
-const HomeLogin = () => import('@/views/user/LoginView.vue')
+const Login = () => import('@/pages/user/Login.vue')
 
 const routes = [
   {
@@ -9,8 +9,8 @@ const routes = [
     children: [
       {
         path: '/login',
-        name: 'HomeLogin',
-        component: HomeLogin,
+        name: 'Login',
+        component: Login,
         meta: { title: '登录' },
       },
     ],

@@ -1,7 +1,7 @@
 import { MainLayout } from '@/layouts'
-const HomeWelcome = () => import('@/views/backstage-page/Index.vue')
-const KeyWords = () => import('@/views/backstage-page/KeyWords.vue')
-const FwdDemo = () => import('@/views/backstage-page/FwdDemo.vue')
+const HomeWelcome = () => import('@/pages/backstage-page/Index.vue')
+const KeyWords = () => import('@/pages/backstage-page/KeyWords.vue')
+const FwdDemo = () => import('@/pages/backstage-page/FwdDemo.vue')
 const routes = [
   {
     path: '/',

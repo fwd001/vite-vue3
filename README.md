@@ -57,6 +57,8 @@ npm run dev
 ### 构建打包
 npm build
 
+### 升级包
+pnpm up '!nprogress'  --latest
 
 ### 浏览器兼容
 - 'defaults' 
@@ -79,6 +81,7 @@ npm build
 ```
 .
 ├── vite.config.js              # vite 配置文件；
+├── mock/                       # mock工具
 ├── config/                     # 与项目构建相关的常用的配置选项；
 │   └── index.js                # 主配置文件
 ├── src/
@@ -92,7 +95,6 @@ npm build
 │   ├── router/                 # 路由模块
 │   ├── hooks/                  # 公用hooks
 │   ├── layouts/                # 布局组件
-│   ├── mock/                   # mock工具
 │   ├── store/                  # 组件共享状态
 │   ├── styles/                 # 全局样式文件夹
 │   ├── plugins/                # 项目第三方插件管理
@@ -109,7 +111,7 @@ npm build
 │   │   ├── constant.js         # 存放js的常量；
 │   │   ├── constant.scss       # 存放scss的常量；
 │   │   └── ...
-│   ├── views/                  # 存放项目页面文件夹；
+│   ├── pages/                  # 存放项目页面文件夹；
 │   └── App.vue                 # app 的根组件；
 ├── public/                     # 纯静态资源，该目录下的文件不会被vite处理，该目录会被拷贝到输出目录下；
 ├── .prettierrc.js              # prettier 的配置文件

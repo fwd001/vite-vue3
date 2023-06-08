@@ -116,7 +116,7 @@ class Request {
       (response: AxiosResponse) => {
         const { code = '0', msg = '服务发生错误！' } = response.data
         // token 失效
-        if (code === 'AU0000') {
+        if (String(code) === 'AU0000') {
           if (import.meta.env.DEV) {
             const store = useUserStore()
             store.logout()
@@ -125,7 +125,7 @@ class Request {
           location.href = import.meta.env.VITE_AUTHORIZE_HREF
         }
         // 业务错误处理
-        if (code !== '0') {
+        if (String(code) !== '0') {
           if (response.config.isShowErrorMessage) {
             message.error(msg)
           }
@@ -154,7 +154,7 @@ class Request {
           }
         }
 
-        // 直接返回res，当然你也可以只返回res.data
+        // 返回response.data
         return response.data
       },
       (err: any) => {

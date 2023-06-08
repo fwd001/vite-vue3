@@ -43,7 +43,7 @@
 // import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
 import { globalConfig } from '@/config'
 import { useRoute, useRouter } from 'vue-router'
-import { ref, computed, withDefaults } from 'vue'
+import { ref, computed } from 'vue'
 import { useUserStore } from 'store'
 
 const userStore = useUserStore()

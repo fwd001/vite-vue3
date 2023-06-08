@@ -1,7 +1,3 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
-export default defineComponent({ name: 'LoginView' })
-</script>
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { FormInstance, message } from 'ant-design-vue'
@@ -12,6 +8,11 @@ import {
   SafetyCertificateOutlined,
 } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
+
+defineOptions({
+  name: 'Login',
+})
+
 const router = useRouter()
 
 const formLoginRef = ref<FormInstance>()
@@ -43,6 +44,8 @@ const onFinish = (values: LoginApiI) => {
   if (isAccountLogin.value) {
     // 账号密码登录
     loginSuccess()
+    // eslint-disable-next-line no-console
+    console.log('values:', values)
   } else {
     // 数字证书登录
     message.warn('暂不支持数字证书！')

@@ -26,7 +26,7 @@ const router = createRouter({
       meta: {
         title: 'Page not found',
       },
-      component: () => import('@/views/NotFound.vue'),
+      component: () => import('@/pages/NotFound.vue'),
     },
     // 所有未定义路由，全部重定向到404页
     {
