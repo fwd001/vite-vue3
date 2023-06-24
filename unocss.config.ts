@@ -11,12 +11,16 @@ import {
 export default defineConfig({
   presets: [presetMini({ dark: 'class' }), presetAttributify(), presetUno()],
   transformers: [transformerDirectives(), transformerVariantGroup()],
-  include: [`${__dirname}/**/*`],
-  exclude: [`${__dirname}/node_modules/**/*`],
   shortcuts: {
     'wh-full': 'w-full h-full',
     'flex-ac': 'flex justify-around items-center',
     'flex-bc': 'flex justify-between items-center',
   },
   theme: {},
+  content: {
+    pipeline: {
+      include: [`${__dirname}/**/*`],
+      exclude: [`${__dirname}/node_modules/**/*`],
+    },
+  },
 })
