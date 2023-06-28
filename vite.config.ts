@@ -80,7 +80,13 @@ export default defineConfig(({ mode }: ConfigEnv) => {
     resolve: {
       alias: {
         '@': resolve(__dirname, 'src'),
+        '~': resolve(__dirname, 'src'),
         store: resolve(__dirname, 'src/store'),
+        types: resolve(__dirname, 'src/types'),
+        utils: resolve(__dirname, 'src/utils'),
+        router: resolve(__dirname, 'src/router'),
+        enum: resolve(__dirname, 'src/enum'),
+        api: resolve(__dirname, 'src/api'),
       },
     },
     css: {

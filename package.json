@@ -6,10 +6,11 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "vite --mode dev",
-    "build": "vue-tsc --noEmit && vite build",
+    "ts": "vue-tsc --noEmit",
+    "build": "npm run ts && vite build",
     "bud": "vite build",
     "upload": "rm -f dist.zip && zip -r dist.zip ./dist && scp ./dist.zip root@192.168.240.169:/home/project/epcms-fe && rm -f dist.zip",
-    "r": "npm run build && npm run upload",
+    "re": "npm run build && npm run upload",
     "preview": "vite preview",
     "lint": "eslint --ext .ts,.tsx,.vue,.js,.jsx --fix src",
     "prettier": "prettier . --write",

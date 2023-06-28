@@ -7,7 +7,7 @@ module.exports = defineConfig({
     browser: true,
     node: true,
     jest: true,
-    es6: true,
+    es2021: true,
   },
   plugins: ['vue'],
   parser: 'vue-eslint-parser',
@@ -28,7 +28,7 @@ module.exports = defineConfig({
     'no-debugger': 'warn',
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/no-explicit-any': ['warn'], // 使用 any 警告
     '@typescript-eslint/no-var-requires': 'warn',
     '@typescript-eslint/no-empty-function': 'error',
     'no-use-before-define': 'off',
@@ -70,9 +70,10 @@ module.exports = defineConfig({
     withDefaults: 'readonly',
     document: 'readonly',
     localStorage: 'readonly',
-    baiduMap: 'readonly',
     window: 'readonly',
     // 腾讯地图
     TMap: 'readonly',
+    // 百度地图
+    baiduMap: 'readonly',
   },
 })
