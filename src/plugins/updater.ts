@@ -15,7 +15,7 @@ class Updater {
   oldScript: string[]
   // 获取新的值 也就是新的script 的hash信息
   newScript: string[]
-  timer?: NodeJS.Timer
+  timer?: any
   constructor(options?: Options) {
     this.oldScript = []
     this.newScript = []
