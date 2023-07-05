@@ -6,10 +6,16 @@ import {
   presetMini,
   presetUno,
 } from 'unocss'
+import presetRemToPx from '@unocss/preset-rem-to-px'
 
 // https://github.com/unocss/unocss#readme
 export default defineConfig({
-  presets: [presetMini({ dark: 'class' }), presetAttributify(), presetUno()],
+  presets: [
+    presetMini({ dark: 'class' }),
+    presetAttributify(),
+    presetUno(),
+    presetRemToPx({ baseFontSize: 4 }),
+  ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
   shortcuts: {
     'wh-full': 'w-full h-full',

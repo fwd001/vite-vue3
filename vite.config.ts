@@ -9,7 +9,6 @@ import { viteMockServe } from 'vite-plugin-mock'
 import legacy from '@vitejs/plugin-legacy'
 import viteCompression from 'vite-plugin-compression'
 import UnoCSS from 'unocss/vite'
-import presetRemToPx from '@unocss/preset-rem-to-px'
 
 const CWD = process.cwd()
 // https://vitejs.dev/config/
@@ -35,10 +34,7 @@ export default defineConfig(({ mode }: ConfigEnv) => {
       Components({
         resolvers: [AntDesignVueResolver({ importStyle: 'less' })],
       }),
-      UnoCSS({
-        // @ts-ignore
-        presets: [presetRemToPx({ baseFontSize: 4 })],
-      }),
+      UnoCSS(),
       // 兼容性配置
       legacy({
         targets: ['defaults', '> 1%', 'not IE 11', 'chrome 65', 'not dead'],
