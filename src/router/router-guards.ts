@@ -19,7 +19,7 @@ export function createRouterGuards(router: Router) {
   })
 
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-  router.afterEach((to: any, from, failure) => {
+  router.afterEach((to: any, _from, _failure) => {
     useTitle(to.meta.title)
     NProgress.done() // finish progress bar
   })

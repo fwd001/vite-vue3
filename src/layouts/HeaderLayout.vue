@@ -54,7 +54,9 @@ async function fnLogoutLocal() {
   height: @header-height;
   background: @bg-main;
   color: @text-color;
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 3%), 0 1px 6px -1px rgb(0 0 0 / 2%),
+  box-shadow:
+    0 1px 2px 0 rgb(0 0 0 / 3%),
+    0 1px 6px -1px rgb(0 0 0 / 2%),
     0 2px 4px 0 rgb(0 0 0 / 2%);
   .logo-wrap {
     border-radius: @border-radius-base;

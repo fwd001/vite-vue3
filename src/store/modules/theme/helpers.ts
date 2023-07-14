@@ -2,14 +2,7 @@
 import { cloneDeep } from 'lodash-es'
 import { themeSetting } from '@/settings'
 import { EnumStorageKey } from '@/enum'
-import {
-  getThemeColor,
-  getColorPalette,
-  addColorAlpha,
-  setLocal,
-  getLocal,
-  removeLocal,
-} from '@/utils'
+import { getThemeColor, getColorPalette, setLocal, getLocal, removeLocal } from '@/utils'
 
 /** 初始化主题配置 */
 export function initThemeSettings() {
@@ -27,40 +20,6 @@ export function initThemeSettings() {
   const otherColor = { ...themeSetting.otherColor, info }
   const setting = cloneDeep({ ...themeSetting, themeColor, otherColor })
   return setting
-}
-
-type ColorType = 'primary' | 'info' | 'success' | 'warning' | 'error'
-type ColorScene = '' | 'Suppl' | 'Hover' | 'Pressed' | 'Active'
-type ColorKey = `${ColorType}Color${ColorScene}`
-type ThemeColor = Partial<Record<ColorKey, string>>
-
-interface ColorAction {
-  scene: ColorScene
-  handler: (color: string) => string
-}
-
-/** 获取主题颜色的各种场景对应的颜色 */
-// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-function getThemeColors(colors: [ColorType, string][]) {
-  const colorActions: ColorAction[] = [
-    { scene: '', handler: (color) => color },
-    { scene: 'Suppl', handler: (color) => color },
-    { scene: 'Hover', handler: (color) => getColorPalette(color, 5) },
-    { scene: 'Pressed', handler: (color) => getColorPalette(color, 7) },
-    { scene: 'Active', handler: (color) => addColorAlpha(color, 0.1) },
-  ]
-
-  const themeColor: ThemeColor = {}
-
-  colors.forEach((color) => {
-    colorActions.forEach((action) => {
-      const [colorType, colorValue] = color
-      const colorKey: ColorKey = `${colorType}Color${action.scene}`
-      themeColor[colorKey] = action.handler(colorValue)
-    })
-  })
-
-  return themeColor
 }
 
 /** 获取naive的主题颜色 */
