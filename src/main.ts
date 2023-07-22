@@ -5,7 +5,7 @@ import { setupStore } from 'store'
 import { setupAntd, setupAssets, setupTinymce, setupUpdater, setupDirectives } from '@/plugins'
 import App from './App.vue'
 import 'uno.css'
-import './style.less'
+import '@/style.less'
 
 const app = createApp(App)
 
