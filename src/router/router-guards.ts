@@ -1,12 +1,13 @@
 import NProgress from 'nprogress' // progress bar
+import 'nprogress/nprogress.css' // 进度条样式
 import type { Router } from 'vue-router'
-
-NProgress.configure({ showSpinner: false }) // NProgress Configuration
 import { useTitle } from '@vueuse/core'
 
+NProgress.configure({ showSpinner: false }) // NProgress Configuration
 // const defaultRoutePath = '/index'
 
 export function createRouterGuards(router: Router) {
+  // to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext
   router.beforeEach(async (to, _, next) => {
     NProgress.start() // start progress bar
     // eslint-disable-next-line no-console

@@ -32,7 +32,11 @@ export default defineConfig(({ mode }: ConfigEnv) => {
     plugins: [
       vue(),
       Components({
-        resolvers: [AntDesignVueResolver({ importStyle: 'less' })],
+        resolvers: [
+          AntDesignVueResolver({
+            importStyle: false, // css in js
+          }),
+        ],
       }),
       UnoCSS(),
       // 兼容性配置
@@ -62,7 +66,8 @@ export default defineConfig(({ mode }: ConfigEnv) => {
         ],
       }),
       viteMockServe({
-        mockPath: 'mock', // 设置模拟.ts 文件的存储文件夹
+        mockPath: 'mock',
+        enable: true,
       }),
       // gzip压缩 生产环境生成 .gz 文件
       viteCompression({
@@ -89,13 +94,7 @@ export default defineConfig(({ mode }: ConfigEnv) => {
       preprocessorOptions: {
         less: {
           javascriptEnabled: true,
-          modifyVars: {
-            'primary-color': '#1DA57A',
-            'link-color': '#1DA57A',
-            'border-radius-base': '2px',
-          },
           additionalData: `
-            @import "ant-design-vue/lib/style/themes/default.less";
             @import "@/styles/variables.less";
           `,
         },

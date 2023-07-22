@@ -116,9 +116,8 @@ const editorConfig = {
       <TinymceEditor
         id="tinymce-wrap"
         v-model:modelValue="editorText"
-        api-key="no-api-key"
         :init="editorConfig"
-        tinymce-script-src="/lib/tinymce/tinymce.min.js"
+        tinymce-script-src="/lib/tinymce6.6/tinymce.min.js"
         initial-value="Welcome to TinyMCE Vue" />
     </div>
   </div>

@@ -1,6 +1,6 @@
 # 技术栈
 Vue 3 + TypeScript + Vite
-
+## ⚠ antd-vue 升级v4 部分组件api 有变化
 ## 脚手架
 - npm地址: https://www.npmjs.com/package/lcfe-cli
 - 脚手架代码: http://git.lhcz.co/fe/lcfe-cli
@@ -33,8 +33,7 @@ Vue 3 + TypeScript + Vite
 
 ## 修改antdv主题
 - 文档: https://www.antdv.com/docs/vue/customize-theme-cn
-- 修改文件路径 `vite.config.ts/.../modifyVars: {}` & `@/styles/variables.less`
-- 默认颜色为 `#1890ff`
+- 默认颜色为 `#1677ff`
 
 ## 环境
 node >=16
@@ -56,9 +55,6 @@ npm run dev
 
 ### 构建打包
 npm build
-
-### 升级包
-pnpm up '!nprogress'  --latest
 
 ### 浏览器兼容
 - 'defaults' 

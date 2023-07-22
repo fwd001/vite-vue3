@@ -5,7 +5,7 @@
  * @LastEditTime: 2022-07-18 13:13:05
  * @Description:
  */
-import 'nprogress/css/nprogress.css' // 进度条样式
+
 import type { App } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { createRouterGuards } from './router-guards'
