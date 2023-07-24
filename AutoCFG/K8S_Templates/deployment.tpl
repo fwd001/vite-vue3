@@ -4,7 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ${FE_PRONAME}
-  namespace: demotestns
+  namespace: ${K8S_NAMESPACE}
   labels:
     app: ${FE_PRONAME}
 spec:
@@ -20,8 +20,6 @@ spec:
       terminationGracePeriodSeconds: 30
       imagePullSecrets:
         - name: harborsecret
-      nodeSelector:
-        env-role: ${NODEENVROLE}
       containers:
       - name: ${FE_PRONAME}
         image: ${imgrepoAddr}/${ProjectName}/${FE_PRONAME}:${GIT_BRANCH}-${BDATE}-${GIT_COMMIT_ID}
@@ -36,7 +34,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ${FE_PRONAME}
-  namespace: demotestns
+  namespace: ${K8S_NAMESPACE}
   labels:
     app: ${FE_PRONAME}
 spec:
