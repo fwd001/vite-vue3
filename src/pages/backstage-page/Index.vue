@@ -8,6 +8,7 @@ import { useRouter } from 'vue-router'
 defineOptions({
   name: 'WelcomeView',
 })
+const viteBase = import.meta.env.VITE_BASE
 const userStore = useUserStore()
 
 const count = ref(0)
@@ -117,7 +118,7 @@ const editorConfig = {
         id="tinymce-wrap"
         v-model:modelValue="editorText"
         :init="editorConfig"
-        tinymce-script-src="/lib/tinymce6.6/tinymce.min.js"
+        :tinymce-script-src="`${viteBase}lib/tinymce6.6/tinymce.min.js`"
         initial-value="Welcome to TinyMCE Vue" />
     </div>
   </div>

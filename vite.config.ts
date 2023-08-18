@@ -13,8 +13,10 @@ import UnoCSS from 'unocss/vite'
 const CWD = process.cwd()
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }: ConfigEnv) => {
-  const { VITE_IS_DEBUG } = loadEnv(mode, CWD)
+  const { VITE_IS_DEBUG, VITE_BASE } = loadEnv(mode, CWD)
+
   return {
+    base: VITE_BASE,
     server: {
       port: 8088,
       host: '0.0.0.0',
