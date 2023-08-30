@@ -118,7 +118,7 @@ const editorConfig = {
         id="tinymce-wrap"
         v-model:modelValue="editorText"
         :init="editorConfig"
-        :tinymce-script-src="`${viteBase}lib/tinymce6.6/tinymce.min.js`"
+        :tinymce-script-src="`${viteBase}lib/tinymce/tinymce.min.js`"
         initial-value="Welcome to TinyMCE Vue" />
     </div>
   </div>
