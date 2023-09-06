@@ -2,7 +2,14 @@ import { createApp } from 'vue'
 import { setupRouter } from '@/router/index'
 import { setupMitt } from '@/plugins/event-bus'
 import { setupStore } from 'store'
-import { setupAntd, setupAssets, setupTinymce, setupUpdater, setupDirectives } from '@/plugins'
+import {
+  setupAntd,
+  setupAssets,
+  setupTinymce,
+  setupUpdater,
+  setupDirectives,
+  setupOther,
+} from '@/plugins'
 import App from './App.vue'
 import 'uno.css'
 import '@/style.less'
@@ -10,10 +17,12 @@ import '@/style.less'
 const app = createApp(App)
 
 function setupPlugins() {
+  // 加载其他插件
+  setupOther()
   // 引入静态资源
   setupAssets()
   // 注册全局常用的 ant-design-vue 组件
-  setupAntd(app)
+  setupAntd()
   // 自定义指令
   setupDirectives(app)
   // 编辑器
