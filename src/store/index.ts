@@ -6,9 +6,9 @@ const store = createPinia()
 
 export default store
 
+export * from './modules'
+
 export function setupStore(app: App<Element>) {
   store.use(piniaPluginPersistedstate)
   app.use(store)
 }
-
-export * from './modules'
