@@ -2,7 +2,6 @@
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
 import { theme } from 'ant-design-vue'
 import { useConfigStore } from '@/store'
-
 import axios from 'axios'
 import { useRequest } from 'vue-request'
 
