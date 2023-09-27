@@ -132,5 +132,6 @@ const menuClick = (info: { key: string }) => {
 .layout-nav-box {
   background: @bg-main;
   height: 100vh;
+  width: 180px;
 }
 </style>

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { legacyLogicalPropertiesTransformer } from 'ant-design-vue'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
-import { theme } from 'ant-design-vue'
+import { theme, legacyLogicalPropertiesTransformer } from 'ant-design-vue'
 import { useConfigStore } from '@/store'
 import axios from 'axios'
 import { useRequest } from 'vue-request'
