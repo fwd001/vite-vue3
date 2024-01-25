@@ -120,7 +120,6 @@
     padding-top: 50px;
     background-color: rgb(0 0 0 / 25%);
 
-
     &-content {
       position: relative;
       flex-direction: column;

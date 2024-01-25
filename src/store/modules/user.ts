@@ -110,8 +110,13 @@ export const useUserStore = defineStore({
         this.setSessionTimeout(false);
       } else {
         const permissionStore = usePermissionStore();
+        console.log('permissionStore', permissionStore);
+        console.log('permissionStore.isDynamicAddedRoute', permissionStore.isDynamicAddedRoute);
+
         if (!permissionStore.isDynamicAddedRoute) {
           const routes = await permissionStore.buildRoutesAction();
+          console.log('routes', routes);
+
           routes.forEach((route) => {
             router.addRoute(route as unknown as RouteRecordRaw);
           });

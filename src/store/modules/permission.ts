@@ -169,7 +169,7 @@ export const usePermissionStore = defineStore({
         }
         return;
       };
-
+      // debugger;
       switch (permissionMode) {
         // 角色权限
         case PermissionModeEnum.ROLE:
