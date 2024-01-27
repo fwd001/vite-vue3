@@ -22,6 +22,7 @@
   import { GITHUB_URL, SITE_URL, DOC_URL } from '@/settings/siteSetting';
 
   const { pkg, lastBuildTime } = __APP_INFO__;
+  console.log('__APP_INFO__', __APP_INFO__);
 
   const { dependencies, devDependencies, name, version } = pkg;
 
@@ -46,11 +47,6 @@
       label: '文档地址',
       field: 'doc',
       render: commonLinkRender('文档地址'),
-    },
-    {
-      label: '预览地址',
-      field: 'preview',
-      render: commonLinkRender('预览地址'),
     },
     {
       label: 'Github',

@@ -1,19 +1,11 @@
 {
-  "name": "vben-admin",
+  "name": "lhcz-admin",
   "version": "2.10.1",
   "homepage": "https://github.com/vbenjs/vue-vben-admin",
-  "bugs": {
-    "url": "https://github.com/vbenjs/vue-vben-admin/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vbenjs/vue-vben-admin.git"
-  },
   "license": "MIT",
   "author": {
-    "name": "vben",
-    "email": "anncwb@126.com",
-    "url": "https://github.com/anncwb"
+    "name": "lhcz",
+    "email": "lhcz@lhcz.com"
   },
   "type": "module",
   "scripts": {
@@ -36,7 +28,8 @@
     "reinstall": "rimraf pnpm-lock.yaml && rimraf package.lock.json && rimraf node_modules && npm run bootstrap",
     "serve": "npm run dev",
     "test:gzip": "npx http-server dist --cors --gzip -c-1",
-    "type:check": "vue-tsc --noEmit --skipLibCheck"
+    "type:check": "vue-tsc --noEmit --skipLibCheck",
+    "up": "pnpm update  -w --latest"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -103,6 +96,7 @@
     "vue": "3.3.4",
     "vue-i18n": "^9.8.0",
     "vue-json-pretty": "^2.3.0",
+    "vue-request": "^2.0.4",
     "vue-router": "^4.2.5",
     "vue-types": "^5.1.1",
     "vuedraggable": "^4.1.0",

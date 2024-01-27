@@ -2,7 +2,7 @@
 
 [![license](https://img.shields.io/github/license/anncwb/vue-vben-admin.svg)](LICENSE)
 
-<h1>Vue vben admin</h1>
+<h1>Vue lhcz admin</h1>
 </div>
 
 **中文** | [English](./README.md)
@@ -28,7 +28,7 @@ Vue Vben Admin 是一个免费开源的中后台模版。使用了最新的`vue3
 - [vben-admin-thin-next](https://vben.vvbin.cn/thin/next/) - 简化版中文站点
 - [vben-admin-thin-gh-pages](https://anncwb.github.io/vben-admin-thin-next/) - 简化版 github 站点
 
-测试账号: vben/123456
+测试账号: lhcz/123456
 
 <p align="center">
     <img alt="VbenAdmin Logo" width="100%" src="https://anncwb.github.io/anncwb/images/preview1.png">

@@ -1,25 +1,65 @@
 <template>
   <div class="p-4">
-    <GrowCard :loading="loading" class="enter-y" />
-    <SiteAnalysis class="!my-4 enter-y" :loading="loading" />
-    <div class="md:flex enter-y">
-      <VisitRadar class="md:w-1/3 w-full" :loading="loading" />
-      <VisitSource class="md:w-1/3 !md:mx-4 !md:my-0 !my-4 w-full" :loading="loading" />
-      <SalesProductPie class="md:w-1/3 w-full" :loading="loading" />
+    <div class="mb-12px"> </div>
+    <div class="card">
+      <p v-ellipsis class="w-100">TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+      <p>TypeScript + vite + vue3 + pinia</p>
+
+      <p>请求测试：</p>
+      <p>{{ data }}</p>
+      <p>{{ loading }}</p>
+      <p>富文本</p>
+
+      <Tinymce v-model="value" @change="handleChange" width="100%" />
     </div>
   </div>
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue';
-  import GrowCard from './components/GrowCard.vue';
-  import SiteAnalysis from './components/SiteAnalysis.vue';
-  import VisitSource from './components/VisitSource.vue';
-  import VisitRadar from './components/VisitRadar.vue';
-  import SalesProductPie from './components/SalesProductPie.vue';
+  import { useRequest } from 'vue-request';
+  import { apiList } from '@/api/dashboard/analysis';
+  import { Tinymce } from '@/components/Tinymce/index';
 
-  const loading = ref(true);
-
-  setTimeout(() => {
-    loading.value = false;
-  }, 1500);
+  const value = ref('hello world!');
+  function handleChange(value: string) {
+    console.log(value);
+  }
+  const { data, loading } = useRequest(apiList, {
+    defaultParams: [{ query: 'string' }],
+    onSuccess(res) {
+      console.log('res', res);
+    },
+  });
 </script>
