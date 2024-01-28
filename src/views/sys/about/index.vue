@@ -21,6 +21,10 @@
   import { Description, DescItem, useDescription } from '@/components/Description';
   import { GITHUB_URL, SITE_URL, DOC_URL } from '@/settings/siteSetting';
 
+  defineOptions({
+    name: 'AboutPage',
+  });
+
   const { pkg, lastBuildTime } = __APP_INFO__;
   console.log('__APP_INFO__', __APP_INFO__);
 

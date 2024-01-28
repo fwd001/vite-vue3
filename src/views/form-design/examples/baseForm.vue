@@ -4,6 +4,10 @@
 <script lang="ts" setup>
   import { BasicForm, FormSchema, useForm } from '@/components/Form';
 
+  defineOptions({
+    name: 'Example1',
+  });
+
   const schemas: FormSchema[] = [
     {
       component: 'AutoComplete',

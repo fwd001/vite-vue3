@@ -49,7 +49,7 @@
   import { columns, searchFormSchema } from './account.data';
   import { useGo } from '@/hooks/web/usePage';
 
-  defineOptions({ name: 'AccountManagement' });
+  defineOptions({ name: 'Workbench' });
 
   const go = useGo();
   const [registerModal, { openModal }] = useModal();

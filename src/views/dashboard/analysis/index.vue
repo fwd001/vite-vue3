@@ -52,6 +52,10 @@
   import { apiList } from '@/api/dashboard/analysis';
   import { Tinymce } from '@/components/Tinymce/index';
 
+  defineOptions({
+    name: 'Analysis',
+  });
+
   const value = ref('hello world!');
   function handleChange(value: string) {
     console.log(value);
