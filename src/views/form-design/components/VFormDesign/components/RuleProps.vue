@@ -3,7 +3,7 @@
 -->
 <template>
   <div class="rule-props-content">
-    <Form v-if="formConfig.currentItem && formConfig.currentItem['rules']">
+    <Form v-if="formConfig.currentItem && formConfig.currentItem['rules']" class="p-10px">
       <div
         v-for="(item, index) of formConfig.currentItem['rules']"
         :key="index"

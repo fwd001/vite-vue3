@@ -56,7 +56,7 @@
         <FormItem
           v-if="!['Grid'].includes(formConfig.currentItem.component)"
           label="校验规则"
-          :class="{ 'form-rule-props': !!formConfig.currentItem.itemProps['rules'] }"
+          :class="[{ 'form-rule-props': !!formConfig.currentItem.itemProps['rules'] }]"
         >
           <RuleProps />
         </FormItem>

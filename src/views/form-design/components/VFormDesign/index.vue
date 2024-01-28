@@ -1,40 +1,42 @@
 <template>
-  <Layout>
+  <Layout class="h-100%">
     <LayoutSider
-      :class="`left ${prefixCls}-sider`"
+      :class="`left ${prefixCls}-sider h-100%`"
       collapsible
       collapsedWidth="0"
-      width="270"
+      width="280"
       :zeroWidthTriggerStyle="{
         'margin-top': '-70px',
         'background-color': 'gray',
       }"
       breakpoint="md"
     >
-      <CollapseContainer title="基础控件">
-        <CollapseItem
-          :list="baseComponents"
-          :handleListPush="handleListPushDrag"
-          @add-attrs="handleAddAttrs"
-          @handle-list-push="handleListPush"
-        />
-      </CollapseContainer>
-      <CollapseContainer title="自定义控件">
-        <CollapseItem
-          :list="customComponents"
-          @add-attrs="handleAddAttrs"
-          :handleListPush="handleListPushDrag"
-          @handle-list-push="handleListPush"
-        />
-      </CollapseContainer>
-      <CollapseContainer title="布局控件">
-        <CollapseItem
-          :list="layoutComponents"
-          :handleListPush="handleListPushDrag"
-          @add-attrs="handleAddAttrs"
-          @handle-list-push="handleListPush"
-        />
-      </CollapseContainer>
+      <div class="h-100% overflow-auto">
+        <CollapseContainer title="基础控件">
+          <CollapseItem
+            :list="baseComponents"
+            :handleListPush="handleListPushDrag"
+            @add-attrs="handleAddAttrs"
+            @handle-list-push="handleListPush"
+          />
+        </CollapseContainer>
+        <CollapseContainer title="自定义控件">
+          <CollapseItem
+            :list="customComponents"
+            @add-attrs="handleAddAttrs"
+            :handleListPush="handleListPushDrag"
+            @handle-list-push="handleListPush"
+          />
+        </CollapseContainer>
+        <CollapseContainer title="布局控件">
+          <CollapseItem
+            :list="layoutComponents"
+            :handleListPush="handleListPushDrag"
+            @add-attrs="handleAddAttrs"
+            @handle-list-push="handleListPush"
+          />
+        </CollapseContainer>
+      </div>
     </LayoutSider>
     <LayoutContent>
       <Toolbar
@@ -52,7 +54,7 @@
       />
     </LayoutContent>
     <LayoutSider
-      :class="`right ${prefixCls}-sider`"
+      :class="`right ${prefixCls}-sider h-100%`"
       collapsible
       :reverseArrow="true"
       collapsedWidth="0"
