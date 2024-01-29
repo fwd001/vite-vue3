@@ -27,8 +27,8 @@ node('jenkins-master') {
             sh "npm -v"
             sh "rm -f pnpm-lock.yaml"
             sh "npm config set registry http://registry.npmmirror.com"
-            sh "pnpm install"
-            sh "npm run bud"
+            sh "npm run bootstrap"
+            sh "npm run build"
         }
     }
     
