@@ -10,6 +10,7 @@
   "type": "module",
   "scripts": {
     "bootstrap": "pnpm install",
+    "bud": "npm run build",
     "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max-old-space-size=8192 pnpm vite build",
     "build:analyze": "cross-env NODE_OPTIONS=--max-old-space-size=8192 pnpm vite build --mode analyze",
     "build:docker": "vite build --mode docker",
