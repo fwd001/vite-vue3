@@ -21,7 +21,7 @@ node('jenkins-master') {
     }
 
     stage('build'){
-         nodejs(cacheLocationStrategy: workspace(), nodeJSInstallationName: 'Node-v16') {
+         nodejs(cacheLocationStrategy: workspace(), nodeJSInstallationName: 'Node-v18') {
             // 编译打包
             sh "node -v"
             sh "npm -v"
