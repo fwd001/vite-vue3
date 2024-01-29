@@ -1,0 +1,6 @@
+FROM repository.lhcz.local:81/jenkins/nginx:1.20.1
+LABEL fuwendong <fuwendong5@outlook.com>
+COPY default.conf /etc/nginx/conf.d
+ADD dist.tar.gz /opt/website
+#RUN chown nginx:nginx -R /opt/website
+EXPOSE 80

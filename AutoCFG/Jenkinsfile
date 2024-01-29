@@ -1,0 +1,50 @@
+node('jenkins-master') {
+
+    // git代码路径
+    def gitrepoUrl = 'git@git.lhcz.local:fuwendong/vite-vue3.git'
+    env.GIT_BRANCH = GIT_BRANCH.replace('origin/','')
+    // k8s项目命名空间
+    env.ProjectName = 'vite-vue3-fe'
+    env.imgrepoAddr = 'repository.lhcz.local:81'
+    env.K8S_NAMESPACE = 'app'
+
+    env.FE_PRONAME = "vite-vue3-fe"
+    env.BDATE = new Date().format("yyyyMMdd_HHmmss")
+
+    // 清空工作目录
+    // deleteDir()
+
+    stage('get clone') {
+        sh "echo ${GIT_BRANCH}"
+        git branch: "${GIT_BRANCH}", credentialsId: 'devops', url: "${gitrepoUrl}"
+        env.GIT_COMMIT_ID = sh(returnStdout: true, script: 'git rev-parse --short=10 HEAD').trim()
+    }
+
+    stage('build'){
+         nodejs(cacheLocationStrategy: workspace(), nodeJSInstallationName: 'Node-v16') {
+            // 编译打包
+            sh "node -v"
+            sh "npm -v"
+            sh "rm -f pnpm-lock.yaml"
+            sh "npm config set registry http://registry.npmmirror.com"
+            sh "pnpm install"
+            sh "npm run bud"
+        }
+    }
+    
+    stage('build image') {
+        sh "tar cfvz AutoCFG/BuildIMG/dist.tar.gz dist"
+        sh "envsubst < AutoCFG/BuildIMG/Dockerfile_tpl > AutoCFG/BuildIMG/Dockerfile"
+        sh "chown 1000:1000 -R AutoCFG/BuildIMG"
+        sh "cd AutoCFG/BuildIMG && docker build -t ${imgrepoAddr}/${ProjectName}/${FE_PRONAME}:${GIT_BRANCH}-${BDATE}-${GIT_COMMIT_ID} ."
+    }
+
+    stage('push image') {
+        sh "docker push ${imgrepoAddr}/${ProjectName}/${FE_PRONAME}:${GIT_BRANCH}-${BDATE}-${GIT_COMMIT_ID}"
+    }
+    
+    stage('kubernetes deploy') {
+        sh "envsubst < AutoCFG/K8S_Templates/deployment.tpl > AutoCFG/K8S_Templates/deployment.yaml"
+        sh "kubectl apply -n app -f AutoCFG/K8S_Templates/deployment.yaml"
+    }
+}
