@@ -1,5 +1,11 @@
 import { defHttp } from '@/utils/http/axios';
-import { LoginParams, LoginResultModel, GetUserInfoModel } from './model/userModel';
+import {
+  LoginParams,
+  LoginResultModel,
+  GetUserInfoModel,
+  AurhorizeCodeResultModel,
+  AurhorizeCodeParamsModel,
+} from './model/userModel';
 
 import { ErrorMessageMode } from '#/axios';
 
@@ -9,6 +15,7 @@ enum Api {
   GetUserInfo = '/getUserInfo',
   GetPermCode = '/getPermCode',
   TestRetry = '/testRetry',
+  AurhorizeCode = '/client/callback',
 }
 
 /**
@@ -50,6 +57,21 @@ export function testRetry() {
         count: 5,
         waitTime: 1000,
       },
+    },
+  );
+}
+
+/**
+ * @description: 认证code
+ */
+export function aurhorizeCode(params: AurhorizeCodeParamsModel, mode: ErrorMessageMode = 'modal') {
+  return defHttp.get<AurhorizeCodeResultModel>(
+    {
+      url: Api.AurhorizeCode,
+      params,
+    },
+    {
+      errorMessageMode: mode,
     },
   );
 }

@@ -16,7 +16,6 @@
     <AppLogo :showTitle="false" :class="`${prefixCls}-logo`" />
 
     <LayoutTrigger :class="`${prefixCls}-trigger`" />
-
     <ScrollContainer>
       <ul :class="`${prefixCls}-module`">
         <li

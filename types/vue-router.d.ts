@@ -5,45 +5,47 @@ export {};
 declare module 'vue-router' {
   interface RouteMeta extends Record<string | number | symbol, unknown> {
     orderNo?: number;
-    // title
+    // 标题
     title: string;
-    // dynamic router level.
+    // 动态路由级别
     dynamicLevel?: number;
-    // dynamic router real route path (For performance).
+    // 动态路由的真实路径（为了性能）
     realPath?: string;
-    // Whether to ignore permissions
+    // 是否忽略权限
     ignoreAuth?: boolean;
-    // role info
+    // 角色信息
     roles?: RoleEnum[];
-    // Whether not to cache
+    // 是否不缓存
     ignoreKeepAlive?: boolean;
-    // Is it fixed on tab
+    // 是否固定在标签页上
     affix?: boolean;
-    // icon on tab
+    // 标签页上的图标
     icon?: string;
-    // img on tab
+    // 标签页上的图片
     img?: string;
     frameSrc?: string;
-    // current page transition
+    // 当前页面的过渡效果名称
     transitionName?: string;
-    // Whether the route has been dynamically added
+    // 路由是否已动态添加
     hideBreadcrumb?: boolean;
-    // Hide submenu
+    // 隐藏子菜单
     hideChildrenInMenu?: boolean;
-    // Carrying parameters
+    // 携带参数
     carryParam?: boolean;
-    // Used internally to mark single-level menus
+    // 用于内部标记单级菜单
     single?: boolean;
-    // Currently active menu
+    // 当前激活的菜单
     currentActiveMenu?: string;
-    // Never show in tab
+    // 从不显示在标签页上
     hideTab?: boolean;
-    // Never show in menu
+    // 从不显示在菜单中
     hideMenu?: boolean;
     isLink?: boolean;
-    // only build for Menu
+    // 仅为菜单构建
     ignoreRoute?: boolean;
-    // Hide path for children
+    // 隐藏子菜单的路径
     hidePathForChildren?: boolean;
+    // 权限key
+    powerKey?: string;
   }
 }

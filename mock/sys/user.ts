@@ -1,5 +1,6 @@
 import { MockMethod } from 'vite-plugin-mock';
 import { resultError, resultSuccess, getRequestToken, requestParams } from '../_util';
+import { data as callbackResult } from './callback.api';
 
 export function createFakeUserList() {
   return [
@@ -117,6 +118,14 @@ export default [
     method: 'get',
     response: () => {
       return resultError('Error!');
+    },
+  },
+  {
+    url: '/basic-api/client/callback',
+    statusCode: 200,
+    method: 'get',
+    response: () => {
+      return resultSuccess(callbackResult);
     },
   },
 ] as MockMethod[];

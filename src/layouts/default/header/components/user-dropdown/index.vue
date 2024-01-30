@@ -11,43 +11,29 @@
 
     <template #overlay>
       <Menu @click="handleMenuClick">
-        <MenuItem
-          v-if="getUseLockPage"
-          key="lock"
-          :text="t('layout.header.tooltipLock')"
-          icon="ion:lock-closed-outline"
-        />
-        <MenuItem
-          key="logout"
-          :text="t('layout.header.dropdownItemLoginOut')"
-          icon="ion:power-outline"
-        />
+        <MenuItem v-if="getUseLockPage" key="lock" text="锁定屏幕" icon="ion:lock-closed-outline" />
+        <MenuItem key="logout" text="退出系统" icon="ion:power-outline" />
       </Menu>
     </template>
   </Dropdown>
   <LockAction @register="register" />
-  <ChangeApi @register="registerApi" />
 </template>
 <script lang="ts" setup>
   import { Dropdown, Menu } from 'ant-design-vue';
   import type { MenuInfo } from 'ant-design-vue/lib/menu/src/interface';
   import { computed } from 'vue';
-  import { DOC_URL } from '@/settings/siteSetting';
   import { useUserStore } from '@/store/modules/user';
   import { useHeaderSetting } from '@/hooks/setting/useHeaderSetting';
-  import { useI18n } from '@/hooks/web/useI18n';
   import { useDesign } from '@/hooks/web/useDesign';
   import { useModal } from '@/components/Modal';
   import headerImg from '@/assets/images/header.jpg';
   import { propTypes } from '@/utils/propTypes';
-  import { openWindow } from '@/utils';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
 
   type MenuEvent = 'logout' | 'doc' | 'lock' | 'api';
 
   const MenuItem = createAsyncComponent(() => import('./DropMenuItem.vue'));
   const LockAction = createAsyncComponent(() => import('../lock/LockModal.vue'));
-  const ChangeApi = createAsyncComponent(() => import('../ChangeApi/index.vue'));
 
   defineOptions({ name: 'UserDropdown' });
 
@@ -56,24 +42,18 @@
   });
 
   const { prefixCls } = useDesign('header-user-dropdown');
-  const { t } = useI18n();
   const { getUseLockPage } = useHeaderSetting();
   const userStore = useUserStore();
 
   const getUserInfo = computed(() => {
-    const { realName = '', avatar, desc } = userStore.getUserInfo || {};
-    return { realName, avatar: avatar || headerImg, desc };
+    const { name = '', photo } = userStore.getUserInfo || {};
+    return { realName: name, avatar: photo || headerImg };
   });
 
   const [register, { openModal }] = useModal();
-  const [registerApi, { openModal: openApiModal }] = useModal();
 
   function handleLock() {
     openModal(true);
-  }
-
-  function handleApi() {
-    openApiModal(true, {});
   }
 
   //  login out
@@ -81,24 +61,13 @@
     userStore.confirmLoginOut();
   }
 
-  // open doc
-  function openDoc() {
-    openWindow(DOC_URL);
-  }
-
   function handleMenuClick(e: MenuInfo) {
     switch (e.key as MenuEvent) {
       case 'logout':
         handleLoginOut();
         break;
-      case 'doc':
-        openDoc();
-        break;
       case 'lock':
         handleLock();
-        break;
-      case 'api':
-        handleApi();
         break;
     }
   }

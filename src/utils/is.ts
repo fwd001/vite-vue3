@@ -7,7 +7,6 @@ export {
   isBoolean,
   isDate,
   isElement,
-  isEmpty,
   isEqual,
   isEqualWith,
   isError,
@@ -70,3 +69,8 @@ export function isPascalCase(str: string): boolean {
   const regex = /^[A-Z][A-Za-z]*$/;
   return regex.test(str);
 }
+
+// 判断为空
+export const isEmpty = (val: unknown) => {
+  return [null, undefined, ''].includes(val as any);
+};

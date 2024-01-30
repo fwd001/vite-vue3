@@ -128,6 +128,7 @@ export const accountFormSchema: FormSchema[] = [
     componentProps: {
       fieldNames: {
         label: 'deptName',
+        // @ts-ignore
         key: 'id',
         value: 'id',
       },

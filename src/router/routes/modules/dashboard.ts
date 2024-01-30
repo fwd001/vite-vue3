@@ -19,8 +19,8 @@ const dashboard: AppRouteModule = {
       name: 'Analysis',
       component: () => import('@/views/dashboard/analysis/index.vue'),
       meta: {
-        // affix: true,
-        title: t('routes.dashboard.analysis'),
+        title: '分析页',
+        powerKey: 'analysis',
       },
     },
     {
@@ -28,7 +28,8 @@ const dashboard: AppRouteModule = {
       name: 'Workbench',
       component: () => import('@/views/dashboard/workbench/index.vue'),
       meta: {
-        title: t('routes.dashboard.workbench'),
+        title: '工作台',
+        powerKey: 'workbench',
       },
     },
   ],

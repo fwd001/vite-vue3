@@ -77,7 +77,8 @@ export function transformRouteToMenu(routeModList: AppRouteModule[], routerMappi
   });
   // 路径处理
   joinParentPath(list);
-  return cloneDeep(list);
+  // 过滤没有子菜单的菜单
+  return cloneDeep(list.filter((item) => item.children?.length));
 }
 
 /**

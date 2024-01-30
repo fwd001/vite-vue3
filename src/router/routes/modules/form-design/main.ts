@@ -17,6 +17,7 @@ const permission: AppRouteModule = {
       name: 'Design',
       meta: {
         title: '表单设计',
+        powerKey: 'design',
       },
       component: () => import('@/views/form-design/index.vue'),
     },
@@ -25,6 +26,7 @@ const permission: AppRouteModule = {
       name: 'Example1',
       meta: {
         title: '示例',
+        powerKey: 'example1',
       },
       component: () => import('@/views/form-design/examples/baseForm.vue'),
     },

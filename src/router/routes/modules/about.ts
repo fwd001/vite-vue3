@@ -22,6 +22,7 @@ const about: AppRouteModule = {
         title: '关于',
         icon: 'simple-icons:aboutdotme',
         hideMenu: true,
+        powerKey: 'aboutPage',
       },
     },
   ],

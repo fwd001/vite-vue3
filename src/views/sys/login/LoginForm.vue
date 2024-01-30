@@ -39,18 +39,11 @@
 
   import LoginFormTitle from './LoginFormTitle.vue';
 
-  import { useMessage } from '@/hooks/web/useMessage';
-
-  import { useUserStore } from '@/store/modules/user';
   import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
-  import { useDesign } from '@/hooks/web/useDesign';
   //import { onKeyStroke } from '@vueuse/core';
 
   const FormItem = Form.Item;
   const InputPassword = Input.Password;
-  const { notification, createErrorModal } = useMessage();
-  const { prefixCls } = useDesign('login');
-  const userStore = useUserStore();
 
   const { getLoginState } = useLoginState();
   const { getFormRules } = useFormRules();
@@ -71,29 +64,6 @@
 
   async function handleLogin() {
     const data = await validForm();
-    if (!data) return;
-    try {
-      loading.value = true;
-      const userInfo = await userStore.login({
-        password: data.password,
-        username: data.account,
-        mode: 'none', //不要默认的错误提示
-      });
-      if (userInfo) {
-        notification.success({
-          message: '登录成功！',
-          description: `欢迎回来: ${userInfo.realName}`,
-          duration: 3,
-        });
-      }
-    } catch (error) {
-      createErrorModal({
-        title: '错误提示',
-        content: (error as unknown as Error).message || '网络异常，请检查您的网络连接是否正常!',
-        getContainer: () => document.body.querySelector(`.${prefixCls}`) || document.body,
-      });
-    } finally {
-      loading.value = false;
-    }
+    console.log('data', data);
   }
 </script>

@@ -21,20 +21,10 @@ pnpm serve
 pnpm build
 ```
 
-- docker
+### 脚手架项目访问地址
 
-### The dockerFile is located in the project root directory and supports differential deployment
+http://172.16.11.13:31607/
 
-#### build image
+### 全组件访问地址
 
-```bash
-docker build -t vue-vben-admin .
-```
-
-#### Environment variables are dynamically used to achieve differentiated container deployment. Different VG_BASE_URL environment variables point to different back-end service addresses. In the following example, http://localhost:3333 is used as the back-end service address and the container is mapped to port 6666
-
-```bash
-docker run --name vue-vben-admin -d -p 6666:80  -e VG_BASE_URL=http://localhost:3333 vue-vben-admin
-```
-
-Then you can navigate http://localhost:6666
+http://172.16.11.13:8078/

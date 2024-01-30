@@ -1,4 +1,3 @@
-import type { UserInfo } from '#/store';
 import type { ErrorMessageMode } from '#/axios';
 import { defineStore } from 'pinia';
 import { store } from '@/store';
@@ -6,19 +5,18 @@ import { RoleEnum } from '@/enums/roleEnum';
 import { PageEnum } from '@/enums/pageEnum';
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '@/enums/cacheEnum';
 import { getAuthCache, setAuthCache } from '@/utils/auth';
-import { GetUserInfoModel, LoginParams } from '@/api/sys/model/userModel';
-import { doLogout, getUserInfo, loginApi } from '@/api/sys/user';
+import { AurhorizeCodeParamsModel, AurhorizeCodeResultModel } from '@/api/sys/model/userModel';
+import { doLogout, aurhorizeCode } from '@/api/sys/user';
 import { useI18n } from '@/hooks/web/useI18n';
 import { useMessage } from '@/hooks/web/useMessage';
 import { router } from '@/router';
 import { usePermissionStore } from '@/store/modules/permission';
 import { RouteRecordRaw } from 'vue-router';
 import { PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic';
-import { isArray } from '@/utils/is';
 import { h } from 'vue';
 
 interface UserState {
-  userInfo: Nullable<UserInfo>;
+  userInfo: Nullable<AurhorizeCodeResultModel>;
   token?: string;
   roleList: RoleEnum[];
   sessionTimeout?: boolean;
@@ -40,8 +38,8 @@ export const useUserStore = defineStore({
     lastUpdateTime: 0,
   }),
   getters: {
-    getUserInfo(state): UserInfo {
-      return state.userInfo || getAuthCache<UserInfo>(USER_INFO_KEY) || {};
+    getUserInfo(state): AurhorizeCodeResultModel {
+      return state.userInfo || getAuthCache<AurhorizeCodeResultModel>(USER_INFO_KEY) || {};
     },
     getToken(state): string {
       return state.token || getAuthCache<string>(TOKEN_KEY);
@@ -65,7 +63,7 @@ export const useUserStore = defineStore({
       this.roleList = roleList;
       setAuthCache(ROLES_KEY, roleList);
     },
-    setUserInfo(info: UserInfo | null) {
+    setUserInfo(info: AurhorizeCodeResultModel | null) {
       this.userInfo = info;
       this.lastUpdateTime = new Date().getTime();
       setAuthCache(USER_INFO_KEY, info);
@@ -83,39 +81,38 @@ export const useUserStore = defineStore({
      * @description: login
      */
     async login(
-      params: LoginParams & {
+      params: AurhorizeCodeParamsModel & {
         goHome?: boolean;
         mode?: ErrorMessageMode;
       },
-    ): Promise<GetUserInfoModel | null> {
+    ): Promise<AurhorizeCodeResultModel | null> {
       try {
         const { goHome = true, mode, ...loginParams } = params;
-        const data = await loginApi(loginParams, mode);
+        const data = await aurhorizeCode(loginParams, mode);
         const { token } = data;
-
-        // save token
-        this.setToken(token);
-        return this.afterLoginAction(goHome);
+        if (token) {
+          this.setUserInfo(data ?? null);
+          this.setToken(token);
+          // router.replace(path);
+        }
+        return this.afterLoginAction(goHome, loginParams.state);
       } catch (error) {
         return Promise.reject(error);
       }
     },
-    async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
+    async afterLoginAction(goHome?: boolean, path = '/'): Promise<AurhorizeCodeResultModel | null> {
       if (!this.getToken) return null;
       // get user info
-      const userInfo = await this.getUserInfoAction();
+      const userInfo = this.getUserInfo;
 
       const sessionTimeout = this.sessionTimeout;
       if (sessionTimeout) {
         this.setSessionTimeout(false);
       } else {
         const permissionStore = usePermissionStore();
-        console.log('permissionStore', permissionStore);
-        console.log('permissionStore.isDynamicAddedRoute', permissionStore.isDynamicAddedRoute);
 
         if (!permissionStore.isDynamicAddedRoute) {
           const routes = await permissionStore.buildRoutesAction();
-          console.log('routes', routes);
 
           routes.forEach((route) => {
             router.addRoute(route as unknown as RouteRecordRaw);
@@ -123,24 +120,26 @@ export const useUserStore = defineStore({
           router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
           permissionStore.setDynamicAddedRoute(true);
         }
-        goHome && (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
+        if (goHome) {
+          if (![undefined, 'null', null, ''].includes(path)) {
+            path = decodeURIComponent(path || '');
+          }
+          await router.replace(path || PageEnum.BASE_HOME);
+        }
       }
       return userInfo;
     },
-    async getUserInfoAction(): Promise<UserInfo | null> {
-      if (!this.getToken) return null;
-      const userInfo = await getUserInfo();
-      const { roles = [] } = userInfo;
-      if (isArray(roles)) {
-        const roleList = roles.map((item) => item.value) as RoleEnum[];
-        this.setRoleList(roleList);
-      } else {
-        userInfo.roles = [];
-        this.setRoleList([]);
-      }
-      this.setUserInfo(userInfo);
-      return userInfo;
-    },
+
+    // 未认证
+    // async notCertified() {
+    //   this.resetState();
+    //   if (isDevMode()) {
+    //     return '/auth?code=123';
+    //   } else {
+    //     location.href = import.meta.env.VITE_QB_AUTHORIZE_HREF;
+    //     return undefined;
+    //   }
+    // },
     /**
      * @description: logout
      */
@@ -155,7 +154,7 @@ export const useUserStore = defineStore({
       this.setToken(undefined);
       this.setSessionTimeout(false);
       this.setUserInfo(null);
-      goLogin && router.push(PageEnum.BASE_LOGIN);
+      goLogin && router.push(PageEnum.AUTH_PAGE);
     },
 
     /**

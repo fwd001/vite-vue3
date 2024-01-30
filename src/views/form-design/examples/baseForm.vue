@@ -166,6 +166,7 @@
         labelCol: {},
         wrapperCol: {},
       },
+      // @ts-ignore
       layout: 'horizontal',
       labelLayout: 'flex',
       labelWidth: 100,

@@ -37,11 +37,21 @@ export const LoginRoute: AppRouteRecordRaw = {
   },
 };
 
-// Basic routing without permission
-// 未经许可的基本路由
+export const AuthRoute: AppRouteRecordRaw = {
+  path: '/auth',
+  name: 'Auth',
+  component: () => import('@/views/auth/Authorize.vue'),
+  meta: {
+    title: '认证',
+    ignoreKeepAlive: true,
+  },
+};
+
+// 无需许可的基本路由
 export const basicRoutes = [
   LoginRoute,
   RootRoute,
+  AuthRoute,
   ...mainOutRoutes,
   REDIRECT_ROUTE,
   PAGE_NOT_FOUND_ROUTE,
