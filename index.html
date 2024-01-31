@@ -8,9 +8,10 @@
       name="viewport"
       content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0"
     />
-    <title><%= VITE_GLOB_APP_TITLE %></title>
+    <title> <%= VITE_GLOB_APP_TITLE %> </title>
     <link rel="icon" href="/favicon.ico" />
   </head>
+
   <body>
     <div id="app">
       <style>
@@ -149,10 +150,20 @@
           <div class="app-loading-dots">
             <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
           </div>
-          <div class="app-loading-title"><%= VITE_GLOB_APP_TITLE %></div>
+          <div class="app-loading-title"> <%= VITE_GLOB_APP_TITLE %> </div>
         </div>
       </div>
     </div>
+    <!-- bigemap第三方库 start -->
+    <link href="http://172.16.11.13:3000/bigemap.js/v2.1.0/bigemap.css" rel="stylesheet" />
+    <script src="http://172.16.11.13:3000/bigemap.js/v2.1.0/bigemap.js"></script>
+    <link
+      href="http://172.16.11.13:3000/bigemap-gl.js/v1.1.0/Widgets/widgets.css"
+      rel="stylesheet"
+    />
+    <script src="http://172.16.11.13:3000/bigemap-gl.js/v1.1.0/bigemap-gl.js"></script>
+    <!-- bigemap第三方库 end -->
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

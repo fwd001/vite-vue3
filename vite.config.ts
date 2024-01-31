@@ -32,6 +32,10 @@ export default defineApplicationConfig({
           ws: true,
           rewrite: (path) => path.replace(new RegExp(`^/upload`), ''),
         },
+        '/tiles': {
+          target: 'http://172.16.11.13:3002',
+          changeOrigin: true,
+        },
       },
       warmup: {
         clientFiles: ['./index.html', './src/{views,components}/*'],

@@ -63,6 +63,9 @@ declare global {
     __: unknown;
   }
 
+  const BM: any;
+  const bmgl: any;
+
   declare interface ViteEnv {
     VITE_USE_MOCK: boolean;
     VITE_PUBLIC_PATH: string;
