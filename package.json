@@ -122,6 +122,7 @@
     "@vben/ts-config": "workspace:*",
     "@vben/types": "workspace:*",
     "@vben/vite-config": "workspace:*",
+    "@vitejs/plugin-legacy": "^5.3.0",
     "@vue/compiler-sfc": "^3.4.15",
     "@vue/test-utils": "^2.4.4",
     "cross-env": "^7.0.3",
