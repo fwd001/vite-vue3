@@ -191,3 +191,5 @@ export const data = {
     },
   ],
 };
+
+export default [];

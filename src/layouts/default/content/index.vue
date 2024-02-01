@@ -33,15 +33,15 @@
 
     // begin: 下面这块代码 在我的项目打包后在比较宽的屏幕(2K 31 寸)有显示 bug 有偶发性 清缓存首次进入会出现 , 刷新就没了, 这里为什么要指定宽度 ?
     &.fixed {
-      width: 1200px;
-      margin: 0 auto;
+      width: 1200px !important;
+      margin: 0 auto !important;
     }
     // end
 
     &-loading {
-      position: absolute;
-      z-index: @page-loading-z-index;
-      top: 200px;
+      position: absolute !important;
+      z-index: @page-loading-z-index !important;
+      top: 200px !important;
     }
   }
 </style>

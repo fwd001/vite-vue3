@@ -72,7 +72,7 @@
 
     ele18lite.addTo(map);
 
-    layerGroup = BM.featureGroup([], { zIndex: 11 }).addTo(map);
+    // layerGroup = BM.featureGroup([], { zIndex: 11 }).addTo(map);
   }
 
   // 清除地图上绘制的所有内容,还原一些值为默认状态

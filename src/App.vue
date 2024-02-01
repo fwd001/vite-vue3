@@ -1,16 +1,22 @@
 <template>
-  <ConfigProvider :locale="getAntdLocale" :theme="themeConfig">
-    <AppProvider>
-      <RouterView />
-    </AppProvider>
-  </ConfigProvider>
+  <StyleProvider hash-priority="high" :transformers="[legacyLogicalPropertiesTransformer]">
+    <ConfigProvider :locale="getAntdLocale" :theme="themeConfig">
+      <AppProvider>
+        <RouterView />
+      </AppProvider>
+    </ConfigProvider>
+  </StyleProvider>
 </template>
 
 <script lang="ts" setup>
   import { AppProvider } from '@/components/Application';
   import { useTitle } from '@/hooks/web/useTitle';
   import { useLocale } from '@/locales/useLocale';
-  import { ConfigProvider } from 'ant-design-vue';
+  import {
+    ConfigProvider,
+    StyleProvider,
+    legacyLogicalPropertiesTransformer,
+  } from 'ant-design-vue';
 
   import { useDarkModeTheme } from '@/hooks/setting/useDarkModeTheme';
   import 'dayjs/locale/zh-cn';
