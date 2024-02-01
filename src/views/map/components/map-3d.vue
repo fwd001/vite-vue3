@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
   import { onMounted } from 'vue';
-  import { long } from '@/types';
+  import { long } from '#/base';
   import './map.less';
 
   bmgl.Config.HTTP_URL = 'http://172.16.11.13:3000';
