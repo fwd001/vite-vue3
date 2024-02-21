@@ -16,7 +16,7 @@ import { setObjToUrlParams, deepMerge } from '@/utils';
 import { useErrorLogStoreWithOut } from '@/store/modules/errorLog';
 import { useI18n } from '@/hooks/web/useI18n';
 import { joinTimestamp, formatRequestDate } from './helper';
-import { useUserStoreWithOut } from '@/store/modules/user';
+// import { useUserStoreWithOut } from '@/store/modules/user';
 import { AxiosRetry } from '@/utils/http/axios/axiosRetry';
 import axios from 'axios';
 
@@ -38,6 +38,7 @@ const transform: AxiosTransform = {
     if (isReturnNativeResponse) {
       return res;
     }
+
     // 不进行任何处理，直接返回
     // 用于页面代码可能需要直接获取code，data，message这些信息时开启
     if (!isTransformResponse) {
@@ -45,18 +46,39 @@ const transform: AxiosTransform = {
     }
     // 错误的时候返回
 
-    const { data } = res;
-    if (!data) {
+    // 二进制文件流响应处理
+    if (res.config.responseType === 'blob') {
+      const encodeFileName = res.headers['content-disposition']?.split(';')?.[1]?.split('=')?.[1];
+      const type = res.headers['content-type'] as string;
+      const fileName = decodeURIComponent(encodeFileName);
+
+      if (encodeFileName) {
+        return {
+          msg: '成功',
+          code: '0',
+          data: {
+            fileName,
+            type,
+            blob: res.data,
+          },
+        };
+      } else {
+        throw res;
+      }
+    }
+
+    const { data: result } = res;
+    if (!result) {
       // return '[HTTP] Request has no return value';
       throw new Error(t('sys.api.apiRequestFailed'));
     }
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
-    const { code, result, message } = data;
+    const { code, data, msg } = result;
 
     // 这里逻辑可以根据项目进行修改
-    const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS;
+    const hasSuccess = data && Reflect.has(result, 'code') && Number(code) === ResultEnum.SUCCESS;
     if (hasSuccess) {
-      let successMsg = message;
+      let successMsg = msg;
 
       if (isNull(successMsg) || isUndefined(successMsg) || isEmpty(successMsg)) {
         successMsg = t(`sys.api.operationSuccess`);
@@ -70,18 +92,27 @@ const transform: AxiosTransform = {
       return result;
     }
 
+    // token 失效
+    if (['AU0000'].includes(String(code))) {
+      throw res;
+    }
+    if (String(code) === 'AU0001') {
+      // 没有数据
+      return res;
+    }
+
     // 在此处根据自己项目的实际情况对不同的code执行不同的操作
     // 如果不希望中断当前请求，请return数据，否则直接抛出异常即可
     let timeoutMsg = '';
     switch (code) {
       case ResultEnum.TIMEOUT:
         timeoutMsg = t('sys.api.timeoutMessage');
-        const userStore = useUserStoreWithOut();
-        userStore.logout(true);
+        // const userStore = useUserStoreWithOut();
+        // userStore.logout(true);
         break;
       default:
-        if (message) {
-          timeoutMsg = message;
+        if (msg) {
+          timeoutMsg = msg;
         }
     }
 
@@ -167,8 +198,9 @@ const transform: AxiosTransform = {
   /**
    * @description: 响应拦截器处理
    */
-  responseInterceptors: (res: AxiosResponse<any>) => {
-    return res;
+  responseInterceptors: (response: AxiosResponse<any>) => {
+    // 直接返回res，当然你也可以只返回res.data
+    return response;
   },
 
   /**
@@ -275,6 +307,29 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
   );
 }
 export const defHttp = createAxios();
+export const clientHttp = createAxios({
+  requestOptions: {
+    // 是否返回原生响应头 比如：需要获取响应头时使用该属性
+    isReturnNativeResponse: true,
+    // 需要对返回数据进行处理
+    isTransformResponse: false,
+    // 消息提示类型
+    errorMessageMode: 'none',
+    // 接口地址
+    apiUrl: globSetting.clientApiUrl,
+    // 接口拼接地址
+    urlPrefix: urlPrefix,
+    // 忽略重复请求
+    ignoreCancelToken: true,
+    // 是否携带token
+    withToken: true,
+    retryRequest: {
+      isOpenRetry: true,
+      count: 5,
+      waitTime: 100,
+    },
+  },
+});
 
 // other api url
 // export const otherHttp = createAxios({

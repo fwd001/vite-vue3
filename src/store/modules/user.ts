@@ -7,13 +7,14 @@ import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '@/enums/cacheEnum';
 import { getAuthCache, setAuthCache } from '@/utils/auth';
 import { AurhorizeCodeParamsModel, AurhorizeCodeResultModel } from '@/api/sys/model/userModel';
 import { doLogout, aurhorizeCode } from '@/api/sys/user';
-import { useI18n } from '@/hooks/web/useI18n';
 import { useMessage } from '@/hooks/web/useMessage';
 import { router } from '@/router';
 import { usePermissionStore } from '@/store/modules/permission';
 import { RouteRecordRaw } from 'vue-router';
 import { PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic';
 import { h } from 'vue';
+import { useGlobSetting } from '@/hooks/setting';
+import { isDevMode } from '@/utils/env';
 
 interface UserState {
   userInfo: Nullable<AurhorizeCodeResultModel>;
@@ -87,8 +88,9 @@ export const useUserStore = defineStore({
       },
     ): Promise<AurhorizeCodeResultModel | null> {
       try {
-        const { goHome = true, mode, ...loginParams } = params;
-        const data = await aurhorizeCode(loginParams, mode);
+        const { goHome = true, ...loginParams } = params;
+        const { data } = await aurhorizeCode(loginParams);
+
         const { token } = data;
         if (token) {
           this.setUserInfo(data ?? null);
@@ -120,11 +122,12 @@ export const useUserStore = defineStore({
           router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
           permissionStore.setDynamicAddedRoute(true);
         }
+
         if (goHome) {
-          if (![undefined, 'null', null, ''].includes(path)) {
+          if (stateIsEmpty(path) === false) {
             path = decodeURIComponent(path || '');
           }
-          await router.replace(path || PageEnum.BASE_HOME);
+          await router.replace(stateIsEmpty(path) ? PageEnum.BASE_HOME : path);
         }
       }
       return userInfo;
@@ -144,6 +147,8 @@ export const useUserStore = defineStore({
      * @description: logout
      */
     async logout(goLogin = false) {
+      const { authorizeHref, clientApiUrl } = useGlobSetting();
+
       if (this.getToken) {
         try {
           await doLogout();
@@ -154,7 +159,12 @@ export const useUserStore = defineStore({
       this.setToken(undefined);
       this.setSessionTimeout(false);
       this.setUserInfo(null);
-      goLogin && router.push(PageEnum.AUTH_PAGE);
+
+      if (isDevMode()) {
+        goLogin && router.push(PageEnum.AUTH_PAGE);
+      } else {
+        location.href = `${clientApiUrl}${authorizeHref}`;
+      }
     },
 
     /**
@@ -162,11 +172,10 @@ export const useUserStore = defineStore({
      */
     confirmLoginOut() {
       const { createConfirm } = useMessage();
-      const { t } = useI18n();
       createConfirm({
         iconType: 'warning',
-        title: () => h('span', t('sys.app.logoutTip')),
-        content: () => h('span', t('sys.app.logoutMessage')),
+        title: () => h('span', '温馨提示'),
+        content: () => h('span', '是否确认退出系统？'),
         onOk: async () => {
           await this.logout(true);
         },
@@ -174,6 +183,10 @@ export const useUserStore = defineStore({
     },
   },
 });
+
+function stateIsEmpty(state: unknown): boolean {
+  return [undefined, 'null', null, ''].includes(state as any);
+}
 
 // Need to be used outside the setup
 export function useUserStoreWithOut() {

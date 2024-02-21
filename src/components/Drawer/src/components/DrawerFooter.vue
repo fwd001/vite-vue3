@@ -65,17 +65,17 @@
   @prefix-cls: ~'@{namespace}-basic-drawer-footer';
   @footer-height: 60px;
   .@{prefix-cls} {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 0 12px 0 20px;
-    border-top: 1px solid @border-color-base;
-    background-color: @component-background;
-    text-align: right;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    padding: 0 12px 0 20px !important;
+    border-top: 1px solid @border-color-base !important;
+    background-color: @component-background !important;
+    text-align: right !important;
 
     > * {
-      margin-right: 8px;
+      margin-right: 8px !important;
     }
   }
 </style>

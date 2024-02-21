@@ -166,12 +166,12 @@
 
   .@{prefix-cls} {
     &-logo {
-      height: @header-height;
-      padding: 10px 4px 10px 10px;
+      height: @header-height!important;
+      padding: 10px 4px 10px 10px !important;
 
       img {
-        width: @logo-width;
-        height: @logo-width;
+        width: @logo-width!important;
+        height: @logo-width!important;
       }
     }
   }

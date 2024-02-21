@@ -1,3 +1,5 @@
+import { long } from './base';
+
 export type ErrorMessageMode = 'none' | 'modal' | 'message' | undefined;
 export type SuccessMessageMode = ErrorMessageMode;
 
@@ -36,10 +38,10 @@ export interface RetryRequest {
   waitTime: number;
 }
 export interface Result<T = any> {
-  code: number;
+  code: long;
   type: 'success' | 'error' | 'warning';
-  message: string;
-  result: T;
+  msg: string;
+  data: T;
 }
 
 // multipart/form-data: upload file

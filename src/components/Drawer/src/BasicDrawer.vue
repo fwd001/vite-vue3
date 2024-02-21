@@ -175,19 +175,19 @@
 
   .@{prefix-cls} {
     .ant-drawer-wrapper-body {
-      overflow: hidden;
+      overflow: hidden !important;
     }
 
     .ant-drawer-close {
       &:hover {
-        color: @error-color;
+        color: @error-color !important;
       }
     }
 
     .ant-drawer-body {
-      height: calc(100% - @header-height);
-      padding: 0;
-      background-color: @component-background;
+      height: calc(100% - @header-height) !important;
+      padding: 0 !important;
+      background-color: @component-background !important;
 
       .scrollbar__wrap {
         margin-bottom: 0 !important;
@@ -195,29 +195,29 @@
       }
 
       > .scrollbar > .scrollbar__bar.is-horizontal {
-        display: none;
+        display: none !important;
       }
     }
   }
 
   .@{prefix-cls-detail} {
-    position: absolute;
+    position: absolute !important;
 
     .ant-drawer-header {
-      box-sizing: border-box;
-      width: 100%;
-      height: @detail-header-height;
-      padding: 0;
-      border-top: 1px solid @border-color-base;
+      box-sizing: border-box !important;
+      width: 100% !important;
+      height: @detail-header-height !important;
+      padding: 0 !important;
+      border-top: 1px solid @border-color-base !important;
     }
 
     .ant-drawer-title {
-      height: 100%;
+      height: 100% !important;
     }
 
     .ant-drawer-close {
-      height: @detail-header-height;
-      line-height: @detail-header-height;
+      height: @detail-header-height !important;
+      line-height: @detail-header-height !important;
     }
 
     .scrollbar__wrap {
@@ -225,7 +225,7 @@
     }
 
     .ant-drawer-body {
-      height: calc(100% - @detail-header-height);
+      height: calc(100% - @detail-header-height) !important;
     }
   }
 </style>

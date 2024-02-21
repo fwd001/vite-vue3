@@ -56,12 +56,12 @@
 <style lang="less">
   .table-settings {
     & > * {
-      margin-right: 12px;
+      margin-right: 12px !important;
     }
 
     svg {
-      width: 1.3em;
-      height: 1.3em;
+      width: 1.3em !important;
+      height: 1.3em !important;
     }
   }
 </style>

@@ -1,10 +1,12 @@
 import type { Router, RouteRecordRaw } from 'vue-router';
 
 import { usePermissionStoreWithOut } from '@/store/modules/permission';
+import { useGlobSetting } from '@/hooks/setting';
 
 import { PageEnum } from '@/enums/pageEnum';
 import { useUserStoreWithOut } from '@/store/modules/user';
 import { PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic';
+import { isDevMode } from '@/utils/env';
 
 const LOGIN_PATH = PageEnum.BASE_LOGIN;
 const AUTH_PAGE = PageEnum.AUTH_PAGE;
@@ -16,7 +18,7 @@ export function createPermissionGuard(router: Router) {
   const permissionStore = usePermissionStoreWithOut();
   router.beforeEach(async (to, from, next) => {
     const token = userStore.getToken;
-
+    const { authorizeHref, clientApiUrl } = useGlobSetting();
     // 可直接进入白名单
     if (whitePathList.includes(to.path as PageEnum)) {
       next();
@@ -34,7 +36,7 @@ export function createPermissionGuard(router: Router) {
       // redirect login page
       const redirectData: { path: string; replace: boolean; query?: Recordable<string> } = {
         path: AUTH_PAGE,
-        query: { code: '123213' },
+        query: { code: 'dev123' },
         replace: true,
       };
       if (to.path) {
@@ -43,8 +45,13 @@ export function createPermissionGuard(router: Router) {
           redirect: to.path,
         };
       }
-      next(redirectData);
-      return;
+      if (isDevMode()) {
+        next(redirectData);
+        return;
+      } else {
+        location.href = `${clientApiUrl}${authorizeHref}`;
+        return next(false);
+      }
     }
 
     if (permissionStore.getIsDynamicAddedRoute) {

@@ -1,38 +1,31 @@
 import type { AppRouteModule } from '@/router/types';
 
 import { LAYOUT } from '@/router/constant';
-import { t } from '@/hooks/web/useI18n';
 
-const dashboard: AppRouteModule = {
+const routers: AppRouteModule = {
   path: '/dashboard',
   name: 'Dashboard',
   component: LAYOUT,
-  redirect: '/dashboard/analysis',
+  redirect: '/dashboard/index',
   meta: {
-    orderNo: 10,
-    icon: 'ion:grid-outline',
-    title: t('routes.dashboard.dashboard'),
+    hideChildrenInMenu: true,
+    icon: 'ant-design:dashboard-outlined',
+    title: '数据大屏',
+    orderNo: 1,
   },
   children: [
     {
-      path: 'analysis',
-      name: 'Analysis',
-      component: () => import('@/views/dashboard/analysis/index.vue'),
+      path: 'index',
+      name: 'DashboardIndex',
+      component: () => import('@/views/dashboard/index.vue'),
       meta: {
-        title: '分析页',
-        powerKey: 'analysis',
-      },
-    },
-    {
-      path: 'workbench',
-      name: 'Workbench',
-      component: () => import('@/views/dashboard/workbench/index.vue'),
-      meta: {
-        title: '工作台',
-        powerKey: 'workbench',
+        title: '数据大屏',
+        icon: 'ant-design:dashboard-outlined',
+        hideMenu: true,
+        ignoreAuth: true,
       },
     },
   ],
 };
 
-export default dashboard;
+export default routers;

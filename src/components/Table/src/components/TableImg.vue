@@ -71,19 +71,19 @@
 
   .@{prefix-cls} {
     .ant-image {
-      margin-right: 4px;
-      cursor: zoom-in;
+      margin-right: 4px !important;
+      cursor: zoom-in !important;
 
       img {
-        border-radius: 2px;
+        border-radius: 2px !important;
       }
     }
 
     .img-div {
-      display: inline-grid;
+      display: inline-grid !important;
 
       > .ant-image:nth-of-type(n + 2) {
-        display: none;
+        display: none !important;
       }
     }
   }

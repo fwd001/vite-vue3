@@ -49,7 +49,7 @@
   import { columns, searchFormSchema } from './account.data';
   import { useGo } from '@/hooks/web/usePage';
 
-  defineOptions({ name: 'Workbench' });
+  defineOptions({ name: 'ZDRManage' });
 
   const go = useGo();
   const [registerModal, { openModal }] = useModal();

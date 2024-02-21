@@ -4,6 +4,7 @@ export interface BasicPageParams {
 }
 
 export interface BasicFetchResult<T> {
-  items: T[];
-  total: number;
+  data: { items: T[]; total: number };
+  msg?: string;
+  code?: string;
 }

@@ -334,13 +334,13 @@
   [data-theme='dark'] {
     .ant-table-tbody > tr:hover.ant-table-row-selected > td,
     .ant-table-tbody > tr.ant-table-row-selected td {
-      background-color: #262626;
+      background-color: #262626 !important;
     }
   }
 
   .@{prefix-cls} {
-    max-width: 100%;
-    height: 100%;
+    max-width: 100% !important;
+    height: 100% !important;
 
     &-row__striped {
       td {
@@ -349,30 +349,30 @@
     }
 
     &-form-container {
-      padding: 16px;
+      padding: 16px !important;
 
       .ant-form {
-        width: 100%;
-        margin-bottom: 16px;
-        padding: 12px 10px 6px;
-        border-radius: 2px;
-        background-color: @component-background;
+        width: 100% !important;
+        margin-bottom: 16px !important;
+        padding: 12px 10px 6px !important;
+        border-radius: 2px !important;
+        background-color: @component-background!important;
       }
     }
 
     .ant-table-cell {
       .ant-tag {
-        margin-right: 0;
+        margin-right: 0 !important;
       }
     }
 
     .ant-table-wrapper {
-      padding: 6px;
-      border-radius: 2px;
-      background-color: @component-background;
+      padding: 6px !important;
+      border-radius: 2px !important;
+      background-color: @component-background!important;
 
       .ant-table-title {
-        min-height: 40px;
+        min-height: 40px !important;
         padding: 0 0 8px !important;
       }
 
@@ -382,35 +382,35 @@
     }
 
     .ant-table {
-      width: 100%;
-      overflow-x: hidden;
+      width: 100% !important;
+      overflow-x: hidden !important;
 
       &-title {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 8px 6px;
-        border-bottom: none;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 8px 6px !important;
+        border-bottom: none !important;
       }
 
       //.ant-table-tbody > tr.ant-table-row-selected td {
-      //background-color: fade(@primary-color, 8%) !important;
+      //background-color: fade(@primary-color, 8%) !important!important;
       //}
     }
 
     .ant-table-wrapper .ant-pagination {
-      margin: 10px 0 0;
+      margin: 10px 0 0 !important;
     }
 
     .ant-table-footer {
-      padding: 0;
+      padding: 0 !important;
 
       .ant-table-wrapper {
-        padding: 0;
+        padding: 0 !important;
       }
 
       table {
-        border: none !important;
+        border: none !important ;
       }
 
       .ant-table-body {
@@ -419,13 +419,13 @@
       }
 
       td {
-        padding: 12px 8px;
+        padding: 12px 8px !important;
       }
     }
 
     &--inset {
       .ant-table-wrapper {
-        padding: 0;
+        padding: 0 !important;
       }
     }
   }

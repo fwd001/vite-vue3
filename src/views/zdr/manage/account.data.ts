@@ -122,21 +122,6 @@ export const accountFormSchema: FormSchema[] = [
     required: true,
   },
   {
-    field: 'dept',
-    label: '所属部门',
-    component: 'TreeSelect',
-    componentProps: {
-      fieldNames: {
-        label: 'deptName',
-        // @ts-ignore
-        key: 'id',
-        value: 'id',
-      },
-      getPopupContainer: () => document.body,
-    },
-    required: true,
-  },
-  {
     field: 'nickname',
     label: '昵称',
     component: 'Input',

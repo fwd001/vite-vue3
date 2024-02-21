@@ -75,13 +75,13 @@
 
   .@{prefix-cls} {
     &__toolbar {
-      display: flex;
-      flex: 1;
-      align-items: center;
-      justify-content: flex-end;
+      display: flex !important;
+      flex: 1 !important;
+      align-items: center !important;
+      justify-content: flex-end !important;
 
       > * {
-        margin-right: 8px;
+        margin-right: 8px !important;
       }
     }
   }

@@ -22,14 +22,14 @@
   @prefix-cls: ~'@{namespace}-layout-content';
 
   .@{prefix-cls} {
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    flex-grow: 1;
-    width: 100%;
-    height: 0;
-    min-height: 0;
-    overflow: auto;
+    display: flex !important;
+    position: relative !important;
+    flex-direction: column !important;
+    flex-grow: 1 !important;
+    width: 100% !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    overflow: auto !important;
 
     // begin: 下面这块代码 在我的项目打包后在比较宽的屏幕(2K 31 寸)有显示 bug 有偶发性 清缓存首次进入会出现 , 刷新就没了, 这里为什么要指定宽度 ?
     &.fixed {

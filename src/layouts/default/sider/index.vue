@@ -18,12 +18,12 @@
 
   .@{prefix-cls} {
     .ant-drawer-body {
-      height: 100vh;
-      padding: 0;
+      height: 100vh !important;
+      padding: 0 !important;
     }
 
     .ant-drawer-header-no-title {
-      display: none;
+      display: none !important;
     }
   }
 </style>

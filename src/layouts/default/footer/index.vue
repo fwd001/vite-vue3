@@ -54,27 +54,27 @@
 
   .@{prefix-cls} {
     // 页脚固定高度
-    height: 75px;
-    color: @normal-color;
-    text-align: center;
+    height: 75px !important;
+    color: @normal-color!important;
+    text-align: center !important;
 
     &__links {
-      margin-bottom: 8px;
+      margin-bottom: 8px !important;
 
       a {
-        color: @normal-color;
+        color: @normal-color!important;
 
         &:hover {
-          color: @hover-color;
+          color: @hover-color!important;
         }
       }
     }
 
     &__github {
-      margin: 0 30px;
+      margin: 0 30px !important;
 
       &:hover {
-        color: @hover-color;
+        color: @hover-color!important;
       }
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <Tooltip placement="top">
     <template #title>
-      <span>{{ t('component.table.settingColumn') }}</span>
+      <span>列设置</span>
     </template>
     <Popover
       placement="bottomLeft"
@@ -612,51 +612,51 @@
   @prefix-cls: ~'@{namespace}-basic-column-setting';
 
   .table-column-drag-icon {
-    margin: 0 5px;
-    cursor: move;
+    margin: 0 5px !important;
+    cursor: move !important;
   }
 
   .@{prefix-cls} {
     &__popover-title {
-      display: flex;
-      position: relative;
-      align-items: center;
-      justify-content: space-between;
+      display: flex !important;
+      position: relative !important;
+      align-items: center !important;
+      justify-content: space-between !important;
     }
 
     &__check-item {
-      display: flex;
-      align-items: center;
-      min-width: 100%;
-      padding: 4px 16px 8px 0;
+      display: flex !important;
+      align-items: center !important;
+      min-width: 100% !important;
+      padding: 4px 16px 8px 0 !important;
 
       .ant-checkbox-wrapper {
-        width: 100%;
+        width: 100% !important;
 
         &:hover {
-          color: @primary-color;
+          color: @primary-color!important;
         }
       }
     }
 
     &__fixed-left,
     &__fixed-right {
-      color: rgb(0 0 0 / 45%);
-      cursor: pointer;
+      color: rgb(0 0 0 / 45%) !important;
+      cursor: pointer !important;
 
       &.active,
       &:hover {
-        color: @primary-color;
+        color: @primary-color!important;
       }
 
       &.disabled {
-        color: @disabled-color;
-        cursor: not-allowed;
+        color: @disabled-color!important;
+        cursor: not-allowed !important;
       }
     }
 
     &__fixed-right {
-      transform: rotate(180deg);
+      transform: rotate(180deg) !important;
     }
 
     &__column-list {
@@ -666,21 +666,21 @@
       }
 
       .ant-popover-inner-content {
-        // max-height: 360px;
-        padding-right: 0;
-        padding-left: 0;
-        // overflow: auto;
+        // max-height: 360px!important;
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+        // overflow: auto!important;
       }
 
       .ant-checkbox-group {
-        display: inline-block;
-        width: 100%;
-        min-width: 260px;
-        // flex-wrap: wrap;
+        display: inline-block !important;
+        width: 100% !important;
+        min-width: 260px !important;
+        // flex-wrap: wrap!important;
       }
 
       .scrollbar {
-        height: 220px;
+        height: 220px !important;
       }
     }
   }

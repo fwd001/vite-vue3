@@ -98,22 +98,22 @@
   @prefix-cls: ~'@{namespace}-layout-multiple-header';
 
   .@{prefix-cls} {
-    flex: 0 0 auto;
-    transition: width 0.2s;
+    flex: 0 0 auto !important;
+    transition: width 0.2s !important;
 
     &--dark {
-      margin-left: -1px;
+      margin-left: -1px !important;
     }
 
     &--fixed {
-      position: fixed;
-      z-index: @multiple-tab-fixed-z-index;
-      top: 0;
+      position: fixed !important;
+      z-index: @multiple-tab-fixed-z-index!important;
+      top: 0 !important;
       width: 100%;
     }
 
     &__placeholder {
-      transition: height 0.6s ease-in-out;
+      transition: height 0.6s ease-in-out !important;
     }
   }
 </style>

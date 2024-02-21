@@ -71,7 +71,7 @@
     }
 
     &-main {
-      width: 100% !important;
+      width: 100%;
       margin-left: 1px !important;
     }
   }

@@ -100,30 +100,30 @@
   @prefix-cls: ~'@{namespace}-layout-sideBar';
 
   .@{prefix-cls} {
-    z-index: @layout-sider-fixed-z-index;
+    z-index: @layout-sider-fixed-z-index!important;
 
     &--fixed {
       position: fixed !important;
-      top: 0;
-      left: 0;
-      height: 100%;
+      top: 0 !important;
+      left: 0 !important;
+      height: 100% !important;
     }
 
     &--mix {
-      top: @header-height;
-      height: calc(100% - @header-height);
+      top: @header-height!important;
+      height: calc(100% - @header-height) !important;
     }
 
     &.ant-layout-sider-dark {
-      background-color: @sider-dark-bg-color;
+      background-color: @sider-dark-bg-color!important;
 
       .ant-layout-sider-trigger {
-        background-color: @trigger-dark-bg-color;
-        color: darken(@white, 25%);
+        background-color: @trigger-dark-bg-color!important;
+        color: darken(@white, 25%) !important;
 
         &:hover {
-          background-color: @trigger-dark-hover-bg-color;
-          color: @white;
+          background-color: @trigger-dark-hover-bg-color!important;
+          color: @white!important;
         }
       }
     }
@@ -132,19 +132,19 @@
       // box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
 
       .ant-layout-sider-trigger {
-        border-top: 1px solid @border-color-light;
-        color: @text-color-base;
+        border-top: 1px solid @border-color-light!important;
+        color: @text-color-base!important;
       }
     }
 
     .ant-layout-sider-zero-width-trigger {
-      z-index: 10;
-      top: 40%;
+      z-index: 10 !important;
+      top: 40% !important;
     }
 
     & .ant-layout-sider-trigger {
-      height: 36px;
-      line-height: 36px;
+      height: 36px !important;
+      line-height: 36px !important;
     }
   }
 </style>

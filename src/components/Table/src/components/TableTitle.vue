@@ -41,8 +41,8 @@
   @prefix-cls: ~'@{namespace}-basic-table-title';
 
   .@{prefix-cls} {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
   }
 </style>

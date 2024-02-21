@@ -38,7 +38,7 @@
 
   const props = defineProps({
     api: {
-      type: Function as PropType<(arg?: any) => Promise<OptionsItem[]>>,
+      type: Function as PropType<(arg?: any) => Promise<{ data: OptionsItem[] }>>,
       default: null,
     },
     params: {
@@ -100,7 +100,7 @@
     options.value = [];
     try {
       loading.value = true;
-      const res = await api(props.params);
+      const { data: res } = await api(props.params);
       if (Array.isArray(res)) {
         options.value = res;
         emitChange();

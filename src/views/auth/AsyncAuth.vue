@@ -30,6 +30,8 @@
   );
 
   onBeforeMount(async () => {
+    console.log(route.query);
+
     login(route.query);
   });
 </script>

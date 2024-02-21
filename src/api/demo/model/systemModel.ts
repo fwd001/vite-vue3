@@ -72,4 +72,4 @@ export type MenuListGetResultModel = BasicFetchResult<MenuListItem>;
 
 export type RolePageListGetResultModel = BasicFetchResult<RoleListItem>;
 
-export type RoleListGetResultModel = RoleListItem[];
+export type RoleListGetResultModel = { data: RoleListItem[] };

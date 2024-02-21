@@ -10,8 +10,6 @@ import { ERROR_LOG_ROUTE } from '@/router/routes/basic';
 
 import { filter } from '@/utils/helper/treeHelper';
 
-import { getPermCode } from '@/api/sys/user';
-
 import { PageEnum } from '@/enums/pageEnum';
 import { cloneDeep } from 'lodash-es';
 
@@ -87,10 +85,6 @@ export const usePermissionStore = defineStore({
       this.permCodeList = [];
       this.backMenuList = [];
       this.lastBuildMenuTime = 0;
-    },
-    async changePermissionCode() {
-      const codeList = await getPermCode();
-      this.setPermCodeList(codeList);
     },
 
     // 构建路由

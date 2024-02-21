@@ -44,25 +44,25 @@
   @prefix-cls: ~'@{namespace}-basic-drawer-header';
   @footer-height: 60px;
   .@{prefix-cls} {
-    display: flex;
-    align-items: center;
-    height: 100%;
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
 
     &__back {
-      padding: 0 12px;
-      cursor: pointer;
+      padding: 0 12px !important;
+      cursor: pointer !important;
 
       &:hover {
-        color: @primary-color;
+        color: @primary-color !important;
       }
     }
 
     &__twrap {
-      flex: 1;
+      flex: 1 !important;
     }
 
     &__toolbar {
-      padding-right: 50px;
+      padding-right: 50px !important;
     }
   }
 </style>

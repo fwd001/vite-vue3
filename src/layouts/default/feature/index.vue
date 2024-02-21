@@ -56,22 +56,22 @@
   @prefix-cls: ~'@{namespace}-setting-drawer-feature';
 
   .@{prefix-cls} {
-    display: flex;
-    position: absolute;
-    z-index: 10;
-    top: 45%;
-    right: 0;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    border-radius: 6px 0 0 6px;
-    background-color: @primary-color;
-    color: @white;
-    cursor: pointer;
+    display: flex !important;
+    position: absolute !important;
+    z-index: 10 !important;
+    top: 45% !important;
+    right: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 10px !important;
+    border-radius: 6px 0 0 6px !important;
+    background-color: @primary-color!important;
+    color: @white!important;
+    cursor: pointer !important;
 
     svg {
-      width: 1em;
-      height: 1em;
+      width: 1em !important;
+      height: 1em !important;
     }
   }
 </style>

@@ -4,8 +4,8 @@ import { ResultEnum } from '@/enums/httpEnum';
 export function resultSuccess<T = Recordable>(result: T, { message = 'ok' } = {}) {
   return {
     code: ResultEnum.SUCCESS,
-    result,
-    message,
+    data: result,
+    msg: message,
     type: 'success',
   };
 }
@@ -23,7 +23,7 @@ export function resultPageSuccess<T = any>(
       items: pageData,
       total: list.length,
     }),
-    message,
+    msg: message,
   };
 }
 
@@ -33,8 +33,8 @@ export function resultError(
 ) {
   return {
     code,
-    result,
-    message,
+    data: result,
+    msg: message,
     type: 'error',
   };
 }

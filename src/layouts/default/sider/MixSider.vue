@@ -317,211 +317,211 @@
   @prefix-cls: ~'@{namespace}-layout-mix-sider';
   @width: 80px;
   .@{prefix-cls} {
-    position: fixed;
-    z-index: @layout-mix-sider-fixed-z-index;
-    top: 0;
-    left: 0;
-    height: 100%;
-    overflow: hidden;
-    transition: all 0.2s ease 0s;
-    background-color: @sider-dark-bg-color;
+    position: fixed !important;
+    z-index: @layout-mix-sider-fixed-z-index!important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    transition: all 0.2s ease 0s !important;
+    background-color: @sider-dark-bg-color!important;
 
     &-dom {
-      height: 100%;
-      overflow: hidden;
-      transition: all 0.2s ease 0s;
+      height: 100% !important;
+      overflow: hidden !important;
+      transition: all 0.2s ease 0s !important;
     }
 
     &-logo {
-      display: flex;
-      justify-content: center;
-      height: @header-height;
+      display: flex !important;
+      justify-content: center !important;
+      height: @header-height!important;
       padding-left: 0 !important;
 
       img {
-        width: @logo-width;
-        height: @logo-width;
+        width: @logo-width!important;
+        height: @logo-width!important;
       }
     }
 
     &.light {
       .@{prefix-cls}-logo {
-        border-bottom: 1px solid rgb(238 238 238);
+        border-bottom: 1px solid rgb(238 238 238) !important;
       }
 
       &.open {
         > .scrollbar {
-          border-right: 1px solid rgb(238 238 238);
+          border-right: 1px solid rgb(238 238 238) !important;
         }
       }
 
       .@{prefix-cls}-module {
         &__item {
-          color: rgb(0 0 0 / 65%);
-          font-weight: normal;
+          color: rgb(0 0 0 / 65%) !important;
+          font-weight: normal !important;
 
           &--active {
-            background-color: unset;
-            color: @primary-color;
+            background-color: unset !important;
+            color: @primary-color!important;
           }
 
           &:not(&--active):hover {
-            background-color: rgb(0 0 0 / 6%);
+            background-color: rgb(0 0 0 / 6%) !important;
           }
         }
       }
       .@{prefix-cls}-menu-list {
         &__content {
-          box-shadow: 0 0 4px 0 rgb(0 0 0 / 10%);
+          box-shadow: 0 0 4px 0 rgb(0 0 0 / 10%) !important;
         }
 
         &__title {
           .pushpin {
-            color: rgb(0 0 0 / 35%);
+            color: rgb(0 0 0 / 35%) !important;
 
             &:hover {
-              color: rgb(0 0 0 / 85%);
+              color: rgb(0 0 0 / 85%) !important;
             }
           }
         }
       }
     }
-    @border-color: @sider-dark-lighten-bg-color;
+    @border-color: @sider-dark-lighten-bg-color!important;
 
     &.dark {
       &.open {
         // .@{prefix-cls}-logo {
-        //   border-bottom: 1px solid @border-color;
+        //   border-bottom: 1px solid @border-color!important;
         // }
 
         > .scrollbar {
-          border-right: 1px solid @border-color;
+          border-right: 1px solid @border-color!important;
         }
       }
       .@{prefix-cls}-menu-list {
-        background-color: @sider-dark-bg-color;
+        background-color: @sider-dark-bg-color!important;
 
         &__title {
-          border-bottom: none;
-          border-bottom: 1px solid @border-color;
-          color: @white;
+          border-bottom: none !important;
+          border-bottom: 1px solid @border-color!important;
+          color: @white!important;
         }
       }
     }
 
     > .scrollbar {
-      height: calc(100% - @header-height - 38px);
+      height: calc(100% - @header-height - 38px) !important;
     }
 
     &.mini &-module {
       &__name {
-        display: none;
+        display: none !important;
       }
 
       &__icon {
-        margin-bottom: 0;
+        margin-bottom: 0 !important;
       }
     }
 
     &-module {
-      position: relative;
-      padding-top: 1px;
+      position: relative !important;
+      padding-top: 1px !important;
 
       &__item {
-        position: relative;
-        padding: 12px 0;
-        transition: all 0.3s ease;
-        color: rgb(255 255 255 / 65%);
-        text-align: center;
-        cursor: pointer;
+        position: relative !important;
+        padding: 12px 0 !important;
+        transition: all 0.3s ease !important;
+        color: rgb(255 255 255 / 65%) !important;
+        text-align: center !important;
+        cursor: pointer !important;
 
         &:hover {
-          color: @white;
+          color: @white!important;
         }
         // &:hover,
         &--active {
-          background-color: @sider-dark-darken-bg-color;
-          color: @white;
-          font-weight: 700;
+          background-color: @sider-dark-darken-bg-color!important;
+          color: @white!important;
+          font-weight: 700 !important;
 
           &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 100%;
-            background-color: @primary-color;
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 3px !important;
+            height: 100% !important;
+            background-color: @primary-color!important;
           }
         }
       }
 
       &__icon {
-        margin-bottom: 8px;
-        transition: all 0.2s;
-        font-size: 24px;
+        margin-bottom: 8px !important;
+        transition: all 0.2s !important;
+        font-size: 24px !important;
       }
 
       &__name {
-        margin-bottom: 0;
-        transition: all 0.2s;
-        font-size: 12px;
+        margin-bottom: 0 !important;
+        transition: all 0.2s !important;
+        font-size: 12px !important;
       }
     }
 
     &-trigger {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 36px;
-      background-color: @trigger-dark-bg-color;
-      color: rgb(255 255 255 / 65%);
-      font-size: 14px;
-      line-height: 36px;
-      text-align: center;
-      cursor: pointer;
+      position: absolute !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 36px !important;
+      background-color: @trigger-dark-bg-color!important;
+      color: rgb(255 255 255 / 65%) !important;
+      font-size: 14px !important;
+      line-height: 36px !important;
+      text-align: center !important;
+      cursor: pointer !important;
     }
 
     &.light &-trigger {
-      border-top: 1px solid #eee;
-      background-color: #fff;
-      color: rgb(0 0 0 / 65%);
+      border-top: 1px solid #eee !important;
+      background-color: #fff !important;
+      color: rgb(0 0 0 / 65%) !important;
     }
 
     &-menu-list {
-      position: fixed;
-      top: 0;
-      width: 200px;
-      height: calc(100%);
-      transition: all 0.2s;
-      background-color: #fff;
+      position: fixed !important;
+      top: 0 !important;
+      width: 200px !important;
+      height: calc(100%) !important;
+      transition: all 0.2s !important;
+      background-color: #fff !important;
 
       &__title {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: @header-height;
-        transition: unset;
-        border-bottom: 1px solid rgb(238 238 238);
-        opacity: 0;
-        color: @primary-color;
-        // margin-left: -6px;
-        font-size: 18px;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        height: @header-height!important;
+        transition: unset !important;
+        border-bottom: 1px solid rgb(238 238 238) !important;
+        opacity: 0 !important;
+        color: @primary-color!important;
+        // margin-left: -6px!important;
+        font-size: 18px !important;
 
         &.show {
-          min-width: 130px;
-          transition: all 0.5s ease;
-          opacity: 1;
+          min-width: 130px !important;
+          transition: all 0.5s ease !important;
+          opacity: 1 !important;
         }
 
         .pushpin {
-          margin-right: 6px;
-          color: rgb(255 255 255 / 65%);
-          cursor: pointer;
+          margin-right: 6px !important;
+          color: rgb(255 255 255 / 65%) !important;
+          cursor: pointer !important;
 
           &:hover {
-            color: #fff;
+            color: #fff !important;
           }
         }
       }
@@ -530,37 +530,37 @@
         height: calc(100% - @header-height) !important;
 
         .scrollbar__wrap {
-          height: 100%;
-          overflow-x: hidden;
+          height: 100% !important;
+          overflow-x: hidden !important;
         }
 
         .scrollbar__bar.is-horizontal {
-          display: none;
+          display: none !important;
         }
 
         .ant-menu {
-          height: 100%;
+          height: 100% !important;
         }
 
         .ant-menu-inline,
         .ant-menu-vertical,
         .ant-menu-vertical-left {
-          border-right: 1px solid transparent;
+          border-right: 1px solid transparent !important;
         }
       }
     }
 
     &-drag-bar {
-      position: absolute;
-      top: 50px;
-      right: -1px;
-      width: 1px;
-      height: calc(100% - 50px);
-      border-top: none;
-      border-bottom: none;
-      background-color: #f8f8f9;
-      box-shadow: 0 0 4px 0 rgb(28 36 56 / 15%);
-      cursor: ew-resize;
+      position: absolute !important;
+      top: 50px !important;
+      right: -1px !important;
+      width: 1px !important;
+      height: calc(100% - 50px) !important;
+      border-top: none !important;
+      border-bottom: none !important;
+      background-color: #f8f8f9 !important;
+      box-shadow: 0 0 4px 0 rgb(28 36 56 / 15%) !important;
+      cursor: ew-resize !important;
     }
   }
 </style>

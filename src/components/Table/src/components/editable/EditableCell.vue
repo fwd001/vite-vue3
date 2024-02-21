@@ -473,85 +473,85 @@
   @prefix-cls: ~'@{namespace}-editable-cell';
 
   .edit-cell-align-left {
-    text-align: left;
+    text-align: left !important;
 
     input:not(.ant-calendar-picker-input, .ant-time-picker-input) {
-      text-align: left;
+      text-align: left !important;
     }
   }
 
   .edit-cell-align-center {
-    text-align: center;
+    text-align: center !important;
 
     input:not(.ant-calendar-picker-input, .ant-time-picker-input) {
-      text-align: center;
+      text-align: center !important;
     }
   }
 
   .edit-cell-align-right {
-    text-align: right;
+    text-align: right !important;
 
     input:not(.ant-calendar-picker-input, .ant-time-picker-input) {
-      text-align: right;
+      text-align: right !important;
     }
   }
 
   .edit-cell-rule-popover {
     .ant-popover-inner-content {
-      padding: 4px 8px;
-      // border: 1px solid @error-color;
-      border-radius: 2px;
-      color: @error-color;
+      padding: 4px 8px !important;
+      // border: 1px solid @error-color!important;
+      border-radius: 2px !important;
+      color: @error-color!important;
     }
   }
   .@{prefix-cls} {
-    position: relative;
-    min-height: 24px; //设置高度让其始终可被hover
+    position: relative !important;
+    min-height: 24px !important; //设置高度让其始终可被hover
 
     &__wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
 
       > .ant-select {
-        min-width: calc(100% - 50px);
+        min-width: calc(100% - 50px) !important;
       }
     }
 
     &__icon {
       &:hover {
-        transform: scale(1.2);
+        transform: scale(1.2) !important;
 
         svg {
-          color: @primary-color;
+          color: @primary-color!important;
         }
       }
     }
 
     .ellipsis-cell {
       .cell-content {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        word-break: break-word;
-        white-space: nowrap;
-        overflow-wrap: break-word;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        word-break: break-word !important;
+        white-space: nowrap !important;
+        overflow-wrap: break-word !important;
       }
     }
 
     &__normal {
       &-icon {
-        display: none;
-        position: absolute;
-        top: 4px;
-        right: 0;
-        width: 20px;
-        cursor: pointer;
+        display: none !important;
+        position: absolute !important;
+        top: 4px !important;
+        right: 0 !important;
+        width: 20px !important;
+        cursor: pointer !important;
       }
     }
 
     &:hover {
       .@{prefix-cls}__normal-icon {
-        display: inline-block;
+        display: inline-block !important;
       }
     }
   }
