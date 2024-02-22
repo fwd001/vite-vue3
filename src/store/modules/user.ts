@@ -133,16 +133,6 @@ export const useUserStore = defineStore({
       return userInfo;
     },
 
-    // 未认证
-    // async notCertified() {
-    //   this.resetState();
-    //   if (isDevMode()) {
-    //     return '/auth?code=123';
-    //   } else {
-    //     location.href = import.meta.env.VITE_QB_AUTHORIZE_HREF;
-    //     return undefined;
-    //   }
-    // },
     /**
      * @description: logout
      */

@@ -49,7 +49,11 @@ export function createPermissionGuard(router: Router) {
         next(redirectData);
         return;
       } else {
-        location.href = `${clientApiUrl}${authorizeHref}`;
+        next(redirectData);
+        // todo 正式有后端的项目用下面逻辑
+        // location.href = `${clientApiUrl}${authorizeHref}`;
+        console.log('authorizeHref, clientApiUrl', authorizeHref, clientApiUrl);
+
         return next(false);
       }
     }
