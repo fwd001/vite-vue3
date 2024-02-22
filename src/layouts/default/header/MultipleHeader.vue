@@ -108,7 +108,7 @@
     &--fixed {
       position: fixed !important;
       z-index: @multiple-tab-fixed-z-index!important;
-      top: 0 !important;
+      top: 0;
       width: 100%;
     }
 

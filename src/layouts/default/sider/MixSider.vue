@@ -492,7 +492,7 @@
     &-menu-list {
       position: fixed !important;
       top: 0 !important;
-      width: 200px !important;
+      width: 200px;
       height: calc(100%) !important;
       transition: all 0.2s !important;
       background-color: #fff !important;

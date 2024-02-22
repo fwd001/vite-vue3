@@ -50,7 +50,7 @@ export function createPermissionGuard(router: Router) {
         return;
       } else {
         next(redirectData);
-        // todo 正式有后端的项目用下面逻辑
+        // todo 正式有后端的项目用下面逻辑!!
         // location.href = `${clientApiUrl}${authorizeHref}`;
         console.log('authorizeHref, clientApiUrl', authorizeHref, clientApiUrl);
 
