@@ -178,25 +178,25 @@
   @prefix-cls: ~'@{namespace}-page-wrapper';
 
   .@{prefix-cls} {
-    position: relative;
+    position: relative !important;
 
     .@{prefix-cls}-content {
-      margin: 16px;
+      margin: 16px !important;
     }
 
     .ant-page-header {
       &:empty {
-        padding: 0;
+        padding: 0 !important;
       }
     }
 
     &-content-bg {
-      background-color: @component-background;
+      background-color: @component-background !important;
     }
 
     &--dense {
       .@{prefix-cls}-content {
-        margin: 0;
+        margin: 0 !important;
       }
     }
   }

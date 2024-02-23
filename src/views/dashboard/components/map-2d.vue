@@ -50,21 +50,22 @@
   function init() {
     console.log('map init:::');
     map = BM.map('bigemap-global', null, {
-      center: [38.79519830468467, 116.63085937500001],
-      minZoom: 1,
-      zoom: 3,
-      maxZoom: 7,
+      center: [36.144970713436685, 114.0908181667328],
+      minZoom: 3,
+      zoom: 4,
+      maxZoom: 13,
       zoomControl: false,
       attributionControl: false,
       doubleClickZoom: false,
       trackResize: true,
       renderer: BM.svg(),
+      // crs: BM.CRS.EPSG4326,
     });
 
     // 电子地图
     const gridLayer = BM.GridLayer.extend(
       getGridLayerExtend({
-        url: '/tiles/{z}/{x}/{y}.png',
+        url: '/tiles/ele/{z}/{x}/{y}.png',
       }),
     );
 

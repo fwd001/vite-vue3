@@ -30,7 +30,7 @@
 
     ele14lite = new bmgl.ImageryLayer(
       new bmgl.UrlTemplateImageryProvider({
-        url: '/tiles/{z}/{x}/{y}.png',
+        url: '/tiles/ele/{z}/{x}/{y}.png',
       }),
     );
 

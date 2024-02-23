@@ -170,9 +170,10 @@ export function useContentHeight(
   });
   useWindowSizeFn(
     () => {
+      // debugger;
       calcContentHeight();
     },
-    { wait: 50, immediate: true },
+    { wait: 500, immediate: true },
   );
   watch(
     () => [layoutFooterHeightRef.value],

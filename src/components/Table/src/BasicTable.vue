@@ -340,7 +340,7 @@
 
   .@{prefix-cls} {
     max-width: 100% !important;
-    height: 100% !important;
+    height: 100%;
 
     &-row__striped {
       td {
