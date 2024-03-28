@@ -46,7 +46,7 @@
       type: Array,
     },
     api: {
-      type: Function as PropType<(arg?: any) => Promise<{ data: Option[] }>>,
+      type: Function as PropType<(arg?: any) => Promise<Option[]>>,
       default: null,
     },
     numberToString: propTypes.bool,
@@ -118,7 +118,7 @@
     apiData.value = [];
     loading.value = true;
     try {
-      const { data: res } = await api(props.initFetchParams);
+      const res = await api(props.initFetchParams);
       if (Array.isArray(res)) {
         apiData.value = res;
         return;
@@ -140,7 +140,7 @@
     const api = props.api;
     if (!api || !isFunction(api)) return;
     try {
-      const { data: res } = await api({
+      const res = await api({
         [props.apiParamKey]: Reflect.get(targetOption, 'value'),
       });
       if (Array.isArray(res)) {

@@ -39,7 +39,7 @@
     value: { type: [Array, Object, String, Number] as PropType<SelectValue> },
     numberToString: propTypes.bool,
     api: {
-      type: Function as PropType<(arg?: any) => Promise<{ data: OptionsItem[] }>>,
+      type: Function as PropType<(arg?: any) => Promise<OptionsItem[]>>,
       default: null,
     },
     // api params
@@ -108,7 +108,7 @@
     optionsRef.value = [];
     try {
       loading.value = true;
-      const { data: res } = await api(props.params);
+      const res = await api(props.params);
       isFirstLoaded.value = true;
       if (Array.isArray(res)) {
         optionsRef.value = res;
@@ -121,10 +121,10 @@
       emitChange();
     } catch (error) {
       console.warn(error);
-    } finally {
-      loading.value = false;
       // reset status
       isFirstLoaded.value = false;
+    } finally {
+      loading.value = false;
     }
   }
 

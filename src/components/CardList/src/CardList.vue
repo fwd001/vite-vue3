@@ -141,12 +141,7 @@
   async function fetch(p = {}) {
     const { api, params } = props;
     if (api && isFunction(api)) {
-      const { data: res } = await api({
-        ...params,
-        page: page.value,
-        pageSize: pageSize.value,
-        ...p,
-      });
+      const res = await api({ ...params, page: page.value, pageSize: pageSize.value, ...p });
       data.value = res.items;
       total.value = res.total;
     }

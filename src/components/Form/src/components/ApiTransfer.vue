@@ -25,7 +25,7 @@
   const props = defineProps({
     value: { type: Array as PropType<Array<string>> },
     api: {
-      type: Function as PropType<(arg) => Promise<{ data: TransferItem[] }>>,
+      type: Function as PropType<(arg) => Promise<TransferItem[]>>,
       default: null,
     },
     params: { type: Object },
@@ -107,7 +107,7 @@
     }
     _dataSource.value = [];
     try {
-      const { data: res } = await api(props.params);
+      const res = await api(props.params);
       if (Array.isArray(res)) {
         _dataSource.value = res;
         emitChange();

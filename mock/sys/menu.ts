@@ -237,7 +237,7 @@ const linkRoute = {
 
 export default [
   {
-    url: '/basic-api/getMenuList',
+    url: '/individual/getMenuList',
     timeout: 1000,
     method: 'get',
     response: (request: requestParams) => {

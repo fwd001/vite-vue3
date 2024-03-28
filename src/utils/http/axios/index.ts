@@ -16,7 +16,7 @@ import { setObjToUrlParams, deepMerge } from '@/utils';
 import { useErrorLogStoreWithOut } from '@/store/modules/errorLog';
 import { useI18n } from '@/hooks/web/useI18n';
 import { joinTimestamp, formatRequestDate } from './helper';
-// import { useUserStoreWithOut } from '@/store/modules/user';
+import { useUserStoreWithOut } from '@/store/modules/user';
 import { AxiosRetry } from '@/utils/http/axios/axiosRetry';
 import axios from 'axios';
 
@@ -73,10 +73,22 @@ const transform: AxiosTransform = {
       throw new Error(t('sys.api.apiRequestFailed'));
     }
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
-    const { code, data, msg } = result;
+    const { code, msg } = result;
+
+    // token 失效
+    if (['AU0000', 'CR1000'].includes(String(code))) {
+      createMessage.error('用户登录态失效!');
+      const userStore = useUserStoreWithOut();
+      userStore.logout(true);
+      throw res;
+    }
+    if (String(code) === 'AU0001') {
+      // 没有数据
+      return res;
+    }
 
     // 这里逻辑可以根据项目进行修改
-    const hasSuccess = data && Reflect.has(result, 'code') && Number(code) === ResultEnum.SUCCESS;
+    const hasSuccess = result && Reflect.has(result, 'code') && Number(code) === ResultEnum.SUCCESS;
     if (hasSuccess) {
       let successMsg = msg;
 
@@ -90,15 +102,6 @@ const transform: AxiosTransform = {
         createMessage.success(successMsg);
       }
       return result;
-    }
-
-    // token 失效
-    if (['AU0000'].includes(String(code))) {
-      throw res;
-    }
-    if (String(code) === 'AU0001') {
-      // 没有数据
-      return res;
     }
 
     // 在此处根据自己项目的实际情况对不同的code执行不同的操作
@@ -262,7 +265,7 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
         // authentication schemes，e.g: Bearer
         // authenticationScheme: 'Bearer',
         authenticationScheme: '',
-        timeout: 10 * 1000,
+        timeout: 20 * 1000,
         // 基础接口地址
         // baseURL: globSetting.apiUrl,
 
@@ -328,6 +331,30 @@ export const clientHttp = createAxios({
       count: 5,
       waitTime: 100,
     },
+  },
+});
+export const originHttp = createAxios({
+  requestOptions: {
+    apiUrl: '',
+    urlPrefix: '',
+    // 需要对返回数据进行处理
+    // isTransformResponse: false,
+    // 忽略重复请求
+    ignoreCancelToken: true,
+    // 是否携带token
+    withToken: false,
+    retryRequest: {
+      isOpenRetry: true,
+      count: 5,
+      waitTime: 100,
+    },
+  },
+});
+
+export const flowHttp = createAxios({
+  requestOptions: {
+    // 接口地址
+    apiUrl: globSetting.flowApiUrl,
   },
 });
 

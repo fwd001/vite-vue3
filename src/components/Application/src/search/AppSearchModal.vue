@@ -67,6 +67,7 @@
   import { useRefs } from '@vben/hooks';
   import { useMenuSearch } from './useMenuSearch';
   import { useI18n } from '@/hooks/web/useI18n';
+  import { useAppInject } from '@/hooks/web/useAppInject';
 
   const props = defineProps({
     visible: { type: Boolean },
@@ -80,6 +81,7 @@
   const { t } = useI18n();
   const { prefixCls } = useDesign('app-search-modal');
   const { refs, setRefs } = useRefs();
+  const { getIsMobile } = useAppInject();
 
   const { handleSearch, searchResult, keyword, activeIndex, handleEnter, handleMouseenter } =
     useMenuSearch(refs, scrollWrap, emit);
@@ -87,7 +89,12 @@
   const getIsNotData = computed(() => !keyword || unref(searchResult).length === 0);
 
   const getClass = computed(() => {
-    return [prefixCls, {}];
+    return [
+      prefixCls,
+      {
+        [`${prefixCls}--mobile`]: unref(getIsMobile),
+      },
+    ];
   });
 
   watch(
@@ -119,6 +126,43 @@
     height: 100%;
     padding-top: 50px;
     background-color: rgb(0 0 0 / 25%);
+
+    &--mobile {
+      padding: 0;
+
+      > div {
+        width: 100%;
+      }
+
+      .@{prefix-cls}-input {
+        width: calc(100% - 38px);
+      }
+
+      .@{prefix-cls}-cancel {
+        display: inline-block;
+      }
+
+      .@{prefix-cls}-content {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+      }
+
+      .@{footer-prefix-cls} {
+        display: none;
+      }
+
+      .@{prefix-cls}-list {
+        height: calc(100% - 80px);
+        max-height: unset;
+
+        &__item {
+          &-enter {
+            opacity: 0 !important;
+          }
+        }
+      }
+    }
 
     &-content {
       position: relative;

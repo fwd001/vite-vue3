@@ -1,8 +1,9 @@
 import { UploadApiResult } from './model/uploadModel';
-import { defHttp } from '@/utils/http/axios';
+import { defHttp, originHttp } from '@/utils/http/axios';
 import { UploadFileParams } from '#/axios';
 import { useGlobSetting } from '@/hooks/setting';
 import { AxiosProgressEvent } from 'axios';
+import { ContentTypeEnum } from '@/enums/httpEnum';
 
 const { uploadUrl = '' } = useGlobSetting();
 
@@ -21,3 +22,13 @@ export function uploadApi(
     params,
   );
 }
+
+// 上传文件
+export const apiSpUploadFile = (fileList: any) => {
+  return originHttp.post({
+    url: '/spider/minio/fileUpload',
+    data: fileList,
+    timeout: 60000,
+    headers: { 'Content-Type': ContentTypeEnum.FORM_DATA },
+  });
+};

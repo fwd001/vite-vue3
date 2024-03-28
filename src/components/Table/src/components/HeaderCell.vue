@@ -55,7 +55,6 @@
   .@{prefix-cls} {
     &__help {
       margin-left: 8px !important;
-      color: rgb(0 0 0 / 65%) !important;
     }
   }
 </style>

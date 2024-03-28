@@ -30,7 +30,7 @@
   import { propTypes } from '@/utils/propTypes';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
 
-  type MenuEvent = 'logout' | 'doc' | 'lock' | 'api';
+  type MenuEvent = 'logout' | 'lock';
 
   const MenuItem = createAsyncComponent(() => import('./DropMenuItem.vue'));
   const LockAction = createAsyncComponent(() => import('../lock/LockModal.vue'));

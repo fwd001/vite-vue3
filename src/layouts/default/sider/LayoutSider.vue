@@ -10,7 +10,7 @@
     :collapsed="getCollapsed"
     :collapsedWidth="getCollapsedWidth"
     :theme="getMenuTheme"
-    :trigger="getTrigger"
+    :trigger="triggerVNode"
     v-bind="getTriggerAttr"
     @breakpoint="onBreakpointChange"
   >
@@ -94,7 +94,7 @@
 
   // 在此处使用计算量可能会导致sider异常
   // andv 更新后，如果trigger插槽可用，则此处代码可废弃
-  const getTrigger = h(LayoutTrigger);
+  const triggerVNode = h(LayoutTrigger);
 </script>
 <style lang="less">
   @prefix-cls: ~'@{namespace}-layout-sideBar';

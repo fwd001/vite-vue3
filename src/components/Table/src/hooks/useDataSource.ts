@@ -160,7 +160,7 @@ export function useDataSource(
   }
 
   function deleteTableDataRecord(keyValues: Key | Key[]) {
-    if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
+    if (!dataSourceRef.value || dataSourceRef.value.length === 0) return;
     const delKeyValues = !Array.isArray(keyValues) ? [keyValues] : keyValues;
 
     function deleteRow(data, keyValue) {
@@ -203,7 +203,6 @@ export function useDataSource(
     record: Recordable | Recordable[],
     index?: number,
   ): Recordable[] | undefined {
-    // if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
     index = index ?? dataSourceRef.value?.length;
     const _record = isObject(record) ? [record as Recordable] : (record as Recordable[]);
     unref(dataSourceRef).splice(index, 0, ..._record);
@@ -211,7 +210,7 @@ export function useDataSource(
   }
 
   function findTableDataRecord(keyValue: Key) {
-    if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
+    if (!dataSourceRef.value || dataSourceRef.value.length === 0) return;
     const { childrenColumnName = 'children' } = unref(propsRef);
 
     const findRow = (array: any[]) => {
@@ -276,9 +275,8 @@ export function useDataSource(
         params = (await beforeFetch(params)) || params;
       }
 
-      const { data: res } = await api(params);
-
-      rawDataSourceRef.value = res.data;
+      const res = await api(params);
+      rawDataSourceRef.value = res;
 
       const isArrayResult = Array.isArray(res);
 

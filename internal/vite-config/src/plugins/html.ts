@@ -8,8 +8,6 @@ import { createHtmlPlugin } from 'vite-plugin-html';
 export function configHtmlPlugin({ isBuild }: { isBuild: boolean }) {
   const htmlPlugin: PluginOption[] = createHtmlPlugin({
     minify: isBuild,
-    // @ts-ignore: typo
-    viteNext: true,
   });
   return htmlPlugin;
 }

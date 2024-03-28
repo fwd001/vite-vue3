@@ -1,4 +1,4 @@
-import { getAllRoleList, isAccountExist } from '@/api/demo/system';
+import { isAccountExist } from '@/api/demo/system';
 import { BasicColumn, FormSchema } from '@/components/Table';
 
 /**
@@ -109,17 +109,6 @@ export const accountFormSchema: FormSchema[] = [
     component: 'InputPassword',
     required: true,
     ifShow: false,
-  },
-  {
-    label: '角色',
-    field: 'role',
-    component: 'ApiSelect',
-    componentProps: {
-      api: getAllRoleList,
-      labelField: 'roleName',
-      valueField: 'roleValue',
-    },
-    required: true,
   },
   {
     field: 'nickname',

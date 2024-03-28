@@ -92,6 +92,7 @@ export interface App {
 export interface AurhorizeCodeResultModel {
   id: number;
   orgId: number;
+  homePath: any;
   orgName: string;
   orgInfo: OrgInfo;
   name: string;

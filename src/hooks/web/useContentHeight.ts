@@ -170,7 +170,6 @@ export function useContentHeight(
   });
   useWindowSizeFn(
     () => {
-      // debugger;
       calcContentHeight();
     },
     { wait: 500, immediate: true },

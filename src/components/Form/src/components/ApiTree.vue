@@ -78,8 +78,7 @@
     treeData.value = [];
     let result;
     try {
-      const res = await api(props.params);
-      result = res.data;
+      result = await api(props.params);
     } catch (e) {
       console.error(e);
     }

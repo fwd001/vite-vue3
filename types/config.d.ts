@@ -145,6 +145,8 @@ export interface GlobConfig {
   apiUrl: string;
   // client环境变量
   clientApiUrl: string;
+  // flowHttp 接口前缀
+  flowApiUrl: string;
   // Upload url
   uploadUrl?: string;
   //  Service interface url prefix
@@ -152,6 +154,10 @@ export interface GlobConfig {
   // Project abbreviation
   shortName: string;
   authorizeHref: string;
+  dictionaryUrl: string;
+  zdrYWLX: string;
+  textZDR: string;
+  textYJ: string;
 }
 export interface GlobEnvConfig {
   // Site title
@@ -164,6 +170,13 @@ export interface GlobEnvConfig {
   VITE_GLOB_UPLOAD_URL?: string;
   // 环境变量client-apiurl
   VITE_GLOB_CLIENT_API_URL?: string;
+  // flowHttp 接口前缀
+  VITE_GLOB_FLOW_API_URL?: string;
   // 登录失效重定向地址
   VITE_GLOB_AUTHORIZE_HREF?: string;
+  // 字典地址
+  VITE_GLOB_DICTIONARY_URL?: string;
+  VITE_GLOB_ZDR_YWLX?: string;
+  VITE_GLOB_TEXT_ZDR?: string;
+  VITE_GLOB_TEXT_YJ?: string;
 }

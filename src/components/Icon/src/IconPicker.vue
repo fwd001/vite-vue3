@@ -118,7 +118,7 @@
     readonly: false,
   });
 
-  // 不要继承FormItem禁用、占位符...
+  // Don't inherit FormItem disabled、placeholder...
   defineOptions({
     inheritAttrs: false,
   });

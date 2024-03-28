@@ -12,7 +12,8 @@ node('jenkins-master') {
     env.BDATE = new Date().format("yyyyMMdd_HHmmss")
 
     // 清空工作目录
-    // deleteDir()
+    deleteDir()
+    env.SUB_BRANCH = GIT_BRANCH.replaceAll("/|_","-")
 
     stage('get clone') {
         sh "echo ${GIT_BRANCH}"
@@ -36,11 +37,11 @@ node('jenkins-master') {
         sh "tar cfvz AutoCFG/BuildIMG/dist.tar.gz dist"
         sh "envsubst < AutoCFG/BuildIMG/Dockerfile_tpl > AutoCFG/BuildIMG/Dockerfile"
         sh "chown 1000:1000 -R AutoCFG/BuildIMG"
-        sh "cd AutoCFG/BuildIMG && docker build -t ${imgrepoAddr}/${ProjectName}/${FE_PRONAME}:${GIT_BRANCH}-${BDATE}-${GIT_COMMIT_ID} ."
+        sh "cd AutoCFG/BuildIMG && docker build -t ${imgrepoAddr}/${ProjectName}/${FE_PRONAME}:${SUB_BRANCH}-${BDATE}-${GIT_COMMIT_ID} ."
     }
 
     stage('push image') {
-        sh "docker push ${imgrepoAddr}/${ProjectName}/${FE_PRONAME}:${GIT_BRANCH}-${BDATE}-${GIT_COMMIT_ID}"
+        sh "docker push ${imgrepoAddr}/${ProjectName}/${FE_PRONAME}:${SUB_BRANCH}-${BDATE}-${GIT_COMMIT_ID}"
     }
     
     stage('kubernetes deploy') {

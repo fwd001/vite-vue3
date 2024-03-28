@@ -207,7 +207,7 @@
   // 点击开始上传
   async function handleStartUpload() {
     const { maxNumber } = props;
-    if (fileListRef.value.length + (props.previewFileList?.length || 0) > maxNumber) {
+    if ((fileListRef.value.length + props.previewFileList?.length ?? 0) > maxNumber) {
       return createMessage.warning(t('component.upload.maxNumber', [maxNumber]));
     }
     try {
@@ -271,22 +271,22 @@
 <style lang="less">
   .upload-modal {
     .ant-upload-list {
-      display: none;
+      display: none !important;
     }
 
     .ant-table-wrapper .ant-spin-nested-loading {
-      padding: 0;
+      padding: 0 !important;
     }
 
     &-toolbar {
-      display: flex;
-      align-items: center;
-      margin-bottom: 8px;
+      display: flex !important;
+      align-items: center !important;
+      margin-bottom: 8px !important;
 
       &__btn {
-        flex: 1;
-        margin-left: 8px;
-        text-align: right;
+        flex: 1 !important;
+        margin-left: 8px !important;
+        text-align: right !important;
       }
     }
   }

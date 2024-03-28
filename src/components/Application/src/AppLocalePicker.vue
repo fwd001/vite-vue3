@@ -1,5 +1,5 @@
 <!--
- * @Author: LHCZ
+ * @Author: Vben
  * @Description: Multi-language switching component
 -->
 <template>
