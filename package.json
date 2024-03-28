@@ -25,6 +25,8 @@
     "preview": "npm run build && vite preview",
     "re": "npm run build && npm run upload && npm run deploy",
     "reinstall": "rimraf pnpm-lock.yaml && rimraf package.lock.json && rimraf node_modules && npm run bootstrap",
+    "rm:dist": "find . -type d -name \"dist\" -exec rm -rf {} +",
+    "rm:nm": "find . -type d -name \"node_modules\" -exec rm -rf {} +",
     "serve": "npm run dev",
     "test:gzip": "npx http-server dist --cors --gzip -c-1",
     "type:check": "vue-tsc --noEmit --skipLibCheck",
