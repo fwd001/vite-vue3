@@ -50,6 +50,7 @@ export function useDataSource(
   });
   const dataSourceRef = ref<Recordable[]>([]);
   const rawDataSourceRef = ref<Recordable>({});
+  const searchInfoRef = ref<Recordable>({});
 
   watchEffect(() => {
     tableData.value = unref(dataSourceRef);
@@ -160,7 +161,7 @@ export function useDataSource(
   }
 
   function deleteTableDataRecord(keyValues: Key | Key[]) {
-    if (!dataSourceRef.value || dataSourceRef.value.length === 0) return;
+    if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
     const delKeyValues = !Array.isArray(keyValues) ? [keyValues] : keyValues;
 
     function deleteRow(data, keyValue) {
@@ -203,6 +204,7 @@ export function useDataSource(
     record: Recordable | Recordable[],
     index?: number,
   ): Recordable[] | undefined {
+    // if (!dataSourceRef.value || dataSourceRef.value.length == 0) return;
     index = index ?? dataSourceRef.value?.length;
     const _record = isObject(record) ? [record as Recordable] : (record as Recordable[]);
     unref(dataSourceRef).splice(index, 0, ..._record);
@@ -274,7 +276,7 @@ export function useDataSource(
       if (beforeFetch && isFunction(beforeFetch)) {
         params = (await beforeFetch(params)) || params;
       }
-
+      searchInfoRef.value = params;
       const res = await api(params);
       rawDataSourceRef.value = res;
 
@@ -338,6 +340,10 @@ export function useDataSource(
     return await fetch(opt);
   }
 
+  function getSearchInfo<T = Recordable>() {
+    return searchInfoRef.value as T;
+  }
+
   onMounted(() => {
     useTimeoutFn(() => {
       unref(propsRef).immediate && fetch();
@@ -348,6 +354,8 @@ export function useDataSource(
     getDataSourceRef,
     getDataSource,
     getRawDataSource,
+    searchInfoRef,
+    getSearchInfo,
     getRowKey,
     setTableData,
     getAutoCreateKey,
