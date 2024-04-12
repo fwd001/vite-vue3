@@ -156,6 +156,8 @@ export interface GlobConfig {
   authorizeHref: string;
   dictionaryUrl: string;
   zdrYWLX: string;
+  qbYWLX: string;
+  xsYWLX: string;
   textZDR: string;
   textYJ: string;
 }
@@ -178,5 +180,7 @@ export interface GlobEnvConfig {
   VITE_GLOB_DICTIONARY_URL?: string;
   VITE_GLOB_ZDR_YWLX?: string;
   VITE_GLOB_TEXT_ZDR?: string;
+  VITE_GLOB_QB_YWLX: string;
+  VITE_GLOB_XS_YWLX: string;
   VITE_GLOB_TEXT_YJ?: string;
 }

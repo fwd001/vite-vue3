@@ -1,7 +1,72 @@
+.bigemap-logo,
+.bmgl-credit-textContainer,
+.iclient-leaflet-logo {
+  display: none !important;
+}
+
 #bigemap-global {
+  width: 100%;
   height: 100%;
 }
 
-#bigemap-3d {
-  height: 100%;
+//贴地图文字
+.pure-tool-tip-wrapper {
+  padding: 0 !important;
+  border: none !important;
+  opacity: 1 !important;
+  background: transparent !important;
+
+  &::before {
+    display: none !important;
+  }
+
+  .tooltip-p {
+    white-space: initial;
+  }
+
+  &.arrow {
+    &::before {
+      display: block !important;
+    }
+  }
+
+  &.left {
+    &::before {
+      border-left-color: #000 !important;
+    }
+  }
+
+  &.top {
+    &::before {
+      border-top-color: #000 !important;
+    }
+  }
+
+  &.right {
+    &::before {
+      border-right-color: #000 !important;
+    }
+  }
+
+  &.bottom {
+    &::before {
+      border-bottom-color: #000 !important;
+    }
+  }
+}
+
+.text-white-outside {
+  text-shadow:
+    -1px -1px 0 white,
+    1px -1px 0 white,
+    -1px 1px 0 white,
+    1px 1px 0 white;
+}
+
+.text-black-outside {
+  text-shadow:
+    -1px -1px 0 black,
+    1px -1px 0 black,
+    -1px 1px 0 black,
+    1px 1px 0 black;
 }

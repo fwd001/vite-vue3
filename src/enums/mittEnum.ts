@@ -5,4 +5,6 @@ export enum MEventEnum {
   // 详情页面打开审批窗口
   ZDRDetailOpenApprovalModal,
   ZDRDetailUpdate,
+  // 地图初始化
+  MapMounted,
 }

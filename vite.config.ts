@@ -1,4 +1,5 @@
 import { defineApplicationConfig } from '@vben/vite-config';
+import Inspector from 'vite-plugin-vue-inspector';
 
 export default defineApplicationConfig({
   overrides: {
@@ -30,10 +31,19 @@ export default defineApplicationConfig({
           target: 'http://172.16.11.13:3002',
           changeOrigin: true,
         },
+        '/public': {
+          target: 'http://172.16.11.13:3002', // 数据字典
+          changeOrigin: true,
+        },
       },
       warmup: {
         clientFiles: ['./index.html', './src/{views,components}/*'],
       },
     },
+    plugins: [
+      Inspector({
+        openInEditorHost: 'http://localhost:5173',
+      }),
+    ],
   },
 });

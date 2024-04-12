@@ -1,18 +1,19 @@
 <template>
   <div :class="[prefixCls, `${prefixCls}--${theme}`]">
-    <a-breadcrumb :routes="routes">
+    <Breadcrumb :routes="routes as any">
       <template #itemRender="{ route, routes: routesMatched, paths }">
         <Icon :icon="getIcon(route)" v-if="getShowBreadCrumbIcon && getIcon(route)" />
-        <span v-if="!hasRedirect(routesMatched, route)">
-          {{ t(route.name || route.meta.title) }}
+        <span v-if="!hasRedirect(routesMatched as any, route as any)">
+          {{ t((route as any).meta.title || (route as any).name) }}
         </span>
-        <router-link v-else to="" @click="handleClick(route, paths, $event as Event)">
-          {{ t(route.name || route.meta.title) }}
+        <router-link v-else to="" @click="handleClick(route as any, paths, $event as Event)">
+          {{ t((route as any).meta.title || (route as any).name) }}
         </router-link>
       </template>
-    </a-breadcrumb>
+    </Breadcrumb>
   </div>
 </template>
+
 <script lang="ts">
   import type { RouteLocationMatched } from 'vue-router';
   import { useRouter } from 'vue-router';
@@ -38,7 +39,7 @@
 
   export default defineComponent({
     name: 'LayoutBreadcrumb',
-    components: { Icon, [Breadcrumb.name]: Breadcrumb },
+    components: { Icon, Breadcrumb },
     props: {
       theme: propTypes.oneOf(['dark', 'light']),
     },
@@ -66,7 +67,10 @@
         const filterMenus = menus.filter((item) => item.path === parent[0]);
         const matched = getMatched(filterMenus, parent) as any;
 
-        if (!matched || matched.length === 0) return;
+        if (!matched || matched.length === 0) {
+          routes.value = [];
+          return;
+        }
 
         const breadcrumbList = filterItem(matched);
 

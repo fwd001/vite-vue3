@@ -15,6 +15,8 @@ export const useGlobSetting = (): Readonly<GlobConfig> => {
     VITE_GLOB_ZDR_YWLX = '',
     VITE_GLOB_TEXT_ZDR = '',
     VITE_GLOB_TEXT_YJ = '',
+    VITE_GLOB_QB_YWLX = '',
+    VITE_GLOB_XS_YWLX = '',
   } = getAppEnvConfig();
 
   // Take global configuration
@@ -29,6 +31,8 @@ export const useGlobSetting = (): Readonly<GlobConfig> => {
     authorizeHref: VITE_GLOB_AUTHORIZE_HREF,
     dictionaryUrl: VITE_GLOB_DICTIONARY_URL,
     zdrYWLX: VITE_GLOB_ZDR_YWLX,
+    qbYWLX: VITE_GLOB_QB_YWLX,
+    xsYWLX: VITE_GLOB_XS_YWLX,
     textZDR: VITE_GLOB_TEXT_ZDR,
     textYJ: VITE_GLOB_TEXT_YJ,
   };

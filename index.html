@@ -126,18 +126,6 @@
           }
         }
 
-        @keyframes ant-rotate {
-          to {
-            transform: rotate(405deg);
-          }
-        }
-
-        @keyframes ant-spin-move {
-          to {
-            opacity: 1;
-          }
-        }
-
         @keyframes ant-spin-move {
           to {
             opacity: 1;
@@ -155,13 +143,38 @@
       </div>
     </div>
     <!-- bigemap第三方库 start -->
-    <link href="http://172.16.11.13:3000/bigemap.js/v2.1.0/bigemap.css" rel="stylesheet" />
-    <script src="http://172.16.11.13:3000/bigemap.js/v2.1.0/bigemap.js"></script>
-    <link
-      href="http://172.16.11.13:3000/bigemap-gl.js/v1.1.0/Widgets/widgets.css"
-      rel="stylesheet"
-    />
-    <script src="http://172.16.11.13:3000/bigemap-gl.js/v1.1.0/bigemap-gl.js"></script>
+    <link href="/public/BM/bigemap.css" rel="stylesheet" />
+    <script src="/public/BM/bigemap.js"></script>
+    <link rel="stylesheet" href="/public/BM/mouse_draw/Bigemap.draw.css" />
+    <link rel="stylesheet" href="/public/BM/MarkerCluster.Default.css" />
+    <!-- 热力图插件 -->
+    <script src="/public/BM/heat.js"></script>
+    <!-- 聚合点插件 -->
+    <script type="text/javascript" src="/public/BM/bm.markercluster-src.js"></script>
+    <script type="text/javascript" src="/public/BM/glify.js"></script>
+    <script type="text/javascript" src="/public/BM/canvas-layer.js"></script>
+    <script type="text/javascript" src="/public/BM/bm.ellipse.js"></script>
+    <script type="text/javascript" src="/public/BM/echarts.min.js"></script>
+    <script type="text/javascript" src="/public/BM/mapv.min.js"></script>
+    <script>
+      L = window.BM;
+    </script>
+    <script type="text/javascript" src="/public/BM/iclient.min.js"></script>
+    <script type="text/javascript" src="/public/BM/arrow.js"></script>
+    <script type="text/javascript" src="/public/BM/togeojson.js"></script>
+    <script type="text/javascript" src="/public/BM/bm-plot.min.js"></script>
+    <script type="text/javascript" src="/public/BM/d3.min.js"></script>
+    <script type="text/javascript" src="/public/BM/mouse_draw/bm.draw.min.js"></script>
+    <script type="text/javascript" src="/public/BM/moveMarker.js"></script>
+    <script type="text/javascript" src="/public/BM/bm.geometryutil.js"></script>
+    <script type="text/javascript" src="/public/BM/mouse_draw/Control.Draw.js"></script>
+    <link rel="stylesheet" href="/public/BM/measure/bm.measure.css" />
+    <script type="text/javascript" src="/public/BM/measure/bm.measure.js"></script>
+    <!-- <script
+      type="text/javascript"
+      src="/public/BM/mouse_draw/draw/handler/Draw.Polyline.js"
+    ></script>
+    <script type="text/javascript" src="/public/BM/mouse_draw/ext/Polyline.Intersect.js"></script> -->
     <!-- bigemap第三方库 end -->
 
     <script type="module" src="/src/main.ts"></script>
