@@ -45,13 +45,17 @@ export function createPermissionGuard(router: Router) {
           redirect: to.path,
         };
       }
-      if (isDevMode()) {
-        next(redirectData);
-        return;
-      } else {
-        location.href = `${clientApiUrl}${authorizeHref}`;
-        return next(false);
-      }
+      next(redirectData);
+
+      console.log('isDevMode', isDevMode, clientApiUrl, authorizeHref);
+
+      // if (isDevMode()) {
+      //   next(redirectData);
+      //   return;
+      // } else {
+      //   location.href = `${clientApiUrl}${authorizeHref}`;
+      //   return next(false);
+      // }
     }
 
     if (permissionStore.getIsDynamicAddedRoute) {

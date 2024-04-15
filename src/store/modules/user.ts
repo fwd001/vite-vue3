@@ -149,15 +149,12 @@ export const useUserStore = defineStore({
       this.setToken(undefined);
       this.setSessionTimeout(false);
       this.setUserInfo(null);
-      goLogin && router.push(PageEnum.AUTH_PAGE);
 
-      console.log('aurhorizeCode', authorizeHref, clientApiUrl, isDevMode);
-
-      // if (isDevMode()) {
-      //   goLogin && router.push(PageEnum.AUTH_PAGE);
-      // } else {
-      //   location.href = `${clientApiUrl}${authorizeHref}`;
-      // }
+      if (isDevMode()) {
+        goLogin && router.push(PageEnum.AUTH_PAGE);
+      } else {
+        location.href = `${clientApiUrl}${authorizeHref}`;
+      }
     },
 
     /**
