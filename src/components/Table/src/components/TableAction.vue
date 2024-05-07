@@ -146,29 +146,29 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-table-action';
 
-  .@{prefix-cls} {
-    display: flex !important;
-    align-items: center !important;
+  #app .@{prefix-cls} {
+    display: flex;
+    align-items: center;
 
     .action-divider {
-      display: table !important;
+      display: table;
     }
 
     &.left {
-      justify-content: flex-start !important;
+      justify-content: flex-start;
     }
 
     &.center {
-      justify-content: center !important;
+      justify-content: center;
     }
 
     &.right {
-      justify-content: flex-end !important;
+      justify-content: flex-end;
     }
 
     button {
-      display: flex !important;
-      align-items: center !important;
+      display: flex;
+      align-items: center;
 
       span {
         margin-left: 0 !important;
@@ -183,15 +183,15 @@
 
     .ant-divider,
     .ant-divider-vertical {
-      margin: 0 2px !important;
+      margin: 0 2px;
     }
 
     .icon-more {
-      transform: rotate(90deg) !important;
+      transform: rotate(90deg);
 
       svg {
-        font-size: 1.1em !important;
-        font-weight: 700 !important;
+        font-size: 1.1em;
+        font-weight: 700;
       }
     }
   }

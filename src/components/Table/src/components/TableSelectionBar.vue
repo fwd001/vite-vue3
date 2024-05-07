@@ -44,13 +44,13 @@
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-table-select-bar';
 
-  .@{prefix-cls} {
-    flex-grow: 1 !important;
-    padding: 2px 8px !important;
+  #app .@{prefix-cls} {
+    flex-grow: 1;
+    padding: 2px 8px;
 
     :deep(.ant-btn-link) {
-      height: 20px !important;
-      line-height: 20px !important;
+      height: 20px;
+      line-height: 20px;
     }
   }
 </style>

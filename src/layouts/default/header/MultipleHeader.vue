@@ -97,23 +97,23 @@
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-layout-multiple-header';
 
-  .@{prefix-cls} {
-    flex: 0 0 auto !important;
-    transition: width 0.2s !important;
+  #app .@{prefix-cls} {
+    flex: 0 0 auto;
+    transition: width 0.2s;
 
     &--dark {
-      margin-left: -1px !important;
+      margin-left: -1px;
     }
 
     &--fixed {
-      position: fixed !important;
-      z-index: @multiple-tab-fixed-z-index!important;
+      position: fixed;
+      z-index: @multiple-tab-fixed-z-index;
       top: 0;
       width: 100%;
     }
 
     &__placeholder {
-      transition: height 0.6s ease-in-out !important;
+      transition: height 0.6s ease-in-out;
     }
   }
 </style>

@@ -51,6 +51,7 @@
   import { dateUtil } from '@/utils/dateUtil';
 
   import { deepMerge } from '@/utils';
+
   import { useFormValues } from './hooks/useFormValues';
   import useAdvanced from './hooks/useAdvanced';
   import { useFormEvents } from './hooks/useFormEvents';
@@ -322,7 +323,7 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-form';
 
-  .@{prefix-cls} {
+  #app .@{prefix-cls} {
     .ant-form-item {
       &-label label::after {
         margin: 0 6px 0 2px;

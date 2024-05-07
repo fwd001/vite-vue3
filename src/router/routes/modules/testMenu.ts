@@ -8,7 +8,7 @@ const routers: AppRouteModule = {
   component: LAYOUT,
   redirect: '/test/index',
   meta: {
-    icon: 'ant-design:copyright-circle-outlined',
+    icon: 'file-icons:test-js',
     title: '测试',
     orderNo: 3,
   },
@@ -18,8 +18,8 @@ const routers: AppRouteModule = {
       name: 'IconIndex',
       component: () => import('@/views/test/icon.vue'),
       meta: {
-        title: 'Icon',
-        icon: 'ant-design:check-circle-outlined',
+        title: 'Icon测试',
+        icon: 'mingcute:test-tube-fill',
         ignoreAuth: true,
       },
     },
@@ -28,8 +28,8 @@ const routers: AppRouteModule = {
       name: 'TestIndex2',
       component: () => import('@/views/dashboard/index.vue'),
       meta: {
-        title: '测试菜单2',
-        icon: 'ant-design:thunderbolt-outlined',
+        title: '测试页面',
+        icon: 'lucide:test-tubes',
         ignoreAuth: true,
       },
     },

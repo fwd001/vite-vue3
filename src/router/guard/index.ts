@@ -11,6 +11,7 @@ import { createPermissionGuard } from './permissionGuard';
 import { createStateGuard } from './stateGuard';
 import nProgress from 'nprogress';
 import projectSetting from '@/settings/projectSetting';
+import { prefixCls } from '@/settings/designSetting';
 import { createParamMenuGuard } from './paramMenuGuard';
 
 // Don't change the order of creation
@@ -104,7 +105,7 @@ function createScrollGuard(router: Router) {
   router.afterEach(async (to) => {
     // scroll top
     isHash((to as RouteLocationNormalized & { href: string })?.href) &&
-      document.querySelector('.lhcz-layout-content')?.scrollTo(0, 0);
+      document.querySelector(`.${prefixCls}-layout-content`)?.scrollTo(0, 0);
     return true;
   });
 }

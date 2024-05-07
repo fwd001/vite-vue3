@@ -35,24 +35,24 @@
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-darg-bar';
 
-  .@{prefix-cls} {
-    position: absolute !important;
-    z-index: @side-drag-z-index!important;
-    top: 0 !important;
-    right: -2px !important;
-    width: 2px !important;
-    height: 100% !important;
-    border-top: none !important;
-    border-bottom: none !important;
-    cursor: col-resize !important;
+  #app .@{prefix-cls} {
+    position: absolute;
+    z-index: @side-drag-z-index;
+    top: 0;
+    right: -2px;
+    width: 2px;
+    height: 100%;
+    border-top: none;
+    border-bottom: none;
+    cursor: col-resize;
 
     &--hide {
-      display: none !important;
+      display: none;
     }
 
     &:hover {
-      background-color: @primary-color!important;
-      box-shadow: 0 0 4px 0 rgb(28 36 56 / 15%) !important;
+      background-color: @primary-color;
+      box-shadow: 0 0 4px 0 rgb(28 36 56 / 15%);
     }
   }
 </style>

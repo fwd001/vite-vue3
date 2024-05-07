@@ -69,21 +69,21 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-table-img';
 
-  .@{prefix-cls} {
+  #app .@{prefix-cls} {
     .ant-image {
-      margin-right: 4px !important;
-      cursor: zoom-in !important;
+      margin-right: 4px;
+      cursor: zoom-in;
 
       img {
-        border-radius: 2px !important;
+        border-radius: 2px;
       }
     }
 
     .img-div {
-      display: inline-grid !important;
+      display: inline-grid;
 
       > .ant-image:nth-of-type(n + 2) {
-        display: none !important;
+        display: none;
       }
     }
   }

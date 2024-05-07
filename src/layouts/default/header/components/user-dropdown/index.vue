@@ -1,6 +1,6 @@
 <template>
   <Dropdown placement="bottomLeft" :overlayClassName="`${prefixCls}-dropdown-overlay`">
-    <span :class="[prefixCls, `${prefixCls}--${theme}`]" class="flex">
+    <span :class="[prefixCls, `${prefixCls}--${theme}`]" class="flex" @click="copyToken">
       <img :class="`${prefixCls}__header`" :src="getUserInfo.avatar" />
       <span :class="`${prefixCls}__info hidden md:block`">
         <span :class="`${prefixCls}__name`" class="truncate">
@@ -29,6 +29,7 @@
   import headerImg from '@/assets/images/header.jpg';
   import { propTypes } from '@/utils/propTypes';
   import { createAsyncComponent } from '@/utils/factory/createAsyncComponent';
+  import { copyText } from '@/utils/copyTextToClipboard';
 
   type MenuEvent = 'logout' | 'lock';
 
@@ -70,6 +71,10 @@
         handleLock();
         break;
     }
+  }
+
+  function copyToken() {
+    copyText(userStore.getToken);
   }
 </script>
 <style lang="less">

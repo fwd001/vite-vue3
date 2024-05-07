@@ -7,4 +7,6 @@ export enum MEventEnum {
   ZDRDetailUpdate,
   // 地图初始化
   MapMounted,
+  ShowContextMenu,
+  HideContextMenu,
 }

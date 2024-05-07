@@ -54,42 +54,45 @@
 </script>
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-modal-close';
-  .@{prefix-cls} {
-    display: flex;
-    align-items: center;
-    height: 95%;
 
-    > span {
-      margin-left: 48px;
-      font-size: 16px;
-    }
+  #body {
+    .@{prefix-cls} {
+      display: flex;
+      align-items: center;
+      height: 95%;
 
-    &--can-full {
       > span {
-        margin-left: 12px;
+        margin-left: 48px;
+        font-size: 16px;
       }
-    }
 
-    &:not(&--can-full) {
-      > span:nth-child(1) {
-        &:hover {
-          font-weight: 700;
+      &--can-full {
+        > span {
+          margin-left: 12px;
         }
       }
-    }
 
-    & span:nth-child(1) {
-      display: inline-block;
-      padding: 10px;
-
-      &:hover {
-        color: @primary-color;
+      &:not(&--can-full) {
+        > span:nth-child(1) {
+          &:hover {
+            font-weight: 700;
+          }
+        }
       }
-    }
 
-    & span:last-child {
-      &:hover {
-        color: @error-color;
+      & span:nth-child(1) {
+        display: inline-block;
+        padding: 10px;
+
+        &:hover {
+          color: @primary-color;
+        }
+      }
+
+      & span:last-child {
+        &:hover {
+          color: @error-color;
+        }
       }
     }
   }

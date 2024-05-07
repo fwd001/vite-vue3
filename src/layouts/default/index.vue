@@ -59,28 +59,27 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-default-layout';
 
-  .@{prefix-cls} {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    min-height: 100% !important;
-    background-color: @content-bg!important;
+  #app .@{prefix-cls} {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100%;
+    background-color: @content-bg;
 
     > .ant-layout {
-      min-height: 100% !important;
+      min-height: 100%;
     }
 
     &-main {
-      width: 100%;
-      margin-left: 1px !important;
+      margin-left: 1px;
     }
   }
 
-  .@{prefix-cls}-out {
+  #app .@{prefix-cls}-out {
     &.ant-layout-has-sider {
       .@{prefix-cls} {
         &-main {
-          margin-left: 1px !important;
+          margin-left: 1px;
         }
       }
     }

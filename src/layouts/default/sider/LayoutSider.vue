@@ -1,9 +1,23 @@
 <template>
-  <div v-if="getMenuFixed" v-show="showClassSideBarRef" :style="getHiddenDomStyle"></div>
+  <div
+    v-if="getMenuFixed && !getIsMobile"
+    v-show="showClassSideBarRef"
+    :style="getHiddenDomStyle"
+  ></div>
+  <!-- 
+    针对场景：菜单折叠按钮为“底部”时：
+    关于 breakpoint，
+    组件定义的是 lg: '992px'，
+    而 vben 定义的是 lg: '960px'，
+    现把组件的 breakpoint 设为 md，
+    则组件的 md: '768px' < vben的 lg: '960px'，
+    防止 collapsedWidth 在 960px ~ 992px 之间错误设置为 0，
+    从而防止出现浮动的 trigger（且breakpoint事件失效）
+  -->
   <Layout.Sider
     v-show="showClassSideBarRef"
     ref="sideRef"
-    breakpoint="lg"
+    :breakpoint="getTrigger === TriggerEnum.FOOTER ? 'md' : 'lg'"
     collapsible
     :class="getSiderClass"
     :width="getMenuWidth"
@@ -25,8 +39,9 @@
   import { Layout } from 'ant-design-vue';
   import { computed, CSSProperties, h, ref, unref } from 'vue';
 
-  import { MenuModeEnum, MenuSplitTyeEnum } from '@/enums/menuEnum';
+  import { MenuModeEnum, MenuSplitTyeEnum, TriggerEnum } from '@/enums/menuEnum';
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting';
+  import { useAppInject } from '@/hooks/web/useAppInject';
   import { useDesign } from '@/hooks/web/useDesign';
   import LayoutTrigger from '@/layouts/default/trigger/index.vue';
 
@@ -48,11 +63,14 @@
     getMenuHidden,
     getMenuFixed,
     getIsMixMode,
+    getTrigger,
   } = useMenuSetting();
 
   const { prefixCls } = useDesign('layout-sideBar');
 
-  const { getTriggerAttr, getShowTrigger } = useTrigger(ref(false));
+  const { getIsMobile } = useAppInject();
+
+  const { getTriggerAttr, getShowTrigger } = useTrigger(getIsMobile);
 
   useDragLine(sideRef, dragBarRef);
 
@@ -75,7 +93,7 @@
       prefixCls,
       {
         [`${prefixCls}--fixed`]: unref(getMenuFixed),
-        [`${prefixCls}--mix`]: unref(getIsMixMode),
+        [`${prefixCls}--mix`]: unref(getIsMixMode) && !unref(getIsMobile),
       },
     ];
   });
@@ -99,31 +117,31 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-layout-sideBar';
 
-  .@{prefix-cls} {
-    z-index: @layout-sider-fixed-z-index!important;
+  #app .@{prefix-cls} {
+    z-index: @layout-sider-fixed-z-index;
 
     &--fixed {
       position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      height: 100% !important;
+      top: 0;
+      left: 0;
+      height: 100%;
     }
 
     &--mix {
-      top: @header-height!important;
-      height: calc(100% - @header-height) !important;
+      top: @header-height;
+      height: calc(100% - @header-height);
     }
 
     &.ant-layout-sider-dark {
-      background-color: @sider-dark-bg-color!important;
+      background-color: @sider-dark-bg-color;
 
       .ant-layout-sider-trigger {
-        background-color: @trigger-dark-bg-color!important;
-        color: darken(@white, 25%) !important;
+        background-color: @trigger-dark-bg-color;
+        color: darken(@white, 25%);
 
         &:hover {
-          background-color: @trigger-dark-hover-bg-color!important;
-          color: @white!important;
+          background-color: @trigger-dark-hover-bg-color;
+          color: @white;
         }
       }
     }
@@ -132,19 +150,19 @@
       // box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
 
       .ant-layout-sider-trigger {
-        border-top: 1px solid @border-color-light!important;
-        color: @text-color-base!important;
+        border-top: 1px solid @border-color-light;
+        color: @text-color-base;
       }
     }
 
     .ant-layout-sider-zero-width-trigger {
-      z-index: 10 !important;
-      top: 40% !important;
+      z-index: 10;
+      top: 40%;
     }
 
     & .ant-layout-sider-trigger {
-      height: 36px !important;
-      line-height: 36px !important;
+      height: 36px;
+      line-height: 36px;
     }
   }
 </style>

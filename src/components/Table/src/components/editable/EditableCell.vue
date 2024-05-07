@@ -369,11 +369,9 @@
           if (!props.record.editValueRefs) props.record.editValueRefs = {};
           props.record.editValueRefs[props.column.dataIndex as any] = currentValueRef;
         }
-        /* eslint-disable  */
         props.record.onCancelEdit = () => {
           isArray(props.record?.cancelCbs) && props.record?.cancelCbs.forEach((fn) => fn());
         };
-        /* eslint-disable */
         props.record.onSubmitEdit = async () => {
           if (isArray(props.record?.submitCbs)) {
             if (!props.record?.onValid?.()) return;
@@ -474,86 +472,88 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-editable-cell';
 
-  .edit-cell-align-left {
-    text-align: left !important;
+  #app {
+    .edit-cell-align-left {
+      text-align: left;
 
-    input:not(.ant-calendar-picker-input, .ant-time-picker-input) {
-      text-align: left !important;
-    }
-  }
-
-  .edit-cell-align-center {
-    text-align: center !important;
-
-    input:not(.ant-calendar-picker-input, .ant-time-picker-input) {
-      text-align: center !important;
-    }
-  }
-
-  .edit-cell-align-right {
-    text-align: right !important;
-
-    input:not(.ant-calendar-picker-input, .ant-time-picker-input) {
-      text-align: right !important;
-    }
-  }
-
-  .edit-cell-rule-popover {
-    .ant-popover-inner-content {
-      padding: 4px 8px !important;
-      // border: 1px solid @error-color!important;
-      border-radius: 2px !important;
-      color: @error-color!important;
-    }
-  }
-  .@{prefix-cls} {
-    position: relative !important;
-    min-height: 24px !important; //设置高度让其始终可被hover
-
-    &__wrapper {
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-
-      > .ant-select {
-        min-width: calc(100% - 50px) !important;
+      input:not(.ant-calendar-picker-input, .ant-time-picker-input) {
+        text-align: left;
       }
     }
 
-    &__icon {
-      &:hover {
-        transform: scale(1.2) !important;
+    .edit-cell-align-center {
+      text-align: center;
 
-        svg {
-          color: @primary-color!important;
+      input:not(.ant-calendar-picker-input, .ant-time-picker-input) {
+        text-align: center;
+      }
+    }
+
+    .edit-cell-align-right {
+      text-align: right;
+
+      input:not(.ant-calendar-picker-input, .ant-time-picker-input) {
+        text-align: right;
+      }
+    }
+
+    .edit-cell-rule-popover {
+      .ant-popover-inner-content {
+        padding: 4px 8px;
+        // border: 1px solid @error-color;
+        border-radius: 2px;
+        color: @error-color;
+      }
+    }
+    .@{prefix-cls} {
+      position: relative;
+      min-height: 24px; // 设置高度让其始终可被hover
+
+      &__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        > .ant-select {
+          min-width: calc(100% - 50px);
         }
       }
-    }
 
-    .ellipsis-cell {
-      .cell-content {
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        word-break: break-word !important;
-        white-space: nowrap !important;
-        overflow-wrap: break-word !important;
+      &__icon {
+        &:hover {
+          transform: scale(1.2);
+
+          svg {
+            color: @primary-color;
+          }
+        }
       }
-    }
 
-    &__normal {
-      &-icon {
-        display: none !important;
-        position: absolute !important;
-        top: 4px !important;
-        right: 0 !important;
-        width: 20px !important;
-        cursor: pointer !important;
+      .ellipsis-cell {
+        .cell-content {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          word-break: break-word;
+          white-space: nowrap;
+          overflow-wrap: break-word;
+        }
       }
-    }
 
-    &:hover {
-      .@{prefix-cls}__normal-icon {
-        display: inline-block !important;
+      &__normal {
+        &-icon {
+          display: none;
+          position: absolute;
+          top: 4px;
+          right: 0;
+          width: 20px;
+          cursor: pointer;
+        }
+      }
+
+      &:hover {
+        .@{prefix-cls}__normal-icon {
+          display: inline-block;
+        }
       }
     }
   }

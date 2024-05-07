@@ -32,13 +32,9 @@
           <HeaderCell :column="column" />
         </slot>
       </template>
-      <!-- 增加对antdv3.x兼容 -->
       <template #bodyCell="data">
         <slot name="bodyCell" v-bind="data || {}"></slot>
       </template>
-      <!--      <template #[`header-${column.dataIndex}`] v-for="(column, index) in columns" :key="index">-->
-      <!--        <HeaderCell :column="column" />-->
-      <!--      </template>-->
     </Table>
   </div>
 </template>
@@ -333,101 +329,103 @@
 
   @prefix-cls: ~'@{namespace}-basic-table';
 
-  [data-theme='dark'] {
-    .ant-table-tbody > tr:hover.ant-table-row-selected > td,
-    .ant-table-tbody > tr.ant-table-row-selected td {
-      background-color: #262626 !important;
-    }
-  }
-
-  .@{prefix-cls} {
-    max-width: 100% !important;
-    height: 100%;
-
-    &-row__striped {
-      td {
-        background-color: @app-content-background !important;
+  #app {
+    [data-theme='dark'] {
+      .ant-table-tbody > tr:hover.ant-table-row-selected > td,
+      .ant-table-tbody > tr.ant-table-row-selected td {
+        background-color: #262626;
       }
     }
 
-    &-form-container {
-      padding: 16px !important;
+    .@{prefix-cls} {
+      max-width: 100%;
+      height: 100%;
 
-      .ant-form {
-        width: 100% !important;
-        margin-bottom: 16px !important;
-        padding: 12px 10px 6px !important;
-        border-radius: 2px !important;
-        background-color: @component-background!important;
-      }
-    }
-
-    .ant-table-cell {
-      .ant-tag {
-        margin-right: 0 !important;
-      }
-    }
-
-    .ant-table-wrapper {
-      padding: 6px !important;
-      border-radius: 2px !important;
-      background-color: @component-background!important;
-
-      .ant-table-title {
-        min-height: 40px !important;
-        padding: 0 0 8px !important;
+      &-row__striped {
+        td {
+          background-color: @app-content-background !important;
+        }
       }
 
-      .ant-table.ant-table-bordered .ant-table-title {
-        border: none !important;
-      }
-    }
+      &-form-container {
+        padding: 16px;
 
-    .ant-table {
-      width: 100% !important;
-      overflow-x: hidden !important;
-
-      &-title {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        padding: 8px 6px !important;
-        border-bottom: none !important;
+        .ant-form {
+          width: 100%;
+          margin-bottom: 16px;
+          padding: 12px 10px 6px;
+          border-radius: 2px;
+          background-color: @component-background;
+        }
       }
 
-      //.ant-table-tbody > tr.ant-table-row-selected td {
-      //background-color: fade(@primary-color, 8%) !important;
-      //}
-    }
-
-    .ant-table-wrapper .ant-pagination {
-      margin: 10px 0 0 !important;
-    }
-
-    .ant-table-footer {
-      padding: 0 !important;
+      .ant-table-cell {
+        .ant-tag {
+          margin-right: 0;
+        }
+      }
 
       .ant-table-wrapper {
-        padding: 0 !important;
+        padding: 6px;
+        border-radius: 2px;
+        background-color: @component-background;
+
+        .ant-table-title {
+          min-height: 40px;
+          padding: 0 0 8px !important;
+        }
+
+        .ant-table.ant-table-bordered .ant-table-title {
+          border: none !important;
+        }
       }
 
-      table {
-        border: none !important ;
+      .ant-table {
+        width: 100%;
+        overflow-x: hidden;
+
+        &-title {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 8px 6px;
+          border-bottom: none;
+        }
+
+        //.ant-table-tbody > tr.ant-table-row-selected td {
+        //background-color: fade(@primary-color, 8%) !important;
+        //}
       }
 
-      .ant-table-body {
-        overflow-x: hidden !important;
-        //  overflow-y: scroll !important;
+      .ant-table-wrapper .ant-pagination {
+        margin: 10px 0 0;
       }
 
-      td {
-        padding: 12px 8px !important;
-      }
-    }
+      .ant-table-footer {
+        padding: 0;
 
-    &--inset {
-      .ant-table-wrapper {
-        padding: 0 !important;
+        .ant-table-wrapper {
+          padding: 0;
+        }
+
+        table {
+          border: none !important;
+        }
+
+        .ant-table-body {
+          overflow-x: hidden !important;
+          //  overflow-y: scroll !important;
+        }
+
+        td {
+          padding: 12px 8px;
+        }
+      }
+
+      &--inset {
+        .ant-table-wrapper {
+          padding: 0;
+        }
       }
     }
   }

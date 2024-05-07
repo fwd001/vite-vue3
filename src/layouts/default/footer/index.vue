@@ -52,29 +52,29 @@
 
   @hover-color: rgba(0, 0, 0, 0.85);
 
-  .@{prefix-cls} {
+  #app .@{prefix-cls} {
     // 页脚固定高度
-    height: 75px !important;
-    color: @normal-color!important;
-    text-align: center !important;
+    height: 75px;
+    color: @normal-color;
+    text-align: center;
 
     &__links {
-      margin-bottom: 8px !important;
+      margin-bottom: 8px;
 
       a {
-        color: @normal-color!important;
+        color: @normal-color;
 
         &:hover {
-          color: @hover-color!important;
+          color: @hover-color;
         }
       }
     }
 
     &__github {
-      margin: 0 30px !important;
+      margin: 0 30px;
 
       &:hover {
-        color: @hover-color!important;
+        color: @hover-color;
       }
     }
   }

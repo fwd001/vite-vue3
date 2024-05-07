@@ -1,5 +1,6 @@
 {
   "recommendations": [
+    "vue.volar",
     "dbaeumer.vscode-eslint",
     "stylelint.vscode-stylelint",
     "esbenp.prettier-vscode",
@@ -8,7 +9,6 @@
     "antfu.iconify",
     "antfu.unocss",
     "mikestead.dotenv",
-    "warmthsea.vscode-custom-code-color",
-    "vue.vscode-typescript-vue-plugin"
+    "warmthsea.vscode-custom-code-color"
   ]
 }

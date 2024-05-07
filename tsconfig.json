@@ -8,8 +8,7 @@
     "paths": {
       "@/*": ["src/*"],
       "#/*": ["types/*"]
-    },
-    "jsx": "preserve"
+    }
   },
   "include": [
     "tests/**/*.ts",

@@ -8,7 +8,6 @@ import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform';
 import { VAxios } from './Axios';
 import { checkStatus } from './checkStatus';
 import { useGlobSetting } from '@/hooks/setting';
-import { useMessage } from '@/hooks/web/useMessage';
 import { RequestEnum, ResultEnum, ContentTypeEnum } from '@/enums/httpEnum';
 import { isString, isUndefined, isNull, isEmpty } from '@/utils/is';
 import { getToken } from '@/utils/auth';
@@ -19,10 +18,10 @@ import { joinTimestamp, formatRequestDate } from './helper';
 import { useUserStoreWithOut } from '@/store/modules/user';
 import { AxiosRetry } from '@/utils/http/axios/axiosRetry';
 import axios from 'axios';
+import { useMessageWithOut } from '@/hooks/web/useMessage';
 
 const globSetting = useGlobSetting();
 const urlPrefix = globSetting.urlPrefix;
-const { createMessage, createErrorModal, createSuccessModal } = useMessage();
 
 /**
  * @description: 数据处理，方便区分多种处理方式
@@ -34,6 +33,8 @@ const transform: AxiosTransform = {
   transformResponseHook: (res: AxiosResponse<Result>, options: RequestOptions) => {
     const { t } = useI18n();
     const { isTransformResponse, isReturnNativeResponse } = options;
+    const { message: createMessage, createErrorModal, createSuccessModal } = useMessageWithOut();
+
     // 是否返回原生响应头 比如：需要获取响应头时使用该属性
     if (isReturnNativeResponse) {
       return res;
@@ -77,7 +78,7 @@ const transform: AxiosTransform = {
 
     // token 失效
     if (['AU0000', 'CR1000'].includes(String(code))) {
-      createMessage.error('用户登录态失效!');
+      createMessage?.error?.('用户登录态失效!');
       const userStore = useUserStoreWithOut();
       userStore.logout(true);
       throw res;
@@ -97,9 +98,9 @@ const transform: AxiosTransform = {
       }
 
       if (options.successMessageMode === 'modal') {
-        createSuccessModal({ title: t('sys.api.successTip'), content: successMsg });
+        createSuccessModal?.({ title: t('sys.api.successTip'), content: successMsg });
       } else if (options.successMessageMode === 'message') {
-        createMessage.success(successMsg);
+        createMessage?.success?.(successMsg);
       }
       return result;
     }
@@ -122,9 +123,9 @@ const transform: AxiosTransform = {
     // errorMessageMode='modal'的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
     // errorMessageMode='none' 一般是调用时明确表示不希望自动弹出错误提示
     if (options.errorMessageMode === 'modal') {
-      createErrorModal({ title: t('sys.api.errorTip'), content: timeoutMsg });
+      createErrorModal?.({ title: t('sys.api.errorTip'), content: timeoutMsg });
     } else if (options.errorMessageMode === 'message') {
-      createMessage.error(timeoutMsg);
+      createMessage?.error(timeoutMsg);
     }
 
     throw new Error(timeoutMsg || t('sys.api.apiRequestFailed'));
@@ -210,6 +211,8 @@ const transform: AxiosTransform = {
    * @description: 响应错误处理
    */
   responseInterceptorsCatch: (axiosInstance: AxiosInstance, error: any) => {
+    const { message: createMessage, createErrorModal } = useMessageWithOut();
+
     const { t } = useI18n();
     const errorLogStore = useErrorLogStoreWithOut();
     errorLogStore.addAjaxErrorInfo(error);
@@ -233,9 +236,9 @@ const transform: AxiosTransform = {
 
       if (errMessage) {
         if (errorMessageMode === 'modal') {
-          createErrorModal({ title: t('sys.api.errorTip'), content: errMessage });
+          createErrorModal?.({ title: t('sys.api.errorTip'), content: errMessage });
         } else if (errorMessageMode === 'message') {
-          createMessage.error(errMessage);
+          createMessage?.error?.(errMessage);
         }
         return Promise.reject(error);
       }
@@ -250,6 +253,7 @@ const transform: AxiosTransform = {
     const { isOpenRetry } = config.requestOptions.retryRequest;
     config.method?.toUpperCase() === RequestEnum.GET &&
       isOpenRetry &&
+      error?.response?.status !== 401 &&
       // @ts-ignore
       retryRequest.retry(axiosInstance, error);
     return Promise.reject(error);

@@ -3,7 +3,7 @@ export class Result {
     return {
       code: 0,
       success: true,
-      data: data,
+      result: data,
     };
   }
 }

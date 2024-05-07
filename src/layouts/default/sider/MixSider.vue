@@ -16,6 +16,7 @@
     <AppLogo :showTitle="false" :class="`${prefixCls}-logo`" />
 
     <LayoutTrigger :class="`${prefixCls}-trigger`" />
+
     <ScrollContainer>
       <ul :class="`${prefixCls}-module`">
         <li
@@ -316,212 +317,212 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-layout-mix-sider';
   @width: 80px;
-  .@{prefix-cls} {
-    position: fixed !important;
-    z-index: @layout-mix-sider-fixed-z-index!important;
-    top: 0 !important;
-    left: 0 !important;
-    height: 100% !important;
-    overflow: hidden !important;
-    transition: all 0.2s ease 0s !important;
-    background-color: @sider-dark-bg-color!important;
+  #app .@{prefix-cls} {
+    position: fixed;
+    z-index: @layout-mix-sider-fixed-z-index;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.2s ease 0s;
+    background-color: @sider-dark-bg-color;
 
     &-dom {
-      height: 100% !important;
-      overflow: hidden !important;
-      transition: all 0.2s ease 0s !important;
+      height: 100%;
+      overflow: hidden;
+      transition: all 0.2s ease 0s;
     }
 
     &-logo {
-      display: flex !important;
-      justify-content: center !important;
-      height: @header-height!important;
+      display: flex;
+      justify-content: center;
+      height: @header-height;
       padding-left: 0 !important;
 
       img {
-        width: @logo-width!important;
-        height: @logo-width!important;
+        width: @logo-width;
+        height: @logo-width;
       }
     }
 
     &.light {
       .@{prefix-cls}-logo {
-        border-bottom: 1px solid rgb(238 238 238) !important;
+        border-bottom: 1px solid rgb(238 238 238);
       }
 
       &.open {
         > .scrollbar {
-          border-right: 1px solid rgb(238 238 238) !important;
+          border-right: 1px solid rgb(238 238 238);
         }
       }
 
       .@{prefix-cls}-module {
         &__item {
-          color: rgb(0 0 0 / 65%) !important;
-          font-weight: normal !important;
+          color: rgb(0 0 0 / 65%);
+          font-weight: normal;
 
           &--active {
-            background-color: unset !important;
-            color: @primary-color!important;
+            background-color: unset;
+            color: @primary-color;
           }
 
           &:not(&--active):hover {
-            background-color: rgb(0 0 0 / 6%) !important;
+            background-color: rgb(0 0 0 / 6%);
           }
         }
       }
       .@{prefix-cls}-menu-list {
         &__content {
-          box-shadow: 0 0 4px 0 rgb(0 0 0 / 10%) !important;
+          box-shadow: 0 0 4px 0 rgb(0 0 0 / 10%);
         }
 
         &__title {
           .pushpin {
-            color: rgb(0 0 0 / 35%) !important;
+            color: rgb(0 0 0 / 35%);
 
             &:hover {
-              color: rgb(0 0 0 / 85%) !important;
+              color: rgb(0 0 0 / 85%);
             }
           }
         }
       }
     }
-    @border-color: @sider-dark-lighten-bg-color!important;
+    @border-color: @sider-dark-lighten-bg-color;
 
     &.dark {
       &.open {
         // .@{prefix-cls}-logo {
-        //   border-bottom: 1px solid @border-color!important;
+        //   border-bottom: 1px solid @border-color;
         // }
 
         > .scrollbar {
-          border-right: 1px solid @border-color!important;
+          border-right: 1px solid @border-color;
         }
       }
       .@{prefix-cls}-menu-list {
-        background-color: @sider-dark-bg-color!important;
+        background-color: @sider-dark-bg-color;
 
         &__title {
-          border-bottom: none !important;
-          border-bottom: 1px solid @border-color!important;
-          color: @white!important;
+          border-bottom: none;
+          border-bottom: 1px solid @border-color;
+          color: @white;
         }
       }
     }
 
     > .scrollbar {
-      height: calc(100% - @header-height - 38px) !important;
+      height: calc(100% - @header-height - 38px);
     }
 
     &.mini &-module {
       &__name {
-        display: none !important;
+        display: none;
       }
 
       &__icon {
-        margin-bottom: 0 !important;
+        margin-bottom: 0;
       }
     }
 
     &-module {
-      position: relative !important;
-      padding-top: 1px !important;
+      position: relative;
+      padding-top: 1px;
 
       &__item {
-        position: relative !important;
-        padding: 12px 0 !important;
-        transition: all 0.3s ease !important;
-        color: rgb(255 255 255 / 65%) !important;
-        text-align: center !important;
-        cursor: pointer !important;
+        position: relative;
+        padding: 12px 0;
+        transition: all 0.3s ease;
+        color: rgb(255 255 255 / 65%);
+        text-align: center;
+        cursor: pointer;
 
         &:hover {
-          color: @white!important;
+          color: @white;
         }
         // &:hover,
         &--active {
-          background-color: @sider-dark-darken-bg-color!important;
-          color: @white!important;
-          font-weight: 700 !important;
+          background-color: @sider-dark-darken-bg-color;
+          color: @white;
+          font-weight: 700;
 
           &::before {
-            content: '' !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 3px !important;
-            height: 100% !important;
-            background-color: @primary-color!important;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background-color: @primary-color;
           }
         }
       }
 
       &__icon {
-        margin-bottom: 8px !important;
-        transition: all 0.2s !important;
-        font-size: 24px !important;
+        margin-bottom: 8px;
+        transition: all 0.2s;
+        font-size: 24px;
       }
 
       &__name {
-        margin-bottom: 0 !important;
-        transition: all 0.2s !important;
-        font-size: 12px !important;
+        margin-bottom: 0;
+        transition: all 0.2s;
+        font-size: 12px;
       }
     }
 
     &-trigger {
-      position: absolute !important;
-      bottom: 0 !important;
-      left: 0 !important;
-      width: 100% !important;
-      height: 36px !important;
-      background-color: @trigger-dark-bg-color!important;
-      color: rgb(255 255 255 / 65%) !important;
-      font-size: 14px !important;
-      line-height: 36px !important;
-      text-align: center !important;
-      cursor: pointer !important;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 36px;
+      background-color: @trigger-dark-bg-color;
+      color: rgb(255 255 255 / 65%);
+      font-size: 14px;
+      line-height: 36px;
+      text-align: center;
+      cursor: pointer;
     }
 
     &.light &-trigger {
-      border-top: 1px solid #eee !important;
-      background-color: #fff !important;
-      color: rgb(0 0 0 / 65%) !important;
+      border-top: 1px solid #eee;
+      background-color: #fff;
+      color: rgb(0 0 0 / 65%);
     }
 
     &-menu-list {
-      position: fixed !important;
-      top: 0 !important;
+      position: fixed;
+      top: 0;
       width: 200px;
-      height: calc(100%) !important;
-      transition: all 0.2s !important;
-      background-color: #fff !important;
+      height: calc(100%);
+      transition: all 0.2s;
+      background-color: #fff;
 
       &__title {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        height: @header-height!important;
-        transition: unset !important;
-        border-bottom: 1px solid rgb(238 238 238) !important;
-        opacity: 0 !important;
-        color: @primary-color!important;
-        // margin-left: -6px!important;
-        font-size: 18px !important;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: @header-height;
+        transition: unset;
+        border-bottom: 1px solid rgb(238 238 238);
+        opacity: 0;
+        color: @primary-color;
+        // margin-left: -6px;
+        font-size: 18px;
 
         &.show {
-          min-width: 130px !important;
-          transition: all 0.5s ease !important;
-          opacity: 1 !important;
+          min-width: 130px;
+          transition: all 0.5s ease;
+          opacity: 1;
         }
 
         .pushpin {
-          margin-right: 6px !important;
-          color: rgb(255 255 255 / 65%) !important;
-          cursor: pointer !important;
+          margin-right: 6px;
+          color: rgb(255 255 255 / 65%);
+          cursor: pointer;
 
           &:hover {
-            color: #fff !important;
+            color: #fff;
           }
         }
       }
@@ -530,37 +531,37 @@
         height: calc(100% - @header-height) !important;
 
         .scrollbar__wrap {
-          height: 100% !important;
-          overflow-x: hidden !important;
+          height: 100%;
+          overflow-x: hidden;
         }
 
         .scrollbar__bar.is-horizontal {
-          display: none !important;
+          display: none;
         }
 
         .ant-menu {
-          height: 100% !important;
+          height: 100%;
         }
 
         .ant-menu-inline,
         .ant-menu-vertical,
         .ant-menu-vertical-left {
-          border-right: 1px solid transparent !important;
+          border-right: 1px solid transparent;
         }
       }
     }
 
     &-drag-bar {
-      position: absolute !important;
-      top: 50px !important;
-      right: -1px !important;
-      width: 1px !important;
-      height: calc(100% - 50px) !important;
-      border-top: none !important;
-      border-bottom: none !important;
-      background-color: #f8f8f9 !important;
-      box-shadow: 0 0 4px 0 rgb(28 36 56 / 15%) !important;
-      cursor: ew-resize !important;
+      position: absolute;
+      top: 50px;
+      right: -1px;
+      width: 1px;
+      height: calc(100% - 50px);
+      border-top: none;
+      border-bottom: none;
+      background-color: #f8f8f9;
+      box-shadow: 0 0 4px 0 rgb(28 36 56 / 15%);
+      cursor: ew-resize;
     }
   }
 </style>

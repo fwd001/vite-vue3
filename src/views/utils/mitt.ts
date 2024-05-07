@@ -11,6 +11,8 @@ type MenuEmitterEvents = {
   };
   [MEventEnum.ZDRDetailUpdate];
   [MEventEnum.MapMounted]: { map: any; layerGroup: any };
+  [MEventEnum.ShowContextMenu]: { x: number; y: number; type?: string };
+  [MEventEnum.HideContextMenu];
 };
 
 const mitter = mitt<MenuEmitterEvents>();

@@ -6,16 +6,6 @@ the contents of the file still need to log in to access
 import type { AppRouteModule } from '@/router/types';
 
 // http:ip:port/main-out
-export const mainOutRoutes: AppRouteModule[] = [
-  // {
-  //   path: '/dashboard',
-  //   name: 'Dashboard',
-  //   component: () => import('@/views/dashboard/index.vue'),
-  //   meta: {
-  //     title: '数据大屏',
-  //     ignoreAuth: true,
-  //   },
-  // },
-];
+export const mainOutRoutes: AppRouteModule[] = [];
 
 export const mainOutRouteNames = mainOutRoutes.map((item) => item.name);

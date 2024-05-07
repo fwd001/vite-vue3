@@ -20,7 +20,6 @@ const routers: AppRouteModule = {
       component: () => import('@/views/dashboard/index.vue'),
       meta: {
         title: '数据大屏',
-        icon: 'ant-design:dashboard-outlined',
         hideMenu: true,
         ignoreAuth: true,
       },

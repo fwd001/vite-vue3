@@ -1,9 +1,11 @@
 <template>
   <StyleProvider hash-priority="high" :transformers="[legacyLogicalPropertiesTransformer]">
     <ConfigProvider :locale="getAntdLocale" :theme="themeConfig">
-      <AppProvider>
-        <RouterView />
-      </AppProvider>
+      <App class="h-full antialiased">
+        <AppProvider>
+          <RouterView />
+        </AppProvider>
+      </App>
     </ConfigProvider>
   </StyleProvider>
 </template>
@@ -16,6 +18,7 @@
     ConfigProvider,
     StyleProvider,
     legacyLogicalPropertiesTransformer,
+    App,
   } from 'ant-design-vue';
 
   import { useDarkModeTheme } from '@/hooks/setting/useDarkModeTheme';
@@ -36,6 +39,7 @@
           colorWarning: '#EFBD47',
           colorError: '#ED6F6F',
           colorInfo: '#0960bd',
+          borderRadius: 3,
         },
       },
       isDark.value ? darkTheme : {},

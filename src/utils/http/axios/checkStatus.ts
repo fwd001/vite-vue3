@@ -1,14 +1,12 @@
 import type { ErrorMessageMode } from '#/axios';
-import { useMessage } from '@/hooks/web/useMessage';
 import { useI18n } from '@/hooks/web/useI18n';
 // import router from '@/router';
 // import { PageEnum } from '@/enums/pageEnum';
 import { useUserStoreWithOut } from '@/store/modules/user';
 import projectSetting from '@/settings/projectSetting';
 import { SessionTimeoutProcessingEnum } from '@/enums/appEnum';
+import { useMessageWithOut } from '@/hooks/web/useMessage';
 
-const { createMessage, createErrorModal } = useMessage();
-const error = createMessage.error!;
 const stp = projectSetting.sessionTimeoutProcessing;
 
 export function checkStatus(
@@ -18,6 +16,7 @@ export function checkStatus(
 ): void {
   const { t } = useI18n();
   const userStore = useUserStoreWithOut();
+  const { message, createErrorModal } = useMessageWithOut();
   let errMessage = '';
 
   switch (status) {
@@ -75,7 +74,7 @@ export function checkStatus(
     if (errorMessageMode === 'modal') {
       createErrorModal({ title: t('sys.api.errorTip'), content: errMessage });
     } else if (errorMessageMode === 'message') {
-      error({ content: errMessage, key: `global_error_message_status_${status}` });
+      message?.error({ content: errMessage, key: `global_error_message_status_${status}` });
     }
   }
 }

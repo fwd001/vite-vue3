@@ -54,14 +54,14 @@
   }
 </script>
 <style lang="less">
-  .table-settings {
+  #app .table-settings {
     & > * {
-      margin-right: 12px !important;
+      margin-right: 12px;
     }
 
     svg {
-      width: 1.3em !important;
-      height: 1.3em !important;
+      width: 1.3em;
+      height: 1.3em;
     }
   }
 </style>

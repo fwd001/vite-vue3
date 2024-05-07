@@ -40,9 +40,9 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-table-title';
 
-  .@{prefix-cls} {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
+  #app .@{prefix-cls} {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 </style>

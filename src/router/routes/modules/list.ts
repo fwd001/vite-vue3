@@ -3,26 +3,27 @@ import type { AppRouteModule } from '@/router/types';
 import { LAYOUT } from '@/router/constant';
 
 const zdrManage: AppRouteModule = {
-  path: '/zdr',
-  name: 'Zdr',
+  path: '/list',
+  name: 'List',
   component: LAYOUT,
-  redirect: '/zdr/manage',
+  redirect: '/list/manage',
   meta: {
     hideChildrenInMenu: true,
-    icon: 'simple-icons:aboutdotme',
-    title: '重点人',
+    icon: 'ph:table-duotone',
+    title: 'LIST管理',
     orderNo: 2,
   },
   children: [
     {
       path: 'manage',
-      name: 'ZDRManage',
-      component: () => import('@/views/zdr/manage/index.vue'),
+      name: 'ListManage',
+      component: () => import('@/views/list/manage/index.vue'),
       meta: {
-        title: '重点人管理',
+        title: 'LIST管理',
         icon: 'simple-icons:aboutdotme',
         hideMenu: true,
-        powerKey: 'zdrManage',
+        // 权限key
+        powerKey: 'listManage',
         // ignoreAuth: true,
       },
     },

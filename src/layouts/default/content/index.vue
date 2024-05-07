@@ -21,27 +21,27 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-layout-content';
 
-  .@{prefix-cls} {
-    display: flex !important;
-    position: relative !important;
-    flex-direction: column !important;
-    flex-grow: 1 !important;
-    width: 100% !important;
-    height: 0 !important;
-    min-height: 0 !important;
-    overflow: auto !important;
+  #app .@{prefix-cls} {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+    height: 0;
+    min-height: 0;
+    overflow: auto;
 
     // begin: 下面这块代码 在我的项目打包后在比较宽的屏幕(2K 31 寸)有显示 bug 有偶发性 清缓存首次进入会出现 , 刷新就没了, 这里为什么要指定宽度 ?
     &.fixed {
-      width: 1200px !important;
-      margin: 0 auto !important;
+      width: 1200px;
+      margin: 0 auto;
     }
     // end
 
     &-loading {
-      position: absolute !important;
-      z-index: @page-loading-z-index !important;
-      top: 200px !important;
+      position: absolute;
+      z-index: @page-loading-z-index;
+      top: 200px;
     }
   }
 </style>

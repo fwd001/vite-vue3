@@ -1,7 +1,7 @@
 <template>
   <Tooltip placement="top">
     <template #title>
-      <span>列设置</span>
+      <span>{{ t('component.table.settingColumn') }}</span>
     </template>
     <Popover
       placement="bottomLeft"
@@ -600,7 +600,6 @@
     watch([getColumns, getValues], () => {
       if (!isInnerChange) {
         isRestored = false;
-        console.log('onMounted isRestored');
         init();
       } else {
         isInnerChange = false;
@@ -611,76 +610,78 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-column-setting';
 
-  .table-column-drag-icon {
-    margin: 0 5px !important;
-    cursor: move !important;
-  }
-
-  .@{prefix-cls} {
-    &__popover-title {
-      display: flex !important;
-      position: relative !important;
-      align-items: center !important;
-      justify-content: space-between !important;
+  #app {
+    .table-column-drag-icon {
+      margin: 0 5px;
+      cursor: move;
     }
 
-    &__check-item {
-      display: flex !important;
-      align-items: center !important;
-      min-width: 100% !important;
-      padding: 4px 16px 8px 0 !important;
+    .@{prefix-cls} {
+      &__popover-title {
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: space-between;
+      }
 
-      .ant-checkbox-wrapper {
-        width: 100% !important;
+      &__check-item {
+        display: flex;
+        align-items: center;
+        min-width: 100%;
+        padding: 4px 16px 8px 0;
 
-        &:hover {
-          color: @primary-color!important;
+        .ant-checkbox-wrapper {
+          width: 100%;
+
+          &:hover {
+            color: @primary-color;
+          }
         }
       }
-    }
 
-    &__fixed-left,
-    &__fixed-right {
-      color: rgb(0 0 0 / 45%) !important;
-      cursor: pointer !important;
+      &__fixed-left,
+      &__fixed-right {
+        color: rgb(0 0 0 / 45%);
+        cursor: pointer;
 
-      &.active,
-      &:hover {
-        color: @primary-color!important;
+        &.active,
+        &:hover {
+          color: @primary-color;
+        }
+
+        &.disabled {
+          color: @disabled-color;
+          cursor: not-allowed;
+        }
       }
 
-      &.disabled {
-        color: @disabled-color!important;
-        cursor: not-allowed !important;
-      }
-    }
-
-    &__fixed-right {
-      transform: rotate(180deg) !important;
-    }
-
-    &__column-list {
-      svg {
-        width: 1em !important;
-        height: 1em !important;
+      &__fixed-right {
+        transform: rotate(180deg);
       }
 
-      .ant-popover-inner-content {
-        // max-height: 360px!important;
-        padding-right: 0 !important;
-        padding-left: 0 !important;
-        // overflow: auto!important;
-      }
+      &__column-list {
+        svg {
+          width: 1em !important;
+          height: 1em !important;
+        }
 
-      .ant-checkbox-group {
-        display: inline-block !important;
-        width: 100% !important;
-        min-width: 260px !important;
-        // flex-wrap: wrap!important;
-      }
+        .ant-popover-inner-content {
+          // max-height: 360px;
+          padding-right: 0;
+          padding-left: 0;
+          // overflow: auto;
+        }
 
-      .scrollbar {
-        height: 220px !important;
+        .ant-checkbox-group {
+          display: inline-block;
+          width: 100%;
+          min-width: 260px;
+          // flex-wrap: wrap;
+        }
+
+        .scrollbar {
+          height: 220px;
+        }
       }
     }
   }

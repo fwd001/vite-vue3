@@ -36,6 +36,7 @@ export default defineApplicationConfig({
           changeOrigin: true,
         },
       },
+      open: true, // 项目启动后，自动打开
       warmup: {
         clientFiles: ['./index.html', './src/{views,components}/*'],
       },

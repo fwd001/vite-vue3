@@ -9,10 +9,10 @@
       content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0"
     />
     <title> <%= VITE_GLOB_APP_TITLE %> </title>
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="<%= VITE_PUBLIC_PATH %>favicon.ico" />
   </head>
 
-  <body>
+  <body id="body">
     <div id="app">
       <style>
         html {
@@ -134,7 +134,7 @@
       </style>
       <div class="app-loading">
         <div class="app-loading-wrap">
-          <img src="/logo.png" class="app-loading-logo" alt="Logo" />
+          <img src="<%= VITE_PUBLIC_PATH %>logo.png" class="app-loading-logo" alt="Logo" />
           <div class="app-loading-dots">
             <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
           </div>
@@ -170,13 +170,10 @@
     <script type="text/javascript" src="/public/BM/mouse_draw/Control.Draw.js"></script>
     <link rel="stylesheet" href="/public/BM/measure/bm.measure.css" />
     <script type="text/javascript" src="/public/BM/measure/bm.measure.js"></script>
-    <!-- <script
-      type="text/javascript"
-      src="/public/BM/mouse_draw/draw/handler/Draw.Polyline.js"
-    ></script>
-    <script type="text/javascript" src="/public/BM/mouse_draw/ext/Polyline.Intersect.js"></script> -->
-    <!-- bigemap第三方库 end -->
-
+    <script type="text/javascript" src="/public/BM/shpjs/shp.min.js"></script>
+    <script>
+      L.shp = window.shp;
+    </script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

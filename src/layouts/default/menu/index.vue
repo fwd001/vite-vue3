@@ -164,14 +164,22 @@
   @prefix-cls: ~'@{namespace}-layout-menu';
   @logo-prefix-cls: ~'@{namespace}-app-logo';
 
-  .@{prefix-cls} {
+  #app .@{prefix-cls} {
     &-logo {
-      height: @header-height!important;
-      padding: 10px 4px 10px 10px !important;
+      height: @header-height;
+      padding: 10px 4px 10px 10px;
 
       img {
-        width: @logo-width!important;
-        height: @logo-width!important;
+        width: @logo-width;
+        height: @logo-width;
+      }
+    }
+
+    &--mobile {
+      .@{logo-prefix-cls} {
+        &__title {
+          opacity: 1;
+        }
       }
     }
   }

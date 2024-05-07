@@ -73,15 +73,15 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-table-header';
 
-  .@{prefix-cls} {
+  #app .@{prefix-cls} {
     &__toolbar {
-      display: flex !important;
-      flex: 1 !important;
-      align-items: center !important;
-      justify-content: flex-end !important;
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: flex-end;
 
       > * {
-        margin-right: 8px !important;
+        margin-right: 8px;
       }
     }
   }
