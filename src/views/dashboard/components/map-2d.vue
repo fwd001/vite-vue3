@@ -65,7 +65,7 @@
       </div>
     </div>
     <!-- 标绘工具 -->
-    <div class="flex relative bg-#ffffff00">
+    <div class="flex absolute bg-#ffffff00">
       <MapTool
         ref="mapToolRef"
         @add-draw-to-panel="addDrawToPanel"
