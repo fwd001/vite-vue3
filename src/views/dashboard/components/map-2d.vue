@@ -58,21 +58,21 @@
         <Icon icon="iconamoon:location-pin-bold" />定位
       </button>
     </div>
-    <div class="flex w-84 h-9.4/10 relative bg-#fff">
+    <div v-if="false" class="flex w-84 h-9.4/10 relative bg-#fff">
       <!-- 图层列表 -->
       <div class="w-74.5 p-2 max-h-2xl overflow-y-auto relative">
         <LyrList ref="LyrListDom" @goto-feature="gotoFeature" />
       </div>
-      <!-- 标绘工具 -->
-      <div class="flex relative h-10/10 w-9.4 b-#a3a3a3 b-0.5 bg-#d9d9d9">
-        <MapTool
-          ref="mapToolRef"
-          @add-draw-to-panel="addDrawToPanel"
-          @remove-draw-from-panel="removeDrawFromPanel"
-          @on-edit-layer-info="onEditLayerInfo"
-          @select-onpanel="selectOnpanel"
-        />
-      </div>
+    </div>
+    <!-- 标绘工具 -->
+    <div class="flex relative bg-#ffffff00">
+      <MapTool
+        ref="mapToolRef"
+        @add-draw-to-panel="addDrawToPanel"
+        @remove-draw-from-panel="removeDrawFromPanel"
+        @on-edit-layer-info="onEditLayerInfo"
+        @select-onpanel="selectOnpanel"
+      />
     </div>
   </div>
   <GraphMenu
@@ -258,7 +258,8 @@
       parentKey: graphic.options.attribution.type,
       graphic: graphic,
     };
-    LyrListDom.value?.addDataToTree(i);
+    console.log(i);
+    // LyrListDom.value?.addDataToTree(i);
   }
   // 地图选中图形，树结构节点处于选择状态
   function gotoFeature(f: any) {
@@ -268,12 +269,14 @@
 
   // 地图选中图形，树结构节点处于选择状态
   function selectOnpanel(key: any) {
-    LyrListDom.value?.selectDataOnTree(key);
+    // LyrListDom.value?.selectDataOnTree(key);
+    console.log(key);
   }
   //  添加标绘节点至标绘图层面板
   function removeDrawFromPanel(graphic: any) {
     const nodeKey = graphic.overlay_id;
-    LyrListDom.value?.deleteDataFromTree(nodeKey);
+    console.log(nodeKey);
+    // LyrListDom.value?.deleteDataFromTree(nodeKey);
   }
   //  编辑要素属性
   function onEditLayerInfo(id: any, attr: any) {
@@ -286,7 +289,8 @@
   }
   //  更新要素属性
   function updateAttribute(value: any) {
-    LyrListDom.value?.upDatePanel(value);
+    console.log(value);
+    // LyrListDom.value?.upDatePanel(value);
   }
 
   // 聚合点
@@ -455,12 +459,12 @@
     top: 15px;
     left: 15px;
     width: 21rem;
-    height: 60%;
-    max-height: 70%;
+    // height: 60%;
+    // max-height: 70%;
     transition: all 0.5s ease-out;
-    border-width: 1px;
-    border-color: rgb(163 163 163);
-    background-color: #fff;
-    filter: drop-shadow(2px 2px 2px rgb(88 88 88));
+    // border-width: 1px;
+    // border-color: rgb(163 163 163);
+    background-color: #fff0;
+    // filter: drop-shadow(2px 2px 2px rgb(88 88 88));
   }
 </style>
