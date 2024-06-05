@@ -117,6 +117,7 @@
   const mapToolRef = ref<InstanceType<typeof MapTool>>();
   const LyrListDom = ref(); // 图层列表Dom
 
+  let currentGraphic: any = null; // 当前选中要素
   const isDev = isDevMode();
   // useXZQHRender();
 
@@ -258,7 +259,8 @@
       parentKey: graphic.options.attribution.type,
       graphic: graphic,
     };
-    console.log(i);
+    i;
+    // console.log(i);
     // LyrListDom.value?.addDataToTree(i);
   }
   // 地图选中图形，树结构节点处于选择状态
@@ -279,17 +281,27 @@
     // LyrListDom.value?.deleteDataFromTree(nodeKey);
   }
   //  编辑要素属性
-  function onEditLayerInfo(id: any, attr: any) {
+  function onEditLayerInfo(graphic: any, id: any, attr: any) {
+    currentGraphic = graphic;
     openModal(true, {
       id,
       attr,
       isUpdate: false,
     });
-    // console.log(attr);
+    // console.log(currentGraphic);
   }
   //  更新要素属性
   function updateAttribute(value: any) {
     console.log(value);
+    if (value.lineColor && value.fillColor) {
+      currentGraphic.setStyle({
+        color: value.lineColor,
+        fillColor: value.fillColor,
+      });
+    }
+    // console.log('地图要素保存属性', value);
+    currentGraphic.options.attribution = value;
+    currentGraphic.feature.properties = value;
     // LyrListDom.value?.upDatePanel(value);
   }
 
