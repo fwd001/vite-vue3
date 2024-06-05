@@ -6,7 +6,7 @@
       :schemas="schemas"
       :actionColOptions="{ span: 24 }"
     />
-    <div class="flex justify-center items-center">
+    <div v-if="notMarker" class="flex justify-center items-center">
       <span class="m-l-1rem m-r-1rem">轮廓颜色</span>
       <color-picker
         v-model:pureColor="lineColor"
@@ -34,6 +34,7 @@
   import 'vue3-colorpicker/style.css';
   import { ref } from 'vue';
 
+  const notMarker = ref(false);
   const lineColor = ref('#fff');
   const fillColor = ref('#f00');
   const emit = defineEmits(['updateAttribute', 'register']);
@@ -62,17 +63,20 @@
   const [registerModal, { closeModal, setModalProps }] = useModalInner((data) => {
     // console.log('弹窗获取属性', data);
     const _data = data.attr;
-    if (_data.lineColor) {
-      lineColor.value = _data.lineColor;
-      delete _data.lineColor;
-    } else {
-      lineColor.value = '#3388ff';
-    }
-    if (_data.fillColor) {
-      fillColor.value = _data.fillColor;
-      delete _data.fillColor;
-    } else {
-      fillColor.value = '#3388ff';
+    notMarker.value = _data.type !== 'marker';
+    if (notMarker.value) {
+      if (_data.lineColor) {
+        lineColor.value = _data.lineColor;
+        delete _data.lineColor;
+      } else {
+        lineColor.value = '#3388ff';
+      }
+      if (_data.fillColor) {
+        fillColor.value = _data.fillColor;
+        delete _data.fillColor;
+      } else {
+        fillColor.value = '#3388ff';
+      }
     }
     setModalProps({ title: data.attr.name + '属性编辑' });
     attrToSchema(data.id, _data);
