@@ -294,10 +294,15 @@
   function updateAttribute(value: any) {
     console.log(value);
     if (value.lineColor && value.fillColor) {
-      currentGraphic.setStyle({
-        color: value.lineColor,
-        fillColor: value.fillColor,
-      });
+      if (value.type !== 'marker') {
+        currentGraphic.setStyle({
+          color: value.lineColor,
+          fillColor: value.fillColor,
+        });
+      } else {
+        delete value.lineColor;
+        delete value.fillColor;
+      }
     }
     // console.log('地图要素保存属性', value);
     currentGraphic.options.attribution = value;
