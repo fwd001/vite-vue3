@@ -600,7 +600,7 @@
     onOperateClick('drag');
     e.stopPropagation ? e.stopPropagation() : null;
     mitter.emit(MEventEnum.HideContextMenu);
-    emit('onEditLayerInfo', A.selected.overlay_id, A.selected.options.attribution);
+    emit('onEditLayerInfo', A.selected, A.selected.overlay_id, A.selected.options.attribution);
   }
 
   function onMoveLayer(e) {

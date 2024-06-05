@@ -78,7 +78,10 @@
     attrToSchema(data.id, _data);
   });
 
-  const [registerForm, { setFieldsValue, validateFields, appendSchemaByField }] = useForm({
+  const [
+    registerForm,
+    { setFieldsValue, validateFields, appendSchemaByField, removeSchemaByField },
+  ] = useForm({
     labelWidth: 100,
     baseColProps: { span: 24 },
     showActionButtonGroup: false,
@@ -90,22 +93,24 @@
   function attrToSchema(id: any, attr: any) {
     setFieldsValue({ id, name: attr.name, type: attr.type });
     for (const key in attr) {
-      if (key !== 'name' && key !== 'type') {
-        appendSchemaByField(
-          {
-            field: key,
-            label: key,
-            show: true,
-            component: 'Input',
-          },
-          key,
-        );
+      if (key !== 'name' && key !== 'type' && key !== 'id') {
+        removeSchemaByField(key).then(() => {
+          appendSchemaByField(
+            {
+              field: key,
+              label: key,
+              show: true,
+              component: 'Input',
+            },
+            key,
+          );
+        });
       }
     }
   }
   const handleSubmit = async () => {
     const values = await validateFields();
-    console.log(values);
+    // console.log(values);
     closeModal();
     values.lineColor = lineColor.value;
     values.fillColor = fillColor.value;
