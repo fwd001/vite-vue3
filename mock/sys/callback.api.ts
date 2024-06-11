@@ -41,6 +41,16 @@ export const data = {
       orderNo: '',
       dataRules: [],
     },
+    // {
+    //   id: 2667,
+    //   name: '日志',
+    //   val: 'DataDictionary',
+    //   type: '页面',
+    //   url: '',
+    //   pid: 2664,
+    //   orderNo: '',
+    //   dataRules: [],
+    // },
   ],
   roles: [
     {

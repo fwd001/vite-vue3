@@ -143,11 +143,11 @@ export const usePermissionStore = defineStore({
         return;
       };
 
+      console.log('asyncRoutes', cloneDeep(asyncRoutes));
       // 对非一级路由进行过滤
       routes = filter(asyncRoutes, routeFilter);
       // 对一级路由再次根据角色权限过滤
       routes = routes.filter(routeFilter);
-      console.log('asyncRoutes', asyncRoutes);
       console.log('routes', cloneDeep(routes));
       // 将路由转换成菜单
       const menuList = transformRouteToMenu(routes, true);
