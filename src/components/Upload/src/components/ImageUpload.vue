@@ -9,7 +9,6 @@
       :maxCount="maxNumber"
       :before-upload="beforeUpload"
       :custom-request="customRequest"
-      :disabled="disabled"
       @preview="handlePreview"
       @remove="handleRemove"
     >
@@ -47,7 +46,7 @@
     ...omit(uploadContainerProps, ['previewColumns', 'beforePreviewData']),
   });
   const { t } = useI18n();
-  const { createMessage } = useMessage();
+  const { message: createMessage } = useMessage();
   const { accept, helpText, maxNumber, maxSize } = toRefs(props);
   const isInnerOperate = ref<boolean>(false);
   const { getStringAccept } = useUploadType({
@@ -71,8 +70,8 @@
         isInnerOperate.value = false;
         return;
       }
-      let value: string[] = [];
       if (v) {
+        let value: string[] = [];
         if (isArray(v)) {
           value = v;
         } else {
@@ -93,8 +92,6 @@
           }
         }) as UploadProps['fileList'];
       }
-      emit('update:value', value);
-      emit('change', value);
     },
     {
       immediate: true,
@@ -144,14 +141,14 @@
     const { maxSize, accept } = props;
     const isAct = checkFileType(file, accept);
     if (!isAct) {
-      createMessage.error(t('component.upload.acceptUpload', [accept]));
+      createMessage?.error(t('component.upload.acceptUpload', [accept]));
       isActMsg.value = false;
       // 防止弹出多个错误提示
       setTimeout(() => (isActMsg.value = true), 1000);
     }
     const isLt = file.size / 1024 / 1024 > maxSize;
     if (isLt) {
-      createMessage.error(t('component.upload.maxSizeMultiple', [maxSize]));
+      createMessage?.error(t('component.upload.maxSizeMultiple', [maxSize]));
       isLtMsg.value = false;
       // 防止弹出多个错误提示
       setTimeout(() => (isLtMsg.value = true), 1000);
@@ -160,22 +157,21 @@
   };
 
   async function customRequest(info: UploadRequestOption<any>) {
-    const { api, uploadParams = {}, name, filename, resultField } = props;
+    const { api } = props;
     if (!api || !isFunction(api)) {
       return warn('upload api must exist and be a function');
     }
     try {
-      const res = await api?.({
+      const res = await props.api?.({
         data: {
-          ...uploadParams,
+          ...(props.uploadParams || {}),
         },
         file: info.file,
-        name: name,
-        filename: filename,
+        name: props.name,
+        filename: props.filename,
       });
       if (props.resultField) {
-        let result = get(res, resultField);
-        info.onSuccess!(result);
+        info.onSuccess!(res);
       } else {
         // 不传入 resultField 的情况
         info.onSuccess!(res.data);
@@ -194,25 +190,23 @@
     const list = (fileList.value || [])
       .filter((item) => item?.status === UploadResultStatus.DONE)
       .map((item: any) => {
-        if (item?.response && props?.resultField) {
-          return item?.response;
+        if (props.resultField) {
+          return get(item?.response, props.resultField);
         }
         return item?.url || item?.response?.url;
       });
-    return list;
+    return props.multiple ? list : list.length > 0 ? list[0] : '';
   }
 </script>
 
 <style lang="less">
-  #app {
-    .ant-upload-select-picture-card i {
-      color: #999;
-      font-size: 32px;
-    }
+  .ant-upload-select-picture-card i {
+    color: #999;
+    font-size: 32px;
+  }
 
-    .ant-upload-select-picture-card .ant-upload-text {
-      margin-top: 8px;
-      color: #666;
-    }
+  .ant-upload-select-picture-card .ant-upload-text {
+    margin-top: 8px;
+    color: #666;
   }
 </style>

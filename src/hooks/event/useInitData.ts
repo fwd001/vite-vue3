@@ -5,5 +5,8 @@ const globSetting = useGlobSetting();
 // 选项字典
 
 export function useInitData() {
-  console.log('globSetting::', globSetting);
+  function get() {
+    console.log('globSetting::', globSetting);
+  }
+  return { get };
 }

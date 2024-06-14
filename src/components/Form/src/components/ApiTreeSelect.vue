@@ -34,14 +34,6 @@
     labelField: propTypes.string.def('title'),
     valueField: propTypes.string.def('value'),
     childrenField: propTypes.string.def('children'),
-    beforeFetch: {
-      type: Function as PropType<Fn>,
-      default: null,
-    },
-    afterFetch: {
-      type: Function as PropType<Fn>,
-      default: null,
-    },
   });
 
   const emit = defineEmits(['options-change', 'change', 'load-data']);
@@ -96,28 +88,22 @@
   }
 
   async function fetch() {
-    let { api, beforeFetch, afterFetch, params, resultField } = props;
+    const { api } = props;
     if (!api || !isFunction(api) || loading.value) return;
     loading.value = true;
     treeData.value = [];
-    let res;
+    let result;
     try {
-      if (beforeFetch && isFunction(beforeFetch)) {
-        params = (await beforeFetch(params)) || params;
-      }
-      res = await api(params);
-      if (afterFetch && isFunction(afterFetch)) {
-        res = (await afterFetch(res)) || res;
-      }
+      result = await api(props.params);
     } catch (e) {
       console.error(e);
     }
     loading.value = false;
-    if (!res) return;
-    if (resultField) {
-      res = get(res, resultField) || [];
+    if (!result) return;
+    if (!isArray(result)) {
+      result = get(result, props.resultField);
     }
-    treeData.value = (res as Recordable<any>[]) || [];
+    treeData.value = (result as Recordable<any>[]) || [];
     isFirstLoaded.value = true;
     emit('options-change', treeData.value);
   }

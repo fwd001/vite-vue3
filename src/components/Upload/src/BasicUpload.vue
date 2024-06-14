@@ -1,12 +1,7 @@
 <template>
   <div>
     <Space>
-      <a-button
-        type="primary"
-        @click="openUploadModal"
-        preIcon="carbon:cloud-upload"
-        :disabled="disabled"
-      >
+      <a-button type="primary" @click="openUploadModal" preIcon="carbon:cloud-upload">
         {{ t('component.upload.upload') }}
       </a-button>
       <Tooltip placement="bottom" v-if="showPreview">
@@ -36,7 +31,6 @@
 
     <UploadPreviewModal
       :value="fileList"
-      :max-number="bindValue.maxNumber"
       @register="registerPreviewModal"
       @list-change="handlePreviewChange"
       @delete="handlePreviewDelete"

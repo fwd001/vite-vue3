@@ -54,14 +54,6 @@
       type: Array<OptionsItem>,
       default: [],
     },
-    beforeFetch: {
-      type: Function as PropType<Fn>,
-      default: null,
-    },
-    afterFetch: {
-      type: Function as PropType<Fn>,
-      default: null,
-    },
   });
 
   const emit = defineEmits(['options-change', 'change', 'update:value']);
@@ -111,26 +103,20 @@
   );
 
   async function fetch() {
-    let { api, beforeFetch, afterFetch, params, resultField } = props;
+    const api = props.api;
     if (!api || !isFunction(api) || loading.value) return;
     optionsRef.value = [];
     try {
       loading.value = true;
-      if (beforeFetch && isFunction(beforeFetch)) {
-        params = (await beforeFetch(params)) || params;
-      }
-      let res = await api(params);
-      if (afterFetch && isFunction(afterFetch)) {
-        res = (await afterFetch(res)) || res;
-      }
+      const res = await api(props.params);
       isFirstLoaded.value = true;
       if (Array.isArray(res)) {
         optionsRef.value = res;
         emitChange();
         return;
       }
-      if (resultField) {
-        optionsRef.value = get(res, resultField) || [];
+      if (props.resultField) {
+        optionsRef.value = get(res, props.resultField) || [];
       }
       emitChange();
     } catch (error) {

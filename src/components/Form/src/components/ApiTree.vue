@@ -7,10 +7,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { type Recordable } from '@vben/types';
+  import { type Recordable, type AnyFunction } from '@vben/types';
   import { type PropType, computed, watch, ref, onMounted, unref, useAttrs } from 'vue';
   import { Tree, TreeProps } from 'ant-design-vue';
-  import { isFunction } from '@/utils/is';
+  import { isArray, isFunction } from '@/utils/is';
   import { get } from 'lodash-es';
   import { DataNode } from 'ant-design-vue/es/tree';
   import { useRuleFormItem } from '@/hooks/component/useFormItem';
@@ -22,14 +22,7 @@
     params: { type: Object },
     immediate: { type: Boolean, default: true },
     resultField: { type: String, default: '' },
-    beforeFetch: {
-      type: Function as PropType<Fn>,
-      default: null,
-    },
-    afterFetch: {
-      type: Function as PropType<Fn>,
-      default: null,
-    },
+    afterFetch: { type: Function as PropType<AnyFunction> },
     value: {
       type: Array as PropType<TreeProps['selectedKeys']>,
     },
@@ -79,28 +72,25 @@
   });
 
   async function fetch() {
-    let { api, beforeFetch, afterFetch, params, resultField } = props;
+    const { api, afterFetch } = props;
     if (!api || !isFunction(api)) return;
     loading.value = true;
     treeData.value = [];
-    let res;
+    let result;
     try {
-      if (beforeFetch && isFunction(beforeFetch)) {
-        params = (await beforeFetch(params)) || params;
-      }
-      res = await api(params);
-      if (afterFetch && isFunction(afterFetch)) {
-        res = (await afterFetch(res)) || res;
-      }
+      result = await api(props.params);
     } catch (e) {
       console.error(e);
     }
-    loading.value = false;
-    if (!res) return;
-    if (resultField) {
-      res = get(res, resultField) || [];
+    if (afterFetch && isFunction(afterFetch)) {
+      result = afterFetch(result);
     }
-    treeData.value = (res as (Recordable & { key: string | number })[]) || [];
+    loading.value = false;
+    if (!result) return;
+    if (!isArray(result)) {
+      result = get(result, props.resultField);
+    }
+    treeData.value = (result as (Recordable & { key: string | number })[]) || [];
     isFirstLoaded.value = true;
     emit('options-change', treeData.value);
   }

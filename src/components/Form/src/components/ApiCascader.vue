@@ -69,14 +69,6 @@
     displayRenderArray: {
       type: Array,
     },
-    beforeFetch: {
-      type: Function as PropType<Fn>,
-      default: null,
-    },
-    afterFetch: {
-      type: Function as PropType<Fn>,
-      default: null,
-    },
   });
 
   const emit = defineEmits(['change', 'defaultChange']);
@@ -120,25 +112,19 @@
     }, [] as Option[]);
   }
 
-  async function fetch() {
-    let { api, beforeFetch, initFetchParams, afterFetch, resultField } = props;
+  async function initialFetch() {
+    const api = props.api;
     if (!api || !isFunction(api)) return;
     apiData.value = [];
     loading.value = true;
     try {
-      if (beforeFetch && isFunction(beforeFetch)) {
-        initFetchParams = (await beforeFetch(initFetchParams)) || initFetchParams;
-      }
-      let res = await api(initFetchParams);
-      if (afterFetch && isFunction(afterFetch)) {
-        res = (await afterFetch(res)) || res;
-      }
+      const res = await api(props.initFetchParams);
       if (Array.isArray(res)) {
         apiData.value = res;
         return;
       }
-      if (resultField) {
-        apiData.value = get(res, resultField) || [];
+      if (props.resultField) {
+        apiData.value = get(res, props.resultField) || [];
       }
     } catch (error) {
       console.warn(error);
@@ -150,26 +136,20 @@
   const loadData: CascaderProps['loadData'] = async (selectedOptions) => {
     const targetOption = selectedOptions[selectedOptions.length - 1];
     targetOption.loading = true;
-    let { api, beforeFetch, afterFetch, resultField, apiParamKey } = props;
+
+    const api = props.api;
     if (!api || !isFunction(api)) return;
     try {
-      let param = {
-        [apiParamKey]: Reflect.get(targetOption, 'value'),
-      };
-      if (beforeFetch && isFunction(beforeFetch)) {
-        param = (await beforeFetch(param)) || param;
-      }
-      let res = await api(param);
-      if (afterFetch && isFunction(afterFetch)) {
-        res = (await afterFetch(res)) || res;
-      }
+      const res = await api({
+        [props.apiParamKey]: Reflect.get(targetOption, 'value'),
+      });
       if (Array.isArray(res)) {
         const children = generatorOptions(res);
         targetOption.children = children;
         return;
       }
-      if (resultField) {
-        const children = generatorOptions(get(res, resultField) || []);
+      if (props.resultField) {
+        const children = generatorOptions(get(res, props.resultField) || []);
         targetOption.children = children;
       }
     } catch (e) {
@@ -182,7 +162,7 @@
   watch(
     () => props.immediate,
     () => {
-      props.immediate && fetch();
+      props.immediate && initialFetch();
     },
     {
       immediate: true,
@@ -192,7 +172,7 @@
   watch(
     () => props.initFetchParams,
     () => {
-      !unref(isFirstLoad) && fetch();
+      !unref(isFirstLoad) && initialFetch();
     },
     { deep: true },
   );

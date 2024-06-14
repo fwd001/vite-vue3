@@ -5,8 +5,8 @@
   import { prefixCls } from '@/settings/designSetting';
   import { useAppStore } from '@/store/modules/app';
   import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum';
-  import { useGlobalStore } from '@/store/modules/gloabal';
   import { useInitData } from '@/hooks/event/useInitData';
+  import { useGlobalStore } from '@/store/modules/gloabal';
 
   const props = {
     /**
@@ -20,10 +20,11 @@
     inheritAttrs: false,
     props,
     setup(props, { slots }) {
-      // globalStore 通知组件初始化
+      // globalStore 初始化
       useGlobalStore();
-      // 全局基础数据初始化请求
-      useInitData();
+
+      const { get } = useInitData();
+      get();
 
       const isMobile = ref(false);
       const isSetState = ref(false);
