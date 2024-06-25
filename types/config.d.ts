@@ -160,6 +160,8 @@ export interface GlobConfig {
   xsYWLX: string;
   textZDR: string;
   textYJ: string;
+  mapConfHttpUrl: string;
+  dridUrl: string;
 }
 export interface GlobEnvConfig {
   // Site title
@@ -183,4 +185,6 @@ export interface GlobEnvConfig {
   VITE_GLOB_QB_YWLX: string;
   VITE_GLOB_XS_YWLX: string;
   VITE_GLOB_TEXT_YJ?: string;
+  VITE_GLOB_MAP_CONFIG_HTTP_URL?: string;
+  VITE_GLOB_GRID_LAYER_EXTEND_URL?: string;
 }

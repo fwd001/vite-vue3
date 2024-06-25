@@ -27,6 +27,10 @@ export default defineApplicationConfig({
           target: 'http://localhost:3300/upload',
           changeOrigin: true,
         },
+        '/app': {
+          target: 'http://demo.bigemap.com',
+          changeOrigin: true,
+        },
         '/tiles': {
           target: 'http://172.16.11.13:3002',
           changeOrigin: true,

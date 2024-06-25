@@ -43,6 +43,8 @@ export function getAppEnvConfig() {
     VITE_GLOB_TEXT_YJ,
     VITE_GLOB_QB_YWLX,
     VITE_GLOB_XS_YWLX,
+    VITE_GLOB_MAP_CONFIG_HTTP_URL,
+    VITE_GLOB_GRID_LAYER_EXTEND_URL,
   } = ENV;
   let { VITE_GLOB_API_URL } = ENV;
   if (localStorage.getItem(API_ADDRESS)) {
@@ -63,6 +65,8 @@ export function getAppEnvConfig() {
     VITE_GLOB_TEXT_YJ,
     VITE_GLOB_QB_YWLX,
     VITE_GLOB_XS_YWLX,
+    VITE_GLOB_MAP_CONFIG_HTTP_URL,
+    VITE_GLOB_GRID_LAYER_EXTEND_URL,
   };
 }
 
