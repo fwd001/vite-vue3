@@ -9,7 +9,7 @@
       content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0"
     />
     <title> <%= VITE_GLOB_APP_TITLE %> </title>
-    <link rel="icon" href="<%= VITE_PUBLIC_PATH %>favicon.ico" />
+    <link rel="icon" href="favicon.ico" />
   </head>
 
   <body id="body">
@@ -134,7 +134,7 @@
       </style>
       <div class="app-loading">
         <div class="app-loading-wrap">
-          <img src="<%= VITE_PUBLIC_PATH %>logo.png" class="app-loading-logo" alt="Logo" />
+          <img src="logo.png" class="app-loading-logo" alt="Logo" />
           <div class="app-loading-dots">
             <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
           </div>
@@ -143,34 +143,94 @@
       </div>
     </div>
     <!-- bigemap第三方库 start -->
-    <link href="/public/BM/bigemap.css" rel="stylesheet" />
-    <script src="/public/BM/bigemap.js"></script>
-    <link rel="stylesheet" href="/public/BM/mouse_draw/Bigemap.draw.css" />
-    <link rel="stylesheet" href="/public/BM/MarkerCluster.Default.css" />
+    <link href="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/bigemap.css" rel="stylesheet" />
+    <script src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/bigemap.js"></script>
+    <link
+      rel="stylesheet"
+      href="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/mouse_draw/Bigemap.draw.css"
+    />
+    <link
+      rel="stylesheet"
+      href="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/MarkerCluster.Default.css"
+    />
     <!-- 热力图插件 -->
-    <script src="/public/BM/heat.js"></script>
+    <script src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/heat.js"></script>
     <!-- 聚合点插件 -->
-    <script type="text/javascript" src="/public/BM/bm.markercluster-src.js"></script>
-    <script type="text/javascript" src="/public/BM/glify.js"></script>
-    <script type="text/javascript" src="/public/BM/canvas-layer.js"></script>
-    <script type="text/javascript" src="/public/BM/bm.ellipse.js"></script>
-    <script type="text/javascript" src="/public/BM/echarts.min.js"></script>
-    <script type="text/javascript" src="/public/BM/mapv.min.js"></script>
+    <script
+      type="text/javascript"
+      src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/bm.markercluster-src.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/glify.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/canvas-layer.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/bm.ellipse.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/echarts.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/mapv.min.js"
+    ></script>
     <script>
       L = window.BM;
     </script>
-    <script type="text/javascript" src="/public/BM/iclient.min.js"></script>
-    <script type="text/javascript" src="/public/BM/arrow.js"></script>
-    <script type="text/javascript" src="/public/BM/togeojson.js"></script>
-    <script type="text/javascript" src="/public/BM/bm-plot.min.js"></script>
-    <script type="text/javascript" src="/public/BM/d3.min.js"></script>
-    <script type="text/javascript" src="/public/BM/mouse_draw/bm.draw.min.js"></script>
-    <script type="text/javascript" src="/public/BM/moveMarker.js"></script>
-    <script type="text/javascript" src="/public/BM/bm.geometryutil.js"></script>
-    <script type="text/javascript" src="/public/BM/mouse_draw/Control.Draw.js"></script>
-    <link rel="stylesheet" href="/public/BM/measure/bm.measure.css" />
-    <script type="text/javascript" src="/public/BM/measure/bm.measure.js"></script>
-    <script type="text/javascript" src="/public/BM/shpjs/shp.min.js"></script>
+    <script
+      type="text/javascript"
+      src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/iclient.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/arrow.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/togeojson.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/bm-plot.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/d3.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/mouse_draw/bm.draw.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/moveMarker.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/bm.geometryutil.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/mouse_draw/Control.Draw.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/measure/bm.measure.css"
+    />
+    <script
+      type="text/javascript"
+      src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/measure/bm.measure.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="<%= VITE_GLOB_MAP_CONFIG_HTTP_URL %>/public/BM/shpjs/shp.min.js"
+    ></script>
     <script>
       L.shp = window.shp;
     </script>
