@@ -95,11 +95,15 @@
   import GraphicInfo from './GraphicInfo.vue';
   import { useModal } from '@/components/Modal';
   import GraphMenu from './GraphMenu.vue';
+  import { useLatlon2Addr } from '../hooks/useLatlon2Addr';
+  import { useMessage } from '@/hooks/web/useMessage';
 
   let map: any; // 总地图实例
   const [registerModal, { openModal }] = useModal();
+  const { l2Addr } = useLatlon2Addr();
 
   const showPanel = ref(false); // 面板显隐
+  const { message } = useMessage();
 
   const mapToolRef = ref<InstanceType<typeof Tool>>();
   const LyrListDom = ref(); // 图层列表Dom
@@ -134,7 +138,7 @@
   });
   let locationMarker: any = null;
   // 定位到输入经纬度
-  function locateTo(x: any, y: any) {
+  async function locateTo(x: any, y: any) {
     if (locationMarker) {
       locationMarker.remove();
       locationMarker = null;
@@ -154,6 +158,9 @@
       // console.log(locationMarker.options.attribution.name);
     });
     map.setView([Number(y), Number(x)]);
+
+    const addrArr = await l2Addr([Number(x), Number(y)]);
+    addrArr && message.success(addrArr?.join(','));
   }
   //  添加标绘节点至标绘图层面板
   function addDrawToPanel(graphic: any) {

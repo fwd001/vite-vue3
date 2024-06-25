@@ -12,10 +12,17 @@
   import './map.less';
   import mitter from '@/views/utils/mitt';
   import { MEventEnum } from '@/enums/mittEnum';
+  import { useLatlon2Addr } from '../hooks/useLatlon2Addr';
+  import { useMessage } from '@/hooks/web/useMessage';
+  import { useGlobSetting } from '@/hooks/setting';
 
   // import { useXZQHRender } from '@/views/dashboard/ps/hooks/useXZQHRender';
+  const publicPath = import.meta.env.VITE_PUBLIC_PATH || '/';
 
   const mapStore = usePsMapStore();
+  const { l2Addr } = useLatlon2Addr();
+  const { message } = useMessage();
+  const { mapConfHttpUrl, dridUrl } = useGlobSetting();
 
   const copyText = ref('');
   const { copy } = useClipboard({ source: copyText });
@@ -26,9 +33,7 @@
 
   const bigeMapRef = ref(null);
 
-  // useXZQHRender();
-
-  if (BM) BM.Config.HTTP_URL = 'http://172.16.11.13:3002';
+  if (BM) BM.Config.HTTP_URL = mapConfHttpUrl;
 
   onMounted(() => {
     init();
@@ -44,7 +49,7 @@
         const src = data.url;
         tile.src = src.replace('{x}', coords.x).replace('{y}', coords.y).replace('{z}', coords.z);
         tile.onerror = () => {
-          tile.src = '/images/empty.png';
+          tile.src = publicPath + 'images/empty.png';
         };
         return tile;
       },
@@ -67,7 +72,7 @@
     // 电子地图自定义渲染
     const gridLayer = BM.GridLayer.extend(
       getGridLayerExtend({
-        url: '/tiles/ele/{z}/{x}/{y}.png',
+        url: dridUrl,
       }),
     );
 
@@ -93,16 +98,20 @@
       }
     });
     // 地图单击事件
-    map.on('click', function (e: any) {
+    map.on('click', async function (e: any) {
       const lng = e.latlng.lng;
       const lat = e.latlng.lat;
       // const zoom = map.getZoom();
       // 经度：西经：w 东经：e 纬度：北纬：n 南纬：s
-      mapStore.setLatlng([lat, lng]);
-      copyText.value = `${lat}, ${lng}`;
+      mapStore.setLatlng([lng, lat]);
+      copyText.value = `${lng}, ${lat}`;
       copy();
       // console.log('map click zoom:::', zoom);
       // console.log('map click [纬度，经度]:::', [lat, lng]);
+      message.success(`经纬度：${[lng, lat]?.join(',')}`);
+      // 打印地址
+      const addrArr = await l2Addr([lng, lat]);
+      addrArr && message.success(addrArr?.join(','));
     });
   }
   // function getMapViewport() {
