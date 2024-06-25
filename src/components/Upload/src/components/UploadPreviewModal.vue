@@ -14,13 +14,17 @@
   import { watch, ref } from 'vue';
   import FileList from './FileList.vue';
   import { BasicModal, useModalInner } from '@/components/Modal';
-  import { previewProps } from '../props';
-  import { FileBasicColumn, PreviewFileItem } from '../types/typing';
+  import { handleFnKey, previewProps } from '../props';
+  import { BaseFileItem, FileBasicColumn, PreviewFileItem } from '../types/typing';
   import { downloadByUrl } from '@/utils/file/download';
   import { createPreviewColumns, createPreviewActionColumn } from './data';
   import { useI18n } from '@/hooks/web/useI18n';
-  import { isArray } from '@/utils/is';
+  import { isArray, isFunction } from '@/utils/is';
   import { BasicColumn } from '@/components/Table';
+  import { useMessage } from '@/hooks/web/useMessage';
+  import { buildUUID } from '@/utils/uuid';
+
+  const { message: createMessage } = useMessage();
 
   const props = defineProps(previewProps);
 
@@ -32,13 +36,15 @@
   const [register] = useModalInner();
   const { t } = useI18n();
 
-  const fileListRef = ref<PreviewFileItem[] | Array<any>>([]);
+  const fileListRef = ref<BaseFileItem[] | Array<any>>([]);
   watch(
     () => props.previewColumns,
     () => {
-      if (props.previewColumns.length) {
+      if (Array.isArray(props.previewColumns) && props.previewColumns.length) {
         columns = props.previewColumns;
         actionColumn = null;
+      } else if (isFunction(props.previewColumns)) {
+        columns = props.previewColumns({ handleRemove, handleAdd });
       } else {
         columns = createPreviewColumns();
         actionColumn = createPreviewActionColumn({ handleRemove, handleDownload });
@@ -59,14 +65,15 @@
       fileListRef.value = value
         .filter((item) => !!item)
         .map((item) => {
-          if (typeof item != 'string') {
-            console.error('return value should be string');
+          if (typeof item != 'object') {
+            console.error('return value should be object');
             return;
           }
           return {
-            url: item,
-            type: item.split('.').pop() || '',
-            name: item.split('/').pop() || '',
+            uid: item?.uid,
+            url: item?.url,
+            type: item?.url?.split('.').pop() || '',
+            name: item?.url?.split('/').pop() || '',
           };
         });
     },
@@ -74,18 +81,26 @@
   );
 
   // 删除
-  function handleRemove(record: PreviewFileItem) {
-    const index = fileListRef.value.findIndex((item) => item.url === record.url);
+  function handleRemove(obj: Record<handleFnKey, any>) {
+    let { record = {}, valueKey = 'url', uidKey = 'uid' } = obj;
+    const index = fileListRef.value.findIndex((item) => item[uidKey] === record[uidKey]);
     if (index !== -1) {
       const removed = fileListRef.value.splice(index, 1);
-      emit('delete', removed[0].url);
-      emit(
-        'list-change',
-        fileListRef.value.map((item) => item.url),
-      );
+      emit('delete', removed[0][uidKey]);
+      emit('list-change', fileListRef.value, valueKey);
     }
   }
-
+  // 添加
+  function handleAdd(obj: Record<handleFnKey, any>) {
+    let { record = {}, valueKey = 'url', uidKey = 'uid' } = obj;
+    const { maxNumber } = props;
+    if (fileListRef.value.length + fileListRef.value.length > maxNumber) {
+      return createMessage.warning(t('component.upload.maxNumber', [maxNumber]));
+    }
+    record[uidKey] = record[uidKey] ?? buildUUID();
+    fileListRef.value = [...fileListRef.value, record];
+    emit('list-change', fileListRef.value, valueKey);
+  }
   // 下载
   function handleDownload(record: PreviewFileItem) {
     const { url = '' } = record;

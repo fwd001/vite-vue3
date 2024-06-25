@@ -71,7 +71,7 @@
   const props = defineProps({
     ...basicProps,
     previewFileList: {
-      type: Array as PropType<string[]>,
+      type: Array as PropType<string[] | any[]>,
       default: () => [],
     },
   });
@@ -129,7 +129,7 @@
     const { maxSize } = props;
     // 设置最大值，则判断
     if (maxSize && file.size / 1024 / 1024 >= maxSize) {
-      createMessage?.error(t('component.upload.maxSizeMultiple', [maxSize]));
+      createMessage.error(t('component.upload.maxSizeMultiple', [maxSize]));
       return false;
     }
 
@@ -220,7 +220,7 @@
   async function handleStartUpload() {
     const { maxNumber } = props;
     if (fileListRef.value.length + props.previewFileList.length > maxNumber) {
-      return createMessage?.warning(t('component.upload.maxNumber', [maxNumber]));
+      return createMessage.warning(t('component.upload.maxNumber', [maxNumber]));
     }
     try {
       isUploadingRef.value = true;
@@ -247,10 +247,10 @@
     const { maxNumber } = props;
 
     if (fileListRef.value.length > maxNumber) {
-      return createMessage?.warning(t('component.upload.maxNumber', [maxNumber]));
+      return createMessage.warning(t('component.upload.maxNumber', [maxNumber]));
     }
     if (isUploadingRef.value) {
-      return createMessage?.warning(t('component.upload.saveWarn'));
+      return createMessage.warning(t('component.upload.saveWarn'));
     }
     const fileList: string[] = [];
 
@@ -262,7 +262,7 @@
     }
     // 存在一个上传成功的即可保存
     if (fileList.length <= 0) {
-      return createMessage?.warning(t('component.upload.saveError'));
+      return createMessage.warning(t('component.upload.saveError'));
     }
     fileListRef.value = [];
     closeModal();
@@ -275,7 +275,7 @@
       fileListRef.value = [];
       return true;
     } else {
-      createMessage?.warning(t('component.upload.uploadWait'));
+      createMessage.warning(t('component.upload.uploadWait'));
       return false;
     }
   }

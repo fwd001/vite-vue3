@@ -19,16 +19,12 @@ export function useLatlon2Addr() {
     const res = await getGeoJson(code);
     const features = res.features || [];
     let found = false;
-    console.log('found features', features);
-    console.log('point', point);
 
     for (const element of features) {
       const isInside = turf.booleanPointInPolygon(point, element);
       if (isInside) {
         const name = element.properties.name;
         const adcode = element.properties.adcode;
-        console.log('name', name);
-        console.log('adcode', adcode);
 
         if (previousAdcode !== adcode) {
           previousAdcode = adcode;

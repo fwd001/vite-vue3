@@ -1,5 +1,5 @@
 import type { PropType } from 'vue';
-import { FileBasicColumn } from './types/typing';
+import { BaseFileItem, FileBasicColumn } from './types/typing';
 
 import type { Options } from 'sortablejs';
 
@@ -14,15 +14,20 @@ type SortableOptions = Merge<
     // ...可扩展
   }
 >;
-
+export type handleFnKey = 'record' | 'valueKey' | 'uidKey';
+export type previewColumnsFnType = {
+  handleRemove: (record: Record<handleFnKey, any>) => any;
+  handleAdd: (record: Record<handleFnKey, any>) => any;
+};
 export const previewType = {
   previewColumns: {
-    type: Array as PropType<BasicColumn[] | FileBasicColumn[]>,
-    default: [],
+    type: [Array, Function] as PropType<
+      BasicColumn[] | ((arg: previewColumnsFnType) => BasicColumn[])
+    >,
     required: false,
   },
   beforePreviewData: {
-    type: Function as PropType<(arg: string[]) => Recordable<any>>,
+    type: Function as PropType<(arg: BaseFileItem[] | any) => Recordable<any>>,
     default: null,
     required: false,
   },
@@ -31,6 +36,7 @@ export const previewType = {
 type ListType = 'text' | 'picture' | 'picture-card';
 
 export const basicProps = {
+  disabled: { type: Boolean, default: false },
   listType: {
     type: String as PropType<ListType>,
     default: 'picture-card',
@@ -107,8 +113,12 @@ export const uploadContainerProps = {
 
 export const previewProps = {
   value: {
-    type: Array as PropType<string[]>,
+    type: Array as PropType<BaseFileItem[] | any[]>,
     default: () => [],
+  },
+  maxNumber: {
+    type: Number as PropType<number>,
+    default: 1,
   },
   ...previewType,
 };
