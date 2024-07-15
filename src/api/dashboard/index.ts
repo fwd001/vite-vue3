@@ -18,5 +18,5 @@ export const apiGetLoc = (latlng: string) => {
 };
 
 export function getGeoJson(code: number) {
-  return axios.get(`/public/BMgeojson/china/${code}.json`).then((res) => res.data);
+  return axios.get(`/public-fe/BMgeojson/china/${code}.json`).then((res) => res.data);
 }

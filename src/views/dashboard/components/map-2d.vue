@@ -149,7 +149,7 @@
   //     for (let i = 0; i < 2000; i++) {
   //       let m = new BM.marker(getRandomLatLng(map), {
   //         icon: BM.icon({
-  //           iconUrl: '/public/BM/marker/2.png',
+  //           iconUrl: '/public-fe/BM/marker/2.png',
   //         }),
   //       });
   //       markersList.push(m);

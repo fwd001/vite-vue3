@@ -34,7 +34,7 @@ export default defineApplicationConfig({
           target: 'http://172.16.11.13:3002',
           changeOrigin: true,
         },
-        '/public': {
+        '/public-fe': {
           target: 'http://172.16.11.13:3002', // 数据字典
           changeOrigin: true,
         },

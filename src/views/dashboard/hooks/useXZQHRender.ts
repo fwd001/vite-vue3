@@ -52,7 +52,7 @@ export function useXZQHRender() {
   }
   // 加载地图方法
   async function chons(code?: number, isInit?: boolean) {
-    const res = await axios.get(`/public/BMgeojson/china/${code}.json`);
+    const res = await axios.get(`/public-fe/BMgeojson/china/${code}.json`);
     if (!res) return;
     const data = res.data;
     cone = BM.geoJSON(data, {
