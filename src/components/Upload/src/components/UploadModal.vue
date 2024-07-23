@@ -96,7 +96,7 @@
     maxSizeRef: maxSize,
   });
 
-  const { message: createMessage } = useMessage();
+  const { createMessage } = useMessage();
 
   const getIsSelectFile = computed(() => {
     return (

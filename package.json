@@ -104,9 +104,9 @@
     "vue-types": "^5.1.1",
     "vue3-colorpicker": "^2.3.0",
     "vuedraggable": "^4.1.0",
-    "vxe-pc-ui": "^4.0.44",
-    "vxe-table": "^4.7.40",
-    "vxe-table-plugin-export-xlsx": "^4.0.4",
+    "vxe-pc-ui": "4.0.82",
+    "vxe-table": "^4.7.59",
+    "vxe-table-plugin-export-xlsx": "^4.0.5",
     "xe-utils": "^3.5.28",
     "xlsx": "^0.18.5"
   },
