@@ -26,6 +26,7 @@ node('jenkins-master') {
             // 编译打包
             sh "node -v"
             sh "npm -v"
+            sh "pnpm -v"
             sh "rm -f pnpm-lock.yaml"
             sh "npm config set registry http://registry.npmmirror.com"
             sh "npm run bootstrap"
