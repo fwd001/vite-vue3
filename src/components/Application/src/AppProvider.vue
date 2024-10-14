@@ -6,7 +6,6 @@
   import { useAppStore } from '@/store/modules/app';
   import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum';
   import { useInitData } from '@/hooks/event/useInitData';
-  import { useGlobalStore } from '@/store/modules/gloabal';
 
   const props = {
     /**
@@ -20,9 +19,6 @@
     inheritAttrs: false,
     props,
     setup(props, { slots }) {
-      // globalStore 初始化
-      useGlobalStore();
-
       const { get } = useInitData();
       get();
 
