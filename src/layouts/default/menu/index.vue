@@ -164,7 +164,7 @@
   @prefix-cls: ~'@{namespace}-layout-menu';
   @logo-prefix-cls: ~'@{namespace}-app-logo';
 
-  #app .@{prefix-cls} {
+  #body .@{prefix-cls} {
     &-logo {
       height: @header-height;
       padding: 10px 4px 10px 10px;

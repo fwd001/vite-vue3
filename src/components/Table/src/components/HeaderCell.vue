@@ -52,7 +52,7 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-table-header-cell';
 
-  #app .@{prefix-cls} {
+  #body .@{prefix-cls} {
     &__help {
       margin-left: 8px;
     }

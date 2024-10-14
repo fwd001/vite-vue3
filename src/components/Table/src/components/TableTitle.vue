@@ -40,7 +40,7 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-table-title';
 
-  #app .@{prefix-cls} {
+  #body .@{prefix-cls} {
     display: flex;
     align-items: center;
     justify-content: space-between;

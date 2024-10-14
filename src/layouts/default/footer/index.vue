@@ -52,7 +52,7 @@
 
   @hover-color: rgba(0, 0, 0, 0.85);
 
-  #app .@{prefix-cls} {
+  #body .@{prefix-cls} {
     // 页脚固定高度
     height: 75px;
     color: @normal-color;

@@ -611,7 +611,7 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-column-setting';
 
-  #app {
+  #body {
     .table-column-drag-icon {
       margin: 0 5px;
       cursor: move;

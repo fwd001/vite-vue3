@@ -6,7 +6,7 @@ const globSetting = useGlobSetting();
 
 export function useInitData() {
   function get() {
-    console.log('globSetting::', globSetting);
+    console.log('useInitData::', globSetting);
   }
   return { get };
 }

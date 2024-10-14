@@ -168,64 +168,66 @@
   }
 </script>
 <style lang="less">
-  @header-height: 60px;
-  @detail-header-height: 40px;
-  @prefix-cls: ~'@{namespace}-basic-drawer';
-  @prefix-cls-detail: ~'@{namespace}-basic-drawer__detail';
+  #body {
+    @header-height: 60px;
+    @detail-header-height: 40px;
+    @prefix-cls: ~'@{namespace}-basic-drawer';
+    @prefix-cls-detail: ~'@{namespace}-basic-drawer__detail';
 
-  .@{prefix-cls} {
-    .ant-drawer-wrapper-body {
-      overflow: hidden !important;
-    }
+    .@{prefix-cls} {
+      .ant-drawer-wrapper-body {
+        overflow: hidden;
+      }
 
-    .ant-drawer-close {
-      &:hover {
-        color: @error-color !important;
+      .ant-drawer-close {
+        &:hover {
+          color: @error-color;
+        }
+      }
+
+      .ant-drawer-body {
+        height: calc(100% - @header-height);
+        padding: 0;
+        background-color: @component-background;
+
+        .scrollbar__wrap {
+          margin-bottom: 0 !important;
+          padding: 16px !important;
+        }
+
+        > .scrollbar > .scrollbar__bar.is-horizontal {
+          display: none;
+        }
       }
     }
 
-    .ant-drawer-body {
-      height: calc(100% - @header-height) !important;
-      padding: 0 !important;
-      background-color: @component-background !important;
+    .@{prefix-cls-detail} {
+      position: absolute;
+
+      .ant-drawer-header {
+        box-sizing: border-box;
+        width: 100%;
+        height: @detail-header-height;
+        padding: 0;
+        border-top: 1px solid @border-color-base;
+      }
+
+      .ant-drawer-title {
+        height: 100%;
+      }
+
+      .ant-drawer-close {
+        height: @detail-header-height;
+        line-height: @detail-header-height;
+      }
 
       .scrollbar__wrap {
-        margin-bottom: 0 !important;
-        padding: 16px !important;
+        padding: 0 !important;
       }
 
-      > .scrollbar > .scrollbar__bar.is-horizontal {
-        display: none !important;
+      .ant-drawer-body {
+        height: calc(100% - @detail-header-height);
       }
-    }
-  }
-
-  .@{prefix-cls-detail} {
-    position: absolute !important;
-
-    .ant-drawer-header {
-      box-sizing: border-box !important;
-      width: 100% !important;
-      height: @detail-header-height !important;
-      padding: 0 !important;
-      border-top: 1px solid @border-color-base !important;
-    }
-
-    .ant-drawer-title {
-      height: 100% !important;
-    }
-
-    .ant-drawer-close {
-      height: @detail-header-height !important;
-      line-height: @detail-header-height !important;
-    }
-
-    .scrollbar__wrap {
-      padding: 0 !important;
-    }
-
-    .ant-drawer-body {
-      height: calc(100% - @detail-header-height) !important;
     }
   }
 </style>

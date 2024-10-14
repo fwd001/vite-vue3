@@ -43,7 +43,7 @@
     }
   }
 
-  .@{prefix-cls} {
+  #body .@{prefix-cls} {
     display: flex;
     position: relative;
     align-items: center;

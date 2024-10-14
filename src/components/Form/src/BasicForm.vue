@@ -124,7 +124,9 @@
   const getBindValue = computed(() => ({ ...attrs, ...props, ...unref(getProps) }) as AntFormProps);
 
   const getSchema = computed((): FormSchema[] => {
-    const schemas: FormSchema[] = cloneDeep(unref(schemaRef) || (unref(getProps).schemas as any));
+    const schemas: (FormSchema & { ifshow2?: boolean })[] = cloneDeep(
+      unref(schemaRef) || (unref(getProps).schemas as any),
+    );
     for (const schema of schemas) {
       const {
         defaultValue,
@@ -134,7 +136,16 @@
         field,
         isHandleDefaultValue = true,
         valueFormat,
+        ifShow,
       } = schema;
+
+      //fix:修复showAdvancedButton为true时，FormSchema中ifshow是与model有关的函数时候，查询按钮位置不重新计算的问题。
+      if (unref(getProps).showAdvancedButton) {
+        schema.ifshow2 = isFunction(ifShow)
+          ? ifShow({ schema, values: formModel, model: formModel, field })
+          : ifShow;
+      }
+
       // handle date type
       if (
         isHandleDateDefaultValue &&
@@ -347,7 +358,7 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-form';
 
-  #app .@{prefix-cls} {
+  #body .@{prefix-cls} {
     .ant-form-item {
       &-label label::after {
         margin: 0 6px 0 2px;

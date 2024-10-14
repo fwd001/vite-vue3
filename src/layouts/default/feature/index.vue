@@ -55,7 +55,7 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-setting-drawer-feature';
 
-  #app .@{prefix-cls} {
+  #body .@{prefix-cls} {
     display: flex;
     position: absolute;
     z-index: 10;

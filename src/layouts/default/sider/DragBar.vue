@@ -35,7 +35,7 @@
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-darg-bar';
 
-  #app .@{prefix-cls} {
+  #body .@{prefix-cls} {
     position: absolute;
     z-index: @side-drag-z-index;
     top: 0;

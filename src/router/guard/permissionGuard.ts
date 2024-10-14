@@ -1,33 +1,43 @@
 import type { Router, RouteRecordRaw } from 'vue-router';
 
 import { usePermissionStoreWithOut } from '@/store/modules/permission';
-import { useGlobSetting } from '@/hooks/setting';
 
 import { PageEnum } from '@/enums/pageEnum';
 import { useUserStoreWithOut } from '@/store/modules/user';
-import { PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic';
-import { isDevMode } from '@/utils/env';
 
-const LOGIN_PATH = PageEnum.BASE_LOGIN;
+import { PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic';
+
+const LOGIN_PATH = PageEnum.AUTH_PAGE;
 const AUTH_PAGE = PageEnum.AUTH_PAGE;
 
-const whitePathList: PageEnum[] = [LOGIN_PATH, AUTH_PAGE];
+const whitePathList: PageEnum[] = [LOGIN_PATH];
 
 export function createPermissionGuard(router: Router) {
   const userStore = useUserStoreWithOut();
   const permissionStore = usePermissionStoreWithOut();
   router.beforeEach(async (to, from, next) => {
     const token = userStore.getToken;
-    const { authorizeHref, clientApiUrl } = useGlobSetting();
-    // 可直接进入白名单
+
+    // Whitelist can be directly entered
     if (whitePathList.includes(to.path as PageEnum)) {
+      if (to.path === LOGIN_PATH && token) {
+        const isSessionTimeout = userStore.getSessionTimeout;
+        try {
+          await userStore.afterLoginAction();
+          if (!isSessionTimeout) {
+            next(decodeURIComponent((to.query?.redirect as string) || '/'));
+            return;
+          }
+        } catch {
+          //
+        }
+      }
       next();
       return;
     }
-
-    // token 或用户不存在
+    // token or user does not exist
     if (!token) {
-      // 无需许可即可访问。 您需要将路由meta.ignoreAuth设置为true
+      // You can access without permission. You need to set the routing meta.ignoreAuth to true
       if (to.meta.ignoreAuth) {
         next();
         return;
@@ -39,48 +49,70 @@ export function createPermissionGuard(router: Router) {
         query: { code: 'dev123' },
         replace: true,
       };
-      if (to.path) {
+      if (to.fullPath) {
         redirectData.query = {
           ...redirectData.query,
-          redirect: to.path,
+          redirect: to.fullPath,
         };
       }
       next(redirectData);
-
-      console.log('isDevMode', isDevMode, clientApiUrl, authorizeHref);
-
-      // if (isDevMode()) {
-      //   next(redirectData);
-      //   return;
-      // } else {
-      //   location.href = `${clientApiUrl}${authorizeHref}`;
-      //   return next(false);
-      // }
-    }
-
-    if (permissionStore.getIsDynamicAddedRoute) {
-      next();
       return;
     }
 
-    const routes = await permissionStore.buildRoutesAction();
+    // 当上次获取时间为空时获取用户信息
+    // if (userStore.getLastUpdateTime === 0) {
+    //   try {
+    //     await userStore.getUserInfoAction();
+    //   } catch (err) {
+    //     next();
+    //     return;
+    //   }
+    // }
 
-    routes.forEach((route) => {
-      router.addRoute(route as unknown as RouteRecordRaw);
-    });
+    // 动态路由加载（首次）
+    if (!permissionStore.getIsDynamicAddedRoute) {
+      const routes = await permissionStore.buildRoutesAction();
+      [...routes, PAGE_NOT_FOUND_ROUTE].forEach((route) => {
+        router.addRoute(route as unknown as RouteRecordRaw);
+      });
+      // 记录动态路由加载完成
+      permissionStore.setDynamicAddedRoute(true);
 
-    router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
-
-    permissionStore.setDynamicAddedRoute(true);
+      // 现在的to动态路由加载之前的，可能为PAGE_NOT_FOUND_ROUTE（例如，登陆后，刷新的时候）
+      // 此处应当重定向到fullPath，否则会加载404页面内容
+      next({ path: to.fullPath, replace: true, query: to.query });
+      return;
+    }
 
     if (to.name === PAGE_NOT_FOUND_ROUTE.name) {
-      // 动态添加路由后，此处应当重定向到fullPath，否则会加载404页面内容
-      next({ path: to.fullPath, replace: true, query: to.query });
+      // 遇到不存在页面，后续逻辑不再处理redirect（阻止下面else逻辑）
+      from.query.redirect = '';
+
+      if (from.path === LOGIN_PATH && to.fullPath !== PageEnum.BASE_HOME) {
+        // 登陆重定向不存在路由，转去“首页”
+        next({ path: PageEnum.BASE_HOME, replace: true });
+      } else {
+        // 正常前往“404”页面
+        next();
+      }
+    } else if (from.query.redirect) {
+      // 存在redirect
+      const redirect = decodeURIComponent((from.query.redirect as string) || '');
+
+      // 只处理一次 from.query.redirect
+      // 也避免某场景（指向路由定义了 redirect）下的死循环
+      from.query.redirect = '';
+
+      if (redirect === to.fullPath) {
+        // 已经被redirect
+        next();
+      } else {
+        // 指向redirect
+        next({ path: redirect, replace: true });
+      }
     } else {
-      const redirectPath = (from.query.redirect || to.path) as string;
-      const redirect = decodeURIComponent(redirectPath);
-      const nextData = to.path === redirect ? { ...to, replace: true } : { path: redirect };
-      next(nextData);
+      // 正常访问
+      next();
     }
   });
 }

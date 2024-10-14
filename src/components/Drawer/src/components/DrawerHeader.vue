@@ -41,28 +41,30 @@
 </script>
 
 <style lang="less">
-  @prefix-cls: ~'@{namespace}-basic-drawer-header';
-  @footer-height: 60px;
-  .@{prefix-cls} {
-    display: flex !important;
-    align-items: center !important;
-    height: 100% !important;
+  #body {
+    @prefix-cls: ~'@{namespace}-basic-drawer-header';
+    @footer-height: 60px;
+    .@{prefix-cls} {
+      display: flex;
+      align-items: center;
+      height: 100%;
 
-    &__back {
-      padding: 0 12px !important;
-      cursor: pointer !important;
+      &__back {
+        padding: 0 12px;
+        cursor: pointer;
 
-      &:hover {
-        color: @primary-color !important;
+        &:hover {
+          color: @primary-color;
+        }
       }
-    }
 
-    &__twrap {
-      flex: 1 !important;
-    }
+      &__twrap {
+        flex: 1;
+      }
 
-    &__toolbar {
-      padding-right: 50px !important;
+      &__toolbar {
+        padding-right: 50px;
+      }
     }
   }
 </style>

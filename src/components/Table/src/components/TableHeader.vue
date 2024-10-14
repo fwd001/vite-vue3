@@ -73,7 +73,7 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-table-header';
 
-  #app .@{prefix-cls} {
+  #body .@{prefix-cls} {
     &__toolbar {
       display: flex;
       flex: 1;

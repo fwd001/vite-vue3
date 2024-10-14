@@ -167,7 +167,7 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-layout-breadcrumb';
 
-  #app .@{prefix-cls} {
+  #body .@{prefix-cls} {
     display: flex;
     align-items: center;
     padding: 0 8px;

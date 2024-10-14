@@ -317,7 +317,8 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-layout-mix-sider';
   @width: 80px;
-  #app .@{prefix-cls} {
+
+  #body .@{prefix-cls} {
     position: fixed;
     z-index: @layout-mix-sider-fixed-z-index;
     top: 0;

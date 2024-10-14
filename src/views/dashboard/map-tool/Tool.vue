@@ -135,7 +135,7 @@
 </template>
 
 <script setup lang="ts">
-  import { onBeforeUnmount, reactive, ref } from 'vue';
+  import { onBeforeUnmount, reactive, ref, onMounted } from 'vue';
   import Icon from '@/components/Icon/Icon.vue';
   import mitter from '@/views/utils/mitt';
   import { MEventEnum } from '@/enums/mittEnum';
@@ -149,12 +149,20 @@
     'selectOnpanel',
   ]);
 
+  const props = withDefaults(
+    defineProps<{
+      map: any;
+      layerGroup: any;
+    }>(),
+    {},
+  );
+
   const fileDom = ref<HTMLInputElement>();
   const openFile = () => {
     onOperateClick('openfile');
     fileDom.value?.click();
   };
-  const changeFile = (evt: any) => {
+  const changeFile = (evt: Recordable) => {
     const files = (evt.target as HTMLInputElement).files;
     const file: any = files && files[0];
     const extension = file.name.split('.');
@@ -233,8 +241,8 @@
     URL.revokeObjectURL(url);
   };
   const A = reactive<Recordable>({
-    map: undefined,
-    layerGroup: undefined,
+    // map: undefined,
+    // layerGroup: undefined,
     drawType: 'drag',
     markers: {},
     selected: undefined,
@@ -290,6 +298,52 @@
         break;
     }
   }
+
+  onMounted(() => {
+    A.map = props.map;
+    A.layerGroup = props.layerGroup;
+    // jun事标绘
+    A.militaryDraw = new BM.Plot.Draw(A.map, {
+      repeat: !0,
+      absorb: {
+        distance: 10,
+        marker: BM.circleMarker([0, 0], {
+          radius: 6,
+          weight: 1,
+          fillOpacity: 1,
+          fillColor: 'white',
+        }),
+      },
+      doubleArrow: {
+        color: 'pink',
+        attribution: {
+          type: 'doubleArrow',
+          name: '双箭头',
+        },
+      },
+    });
+    A.militaryEdit = new BM.Plot.Edit(A.map, {
+      absorb: {
+        distance: 10,
+        marker: BM.circleMarker([0, 0], {
+          radius: 6,
+          weight: 1,
+          fillOpacity: 1,
+          fillColor: 'white',
+        }),
+      },
+    });
+    A.draw = {
+      marker: new BM.Draw.Marker(A.map, { repeatMode: true }),
+      polyline: new BM.Draw.Polyline(A.map, { repeatMode: true }),
+      polygon: new BM.Draw.Polygon(A.map, { repeatMode: true }),
+      circle: new BM.Draw.Circle(A.map, { repeatMode: true }),
+      rectangle: new BM.Draw.Rectangle(A.map, { repeatMode: true }),
+      measure: new BM.Draw.Polygon(A.map, { repeatMode: false }),
+      ruler: BM.control.measure({}).addTo(A.map),
+    };
+    eventFn();
+  });
 
   A.drawMarker = function (data) {
     let marker = BM.marker([data.lat, data.lng], {
@@ -382,54 +436,6 @@
     });
     return overlay;
   };
-  function mitterOn() {
-    mitter.on(MEventEnum.MapMounted, (data: { map: any; layerGroup: any }) => {
-      A.map = data.map;
-      A.layerGroup = data.layerGroup;
-      // jun事标绘
-      A.militaryDraw = new BM.Plot.Draw(A.map, {
-        repeat: !0,
-        absorb: {
-          distance: 10,
-          marker: BM.circleMarker([0, 0], {
-            radius: 6,
-            weight: 1,
-            fillOpacity: 1,
-            fillColor: 'white',
-          }),
-        },
-        doubleArrow: {
-          color: 'pink',
-          attribution: {
-            type: 'doubleArrow',
-            name: '双箭头',
-          },
-        },
-      });
-      A.militaryEdit = new BM.Plot.Edit(A.map, {
-        absorb: {
-          distance: 10,
-          marker: BM.circleMarker([0, 0], {
-            radius: 6,
-            weight: 1,
-            fillOpacity: 1,
-            fillColor: 'white',
-          }),
-        },
-      });
-      A.draw = {
-        marker: new BM.Draw.Marker(A.map, { repeatMode: true }),
-        polyline: new BM.Draw.Polyline(A.map, { repeatMode: true }),
-        polygon: new BM.Draw.Polygon(A.map, { repeatMode: true }),
-        circle: new BM.Draw.Circle(A.map, { repeatMode: true }),
-        rectangle: new BM.Draw.Rectangle(A.map, { repeatMode: true }),
-        measure: new BM.Draw.Polygon(A.map, { repeatMode: false }),
-        ruler: BM.control.measure({}).addTo(A.map),
-      };
-      eventFn();
-    });
-  }
-  mitterOn();
 
   function eventFn() {
     A.map
@@ -590,9 +596,7 @@
     });
   }
 
-  function mitterOff() {
-    mitter.off(MEventEnum.MapMounted);
-  }
+  function mitterOff() {}
   onBeforeUnmount(() => {
     mitterOff();
   });

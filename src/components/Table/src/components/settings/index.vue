@@ -39,7 +39,7 @@
       redo: true,
       size: true,
       setting: true,
-      settingCache: false,
+      settingCache: !import.meta.env.DEV,
       fullScreen: false,
       ...props.setting,
     };
@@ -54,7 +54,9 @@
   }
 </script>
 <style lang="less">
-  #app .table-settings {
+  #body .table-settings {
+    display: flex;
+
     & > * {
       margin-right: 12px;
     }

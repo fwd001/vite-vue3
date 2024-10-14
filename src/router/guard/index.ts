@@ -6,12 +6,12 @@ import { AxiosCanceler } from '@/utils/http/axios/axiosCancel';
 import { Modal, notification } from 'ant-design-vue';
 import { warn } from '@/utils/log';
 import { unref } from 'vue';
+import { prefixCls } from '@/settings/designSetting';
 import { setRouteChange } from '@/logics/mitt/routeChange';
 import { createPermissionGuard } from './permissionGuard';
 import { createStateGuard } from './stateGuard';
 import nProgress from 'nprogress';
 import projectSetting from '@/settings/projectSetting';
-import { prefixCls } from '@/settings/designSetting';
 import { createParamMenuGuard } from './paramMenuGuard';
 
 // Don't change the order of creation

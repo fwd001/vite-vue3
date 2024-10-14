@@ -1,87 +1,93 @@
 <template>
-  <!-- 按钮 -->
-  <div class="mapCtrl absolute bottom-12px right-12px c-#333 z-999">
-    <button class="mapBtn" v-if="isDev" type="button" @click="resetMap">
-      <Icon icon="iconamoon:home-fill" />
-    </button>
-    <button class="mapBtn" @click="map.zoomOut()"><Icon icon="iconamoon:sign-minus-bold" /></button>
-    <button class="mapBtn" @click="map.zoomIn()"><Icon icon="iconamoon:sign-plus-bold" /></button>
-  </div>
-  <!-- 地图控件：左-->
-  <div class="mapCtrl_left">
-    <!--坐标显示-->
-    <div class="mapPosition">
-      <span> {{ mapPosition.x }},{{ mapPosition.y }}</span>
-    </div>
-  </div>
-  <!-- 图层面板开关 -->
-  <button
-    :class="[
-      showPanel ? 'mapPanelBtnOn' : 'mapPanelBtn',
-      'flex justify-center items-center cursor-pointer ',
-    ]"
-    @click="showPanel = !showPanel"
-  >
-    <Icon v-if="showPanel" :size="26" :icon="'material-symbols:hide-source-outline'" />
-    <Icon v-else :size="26" :icon="'tabler:tools'" />
-  </button>
-  <!-- 图层面板 -->
-  <div v-show="showPanel" class="mapCtrl_panel">
-    <!-- POI搜索框：未完成！建议结合地图服务器提供POI检索功能使用 -->
-    <div class="bg-#fff p-1 w-84 b-#a3a3a3 b-b-1 font-sans flex">
-      <input
-        type="text"
-        id="search_data"
-        placeholder="搜地点"
-        class="w61.5 mx-1 bg-#f3f3f3 b-dark flex"
-      />
-      <button
-        class="bg-#0960bd c-#fff b-#a3a3a3 b-1 w-16.5 h6 text-sm b-rd-1"
-        title="点击定位"
-        @click="locateTo(location.x, location.y)"
-      >
-        <Icon icon="iconamoon:search-duotone" />搜索
+  <template v-if="isInit">
+    <!-- 按钮 -->
+    <div class="mapCtrl absolute bottom-12px right-12px c-#333 z-999">
+      <button class="mapBtn" v-if="isDev" type="button" @click="resetMap">
+        <Icon icon="iconamoon:home-fill" />
       </button>
+      <button class="mapBtn" @click="map.zoomOut()"
+        ><Icon icon="iconamoon:sign-minus-bold"
+      /></button>
+      <button class="mapBtn" @click="map.zoomIn()"><Icon icon="iconamoon:sign-plus-bold" /></button>
     </div>
-    <!-- 经纬度定位 -->
-    <div class="bg-#fff p1 w84 b-#a3a3a3 b-b-1 font-sans">
-      <span class="w-2">经度:</span>
-      <input class="w-22 mx-1 bg-#f3f3f3 b-dark" type="text" v-model="location.x" />
-      <span class="w-2">纬度:</span>
-      <input class="w-22 mx-1 bg-#f3f3f3 b-dark" type="text" v-model="location.y" />
-      <button
-        class="bg-#0960bd c-#fff b-#a3a3a3 b-1 w-16.5 h6 text-sm b-rd-1"
-        title="点击定位"
-        @click="locateTo(location.x, location.y)"
-      >
-        <Icon icon="iconamoon:location-pin-bold" />定位
-      </button>
-    </div>
-    <div v-if="false" class="flex w-84 h-9.4/10 relative bg-#fff">
-      <!-- 图层列表 -->
-      <div class="w-74.5 p-2 max-h-2xl overflow-y-auto relative">
-        <LyrList ref="LyrListDom" @goto-feature="gotoFeature" />
+    <!-- 地图控件：左-->
+    <div class="mapCtrl_left">
+      <!--坐标显示-->
+      <div class="mapPosition">
+        <span> {{ mapPosition.x }},{{ mapPosition.y }}</span>
       </div>
     </div>
-    <!-- 标绘工具 -->
-    <div class="flex absolute bg-#ffffff00">
-      <Tool
-        ref="mapToolRef"
-        @add-draw-to-panel="addDrawToPanel"
-        @remove-draw-from-panel="removeDrawFromPanel"
-        @on-edit-layer-info="onEditLayerInfo"
-        @select-onpanel="selectOnpanel"
-      />
+    <!-- 图层面板开关 -->
+    <button
+      :class="[
+        showPanel ? 'mapPanelBtnOn' : 'mapPanelBtn',
+        'flex justify-center items-center cursor-pointer ',
+      ]"
+      @click="showPanel = !showPanel"
+    >
+      <Icon v-if="showPanel" :size="26" :icon="'material-symbols:hide-source-outline'" />
+      <Icon v-else :size="26" :icon="'tabler:tools'" />
+    </button>
+    <!-- 图层面板 -->
+    <div v-show="showPanel" class="mapCtrl_panel">
+      <!-- POI搜索框：未完成！建议结合地图服务器提供POI检索功能使用 -->
+      <div class="bg-#fff p-1 w-84 b-#a3a3a3 b-b-1 font-sans flex">
+        <input
+          type="text"
+          id="search_data"
+          placeholder="搜地点"
+          class="w61.5 mx-1 bg-#f3f3f3 b-dark flex"
+        />
+        <button
+          class="bg-#0960bd c-#fff b-#a3a3a3 b-1 w-16.5 h6 text-sm b-rd-1"
+          title="点击定位"
+          @click="locateTo(location.x, location.y)"
+        >
+          <Icon icon="iconamoon:search-duotone" />搜索
+        </button>
+      </div>
+      <!-- 经纬度定位 -->
+      <div class="bg-#fff p1 w84 b-#a3a3a3 b-b-1 font-sans">
+        <span class="w-2">经度:</span>
+        <input class="w-22 mx-1 bg-#f3f3f3 b-dark" type="text" v-model="location.x" />
+        <span class="w-2">纬度:</span>
+        <input class="w-22 mx-1 bg-#f3f3f3 b-dark" type="text" v-model="location.y" />
+        <button
+          class="bg-#0960bd c-#fff b-#a3a3a3 b-1 w-16.5 h6 text-sm b-rd-1"
+          title="点击定位"
+          @click="locateTo(location.x, location.y)"
+        >
+          <Icon icon="iconamoon:location-pin-bold" />定位
+        </button>
+      </div>
+      <div v-if="false" class="flex w-84 h-9.4/10 relative bg-#fff">
+        <!-- 图层列表 -->
+        <div class="w-74.5 p-2 max-h-2xl overflow-y-auto relative">
+          <LyrList ref="LyrListDom" @goto-feature="gotoFeature" />
+        </div>
+      </div>
+      <!-- 标绘工具 -->
+      <div class="flex absolute bg-#ffffff00">
+        <Tool
+          ref="mapToolRef"
+          :map="map"
+          :layer-group="layerGroup"
+          @add-draw-to-panel="addDrawToPanel"
+          @remove-draw-from-panel="removeDrawFromPanel"
+          @on-edit-layer-info="onEditLayerInfo"
+          @select-onpanel="selectOnpanel"
+        />
+      </div>
     </div>
-  </div>
-  <GraphMenu
-    @on-delete-layer="mapToolRef?.onDeleteLayer"
-    @on-edit-layer-info="mapToolRef?.onEditLayerInfo"
-    @on-move-layer="mapToolRef?.onMoveLayer"
-    @on-edit-overlay="mapToolRef?.onEditOverlay"
-  />
-  <!-- 属性编辑框：未完成！还需根据需求完善！ -->
-  <GraphicInfo @register="registerModal" @update-attribute="updateAttribute" />
+    <GraphMenu
+      @on-delete-layer="mapToolRef?.onDeleteLayer"
+      @on-edit-layer-info="mapToolRef?.onEditLayerInfo"
+      @on-move-layer="mapToolRef?.onMoveLayer"
+      @on-edit-overlay="mapToolRef?.onEditOverlay"
+    />
+    <!-- 属性编辑框：未完成！还需根据需求完善！ -->
+    <GraphicInfo @register="registerModal" @update-attribute="updateAttribute" />
+  </template>
 </template>
 
 <script setup lang="ts">
@@ -98,7 +104,11 @@
   import { useLatlon2Addr } from '../hooks/useLatlon2Addr';
   import { useMessage } from '@/hooks/web/useMessage';
 
-  let map: any; // 总地图实例
+  const map = ref<any>(null); // 总地图实例
+  const layerGroup = ref<any>(null); // 总地图实例
+  // 地图是否已加载
+  const isInit = ref(false);
+
   const [registerModal, { openModal }] = useModal();
   const { l2Addr } = useLatlon2Addr();
 
@@ -120,14 +130,14 @@
   });
   function eventFn() {
     // 鼠标移动事件
-    map.on('mousemove', function (e: any) {
+    map.value.on('mousemove', function (e: any) {
       mapPosition.x = e.latlng.lng.toFixed(6);
       mapPosition.y = e.latlng.lat.toFixed(6);
     });
   }
   // 重置地图初始位置
   function resetMap() {
-    map.setView([43.858298, 87.214965], 7);
+    map.value.setView([43.858298, 87.214965], 7);
   }
 
   // 鼠标实时经纬度
@@ -157,7 +167,7 @@
       location.x = e.latlng.lng.toFixed(6);
       // console.log(locationMarker.options.attribution.name);
     });
-    map.setView([Number(y), Number(x)]);
+    map.value.setView([Number(y), Number(x)]);
 
     const addrArr = await l2Addr([Number(x), Number(y)]);
     addrArr && message.success(addrArr?.join(','));
@@ -175,8 +185,8 @@
   }
   // 地图选中图形，树结构节点处于选择状态
   function gotoFeature(f: any) {
-    f.getBounds && map.fitBounds(f.getBounds());
-    f.getLatLng && map.setView([Number(f.getLatLng().lat), Number(f.getLatLng().lng)]);
+    f.getBounds && map.value.fitBounds(f.getBounds());
+    f.getLatLng && map.value.setView([Number(f.getLatLng().lat), Number(f.getLatLng().lng)]);
   }
 
   // 地图选中图形，树结构节点处于选择状态
@@ -221,8 +231,10 @@
 
   function mitterOn() {
     mitter.on(MEventEnum.MapMounted, (data: { map: any; layerGroup: any }) => {
-      map = data.map;
+      map.value = data.map;
+      layerGroup.value = data.layerGroup;
       eventFn();
+      isInit.value = true;
     });
   }
   mitterOn();
@@ -232,6 +244,8 @@
 
   onBeforeUnmount(() => {
     mitterOff();
+    isInit.value = false;
+    map.value = null;
   });
 </script>
 

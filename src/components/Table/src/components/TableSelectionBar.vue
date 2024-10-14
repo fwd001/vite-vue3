@@ -44,7 +44,7 @@
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-table-select-bar';
 
-  #app .@{prefix-cls} {
+  #body .@{prefix-cls} {
     flex-grow: 1;
     padding: 2px 8px;
 

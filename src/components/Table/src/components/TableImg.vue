@@ -69,7 +69,7 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-basic-table-img';
 
-  #app .@{prefix-cls} {
+  #body .@{prefix-cls} {
     .ant-image {
       margin-right: 4px;
       cursor: zoom-in;

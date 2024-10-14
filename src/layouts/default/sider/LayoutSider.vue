@@ -117,7 +117,7 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-layout-sideBar';
 
-  #app .@{prefix-cls} {
+  #body .@{prefix-cls} {
     z-index: @layout-sider-fixed-z-index;
 
     &--fixed {

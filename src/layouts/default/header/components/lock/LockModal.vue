@@ -83,7 +83,7 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-header-lock-modal';
 
-  #app .@{prefix-cls} {
+  #body .@{prefix-cls} {
     &__entry {
       position: relative;
       //height: 240px;

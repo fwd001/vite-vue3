@@ -329,7 +329,7 @@
 
   @prefix-cls: ~'@{namespace}-basic-table';
 
-  #app {
+  #body {
     [data-theme='dark'] {
       .ant-table-tbody > tr:hover.ant-table-row-selected > td,
       .ant-table-tbody > tr.ant-table-row-selected td {

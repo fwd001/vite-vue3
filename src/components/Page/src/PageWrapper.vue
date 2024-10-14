@@ -193,26 +193,26 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-page-wrapper';
 
-  .@{prefix-cls} {
-    position: relative !important;
+  #body .@{prefix-cls} {
+    position: relative;
 
     .@{prefix-cls}-content {
-      margin: 16px !important;
+      margin: 16px;
     }
 
     .ant-page-header {
       &:empty {
-        padding: 0 !important;
+        padding: 0;
       }
     }
 
     &-content-bg {
-      background-color: @component-background !important;
+      background-color: @component-background;
     }
 
     &--dense {
       .@{prefix-cls}-content {
-        margin: 0 !important;
+        margin: 0;
       }
     }
   }

@@ -80,7 +80,7 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-header-user-dropdown';
 
-  .@{prefix-cls} {
+  #body .@{prefix-cls} {
     align-items: center;
     height: @header-height;
     padding: 0 0 0 10px;

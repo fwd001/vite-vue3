@@ -21,7 +21,7 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-layout-content';
 
-  #app .@{prefix-cls} {
+  #body .@{prefix-cls} {
     display: flex;
     position: relative;
     flex-direction: column;

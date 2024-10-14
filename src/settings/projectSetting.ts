@@ -105,7 +105,7 @@ const setting: ProjectConfig = {
     // 菜单类型
     type: MenuTypeEnum.SIDEBAR,
     // 菜单主题
-    theme: ThemeEnum.DARK,
+    theme: ThemeEnum.LIGHT,
     // 分割菜单
     split: false,
     // 顶部菜单布局

@@ -97,7 +97,7 @@
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-layout-multiple-header';
 
-  #app .@{prefix-cls} {
+  #body .@{prefix-cls} {
     flex: 0 0 auto;
     transition: width 0.2s;
 

@@ -172,7 +172,7 @@ export function useContentHeight(
     () => {
       calcContentHeight();
     },
-    { wait: 500, immediate: true },
+    { wait: 50, immediate: true },
   );
   watch(
     () => [layoutFooterHeightRef.value],

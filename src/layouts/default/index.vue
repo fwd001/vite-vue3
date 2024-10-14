@@ -59,7 +59,7 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-default-layout';
 
-  #app .@{prefix-cls} {
+  #body .@{prefix-cls} {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -75,7 +75,7 @@
     }
   }
 
-  #app .@{prefix-cls}-out {
+  #body .@{prefix-cls}-out {
     &.ant-layout-has-sider {
       .@{prefix-cls} {
         &-main {

@@ -38,7 +38,7 @@
 <style lang="less">
   @prefix-cls: ~'@{namespace}-layout-sider-wrapper';
 
-  #app .@{prefix-cls} {
+  #body .@{prefix-cls} {
     .ant-drawer-body {
       height: 100vh;
       padding: 0;
