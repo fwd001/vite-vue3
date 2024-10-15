@@ -6,6 +6,7 @@ interface State {
   zoom: number;
   latlng: LatLng;
   administrativeDivisions: { name: string; code: number }[];
+  toolDrawType: string;
 }
 
 export const usePsMapStore = defineStore({
@@ -14,6 +15,7 @@ export const usePsMapStore = defineStore({
     zoom: 0,
     latlng: [],
     administrativeDivisions: [],
+    toolDrawType: 'drag',
   }),
   getters: {
     getZoom(): number {
@@ -26,6 +28,9 @@ export const usePsMapStore = defineStore({
     },
     setLatlng(latlng: LatLng) {
       this.latlng = latlng;
+    },
+    setToolDrawType(tool?: string) {
+      this.toolDrawType = tool || 'drag';
     },
     addMapLevels(data: { name: string; code: number }) {
       const list = [...this.administrativeDivisions];

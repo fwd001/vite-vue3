@@ -3,7 +3,7 @@
 // System default cache time, in seconds
 export const DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7;
 
-// aes encryption key
+// aes加密密钥
 export const cacheCipher = {
   key: '_99998000009999@',
   iv: '@99998000009999_',

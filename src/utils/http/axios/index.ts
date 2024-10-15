@@ -39,7 +39,6 @@ const transform: AxiosTransform = {
     if (isReturnNativeResponse) {
       return res;
     }
-
     // 不进行任何处理，直接返回
     // 用于页面代码可能需要直接获取code，data，message这些信息时开启
     if (!isTransformResponse) {
@@ -98,9 +97,9 @@ const transform: AxiosTransform = {
       }
 
       if (options.successMessageMode === 'modal') {
-        createSuccessModal?.({ title: t('sys.api.successTip'), content: successMsg });
+        createSuccessModal({ title: t('sys.api.successTip'), content: successMsg });
       } else if (options.successMessageMode === 'message') {
-        createMessage?.success?.(successMsg);
+        createMessage.success(successMsg);
       }
       return result;
     }
@@ -123,9 +122,9 @@ const transform: AxiosTransform = {
     // errorMessageMode='modal'的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
     // errorMessageMode='none' 一般是调用时明确表示不希望自动弹出错误提示
     if (options.errorMessageMode === 'modal') {
-      createErrorModal?.({ title: t('sys.api.errorTip'), content: timeoutMsg });
+      createErrorModal({ title: t('sys.api.errorTip'), content: timeoutMsg });
     } else if (options.errorMessageMode === 'message') {
-      createMessage?.error(timeoutMsg);
+      createMessage.error(timeoutMsg);
     }
 
     throw new Error(timeoutMsg || t('sys.api.apiRequestFailed'));
@@ -202,9 +201,8 @@ const transform: AxiosTransform = {
   /**
    * @description: 响应拦截器处理
    */
-  responseInterceptors: (response: AxiosResponse<any>) => {
-    // 直接返回res，当然你也可以只返回res.data
-    return response;
+  responseInterceptors: (res: AxiosResponse<any>) => {
+    return res;
   },
 
   /**
@@ -236,9 +234,9 @@ const transform: AxiosTransform = {
 
       if (errMessage) {
         if (errorMessageMode === 'modal') {
-          createErrorModal?.({ title: t('sys.api.errorTip'), content: errMessage });
+          createErrorModal({ title: t('sys.api.errorTip'), content: errMessage });
         } else if (errorMessageMode === 'message') {
-          createMessage?.error?.(errMessage);
+          createMessage.error(errMessage);
         }
         return Promise.reject(error);
       }

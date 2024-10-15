@@ -141,6 +141,9 @@
   import { MEventEnum } from '@/enums/mittEnum';
   import { buildUUID } from '@/utils/uuid';
   import * as turf from '@turf/turf';
+  import { usePsMapStore } from '@/store/modules/psMap';
+
+  const mapStroe = usePsMapStore();
 
   const emit = defineEmits([
     'addDrawToPanel',
@@ -269,6 +272,7 @@
       A.draw[i].disable();
     }
     A.drawType = action;
+    mapStroe.setToolDrawType(action);
     A.militaryDraw.disable && A.militaryDraw.disable();
     A.militaryEdit.disable && A.militaryEdit.disable();
     if (A.selected && A.selected.is_editing) {
