@@ -239,7 +239,7 @@ export const data = {
       name: '前端脚手架',
       appId: 'app_2d1871c5f54c419da12363c250031705',
       icon: 'http://172.16.11.13:19000/cms/app/icon?url\u003d/app/4F4BA6BFC2D13605D623FCF32CB90DC2',
-      redirectUri: 'http://172.16.11.13:31607/',
+      redirectUri: 'http://172.16.11.13:31607/fe/',
     },
     {
       id: 210,

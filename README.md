@@ -28,7 +28,7 @@ icon查询地址：https://icon-sets.iconify.design/
 
 ### 脚手架项目访问地址
 
-预览地址：http://172.16.11.13:31607/
+预览地址：http://172.16.11.13:31607/fe/
 
 代码仓库：http://git.lhcz.local:83/fuwendong/vite-vue3
 
