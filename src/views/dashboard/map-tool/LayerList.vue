@@ -144,8 +144,8 @@
     checkedKeys.value = keys.concat(unref(checkedKeys));
   }
   // 地图选中图形，树结构节点处于选择状态
-  function selectDataOnTree(data: any) {
-    LayerTree.value?.setSelectedKeys([data]); // 控制组件勾选该节点
+  function selectDataOnTree() {
+    // LayerTree.value?.setSelectedKeys([data]); // 控制组件勾选该节点
   }
   // 选择节点时触发定位到图层
   function select(key: any, value: any) {
@@ -194,7 +194,7 @@
   function deleteDataFromTree(nodeKey: any) {
     console.log('nodeKey', nodeKey);
 
-    LayerTree.value?.deleteNodeByKey(nodeKey);
+    // LayerTree.value?.deleteNodeByKey(nodeKey);
   }
   // 更新面板要素属性
   function upDatePanel(value: any) {

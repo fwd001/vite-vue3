@@ -7,7 +7,7 @@
 <script setup lang="ts">
   import MapTool from '../map-tool/index.vue';
   import { onMounted, onBeforeUnmount, ref } from 'vue';
-  import { useClipboard } from '@vueuse/core';
+  import { useClipboard, useElementSize, useDebounceFn } from '@vueuse/core';
   import { usePsMapStore } from '@/store/modules/psMap';
   import './map.less';
   import mitter from '@/views/utils/mitt';
@@ -32,6 +32,7 @@
   let layerGroup: any; // 其他东西图层
 
   const bigeMapRef = ref(null);
+  const mapWrap = useElementSize(bigeMapRef);
 
   if (BM) BM.Config.HTTP_URL = mapConfHttpUrl;
 
@@ -39,7 +40,6 @@
     init();
     eventFn();
     mitterOn();
-    // markersRender();
   });
 
   function getGridLayerExtend(data: { url: string }) {
@@ -81,7 +81,7 @@
 
     layerGroup = BM.featureGroup([]);
     layerGroup.addTo(map);
-    mitter.emit(MEventEnum.MapMounted, { map, layerGroup });
+    mitter.emit(MEventEnum.MapMounted, { map, layerGroup, mapWrap });
   }
 
   // 清除地图上绘制的所有内容,还原一些值为默认状态
@@ -89,6 +89,11 @@
   //   layerGroup?.clearLayers();
   //   map?.closePopup();
   // };
+
+  // 拖动和放大事件
+  const zoomAndMove = useDebounceFn(() => {
+    mitter.emit(MEventEnum.MapDragAndZoom, { map, layerGroup, mapWrap });
+  }, 100);
 
   function eventFn() {
     // 缩放事件
@@ -113,6 +118,8 @@
       const addrArr = await l2Addr([lng, lat]);
       addrArr && message.success(addrArr?.join(','));
     });
+    // 拖动和放大事件
+    map.on('zoom', zoomAndMove).on('moveend', zoomAndMove);
   }
   // function getMapViewport() {
   //   const center = map?.getCenter();

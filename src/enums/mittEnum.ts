@@ -9,4 +9,5 @@ export enum MEventEnum {
   MapMounted,
   ShowContextMenu,
   HideContextMenu,
+  MapDragAndZoom,
 }

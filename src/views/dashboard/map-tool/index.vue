@@ -5,14 +5,14 @@
       <button class="mapBtn" v-if="isDev" type="button" @click="resetMap">
         <Icon icon="iconamoon:home-fill" />
       </button>
-      <button class="mapBtn" @click="map.zoomOut()"
-        ><Icon icon="iconamoon:sign-minus-bold"
-      /></button>
+      <button class="mapBtn" @click="map.zoomOut()">
+        <Icon icon="iconamoon:sign-minus-bold" />
+      </button>
       <button class="mapBtn" @click="map.zoomIn()"><Icon icon="iconamoon:sign-plus-bold" /></button>
     </div>
-    <!-- 地图控件：左-->
+    <!-- 地图控件：左 -->
     <div class="mapCtrl_left">
-      <!--坐标显示-->
+      <!-- 坐标显示 -->
       <div class="mapPosition">
         <span> {{ mapPosition.x }},{{ mapPosition.y }}</span>
       </div>
@@ -30,7 +30,7 @@
     </button>
     <!-- 图层面板 -->
     <div v-show="showPanel" class="mapCtrl_panel">
-      <!-- POI搜索框：未完成！建议结合地图服务器提供POI检索功能使用 -->
+      <!-- POI 搜索框：未完成！建议结合地图服务器提供POI检索功能使用 -->
       <div class="bg-#fff p-1 w-84 b-#a3a3a3 b-b-1 font-sans flex">
         <input
           type="text"
@@ -67,26 +67,53 @@
         </div>
       </div>
       <!-- 标绘工具 -->
+      <!-- @add-draw-to-panel="addDrawToPanel"
+      @select-onpanel="selectOnpanel" -->
       <div class="flex absolute bg-#ffffff00">
         <Tool
-          ref="mapToolRef"
           :map="map"
           :layer-group="layerGroup"
-          @add-draw-to-panel="addDrawToPanel"
-          @remove-draw-from-panel="removeDrawFromPanel"
-          @on-edit-layer-info="onEditLayerInfo"
-          @select-onpanel="selectOnpanel"
+          :toolData="toolData"
+          @on-operate-click="onOperateClick"
+          @on-change-file="onChangeFile"
+          @download-geo-json="downloadGeoJson"
         />
       </div>
     </div>
     <GraphMenu
-      @on-delete-layer="mapToolRef?.onDeleteLayer"
-      @on-edit-layer-info="mapToolRef?.onEditLayerInfo"
-      @on-move-layer="mapToolRef?.onMoveLayer"
-      @on-edit-overlay="mapToolRef?.onEditOverlay"
+      @on-delete-layer="onDeleteLayer"
+      @on-edit-layer-info="onEditLayerInfo"
+      @on-move-layer="onMoveLayer"
+      @on-edit-overlay="onEditOverlay"
     />
     <!-- 属性编辑框：未完成！还需根据需求完善！ -->
     <GraphicInfo @register="registerModal" @update-attribute="updateAttribute" />
+
+    <!-- 弹窗模板 -->
+    <MapPopup
+      v-for="item in toolStore.textList"
+      :key="item.id"
+      :id="item.id"
+      ref="mapPopupRef"
+      :map="map"
+      :class="[`z-99`]"
+      :backgroundColor="item.backgroundColor"
+      closeClass="hidden"
+      :map-wrap="mapWrap"
+      :latlng="item.latlng"
+      placement="top"
+      @update-latlng="(latlng) => toolStore.setTextItem({ ...item, latlng })"
+      @dblclick="() => openTextEditModal(true, item)"
+    >
+      <div
+        :class="[`relative cursor-default`]"
+        :style="{ color: item.color, width: item.width ? `${item.width}px` : 'auto' }"
+      >
+        <!-- <Textarea v-model:value="item.content" :bordered="false" autosize /> -->
+        {{ item.content }}
+      </div>
+    </MapPopup>
+    <TextEditModal @register="registerTextModal" @update-attribute="updateAttribute" />
   </template>
 </template>
 
@@ -96,26 +123,41 @@
   import mitter from '@/views/utils/mitt';
   import { MEventEnum } from '@/enums/mittEnum';
   import { isDevMode } from '@/utils/env';
+  // import { Textarea } from 'ant-design-vue';
   import Tool from './Tool.vue';
   import LyrList from './LayerList.vue';
-  import GraphicInfo from './GraphicInfo.vue';
+  import GraphicInfo from './GraphicInfoModal.vue';
   import { useModal } from '@/components/Modal';
   import GraphMenu from './GraphMenu.vue';
   import { useLatlon2Addr } from '../hooks/useLatlon2Addr';
   import { useMessage } from '@/hooks/web/useMessage';
+  import { formatIcon, iconPublicPath } from './utils';
+  import { useToolHooks } from './Ahooks';
+  import { ToolTypeEnum } from './enum';
+  import { useToolStore } from './useToolStore';
+  import TextEditModal from './TextEditModal.vue';
+  import MapPopup from './MapPopup.vue';
 
   const map = ref<any>(null); // 总地图实例
   const layerGroup = ref<any>(null); // 总地图实例
+  const mapWrap = ref<any>(null); // 总地图实例
   // 地图是否已加载
   const isInit = ref(false);
 
   const [registerModal, { openModal }] = useModal();
+  const [registerTextModal, { openModal: openTextEditModal }] = useModal();
   const { l2Addr } = useLatlon2Addr();
+  const toolStore = useToolStore();
+
+  const { toolData, onOperateClick, onEditOverlay, onMoveLayer, onChangeFile, downloadGeoJson } =
+    useToolHooks({
+      selectOnpanel,
+      addDrawToPanel,
+    });
 
   const showPanel = ref(false); // 面板显隐
   const { message } = useMessage();
 
-  const mapToolRef = ref<InstanceType<typeof Tool>>();
   const LyrListDom = ref(); // 图层列表Dom
 
   let currentGraphic: any = null; // 当前选中要素
@@ -159,7 +201,7 @@
     locationMarker = BM.marker([Number(y), Number(x)], {
       draggable: true,
       attribution: { name: 'name' },
-    }).addTo(map);
+    }).addTo(map.value);
     locationMarker.options.attribution.name = 'Temporary Point';
     // console.log(locationMarker);
     locationMarker.on('move', function (e: any) {
@@ -190,49 +232,74 @@
   }
 
   // 地图选中图形，树结构节点处于选择状态
-  function selectOnpanel(key: any) {
+  function selectOnpanel(key: string) {
     // LyrListDom.value?.selectDataOnTree(key);
     console.log(key);
   }
   //  添加标绘节点至标绘图层面板
-  function removeDrawFromPanel(graphic: any) {
-    const nodeKey = graphic.overlay_id;
+  function onDeleteLayer(e) {
+    e.stopPropagation();
+    if (!toolData.selected) return;
+    const nodeKey = toolData.selected.overlay_id;
+    toolData.selected.remove();
+    toolData.layerGroup.removeLayer(toolData.selected);
+    delete toolData.markers[nodeKey];
+    mitter.emit(MEventEnum.HideContextMenu);
+    toolData.selected = undefined;
     console.log(nodeKey);
     // LyrListDom.value?.deleteDataFromTree(nodeKey);
   }
   //  编辑要素属性
-  function onEditLayerInfo(graphic: any, id: any, attr: any) {
-    currentGraphic = graphic;
+  function onEditLayerInfo(e) {
+    onOperateClick(ToolTypeEnum.drag);
+    e.stopPropagation ? e.stopPropagation() : null;
+    mitter.emit(MEventEnum.HideContextMenu);
+    currentGraphic = toolData.selected;
     openModal(true, {
-      id,
-      attr,
+      id: toolData.selected.overlay_id,
+      attr: toolData.selected.options.attribution,
       isUpdate: false,
     });
-    // console.log(currentGraphic);
   }
   //  更新要素属性
   function updateAttribute(value: any) {
-    if (value.lineColor && value.fillColor) {
-      if (value.type !== 'marker') {
+    if (value.type === ToolTypeEnum.text) {
+      console.log('value: ', value);
+      toolStore.setTextItem({ ...value, latlng: [value.lat, value.lng] });
+      return;
+    } else if (value.type === ToolTypeEnum.marker) {
+      delete value.lineColor;
+      delete value.fillColor;
+      if (value.pointIcon) {
+        const { iconName, width, height } = formatIcon(value.pointIcon);
+        currentGraphic?.setIcon(
+          BM.icon({
+            iconUrl: `${iconPublicPath}${iconName}`,
+            iconSize: [width, height],
+            iconAnchor: [width / 2, height / 2],
+          }),
+        );
+      }
+    } else {
+      if (value.lineColor && value.fillColor) {
         currentGraphic.setStyle({
           color: value.lineColor,
           fillColor: value.fillColor,
         });
-      } else {
-        delete value.lineColor;
-        delete value.fillColor;
       }
     }
+
     // console.log('地图要素保存属性', value);
     currentGraphic.options.attribution = value;
     currentGraphic.feature.properties = value;
-    // LyrListDom.value?.upDatePanel(value);
   }
 
   function mitterOn() {
-    mitter.on(MEventEnum.MapMounted, (data: { map: any; layerGroup: any }) => {
+    mitter.on(MEventEnum.MapMounted, (data: { map: any; layerGroup: any; mapWrap: any }) => {
       map.value = data.map;
       layerGroup.value = data.layerGroup;
+      mapWrap.value = data.mapWrap;
+
       eventFn();
       isInit.value = true;
     });
@@ -349,12 +416,7 @@
     top: 15px;
     left: 15px;
     width: 21rem;
-    // height: 60%;
-    // max-height: 70%;
     transition: all 0.5s ease-out;
-    // border-width: 1px;
-    // border-color: rgb(163 163 163);
     background-color: #fff0;
-    // filter: drop-shadow(2px 2px 2px rgb(88 88 88));
   }
 </style>

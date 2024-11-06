@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { store } from '@/store';
+import { ToolTypeEnum } from '@/views/dashboard/map-tool/enum';
 
 type LatLng = [number, number] | [];
 interface State {
@@ -15,7 +16,7 @@ export const usePsMapStore = defineStore({
     zoom: 0,
     latlng: [],
     administrativeDivisions: [],
-    toolDrawType: 'drag',
+    toolDrawType: ToolTypeEnum.drag,
   }),
   getters: {
     getZoom(): number {
@@ -29,8 +30,8 @@ export const usePsMapStore = defineStore({
     setLatlng(latlng: LatLng) {
       this.latlng = latlng;
     },
-    setToolDrawType(tool?: string) {
-      this.toolDrawType = tool || 'drag';
+    setToolDrawType(tool?: ToolTypeEnum) {
+      this.toolDrawType = tool || ToolTypeEnum.drag;
     },
     addMapLevels(data: { name: string; code: number }) {
       const list = [...this.administrativeDivisions];

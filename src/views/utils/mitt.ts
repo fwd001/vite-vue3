@@ -10,9 +10,10 @@ type MenuEmitterEvents = {
     id?: number;
   };
   [MEventEnum.ZDRDetailUpdate];
-  [MEventEnum.MapMounted]: { map: any; layerGroup: any };
+  [MEventEnum.MapMounted]: { map: any; layerGroup: any; mapWrap: any };
   [MEventEnum.ShowContextMenu]: { x: number; y: number; type?: string };
   [MEventEnum.HideContextMenu];
+  [MEventEnum.MapDragAndZoom]: { map: any; layerGroup: any; mapWrap: any };
 };
 
 const mitter = mitt<MenuEmitterEvents>();
