@@ -2,7 +2,7 @@
   <BasicModal v-bind="$attrs" @register="registerModal" title="属性编辑" @ok="handleSubmit">
     <BasicForm @register="registerForm">
       <template #lineColor="{ model, field }">
-        <color-picker
+        <ColorPicker
           v-model:pureColor="model[field]"
           show-alpha
           :size="40"
@@ -12,7 +12,7 @@
         <span>{{ model[field] }}</span>
       </template>
       <template #fillColor="{ model, field }">
-        <color-picker
+        <ColorPicker
           v-model:pureColor="model[field]"
           show-alpha
           :size="40"

@@ -9,23 +9,11 @@
     <div class="pr-12px">
       <BasicForm @register="registerForm">
         <template #backgroundColor="{ model, field }">
-          <color-picker
-            v-model:pureColor="model[field]"
-            show-alpha
-            :size="40"
-            format="hex"
-            shape="circle"
-          />
+          <ColorPicker v-model:pureColor="model[field]" :size="40" format="hex8" shape="square" />
           <span>{{ model[field] }}</span>
         </template>
         <template #color="{ model, field }">
-          <color-picker
-            v-model:pureColor="model[field]"
-            show-alpha
-            :size="40"
-            format="hex"
-            shape="circle"
-          />
+          <ColorPicker v-model:pureColor="model[field]" :size="40" format="hex8" shape="circle" />
           <span>{{ model[field] }}</span>
         </template>
       </BasicForm>

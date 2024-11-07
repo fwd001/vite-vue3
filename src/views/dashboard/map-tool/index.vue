@@ -106,7 +106,7 @@
       @dblclick="() => openTextEditModal(true, item)"
     >
       <div
-        :class="[`relative cursor-default`]"
+        :class="[`relative cursor-default whitespace-pre-wrap break-all`]"
         :style="{ color: item.color, width: item.width ? `${item.width}px` : 'auto' }"
       >
         <!-- <Textarea v-model:value="item.content" :bordered="false" autosize /> -->
@@ -264,7 +264,6 @@
   //  更新要素属性
   function updateAttribute(value: any) {
     if (value.type === ToolTypeEnum.text) {
-      console.log('value: ', value);
       toolStore.setTextItem({ ...value, latlng: [value.lat, value.lng] });
       return;
     } else if (value.type === ToolTypeEnum.marker) {
