@@ -79,6 +79,7 @@
       component: 'InputTextArea',
       label: '内容',
       defaultValue: '',
+      componentProps: { rows: 5 },
     },
     {
       field: 'backgroundColor',
@@ -129,8 +130,8 @@
       type: ToolTypeEnum.text,
       lat: attr.latlng[0],
       lng: attr.latlng[1],
-      backgroundColor: attr.backgroundColor ?? '#fff',
-      color: attr.color ?? '#333',
+      backgroundColor: attr.backgroundColor ?? '#ffffff',
+      color: attr.color ?? '#333333',
       width: attr.width ?? 300,
     });
   }

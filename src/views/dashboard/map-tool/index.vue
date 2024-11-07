@@ -106,7 +106,7 @@
       @dblclick="() => openTextEditModal(true, item)"
     >
       <div
-        :class="[`relative cursor-default whitespace-pre-wrap break-all`]"
+        :class="[`relative cursor-default whitespace-pre-wrap break-all max-w-80vw`]"
         :style="{ color: item.color, width: item.width ? `${item.width}px` : 'auto' }"
       >
         <!-- <Textarea v-model:value="item.content" :bordered="false" autosize /> -->
@@ -411,7 +411,7 @@
   .mapCtrl_panel {
     display: block;
     position: absolute;
-    z-index: 9999;
+    z-index: 10;
     top: 15px;
     left: 15px;
     width: 21rem;
