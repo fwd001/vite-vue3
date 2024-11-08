@@ -137,6 +137,7 @@
   import { useToolStore } from './useToolStore';
   import TextEditModal from './TextEditModal.vue';
   import MapPopup from './MapPopup.vue';
+  import { useMap } from '@/hooks/common/useMap';
 
   const map = ref<any>(null); // 总地图实例
   const layerGroup = ref<any>(null); // 总地图实例
@@ -149,11 +150,22 @@
   const { l2Addr } = useLatlon2Addr();
   const toolStore = useToolStore();
 
+  const { instance, onMapMounted } = useMap('bigemap-global');
+
   const { toolData, onOperateClick, onEditOverlay, onMoveLayer, onChangeFile, downloadGeoJson } =
     useToolHooks({
       selectOnpanel,
       addDrawToPanel,
     });
+
+  onMapMounted(() => {
+    map.value = instance.map;
+    layerGroup.value = instance.layerGroup;
+    mapWrap.value = instance.mapWrap;
+
+    eventFn();
+    isInit.value = true;
+  });
 
   const showPanel = ref(false); // 面板显隐
   const { message } = useMessage();
@@ -293,23 +305,7 @@
     currentGraphic.feature.properties = value;
   }
 
-  function mitterOn() {
-    mitter.on(MEventEnum.MapMounted, (data: { map: any; layerGroup: any; mapWrap: any }) => {
-      map.value = data.map;
-      layerGroup.value = data.layerGroup;
-      mapWrap.value = data.mapWrap;
-
-      eventFn();
-      isInit.value = true;
-    });
-  }
-  mitterOn();
-  function mitterOff() {
-    mitter.off(MEventEnum.MapMounted);
-  }
-
   onBeforeUnmount(() => {
-    mitterOff();
     isInit.value = false;
     map.value = null;
   });

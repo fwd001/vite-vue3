@@ -1,28 +1,17 @@
 import { usePsMapStore } from '@/store/modules/psMap';
-import { onBeforeUnmount } from 'vue';
 import axios from 'axios';
-import mitter from '@/views/utils/mitt';
-import { MEventEnum } from '@/enums/mittEnum';
+import { useMap } from '@/hooks/common/useMap';
 
 export function useXZQHRender() {
   const mapStore = usePsMapStore();
   let map: any; // 总地图实例
   let layerGroup: any; // 地图图层组
+  const { instance, onMapMounted } = useMap('bigemap-global');
 
-  function mitterOn() {
-    mitter.on(MEventEnum.MapMounted, (data: { map: any; layerGroup: any }) => {
-      map = data.map;
-      layerGroup = data.layerGroup;
-      init();
-    });
-  }
-  mitterOn();
-
-  function mitterOff() {
-    mitter.off(MEventEnum.MapMounted);
-  }
-  onBeforeUnmount(() => {
-    mitterOff();
+  onMapMounted(() => {
+    map = instance.map;
+    layerGroup = instance.layerGroup;
+    init();
   });
 
   // 行政区划渲染

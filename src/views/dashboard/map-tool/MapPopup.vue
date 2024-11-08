@@ -229,7 +229,6 @@
 
   onUnmounted(() => {
     mitter.off(MEventEnum.MapDragAndZoom);
-    mitter.off(MEventEnum.MapMounted);
   });
 
   defineExpose({

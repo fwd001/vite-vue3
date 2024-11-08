@@ -1,88 +1,41 @@
 <template>
   <!-- 地图 -->
-  <div id="bigemap-global" ref="bigeMapRef"></div>
+  <div :id="domId" ref="bigeMapRef" class="w-100% h-100%"></div>
   <MapTool />
 </template>
 
 <script setup lang="ts">
   import MapTool from '../map-tool/index.vue';
-  import { onMounted, onBeforeUnmount, ref } from 'vue';
-  import { useClipboard, useElementSize, useDebounceFn } from '@vueuse/core';
+  import { onBeforeUnmount, ref } from 'vue';
+  import { useClipboard, useDebounceFn } from '@vueuse/core';
   import { usePsMapStore } from '@/store/modules/psMap';
   import './map.less';
   import mitter from '@/views/utils/mitt';
   import { MEventEnum } from '@/enums/mittEnum';
   import { useLatlon2Addr } from '../hooks/useLatlon2Addr';
   import { useMessage } from '@/hooks/web/useMessage';
-  import { useGlobSetting } from '@/hooks/setting';
+  import { useMap } from '@/hooks/common/useMap';
 
   // import { useXZQHRender } from '@/views/dashboard/ps/hooks/useXZQHRender';
-  const publicPath = import.meta.env.VITE_PUBLIC_PATH || '/';
 
   const mapStore = usePsMapStore();
   const { l2Addr } = useLatlon2Addr();
   const { message } = useMessage();
-  const { mapConfHttpUrl, dridUrl } = useGlobSetting();
 
   const copyText = ref('');
   const { copy } = useClipboard({ source: copyText });
 
-  let map: any; // 总地图实例
-  let ele18lite: any; // 电子图层
-  let layerGroup: any; // 其他东西图层
-
+  // const bigeMapRef = ref(null);
+  // const mapWrap = useElementSize(bigeMapRef);
+  // 必须设置 ref = bigeMapRef
   const bigeMapRef = ref(null);
-  const mapWrap = useElementSize(bigeMapRef);
 
-  if (BM) BM.Config.HTTP_URL = mapConfHttpUrl;
+  const { instance, onMapMounted, id: domId } = useMap('bigemap-global', bigeMapRef);
 
-  onMounted(() => {
-    init();
+  onMapMounted(() => {
     eventFn();
     mitterOn();
   });
-
-  function getGridLayerExtend(data: { url: string }) {
-    return {
-      createTile: function (coords: any) {
-        const tile = new Image(256, 256);
-        const src = data.url;
-        tile.src = src.replace('{x}', coords.x).replace('{y}', coords.y).replace('{z}', coords.z);
-        tile.onerror = () => {
-          tile.src = publicPath + 'images/empty.png';
-        };
-        return tile;
-      },
-    };
-  }
-
-  function init() {
-    map = BM.map('bigemap-global', null, {
-      center: [43.858296779161854, 87.21496514976026],
-      minZoom: 3,
-      zoom: 7,
-      maxZoom: 17,
-      zoomControl: false,
-      attributionControl: false,
-      doubleClickZoom: false,
-      trackResize: true,
-      // renderer: BM.svg(),
-    });
-
-    // 电子地图自定义渲染
-    const gridLayer = BM.GridLayer.extend(
-      getGridLayerExtend({
-        url: dridUrl,
-      }),
-    );
-
-    ele18lite = new gridLayer();
-    ele18lite.addTo(map);
-
-    layerGroup = BM.featureGroup([]);
-    layerGroup.addTo(map);
-    mitter.emit(MEventEnum.MapMounted, { map, layerGroup, mapWrap });
-  }
 
   // 清除地图上绘制的所有内容,还原一些值为默认状态
   // const clearAll = () => {
@@ -92,10 +45,12 @@
 
   // 拖动和放大事件
   const zoomAndMove = useDebounceFn(() => {
+    const { map, layerGroup, mapWrap } = instance;
     mitter.emit(MEventEnum.MapDragAndZoom, { map, layerGroup, mapWrap });
   }, 100);
 
   function eventFn() {
+    const { map } = instance;
     // 缩放事件
     map.on('zoom', function (evt: { type: string; target: { _zoom: number } }) {
       if (evt.type === 'zoom') {

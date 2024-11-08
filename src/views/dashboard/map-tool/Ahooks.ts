@@ -9,6 +9,7 @@ import { formatIcon, defaultIcon, iconPublicPath } from './utils';
 import { ToolTypeEnum } from './enum';
 import { useToolStore } from './useToolStore';
 import { cloneDeep } from 'lodash-es';
+import { useMap } from '@/hooks/common/useMap';
 
 export function useToolHooks(options?: {
   addDrawToPanel?: (graphic: any) => void;
@@ -16,7 +17,7 @@ export function useToolHooks(options?: {
 }) {
   const mapStroe = usePsMapStore();
   const toolStore = useToolStore();
-
+  const { instance, onMapMounted } = useMap('bigemap-global');
   const toolData = reactive<Recordable>({
     // map: undefined,
     // layerGroup: undefined,
@@ -36,6 +37,12 @@ export function useToolHooks(options?: {
       data.attribution ? (option.attribution = data.attribution) : true;
       return option;
     },
+  });
+  onMapMounted(() => {
+    toolData.map = instance.map;
+    toolData.layerGroup = instance.layerGroup;
+    dataInit();
+    eventFn();
   });
 
   function activate(e) {
@@ -216,22 +223,7 @@ export function useToolHooks(options?: {
     mitter.emit(MEventEnum.HideContextMenu);
   }
 
-  function mitterOn() {
-    mitter.on(MEventEnum.MapMounted, (data: { map: any; layerGroup: any }) => {
-      toolData.map = data.map;
-      toolData.layerGroup = data.layerGroup;
-      dataInit();
-      eventFn();
-    });
-  }
-
-  mitterOn();
-  function mitterOff() {
-    mitter.off(MEventEnum.MapMounted);
-  }
-
   onBeforeUnmount(() => {
-    mitterOff();
     toolData.map = null;
     toolData.layerGroup = null;
   });
