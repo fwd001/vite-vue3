@@ -30,5 +30,6 @@ pnpm-debug.log*
 
 package-lock.json
 pnpm-lock.yaml
+offline_pnpm
 
 .history
