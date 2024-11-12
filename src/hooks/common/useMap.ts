@@ -1,4 +1,4 @@
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import { useGlobSetting } from '@/hooks/setting';
 import { useElementSize, type MaybeComputedElementRef } from '@vueuse/core';
 
@@ -86,6 +86,10 @@ export function useMap(namespace: string, bigeMapRef?: MaybeComputedElementRef) 
   };
 
   onMounted(initializeMap);
+
+  onUnmounted(() => {
+    instance[namespace] = {};
+  });
 
   return {
     onMapMounted,

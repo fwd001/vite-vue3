@@ -1,4 +1,4 @@
-import 'uno.css';
+import 'virtual:uno.css';
 import '@/design/index.less';
 import '@/components/VxeTable/src/css/index.scss';
 import 'ant-design-vue/dist/reset.css';
