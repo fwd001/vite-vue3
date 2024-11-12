@@ -1,6 +1,6 @@
 import { onMounted } from 'vue';
 import { useGlobSetting } from '@/hooks/setting';
-import { useElementSize } from '@vueuse/core';
+import { useElementSize, type MaybeComputedElementRef } from '@vueuse/core';
 
 // 地图domid配置， 必须设置 ref = bigeMapRef
 type CBFunc = (opt: { map: any; layerGroup: any; mapWrap: any }) => void;
@@ -19,40 +19,39 @@ const instance: {
 
 const publicPath = import.meta.env.VITE_PUBLIC_PATH || '/';
 
-export function useMap(mapDomId: string, bigeMapRef?: any) {
+export function useMap(namespace: string, bigeMapRef?: MaybeComputedElementRef) {
   // 初始化
-  if (!instance[mapDomId]) instance[mapDomId] = {};
-  if (!instance[mapDomId].mountedEvents?.length) {
-    instance[mapDomId].mountedEvents = [];
+  if (!instance[namespace]) instance[namespace] = {};
+  if (!instance[namespace].mountedEvents?.length) {
+    instance[namespace].mountedEvents = [];
   }
-
   const { mapConfHttpUrl, dridUrl } = useGlobSetting();
-
-  if (!instance[mapDomId].bigeMapRef) {
-    const mapWrap = useElementSize(bigeMapRef);
-    instance[mapDomId].bigeMapRef = bigeMapRef;
-    instance[mapDomId].mapWrap = mapWrap;
-  }
 
   if (BM) BM.Config.HTTP_URL = mapConfHttpUrl;
 
+  if (!instance[namespace].bigeMapRef) {
+    const mapWrap = useElementSize(bigeMapRef);
+    instance[namespace].bigeMapRef = bigeMapRef;
+    instance[namespace].mapWrap = mapWrap;
+  }
+
   const onMapMounted = (callback?: (opts: { map: any; layerGroup: any; mapWrap: any }) => void) => {
-    if (instance[mapDomId].map) {
+    if (instance[namespace].map) {
       callback &&
         callback({
-          map: instance[mapDomId].map,
-          layerGroup: instance[mapDomId].layerGroup,
-          mapWrap: instance[mapDomId].mapWrap,
+          map: instance[namespace].map,
+          layerGroup: instance[namespace].layerGroup,
+          mapWrap: instance[namespace].mapWrap,
         });
     } else {
-      callback && instance[mapDomId].mountedEvents?.push(callback);
+      callback && instance[namespace].mountedEvents?.push(callback);
     }
   };
 
   const initializeMap = () => {
-    if (instance[mapDomId].map) return;
     if (!BM) return;
-    instance[mapDomId].map = BM.map(mapDomId, null, {
+    if (instance[namespace].map) return;
+    instance[namespace].map = BM.map(namespace, null, {
       center: [43.858296779161854, 87.21496514976026],
       minZoom: 3,
       zoom: 7,
@@ -71,17 +70,17 @@ export function useMap(mapDomId: string, bigeMapRef?: any) {
       }),
     );
 
-    instance[mapDomId].ele18lite = new gridLayer();
-    instance[mapDomId].ele18lite.addTo(instance[mapDomId].map);
-    instance[mapDomId].layerGroup = BM.featureGroup([]);
-    instance[mapDomId].layerGroup.addTo(instance[mapDomId].map);
+    instance[namespace].ele18lite = new gridLayer();
+    instance[namespace].ele18lite.addTo(instance[namespace].map);
+    instance[namespace].layerGroup = BM.featureGroup([]);
+    instance[namespace].layerGroup.addTo(instance[namespace].map);
     // mitter.emit(MEventEnum.MapMounted, { map, layerGroup, mapWrap });
 
-    instance[mapDomId].mountedEvents?.forEach((callback) => {
+    instance[namespace].mountedEvents?.forEach((callback) => {
       callback({
-        map: instance[mapDomId].map,
-        layerGroup: instance[mapDomId].layerGroup,
-        mapWrap: instance[mapDomId].mapWrap,
+        map: instance[namespace].map,
+        layerGroup: instance[namespace].layerGroup,
+        mapWrap: instance[namespace].mapWrap,
       });
     });
   };
@@ -90,8 +89,8 @@ export function useMap(mapDomId: string, bigeMapRef?: any) {
 
   return {
     onMapMounted,
-    instance: instance[mapDomId],
-    id: mapDomId,
+    instance: instance[namespace],
+    id: namespace,
   };
 }
 
