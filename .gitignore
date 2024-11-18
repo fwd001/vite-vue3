@@ -29,7 +29,7 @@ pnpm-debug.log*
 *.sw?
 
 package-lock.json
-pnpm-lock.yaml
+# pnpm-lock.yaml
 offline_pnpm
 
 .history
