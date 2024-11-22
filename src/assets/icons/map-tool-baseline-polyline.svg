@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+  <defs>
+    <style>
+      .cls-1, .cls-3 {
+        opacity: .15;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" x="21.26" y="0" width="13.42" height="13.42"/>
+  <g class="cls-3">
+    <rect class="cls-2" x="1.92" y="19.35" width="13.42" height="13.42"/>
+  </g>
+  <g class="cls-3">
+    <rect class="cls-2" x="34.69" y="36.58" width="13.42" height="13.42"/>
+  </g>
+  <path class="cls-2" d="M31.66,3v7.42h-7.42V3h7.42M34.66,0h-13.42V13.42h13.42V0h0Z"/>
+  <path class="cls-2" d="M12.31,22.35v7.42H4.89v-7.42h7.42m3-3H1.89v13.42H15.31v-13.42h0Z"/>
+  <path class="cls-2" d="M45.08,39.58v7.42h-7.42v-7.42h7.42m3-3h-13.42v13.42h13.42v-13.42h0Z"/>
+  <rect class="cls-2" x="11.93" y="14.63" width="14.14" height="3" transform="translate(-5.89 17.46) rotate(-43.39)"/>
+  <rect class="cls-2" x="23.49" y="23.85" width="3" height="26.48" transform="translate(-19.48 41.81) rotate(-62.09)"/>
+</svg>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_图层_1" data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+  <defs>
+    <style>
+
+      .cls-2 {
+        opacity: .15;
+      }
+      
+    </style>
+  </defs>
+  <g class="cls-2">
+    <circle class="cls-1" cx="25" cy="25" r="25"/>
+  </g>
+  <g class="cls-2">
+    <circle class="cls-1" cx="25" cy="25" r="25"/>
+  </g>
+  <path class="cls-1" d="M25,3c12.13,0,22,9.87,22,22s-9.87,22-22,22S3,37.13,3,25,12.87,3,25,3M25,0C11.19,0,0,11.19,0,25s11.19,25,25,25,25-11.19,25-25S38.81,0,25,0h0Z"/>
+</svg>

@@ -18,68 +18,249 @@
       </div>
     </div>
     <!-- 图层面板开关 -->
-    <button
-      :class="[
-        showPanel ? 'mapPanelBtnOn' : 'mapPanelBtn',
-        'flex justify-center items-center cursor-pointer ',
-      ]"
-      @click="showPanel = !showPanel"
-    >
-      <Icon v-if="showPanel" :size="26" :icon="'material-symbols:hide-source-outline'" />
-      <Icon v-else :size="26" :icon="'tabler:tools'" />
-    </button>
-    <!-- 图层面板 -->
-    <div v-show="showPanel" class="mapCtrl_panel">
-      <!-- POI 搜索框：未完成！建议结合地图服务器提供POI检索功能使用 -->
-      <div class="bg-#fff p-1 w-84 b-#a3a3a3 b-b-1 font-sans flex">
-        <input
-          type="text"
-          id="search_data"
-          placeholder="搜地点"
-          class="w61.5 mx-1 bg-#f3f3f3 b-dark flex"
-        />
-        <button
-          class="bg-#0960bd c-#fff b-#a3a3a3 b-1 w-16.5 h6 text-sm b-rd-1"
-          title="点击定位"
-          @click="locateTo(location.x, location.y)"
+    <div class="absolute top-12px left-12px shadow-[0px_0px_6px_1px_#00367026]">
+      <div class="flex relative">
+        <span
+          class="w-36px h-36px icon-f flex items-center justify-center rd-[4px_4px_0_0]"
+          :class="[{ active: showPanelKey === ToolEnum.search }]"
+          @click="onChangePanelKey(ToolEnum.search)"
         >
-          <Icon icon="iconamoon:search-duotone" />搜索
-        </button>
-      </div>
-      <!-- 经纬度定位 -->
-      <div class="bg-#fff p1 w84 b-#a3a3a3 b-b-1 font-sans">
-        <span class="w-2">经度:</span>
-        <input class="w-22 mx-1 bg-#f3f3f3 b-dark" type="text" v-model="location.x" />
-        <span class="w-2">纬度:</span>
-        <input class="w-22 mx-1 bg-#f3f3f3 b-dark" type="text" v-model="location.y" />
-        <button
-          class="bg-#0960bd c-#fff b-#a3a3a3 b-1 w-16.5 h6 text-sm b-rd-1"
-          title="点击定位"
-          @click="locateTo(location.x, location.y)"
+          <SvgIcon name="map-tool-search" size="18" />
+        </span>
+        <div
+          v-show="showPanelKey === ToolEnum.search"
+          class="absolute flex left-[42px] top-0 shadow-[0px_0px_6px_1px_#00367026]"
         >
-          <Icon icon="iconamoon:location-pin-bold" />定位
-        </button>
-      </div>
-      <div v-if="false" class="flex w-84 h-9.4/10 relative bg-#fff">
-        <!-- 图层列表 -->
-        <div class="w-74.5 p-2 max-h-2xl overflow-y-auto relative">
-          <LyrList ref="LyrListDom" @goto-feature="gotoFeature" />
+          <div class="bg-#fff h-36px box-border w-325px flex items-center pl-6px pr-8px rd-4px">
+            <Input id="search_data" :bordered="false" size="small" placeholder="搜地点" />
+            <Button size="small" type="primary"> 搜索 </Button>
+          </div>
         </div>
       </div>
-      <!-- 标绘工具 -->
-      <!-- @add-draw-to-panel="addDrawToPanel"
-      @select-onpanel="selectOnpanel" -->
-      <div class="flex absolute bg-#ffffff00">
-        <Tool
-          :map="map"
-          :layer-group="layerGroup"
-          :toolData="toolData"
-          @on-operate-click="onOperateClick"
-          @on-change-file="onChangeFile"
-          @download-geo-json="downloadGeoJson"
-        />
+      <div class="flex relative">
+        <span
+          class="w-36px h-36px icon-f flex items-center justify-center"
+          :class="[{ active: showPanelKey === ToolEnum.position }]"
+          @click="onChangePanelKey(ToolEnum.position)"
+        >
+          <SvgIcon name="map-tool-position" size="18" />
+        </span>
+        <div
+          v-show="showPanelKey === ToolEnum.position"
+          class="absolute flex left-[42px] top-0 shadow-[0px_0px_6px_1px_#00367026]"
+        >
+          <div class="bg-#fff h-36px box-border flex items-center px-8px rd-4px">
+            <span class="mr-6px flex-shrink-0">经度:</span>
+            <Input class="w-100px mr-10px" size="small" v-model:value="location.x" />
+            <span class="mr-6px flex-shrink-0">纬度:</span>
+            <Input class="w-100px" size="small" v-model:value="location.y" />
+            <Button
+              class="ml-6px"
+              type="primary"
+              size="small"
+              @click="locateTo(location.x, location.y)"
+            >
+              定位
+            </Button>
+          </div>
+        </div>
+      </div>
+      <div class="flex relative">
+        <span
+          class="w-36px h-36px icon-f flex items-center justify-center"
+          :class="[{ active: showPanelKey === ToolEnum.base }]"
+          @click="onChangePanelKey(ToolEnum.base)"
+        >
+          <SvgIcon name="map-tool-base" size="18" />
+        </span>
+        <div
+          v-show="showPanelKey === ToolEnum.base"
+          class="absolute flex left-[42px] top-0 rd-4px overflow-hidden shadow-[0px_0px_6px_1px_#00367026]"
+        >
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="拖拽"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.drag }]"
+            @click="onOperateClick(ToolTypeEnum.drag)"
+          >
+            <SvgIcon name="map-tool-drag-hand-gesture" class="icon-c" size="18" />
+          </span>
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="标点"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.marker }]"
+            @click="onOperateClick(ToolTypeEnum.marker)"
+          >
+            <SvgIcon name="map-tool-marker" class="icon-c" size="18" />
+          </span>
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="文本"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.text }]"
+            @click="onOperateClick(ToolTypeEnum.text)"
+          >
+            <SvgIcon name="map-tool-text-2-fill" class="icon-c" size="18" />
+          </span>
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="连线"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.polyline }]"
+            @click="onOperateClick(ToolTypeEnum.polyline)"
+          >
+            <SvgIcon name="map-tool-baseline-polyline" class="icon-c" size="18" />
+          </span>
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="多边形"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.polygon }]"
+            @click="onOperateClick(ToolTypeEnum.polygon)"
+          >
+            <SvgIcon name="map-tool-polygon-duotone" class="icon-c" size="18" />
+          </span>
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="圆"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.circle }]"
+            @click="onOperateClick(ToolTypeEnum.circle)"
+          >
+            <SvgIcon name="map-tool-twotone-circle" class="icon-c" size="18" />
+          </span>
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="矩形"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.rectangle }]"
+            @click="onOperateClick(ToolTypeEnum.rectangle)"
+          >
+            <SvgIcon name="map-tool-rectangle-duotone" class="icon-c" size="18" />
+          </span>
+        </div>
+      </div>
+      <div class="flex relative">
+        <span
+          class="w-36px h-36px icon-f flex items-center justify-center"
+          :class="[{ active: showPanelKey === ToolEnum.military }]"
+          @click="onChangePanelKey(ToolEnum.military)"
+        >
+          <SvgIcon name="map-tool-flag" size="18" />
+        </span>
+        <div
+          v-show="showPanelKey === ToolEnum.military"
+          class="absolute flex left-[42px] top-0 rd-4px overflow-hidden shadow-[0px_0px_6px_1px_#00367026]"
+        >
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="细直箭头"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.straightArrow }]"
+            @click="onOperateClick(ToolTypeEnum.straightArrow)"
+          >
+            <SvgIcon name="map-tool-left-arrow" class="icon-c" size="18" />
+          </span>
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="尖直箭头"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.fineArrow }]"
+            @click="onOperateClick(ToolTypeEnum.fineArrow)"
+          >
+            <SvgIcon name="map-tool-arrow-left-1" class="icon-c" size="18" />
+          </span>
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="粗直箭头"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.assaultDirection }]"
+            @click="onOperateClick(ToolTypeEnum.assaultDirection)"
+          >
+            <SvgIcon name="map-tool-arrow-left-2" class="icon-c" size="18" />
+          </span>
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="粗曲线箭头"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.squadCombat }]"
+            @click="onOperateClick(ToolTypeEnum.squadCombat)"
+          >
+            <SvgIcon name="map-tool-arrow-bounce-16-filled" class="icon-c" size="18" />
+          </span>
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="燕尾曲线箭头"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.tailedSquadCombat }]"
+            @click="onOperateClick(ToolTypeEnum.tailedSquadCombat)"
+          >
+            <SvgIcon name="map-tool-enter-arrow" class="icon-c" size="18" />
+          </span>
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="双箭头"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.doubleArrow }]"
+            @click="onOperateClick(ToolTypeEnum.doubleArrow)"
+          >
+            <SvgIcon name="map-tool-arrow-split-16-filled" class="icon-c" size="18" />
+          </span>
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="进攻方向"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.attackArrow }]"
+            @click="onOperateClick(ToolTypeEnum.attackArrow)"
+          >
+            <SvgIcon name="map-tool-spine-arrow" class="icon-c" size="18" />
+          </span>
+        </div>
+      </div>
+      <div class="flex relative">
+        <span
+          class="w-36px h-36px icon-f flex items-center justify-center rd-[0_0_4px_4px]"
+          :class="[{ active: showPanelKey === ToolEnum.tool }]"
+          @click="onChangePanelKey(ToolEnum.tool)"
+        >
+          <SvgIcon name="map-tool-gauge" size="18" />
+        </span>
+        <div
+          v-show="showPanelKey === ToolEnum.tool"
+          class="absolute flex left-[42px] top-0 rd-4px overflow-hidden shadow-[0px_0px_6px_1px_#00367026]"
+        >
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="距离测量"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.ruler }]"
+            @click="onOperateClick(ToolTypeEnum.ruler)"
+          >
+            <SvgIcon name="map-tool-ruler" class="icon-c" size="18" />
+          </span>
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="区域面积"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.measure }]"
+            @click="onOperateClick(ToolTypeEnum.measure)"
+          >
+            <SvgIcon name="map-tool-area" class="icon-c" size="18" />
+          </span>
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="导出标绘"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.downfile }]"
+            @click="downloadGeoJson"
+          >
+            <SvgIcon name="map-tool-import" class="icon-c" size="18" />
+          </span>
+          <span
+            class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
+            title="导入标绘"
+            :class="[{ active: toolData.drawType === ToolTypeEnum.openfile }]"
+            @click="openFile"
+          >
+            <SvgIcon name="map-tool-export" class="icon-c" size="18" />
+          </span>
+          <input
+            :accept="'.zip, .json, .geojson'"
+            type="file"
+            name="file"
+            ref="fileDom"
+            @change="onChangeFile"
+            v-show="false"
+          />
+        </div>
       </div>
     </div>
+
     <GraphMenu
       @on-delete-layer="onDeleteLayer"
       @on-edit-layer-info="onEditLayerInfo"
@@ -109,7 +290,6 @@
         :class="[`relative cursor-default whitespace-pre-wrap break-all max-w-80vw`]"
         :style="{ color: item.color, width: item.width ? `${item.width}px` : 'auto' }"
       >
-        <!-- <Textarea v-model:value="item.content" :bordered="false" autosize /> -->
         {{ item.content }}
       </div>
     </MapPopup>
@@ -123,9 +303,6 @@
   import mitter from '@/views/utils/mitt';
   import { MEventEnum } from '@/enums/mittEnum';
   import { isDevMode } from '@/utils/env';
-  // import { Textarea } from 'ant-design-vue';
-  import Tool from './Tool.vue';
-  import LyrList from './LayerList.vue';
   import GraphicInfo from './GraphicInfoModal.vue';
   import { useModal } from '@/components/Modal';
   import GraphMenu from './GraphMenu.vue';
@@ -138,12 +315,16 @@
   import TextEditModal from './TextEditModal.vue';
   import MapPopup from './MapPopup.vue';
   import { useMap } from '@/hooks/common/useMap';
+  import { SvgIcon } from '@/components/Icon';
+  import { onKeyStroke } from '@vueuse/core';
+  import { Input, Button } from 'ant-design-vue';
 
   const map = ref<any>(null); // 总地图实例
   const layerGroup = ref<any>(null); // 总地图实例
   const mapWrap = ref<any>(null); // 总地图实例
   // 地图是否已加载
   const isInit = ref(false);
+  const { message } = useMessage();
 
   const [registerModal, { openModal }] = useModal();
   const [registerTextModal, { openModal: openTextEditModal }] = useModal();
@@ -166,11 +347,35 @@
     eventFn();
     isInit.value = true;
   });
+  enum ToolEnum {
+    search,
+    position,
+    base,
+    military,
+    tool,
+  }
 
-  const showPanel = ref(false); // 面板显隐
-  const { message } = useMessage();
+  const showPanelKey = ref<ToolEnum>(); // 面板显隐
 
-  const LyrListDom = ref(); // 图层列表Dom
+  // const LyrListDom = ref(); // 图层列表Dom
+
+  function onChangePanelKey(key: ToolEnum) {
+    if (key === showPanelKey.value) {
+      showPanelKey.value = undefined;
+    } else {
+      showPanelKey.value = key;
+    }
+  }
+
+  // 监听 Escape 重置去拖动模式
+  onKeyStroke(
+    ['Escape'],
+    (e) => {
+      showPanelKey.value = undefined;
+      e.preventDefault();
+    },
+    { target: document },
+  );
 
   let currentGraphic: any = null; // 当前选中要素
   const isDev = isDevMode();
@@ -182,6 +387,7 @@
     x: 87.214965,
     y: 43.858298,
   });
+
   function eventFn() {
     // 鼠标移动事件
     map.value.on('mousemove', function (e: any) {
@@ -189,6 +395,7 @@
       mapPosition.y = e.latlng.lat.toFixed(6);
     });
   }
+
   // 重置地图初始位置
   function resetMap() {
     map.value.setView([43.858298, 87.214965], 7);
@@ -238,10 +445,10 @@
     // LyrListDom.value?.addDataToTree(i);
   }
   // 地图选中图形，树结构节点处于选择状态
-  function gotoFeature(f: any) {
-    f.getBounds && map.value.fitBounds(f.getBounds());
-    f.getLatLng && map.value.setView([Number(f.getLatLng().lat), Number(f.getLatLng().lng)]);
-  }
+  // function gotoFeature(f: any) {
+  //   f.getBounds && map.value.fitBounds(f.getBounds());
+  //   f.getLatLng && map.value.setView([Number(f.getLatLng().lat), Number(f.getLatLng().lng)]);
+  // }
 
   // 地图选中图形，树结构节点处于选择状态
   function selectOnpanel(key: string) {
@@ -309,6 +516,13 @@
     isInit.value = false;
     map.value = null;
   });
+
+  const fileDom = ref<HTMLInputElement>();
+
+  const openFile = () => {
+    onOperateClick(ToolTypeEnum.openfile);
+    fileDom.value?.click();
+  };
 </script>
 
 <style lang="less" scoped>
@@ -413,5 +627,59 @@
     width: 21rem;
     transition: all 0.5s ease-out;
     background-color: #fff0;
+  }
+
+  .icon-f {
+    background: #fff;
+    cursor: pointer;
+
+    svg {
+      fill: #666;
+    }
+
+    &:hover {
+      background: #0960bd;
+
+      svg {
+        fill: #fff;
+      }
+    }
+
+    &.active {
+      background: #0960bd;
+
+      svg {
+        fill: #fff;
+      }
+    }
+  }
+
+  .icon-c {
+    background: #fff;
+    cursor: pointer;
+
+    svg {
+      fill: #666;
+    }
+
+    &:hover {
+      background: #f1f1f1;
+
+      svg {
+        fill: #0960bd;
+      }
+    }
+
+    &.active {
+      svg {
+        fill: #0960bd;
+      }
+    }
+  }
+</style>
+
+<style>
+  svg {
+    background: transparent !important;
   }
 </style>
