@@ -49,6 +49,7 @@
           <Switch v-model:checked="formConfig.currentItem.itemProps['required']" />
           <Input
             v-if="formConfig.currentItem.itemProps['required']"
+            class="mt-6px"
             v-model:value="formConfig.currentItem.itemProps['message']"
             placeholder="请输入必选提示"
           />

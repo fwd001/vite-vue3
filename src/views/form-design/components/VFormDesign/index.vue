@@ -70,7 +70,10 @@
         <template v-for="item of formConfig.schemas" #[`${item.component}Props`]="data">
           <slot
             :name="`${item.component}Props`"
-            v-bind="{ formItem: data, props: data.componentProps }"
+            v-bind="{
+              formItem: data,
+              props: data && 'componentProps' in data ? data.componentProps : undefined,
+            }"
           ></slot>
         </template>
       </PropsPanel>
@@ -89,7 +92,7 @@
   import CollapseItem from './modules/CollapseItem.vue';
   import FormComponentPanel from './modules/FormComponentPanel.vue';
   import JsonModal from './components/JsonModal.vue';
-  import VFormPreview from '../VFormPreview/index.vue';
+  import VFormPreview from '../VFormPreview/index';
   import VFormPreview2 from '../VFormPreview/useForm.vue';
 
   import Toolbar from './modules/Toolbar.vue';

@@ -1,27 +1,38 @@
+// 表单设计器 - 表单项属性配置
+// 本文件定义了表单设计器中表单项（FormItem）的属性配置项，包括通用属性、布局属性、校验属性等，
+// 主要用于动态渲染表单项的属性面板，支持灵活扩展和维护。
+
 import { IAnyObject } from '../../../typings/base-type';
 import { baseComponents, customComponents } from '../../../core/formItemConfig';
 import { Input, Select, RadioGroup, Slider } from 'ant-design-vue';
 import { Component } from 'vue';
 
+// 全局配置状态，主要用于栅格布局的span同步
 export const globalConfigState: { span: number } = {
   span: 24,
 };
+
+// ===================== 表单项属性类型定义 =====================
+// 基础表单项属性接口，描述单个属性的结构
 export interface IBaseFormAttrs {
   name: string; // 字段名
   label: string; // 字段标签
-  component?: string | Component; // 属性控件
+  component?: string | Component; // 属性控件类型（字符串或Vue组件）
   componentProps?: IAnyObject; // 传递给控件的属性
-  exclude?: string[]; // 需要排除的控件
-  includes?: string[]; // 符合条件的组件
-  on?: IAnyObject;
-  children?: IBaseFormAttrs[];
-  category?: 'control' | 'input';
+  exclude?: string[]; // 需要排除的控件（不适用该属性的控件）
+  includes?: string[]; // 仅适用于指定控件
+  on?: IAnyObject; // 事件绑定
+  children?: IBaseFormAttrs[]; // 嵌套子属性
+  category?: 'control' | 'input'; // 属性类别
 }
 
+// 控件属性面板的控制属性接口，支持target指定绑定目标
 export interface IBaseFormItemControlAttrs extends IBaseFormAttrs {
   target?: 'props' | 'options'; // 绑定到对象下的某个目标key中
 }
 
+// ===================== 表单项布局属性 =====================
+// 用于控制表单项的栅格布局（如span、offset等）
 export const baseItemColumnProps: IBaseFormAttrs[] = [
   {
     name: 'span',
@@ -29,7 +40,7 @@ export const baseItemColumnProps: IBaseFormAttrs[] = [
     component: 'Slider',
     on: {
       change(value: number) {
-        globalConfigState.span = value;
+        globalConfigState.span = value; // 同步全局span
       },
     },
     componentProps: {
@@ -38,7 +49,7 @@ export const baseItemColumnProps: IBaseFormAttrs[] = [
       marks: { 12: '' },
     },
   },
-
+  // 其它栅格相关属性，均为Slider控件
   {
     name: 'offset',
     label: '栅格左侧的间隔格数',
@@ -79,6 +90,7 @@ export const baseItemColumnProps: IBaseFormAttrs[] = [
       marks: { 12: '' },
     },
   },
+  // 响应式断点属性
   {
     name: 'xs',
     label: '<576px 响应式栅格',
@@ -103,7 +115,6 @@ export const baseItemColumnProps: IBaseFormAttrs[] = [
     name: 'md',
     label: '≥768p 响应式栅格',
     component: 'Slider',
-
     componentProps: {
       max: 24,
       min: 0,
@@ -152,7 +163,8 @@ export const baseItemColumnProps: IBaseFormAttrs[] = [
   },
 ];
 
-// 控件属性面板的配置项
+// ===================== 高级表单项布局属性 =====================
+// 控件属性面板的配置项，主要用于labelCol、wrapperCol等
 export const advanceFormItemColProps: IBaseFormAttrs[] = [
   {
     name: 'labelCol',
@@ -177,7 +189,9 @@ export const advanceFormItemColProps: IBaseFormAttrs[] = [
     exclude: ['Grid'],
   },
 ];
-// 控件属性面板的配置项
+
+// ===================== 基础表单项属性 =====================
+// 控件属性面板的配置项，主要用于切换控件类型、标签、字段标识等
 export const baseFormItemProps: IBaseFormAttrs[] = [
   {
     // 动态的切换控件的类型
@@ -221,7 +235,8 @@ export const baseFormItemProps: IBaseFormAttrs[] = [
   },
 ];
 
-// 控件属性面板的配置项
+// ===================== 高级表单项属性 =====================
+// 控件属性面板的配置项，主要用于标签对齐、额外信息、校验等
 export const advanceFormItemProps: IBaseFormAttrs[] = [
   {
     name: 'labelAlign',
@@ -241,7 +256,6 @@ export const advanceFormItemProps: IBaseFormAttrs[] = [
     },
     exclude: ['Grid'],
   },
-
   {
     name: 'help',
     label: 'help',
@@ -303,6 +317,7 @@ export const advanceFormItemProps: IBaseFormAttrs[] = [
   },
 ];
 
+// ===================== 控件控制属性（如必填、隐藏等） =====================
 export const baseFormItemControlAttrs: IBaseFormItemControlAttrs[] = [
   {
     name: 'required',

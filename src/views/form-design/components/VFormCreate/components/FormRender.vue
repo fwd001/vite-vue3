@@ -72,8 +72,8 @@
   });
 </script>
 
-<style>
-  .v-form-render-item {
-    overflow: hidden;
+<style scoped>
+  .grid-row {
+    width: 100%;
   }
 </style>

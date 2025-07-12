@@ -1,155 +1,219 @@
 <!--
- * @Description: 表单渲染器，根据json生成表单
+ * @Description: 表单项组件，支持动态渲染、异步属性、布局自适应等
 -->
 <template>
-  <div class="v-form-container">
-    <Form class="v-form-model" ref="eFormModel" :model="formModel" v-bind="formModelProps">
-      <Row>
-        <FormRender
-          v-for="(schema, index) of noHiddenList"
-          :key="index"
-          :schema="schema"
-          :formConfig="formConfig"
-          :formData="formModelNew"
-          @change="handleChange"
-          :setFormModel="setFormModel"
-          @submit="handleSubmit"
-          @reset="resetFields"
-        >
-          <template v-if="schema && schema.componentProps" #[`schema.componentProps!.slotName`]>
-            <slot
-              :name="schema.componentProps!.slotName"
-              v-bind="{ formModel: formModel, field: schema.field, schema }"
-            ></slot>
+  <Col v-bind="colPropsComputed">
+    <FormItem v-bind="formItemProps">
+      <!-- 标签及帮助信息 -->
+      <template #label v-if="!formItemProps.hiddenLabel && schema.component !== 'Divider'">
+        <Tooltip>
+          <span>{{ schema.label }}</span>
+          <template #title v-if="schema.helpMessage">
+            <span>{{ schema.helpMessage }}</span>
           </template>
-        </FormRender>
-      </Row>
-    </Form>
-  </div>
+          <Icon v-if="schema.helpMessage" class="ml-5" icon="ant-design:question-circle-outlined" />
+        </Tooltip>
+      </template>
+
+      <!-- 自定义插槽渲染 -->
+      <slot
+        v-if="schema.componentProps?.slotName"
+        :name="schema.componentProps.slotName"
+        v-bind="schema"
+      ></slot>
+
+      <!-- 分割线组件 -->
+      <Divider
+        v-else-if="schema.component === 'Divider' && schema.label && !formItemProps.hiddenLabel"
+      >
+        {{ schema.label }}
+      </Divider>
+
+      <!-- 动态表单项渲染 -->
+      <div>
+        <component
+          class="v-form-item-wrapper"
+          :is="componentItem"
+          v-bind="{ ...cmpProps, ...asyncProps }"
+          :schema="schema"
+          :style="schema.width ? { width: schema.width } : {}"
+          @change="handleChange"
+          @click="handleClick(schema)"
+        />
+      </div>
+
+      <!-- 按钮类控件显示label -->
+      <span v-if="schema.component === 'Button'">{{ schema.label }}</span>
+    </FormItem>
+  </Col>
 </template>
-<script lang="ts">
-  import { computed, defineComponent, PropType, provide, ref, unref } from 'vue';
-  import FormRender from './components/FormRender.vue';
-  import { IFormConfig, AForm } from '../../typings/v-form-component';
-  import { Form, Row, Col } from 'ant-design-vue';
-  import { useFormInstanceMethods } from '../../hooks/useFormInstanceMethods';
-  import { IProps, IVFormMethods, useVFormMethods } from '../../hooks/useVFormMethods';
-  import { useVModel } from '@vueuse/core';
+
+<script setup lang="ts">
+  import { computed } from 'vue';
+  import { Tooltip, FormItem, Divider, Col } from 'ant-design-vue';
+  import Icon from '@/components/Icon/Icon.vue';
+  import { componentMap } from '../../core/formItemConfig';
+  import { IVFormComponent, IFormConfig } from '../../typings/v-form-component';
+  import { asyncComputed } from '@vueuse/core';
+  import { handleAsyncOptions } from '../../utils';
   import { omit } from 'lodash-es';
+  import { useFormModelState } from '../../hooks/useFormDesignState';
 
-  export default defineComponent({
-    name: 'VFormCreate',
-    components: {
-      FormRender,
-      Form,
-      Row,
-    },
-    props: {
-      fApi: {
-        type: Object,
-      },
-      formModel: {
-        type: Object,
-        default: () => ({}),
-      },
-      formConfig: {
-        type: Object as PropType<IFormConfig>,
-        required: true,
-      },
-    },
-    emits: ['submit', 'change', 'update:fApi', 'update:formModel'],
-    setup(props, context) {
-      const wrapperComp = props.formConfig.layout == 'vertical' ? Col : Row;
-      const { emit } = context;
-      const eFormModel = ref<AForm | null>(null);
-
-      const formModelNew = computed({
-        get: () => props.formModel,
-        set: (value) => emit('update:formModel', value),
-      });
-
-      const noHiddenList = computed(() => {
-        return (
-          props.formConfig.schemas &&
-          props.formConfig.schemas.filter((item) => item.hidden !== true)
-        );
-      });
-
-      const fApi = useVModel(props, 'fApi', emit);
-
-      const { submit, validate, clearValidate, resetFields, validateField } =
-        useFormInstanceMethods<['submit', 'change', 'update:fApi', 'update:formModel']>(
-          props,
-          formModelNew,
-          context,
-          eFormModel,
-        );
-
-      const { linkOn, ...methods } = useVFormMethods<
-        ['submit', 'change', 'update:fApi', 'update:formModel']
-      >(
-        { formConfig: props.formConfig, formData: props.formModel } as unknown as IProps,
-        context,
-        eFormModel,
-        {
-          submit,
-          validate,
-          validateField,
-          resetFields,
-          clearValidate,
-        },
-      );
-
-      fApi.value = methods;
-
-      const handleChange = (_event) => {
-        const { schema, value } = _event;
-        const { field } = unref(schema);
-
-        linkOn[field!]?.forEach((formItem) => {
-          formItem.update?.(value, formItem, fApi.value as IVFormMethods);
-        });
-      };
-      /**
-       * 获取表单属性
-       */
-      const formModelProps = computed(
-        () => omit(props.formConfig, ['disabled', 'labelWidth', 'schemas']) as Recordable,
-      );
-
-      const handleSubmit = () => {
-        submit();
-      };
-
-      provide('formModel', formModelNew);
-      const setFormModel = (key, value) => {
-        formModelNew.value[key] = value;
-      };
-
-      provide<(key: String, value: any) => void>('setFormModelMethod', setFormModel);
-
-      // 把祖先组件的方法项注入到子组件中，子组件可通过inject获取
-      return {
-        eFormModel,
-        submit,
-        validate,
-        validateField,
-        resetFields,
-        clearValidate,
-        handleChange,
-        formModelProps,
-        handleSubmit,
-        setFormModel,
-        formModelNew,
-        wrapperComp,
-        noHiddenList,
-      };
-    },
+  // ===================== 类型定义 =====================
+  interface Props {
+    formData?: Record<string, any>;
+    schema: IVFormComponent;
+    formConfig: IFormConfig;
+  }
+  const props = withDefaults(defineProps<Props>(), {
+    formData: () => ({}),
   });
+
+  const emit = defineEmits<{
+    (e: 'update:form-data', value: Record<string, any>): void;
+    (e: 'change', value: any): void;
+  }>();
+
+  // ===================== 依赖状态与方法 =====================
+  // 表单数据状态与操作
+  const { formModel: formData1, setFormModel } = useFormModelState();
+
+  // ===================== 计算属性 =====================
+
+  // 计算列属性（布局相关）
+  const colPropsComputed = computed(() => {
+    const { colProps = {} } = props.schema;
+    return colProps;
+  });
+
+  // 计算FormItem属性（布局、校验等）
+  const formItemProps = computed(() => {
+    const { formConfig } = props;
+    let { field, required, rules, labelCol, wrapperCol, hiddenLabel, itemProps } = props.schema;
+    const { colon } = formConfig;
+
+    // 处理labelCol
+    labelCol = labelCol
+      ? labelCol
+      : formConfig.layout === 'horizontal'
+        ? formConfig.labelLayout === 'flex'
+          ? { style: `width:${formConfig.labelWidth}px` }
+          : formConfig.labelCol
+        : {};
+
+    // 处理wrapperCol
+    wrapperCol = wrapperCol
+      ? wrapperCol
+      : formConfig.layout === 'horizontal'
+        ? formConfig.labelLayout === 'flex'
+          ? { style: 'width:auto;flex:1' }
+          : formConfig.wrapperCol
+        : {};
+
+    // 横向flex布局样式
+    const style =
+      formConfig.layout === 'horizontal' && formConfig.labelLayout === 'flex'
+        ? { display: 'flex' }
+        : {};
+
+    // 先处理 itemProps，过滤掉 validateTrigger: false
+    const safeItemProps = { ...itemProps };
+    if (safeItemProps.validateTrigger === false) {
+      delete safeItemProps.validateTrigger;
+    }
+
+    // 合并属性
+    const newConfig = {
+      name: field,
+      style: { ...style },
+      colon,
+      required,
+      rules,
+      labelCol,
+      wrapperCol,
+      hiddenLabel,
+      ...safeItemProps,
+    };
+
+    // 优先itemProps中的配置
+    if (!itemProps?.labelCol?.span) {
+      newConfig.labelCol = labelCol;
+    }
+    if (!itemProps?.wrapperCol?.span) {
+      newConfig.wrapperCol = wrapperCol;
+    }
+    if (!itemProps?.rules) {
+      newConfig.rules = rules;
+    }
+
+    return newConfig;
+  });
+
+  // 计算当前渲染的组件
+  const componentItem = computed(() => componentMap.get(props.schema.component as string));
+
+  // ===================== 异步属性处理 =====================
+  // 处理options、treeData等异步属性（如远程下拉、树形数据等）
+  const asyncProps = asyncComputed(async () => {
+    let { options, treeData } = props.schema.componentProps ?? {};
+    if (options) options = await handleAsyncOptions(options);
+    if (treeData) treeData = await handleAsyncOptions(treeData);
+    return {
+      options,
+      treeData,
+    };
+  });
+
+  // ===================== 同步属性处理 =====================
+  // 处理除异步外的其他属性（如value、checked、disabled等）
+  const cmpProps = computed(() => {
+    const isCheck = ['Switch', 'Checkbox', 'Radio'].includes(props.schema.component);
+    const { field } = props.schema;
+    let { disabled, ...attrs } = omit(props.schema.componentProps, ['options', 'treeData']) ?? {};
+    disabled = props.formConfig.disabled || disabled;
+    return {
+      ...attrs,
+      disabled,
+      [isCheck ? 'checked' : 'value']: formData1.value[field!],
+    };
+  });
+
+  // ===================== 事件处理 =====================
+
+  /**
+   * 处理点击事件（如按钮自定义事件）
+   * @param schema 当前表单项schema
+   */
+  function handleClick(schema: IVFormComponent) {
+    if (schema.component === 'Button' && schema.componentProps?.handle) {
+      emit(schema.componentProps.handle, null);
+    }
+  }
+
+  /**
+   * 处理表单项变更
+   * @param e 事件对象或新值
+   */
+  function handleChange(e: any) {
+    const isCheck = ['Switch', 'Checkbox', 'Radio'].includes(props.schema.component);
+    const target = e ? e.target : null;
+    const value = target ? (isCheck ? target.checked : target.value) : e;
+    setFormModel(props.schema.field!, value);
+    emit('change', value);
+  }
 </script>
 
 <style lang="less" scoped>
-  .v-form-model {
-    overflow: hidden;
+  .ml-5 {
+    margin-left: 5px;
+  }
+
+  // form字段中的标签有ant-col，不能使用width:100%
+  :deep(.ant-col) {
+    width: auto;
+  }
+
+  .ant-form-item:not(.ant-form-item-with-help) {
+    margin-bottom: 20px;
   }
 </style>

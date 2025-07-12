@@ -1,11 +1,20 @@
+// 表单设计器 - 组件属性配置
+// 本文件定义了表单设计器中各类表单控件的属性配置项，包括通用属性、控件专属属性、属性动态处理函数等。
+// 主要用于动态渲染属性面板，支持灵活扩展和维护。
+
 import { IBaseFormAttrs } from './formItemPropsConfig';
 
+// 组件属性配置对象类型，key为组件名，value为属性配置数组
 interface IBaseComponentProps {
   [key: string]: IBaseFormAttrs[];
 }
 
+// 基础表单属性类型，去除'tag'字段
+// 用于描述控件的单个属性（如placeholder、size等）
 type BaseFormAttrs = Omit<IBaseFormAttrs, 'tag'>;
 
+// ===================== 通用控件控制属性 =====================
+// 这些属性适用于大部分基础表单控件，如禁用、自动获取焦点、可清除等
 export const baseComponentControlAttrs: Omit<IBaseFormAttrs, 'tag'>[] = [
   {
     // 没有disabled属性的控件不能作为form控件
@@ -13,7 +22,7 @@ export const baseComponentControlAttrs: Omit<IBaseFormAttrs, 'tag'>[] = [
     label: '禁用',
   },
   {
-    // 没有disabled属性的控件不能作为form控件
+    // 自动获取焦点，部分控件支持
     name: 'autofocus',
     label: '自动获取焦点',
     includes: [
@@ -33,6 +42,7 @@ export const baseComponentControlAttrs: Omit<IBaseFormAttrs, 'tag'>[] = [
     ],
   },
   {
+    // 可清除输入内容
     name: 'allowClear',
     label: '可清除',
     includes: [
@@ -51,52 +61,62 @@ export const baseComponentControlAttrs: Omit<IBaseFormAttrs, 'tag'>[] = [
   },
   { name: 'fullscreen', label: '全屏', includes: ['Calendar'] },
   {
+    // 是否可搜索
     name: 'showSearch',
     label: '可搜索',
     includes: ['Select', 'TreeSelect', 'Cascader', 'Transfer'],
   },
   {
+    // 是否显示时间选择
     name: 'showTime',
     label: '显示时间',
     includes: ['DatePicker', 'RangePicker', 'MonthPicker'],
   },
   {
+    // 滑块是否为双向
     name: 'range',
     label: '双向滑动',
     includes: [],
   },
   {
+    // 允许半选，仅Rate支持
     name: 'allowHalf',
     label: '允许半选',
     includes: ['Rate'],
   },
   {
+    // 多选支持
     name: 'multiple',
     label: '多选',
     includes: ['Select', 'TreeSelect', 'Upload'],
   },
   {
+    // 上传文件夹
     name: 'directory',
     label: '文件夹',
     includes: ['Upload'],
   },
   {
+    // 上传时携带cookie
     name: 'withCredentials',
     label: '携带cookie',
     includes: ['Upload'],
   },
   {
+    // 是否有边框
     name: 'bordered',
     label: '是否有边框',
     includes: ['Select', 'Input'],
   },
   {
+    // 高亮第一个选项
     name: 'defaultActiveFirstOption',
     label: '高亮第一个选项',
     component: 'Checkbox',
     includes: ['Select', 'AutoComplete'],
   },
   {
+    // 下拉菜单和选择器同宽
     name: 'dropdownMatchSelectWidth',
     label: '下拉菜单和选择器同宽',
     component: 'Checkbox',
@@ -104,9 +124,11 @@ export const baseComponentControlAttrs: Omit<IBaseFormAttrs, 'tag'>[] = [
   },
 ];
 
-//共用属性
+// ===================== 通用属性 =====================
+// 适用于大部分控件的通用属性，如尺寸、占位符、样式等
 export const baseComponentCommonAttrs: Omit<IBaseFormAttrs, 'tag'>[] = [
   {
+    // 控件尺寸
     name: 'size',
     label: '尺寸',
     component: 'RadioGroup',
@@ -129,6 +151,7 @@ export const baseComponentCommonAttrs: Omit<IBaseFormAttrs, 'tag'>[] = [
     includes: ['InputNumber', 'Input', 'Cascader', 'Button'],
   },
   {
+    // 占位符
     name: 'placeholder',
     label: '占位符',
     component: 'Input',
@@ -150,6 +173,7 @@ export const baseComponentCommonAttrs: Omit<IBaseFormAttrs, 'tag'>[] = [
     ],
   },
   {
+    // 样式属性
     name: 'style',
     label: '样式',
     component: 'Input',
@@ -158,6 +182,7 @@ export const baseComponentCommonAttrs: Omit<IBaseFormAttrs, 'tag'>[] = [
     },
   },
   {
+    // 是否一直展开下拉菜单
     name: 'open',
     label: '一直展开下拉菜单',
     component: 'RadioGroup',
@@ -181,7 +206,10 @@ export const baseComponentCommonAttrs: Omit<IBaseFormAttrs, 'tag'>[] = [
   },
 ];
 
+// ===================== 组件专属属性配置 =====================
+// 每个控件的专属属性配置，key为组件名，value为属性数组
 const componentAttrs: IBaseComponentProps = {
+  // AutoComplete 组件专属属性
   AutoComplete: [
     {
       name: 'backfill',
@@ -197,6 +225,7 @@ const componentAttrs: IBaseComponentProps = {
       component: 'Checkbox',
     },
   ],
+  // IconPicker 组件专属属性
   IconPicker: [
     {
       name: 'mode',
@@ -1097,6 +1126,8 @@ const componentAttrs: IBaseComponentProps = {
   ],
 };
 
+// ===================== 工具函数 =====================
+// 删除属性配置中指定name的项
 function deleteProps(list: Omit<IBaseFormAttrs, 'tag'>[], key: string) {
   list.forEach((element, index) => {
     if (element.name === key) {
@@ -1105,22 +1136,25 @@ function deleteProps(list: Omit<IBaseFormAttrs, 'tag'>[], key: string) {
   });
 }
 
+// StrengthMeter 组件复用 Input 配置，并做定制化处理
 componentAttrs['StrengthMeter'] = componentAttrs['Input'];
 componentAttrs['StrengthMeter'].push({
   name: 'visibilityToggle',
   label: '是否显示切换按钮',
   component: 'Checkbox',
 });
-
+// 删除不适用的属性
 deleteProps(componentAttrs['StrengthMeter'], 'type');
 deleteProps(componentAttrs['StrengthMeter'], 'prefix');
 deleteProps(componentAttrs['StrengthMeter'], 'defaultValue');
 deleteProps(componentAttrs['StrengthMeter'], 'suffix');
-//组件属性
-// name 控件的属性
+
+// ===================== 导出最终属性配置对象 =====================
+// 组件属性主配置对象，key为组件名，value为属性数组
 export const baseComponentAttrs: IBaseComponentProps = componentAttrs;
 
-//在所有的选项中查找需要配置项
+// ===================== 动态属性处理函数 =====================
+// 在所有的选项中查找需要配置项
 const findCompoentProps = (props, name) => {
   const idx = props.findIndex((value: BaseFormAttrs) => {
     return value.name === name;
@@ -1130,7 +1164,8 @@ const findCompoentProps = (props, name) => {
   }
 };
 
-// 根据其它选项的值更新自身控件配置值
+// 根据其它选项的值动态更新自身控件配置值
+// 例如：RadioGroup的optionType为非button时，禁用size属性
 export const componentPropsFuncs = {
   RadioGroup: (compProp, options: BaseFormAttrs[]) => {
     const props = findCompoentProps(options, 'size');

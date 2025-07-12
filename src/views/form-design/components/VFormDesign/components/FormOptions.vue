@@ -36,15 +36,16 @@
   import { defineComponent, reactive, toRefs } from 'vue';
   import { useFormDesignState } from '../../../hooks/useFormDesignState';
   import { remove } from '../../../utils';
-  import message from '../../../utils/message';
   import { Input } from 'ant-design-vue';
   import Icon from '@/components/Icon/Icon.vue';
+  import { useMessage } from '@/hooks/web/useMessage';
 
   export default defineComponent({
     name: 'FormOptions',
     components: { Input, Icon },
     // props: {},
     setup() {
+      const { message } = useMessage();
       const state = reactive({});
       const { formConfig } = useFormDesignState();
       const key = formConfig.value.currentItem?.component === 'TreeSelect' ? 'treeData' : 'options';
