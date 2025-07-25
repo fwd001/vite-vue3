@@ -1,57 +1,65 @@
 import { defineStore } from 'pinia';
 import { store } from '@/store';
 import { ToolTypeEnum } from '@/views/dashboard/map-tool/enum';
+import { ref, computed } from 'vue';
 
 type LatLng = [number, number] | [];
-interface State {
-  zoom: number;
-  latlng: LatLng;
-  administrativeDivisions: { name: string; code: number }[];
-  toolDrawType: string;
-}
 
-export const usePsMapStore = defineStore({
-  id: 'ps-map',
-  state: (): State => ({
-    zoom: 0,
-    latlng: [],
-    administrativeDivisions: [],
-    toolDrawType: ToolTypeEnum.drag,
-  }),
-  getters: {
-    getZoom(): number {
-      return this.zoom;
-    },
-  },
-  actions: {
-    setZoom(zoom: number) {
-      this.zoom = zoom;
-    },
-    setLatlng(latlng: LatLng) {
-      this.latlng = latlng;
-    },
-    setToolDrawType(tool?: ToolTypeEnum) {
-      this.toolDrawType = tool || ToolTypeEnum.drag;
-    },
-    addMapLevels(data: { name: string; code: number }) {
-      const list = [...this.administrativeDivisions];
-      list.push(data);
-      this.administrativeDivisions = list;
-    },
-    popMapLevels() {
-      const list = [...this.administrativeDivisions];
-      list.pop();
-      this.administrativeDivisions = list;
-    },
-    resetMapLevels() {
-      this.administrativeDivisions = [];
-    },
+export const usePsMapStore = defineStore('ps-map', () => {
+  // state
+  const zoom = ref<number>(0);
+  const latlng = ref<LatLng>([]);
+  const administrativeDivisions = ref<{ name: string; code: number }[]>([]);
+  const toolDrawType = ref<string>(ToolTypeEnum.drag);
 
-    resetState() {
-      this.zoom = 3;
-      this.latlng = [];
-    },
-  },
+  // getters
+  const getZoom = computed(() => zoom.value);
+
+  // actions
+  function setZoom(val: number) {
+    zoom.value = val;
+  }
+  function setLatlng(val: LatLng) {
+    latlng.value = val;
+  }
+  function setToolDrawType(tool?: ToolTypeEnum) {
+    toolDrawType.value = tool || ToolTypeEnum.drag;
+  }
+  function addMapLevels(data: { name: string; code: number }) {
+    const list = [...administrativeDivisions.value];
+    list.push(data);
+    administrativeDivisions.value = list;
+  }
+  function popMapLevels() {
+    const list = [...administrativeDivisions.value];
+    list.pop();
+    administrativeDivisions.value = list;
+  }
+  function resetMapLevels() {
+    administrativeDivisions.value = [];
+  }
+  function resetState() {
+    zoom.value = 3;
+    latlng.value = [];
+  }
+
+  return {
+    // state
+    zoom,
+    latlng,
+    administrativeDivisions,
+    toolDrawType,
+    // getters
+    getZoom,
+    // actions
+    setZoom,
+    setLatlng,
+    setToolDrawType,
+    addMapLevels,
+    popMapLevels,
+    resetMapLevels,
+    resetState,
+  };
 });
 
 // Need to be used outside the setup

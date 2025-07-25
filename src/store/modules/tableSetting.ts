@@ -6,104 +6,96 @@ import { Persistent } from '@/utils/cache/persistent';
 
 import type { TableSetting } from '#/store';
 import type { SizeType, ColumnOptionsType } from '@/components/Table/src/types/table';
+import { ref, computed } from 'vue';
 
-interface TableSettingState {
-  setting: Nullable<Partial<TableSetting>>;
-}
+export const useTableSettingStore = defineStore('table-setting', () => {
+  // state
+  const setting = ref<Nullable<Partial<TableSetting>>>(Persistent.getLocal(TABLE_SETTING_KEY));
 
-export const useTableSettingStore = defineStore({
-  id: 'table-setting',
-  state: (): TableSettingState => ({
-    setting: Persistent.getLocal(TABLE_SETTING_KEY),
-  }),
-  getters: {
-    getTableSetting(state): Nullable<Partial<TableSetting>> {
-      return state.setting;
-    },
-    //
-    getTableSize(state) {
-      return state.setting?.size || 'middle';
-    },
-    //
-    getShowIndexColumn(state) {
-      return (routerName: string) => {
-        return state.setting?.showIndexColumn?.[routerName];
-      };
-    },
-    //
-    getShowRowSelection(state) {
-      return (routerName: string) => {
-        return state.setting?.showRowSelection?.[routerName];
-      };
-    },
-    //
-    getColumns(state) {
-      return (routerName: string) => {
-        return state.setting?.columns && state.setting?.columns[routerName]
-          ? state.setting?.columns[routerName]
-          : null;
-      };
-    },
-  },
-  actions: {
-    setTableSetting(setting: Partial<TableSetting>) {
-      this.setting = Object.assign({}, this.setting, setting);
-      Persistent.setLocal(TABLE_SETTING_KEY, this.setting, true);
-    },
-    resetTableSetting() {
-      Persistent.removeLocal(TABLE_SETTING_KEY, true);
-      this.setting = null;
-    },
-    //
-    setTableSize(size: SizeType) {
-      this.setTableSetting(
-        Object.assign({}, this.setting, {
-          size,
-        }),
-      );
-    },
-    //
-    setShowIndexColumn(routerName: string, show: boolean) {
-      this.setTableSetting(
-        Object.assign({}, this.setting, {
-          showIndexColumn: {
-            ...this.setting?.showIndexColumn,
-            [routerName]: show,
-          },
-        }),
-      );
-    },
-    //
-    setShowRowSelection(routerName: string, show: boolean) {
-      this.setTableSetting(
-        Object.assign({}, this.setting, {
-          showRowSelection: {
-            ...this.setting?.showRowSelection,
-            [routerName]: show,
-          },
-        }),
-      );
-    },
-    //
-    setColumns(routerName: string, columns: Array<ColumnOptionsType>) {
-      this.setTableSetting(
-        Object.assign({}, this.setting, {
-          columns: {
-            ...this.setting?.columns,
-            [routerName]: columns,
-          },
-        }),
-      );
-    },
-    clearColumns(routerName: string) {
-      this.setTableSetting(
-        Object.assign({}, this.setting, {
-          columns: {
-            ...this.setting?.columns,
-            [routerName]: undefined,
-          },
-        }),
-      );
-    },
-  },
+  // getters
+  const getTableSetting = computed(() => setting.value);
+  const getTableSize = computed(() => setting.value?.size || 'middle');
+  const getShowIndexColumn = computed(() => (routerName: string) => {
+    return setting.value?.showIndexColumn?.[routerName];
+  });
+  const getShowRowSelection = computed(() => (routerName: string) => {
+    return setting.value?.showRowSelection?.[routerName];
+  });
+  const getColumns = computed(() => (routerName: string) => {
+    return setting.value?.columns && setting.value?.columns[routerName]
+      ? setting.value?.columns[routerName]
+      : null;
+  });
+
+  // actions
+  function setTableSetting(newSetting: Partial<TableSetting>) {
+    setting.value = Object.assign({}, setting.value, newSetting);
+    Persistent.setLocal(TABLE_SETTING_KEY, setting.value, true);
+  }
+  function resetTableSetting() {
+    Persistent.removeLocal(TABLE_SETTING_KEY, true);
+    setting.value = null;
+  }
+  function setTableSize(size: SizeType) {
+    setTableSetting(Object.assign({}, setting.value, { size }));
+  }
+  function setShowIndexColumn(routerName: string, show: boolean) {
+    setTableSetting(
+      Object.assign({}, setting.value, {
+        showIndexColumn: {
+          ...setting.value?.showIndexColumn,
+          [routerName]: show,
+        },
+      }),
+    );
+  }
+  function setShowRowSelection(routerName: string, show: boolean) {
+    setTableSetting(
+      Object.assign({}, setting.value, {
+        showRowSelection: {
+          ...setting.value?.showRowSelection,
+          [routerName]: show,
+        },
+      }),
+    );
+  }
+  function setColumns(routerName: string, columns: Array<ColumnOptionsType>) {
+    setTableSetting(
+      Object.assign({}, setting.value, {
+        columns: {
+          ...setting.value?.columns,
+          [routerName]: columns,
+        },
+      }),
+    );
+  }
+  function clearColumns(routerName: string) {
+    setTableSetting(
+      Object.assign({}, setting.value, {
+        columns: {
+          ...setting.value?.columns,
+          [routerName]: undefined,
+        },
+      }),
+    );
+  }
+
+  return {
+    // state
+    setting,
+    // getters
+    getTableSetting,
+    getTableSize,
+    getShowIndexColumn,
+    getShowRowSelection,
+    getColumns,
+    // actions
+    setTableSetting,
+    resetTableSetting,
+    setTableSize,
+    setShowIndexColumn,
+    setShowRowSelection,
+    setColumns,
+    clearColumns,
+  };
 });

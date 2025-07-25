@@ -109,7 +109,7 @@ export default [
     },
   },
   {
-    url: '/zdr-dev-api/client/callback',
+    url: '/mock-dev-api/client/callback',
     statusCode: 200,
     method: 'get',
     response: () => {
@@ -117,7 +117,7 @@ export default [
     },
   },
   {
-    url: '/zdr-dev-api/client/logout',
+    url: '/mock-dev-api/client/logout',
     statusCode: 200,
     method: 'get',
     response: () => {

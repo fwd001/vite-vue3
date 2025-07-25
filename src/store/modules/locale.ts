@@ -6,6 +6,7 @@ import { store } from '@/store';
 import { LOCALE_KEY } from '@/enums/cacheEnum';
 import { createLocalStorage } from '@/utils/cache';
 import { localeSetting } from '@/settings/localeSetting';
+import { ref, computed } from 'vue';
 
 const ls = createLocalStorage();
 
@@ -15,38 +16,36 @@ interface LocaleState {
   localInfo: LocaleSetting;
 }
 
-export const useLocaleStore = defineStore({
-  id: 'app-locale',
-  state: (): LocaleState => ({
-    localInfo: lsLocaleSetting,
-  }),
-  getters: {
-    getShowPicker(state): boolean {
-      return !!state.localInfo?.showPicker;
-    },
-    getLocale(state): LocaleType {
-      return state.localInfo?.locale ?? 'zh_CN';
-    },
-  },
-  actions: {
-    /**
-     * Set up multilingual information and cache
-     * @param info multilingual info
-     */
-    setLocaleInfo(info: Partial<LocaleSetting>) {
-      this.localInfo = { ...this.localInfo, ...info };
-      ls.set(LOCALE_KEY, this.localInfo);
-    },
-    /**
-     * Initialize multilingual information and load the existing configuration from the local cache
-     */
-    initLocale() {
-      this.setLocaleInfo({
-        ...localeSetting,
-        ...this.localInfo,
-      });
-    },
-  },
+export const useLocaleStore = defineStore('app-locale', () => {
+  // state
+  const localInfo = ref<LocaleSetting>(lsLocaleSetting);
+
+  // getters
+  const getShowPicker = computed(() => !!localInfo.value?.showPicker);
+  const getLocale = computed(() => localInfo.value?.locale ?? 'zh_CN');
+
+  // actions
+  function setLocaleInfo(info: Partial<LocaleSetting>) {
+    localInfo.value = { ...localInfo.value, ...info };
+    ls.set(LOCALE_KEY, localInfo.value);
+  }
+  function initLocale() {
+    setLocaleInfo({
+      ...localeSetting,
+      ...localInfo.value,
+    });
+  }
+
+  return {
+    // state
+    localInfo,
+    // getters
+    getShowPicker,
+    getLocale,
+    // actions
+    setLocaleInfo,
+    initLocale,
+  };
 });
 
 // Need to be used outside the setup

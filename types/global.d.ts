@@ -17,10 +17,13 @@ declare global {
     };
     lastBuildTime: string;
   };
-  // declare interface Window {
-  //   // Global vue app instance
-  //   __APP__: App<Element>;
-  // }
+  declare interface Window {
+    // Global vue app instance
+    __bizConfig__: {
+      VITE_GLOB_IS_XXX: boolean;
+      VITE_GLOB_XXX: number[];
+    };
+  }
 
   // fix FullScreen type error
   interface Document {

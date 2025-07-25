@@ -7,12 +7,13 @@
   import { useUserStore } from '@/store/modules/user';
   import { useRouter, useRoute } from 'vue-router';
   import { isString } from '@/utils/is';
+  import { PageEnum } from '@/enums/pageEnum';
 
   const userStore = useUserStore();
   const router = useRouter();
   const route = useRoute();
 
-  const path = localStorage.getItem('routePath') || '/';
+  const path = localStorage.getItem('routePath') || PageEnum.BASE_HOME;
 
   async function login(query: { code?: string; state?: string }) {
     if (isString(query.code)) {

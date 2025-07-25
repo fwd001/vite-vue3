@@ -15,163 +15,140 @@ import { PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic';
 import { h } from 'vue';
 import { useGlobSetting } from '@/hooks/setting';
 import { isDevMode } from '@/utils/env';
+import { ref, computed } from 'vue';
 
-interface UserState {
-  userInfo: Nullable<AurhorizeCodeResultModel>;
-  token?: string;
-  roleList: RoleEnum[];
-  sessionTimeout?: boolean;
-  lastUpdateTime: number;
-}
+export const useUserStore = defineStore('app-user', () => {
+  // state
+  const userInfo = ref<Nullable<AurhorizeCodeResultModel>>(null);
+  const token = ref<string | undefined>(undefined);
+  const roleList = ref<RoleEnum[]>([]);
+  const sessionTimeout = ref<boolean>(false);
+  const lastUpdateTime = ref<number>(0);
 
-export const useUserStore = defineStore({
-  id: 'app-user',
-  state: (): UserState => ({
-    // user info
-    userInfo: null,
-    // token
-    token: undefined,
-    // roleList
-    roleList: [],
-    // Whether the login expired
-    sessionTimeout: false,
-    // Last fetch time
-    lastUpdateTime: 0,
-  }),
-  getters: {
-    getUserInfo(state): AurhorizeCodeResultModel {
-      return state.userInfo || getAuthCache<AurhorizeCodeResultModel>(USER_INFO_KEY) || {};
-    },
-    getToken(state): string {
-      return state.token || getAuthCache<string>(TOKEN_KEY);
-    },
-    getRoleList(state): RoleEnum[] {
-      return state.roleList.length > 0 ? state.roleList : getAuthCache<RoleEnum[]>(ROLES_KEY);
-    },
-    getSessionTimeout(state): boolean {
-      return !!state.sessionTimeout;
-    },
-    getLastUpdateTime(state): number {
-      return state.lastUpdateTime;
-    },
-  },
-  actions: {
-    setToken(info: string | undefined) {
-      this.token = info ? info : ''; // for null or undefined value
-      setAuthCache(TOKEN_KEY, info);
-    },
-    setRoleList(roleList: RoleEnum[]) {
-      this.roleList = roleList;
-      setAuthCache(ROLES_KEY, roleList);
-    },
-    setUserInfo(info: AurhorizeCodeResultModel | null) {
-      this.userInfo = info;
-      this.lastUpdateTime = new Date().getTime();
-      setAuthCache(USER_INFO_KEY, info);
-    },
-    setSessionTimeout(flag: boolean) {
-      this.sessionTimeout = flag;
-    },
-    resetState() {
-      this.userInfo = null;
-      this.token = '';
-      this.roleList = [];
-      this.sessionTimeout = false;
-    },
-    /**
-     * @description: login
-     */
-    async login(
-      params: AurhorizeCodeParamsModel & {
-        goHome?: boolean;
-        mode?: ErrorMessageMode;
-      },
-    ): Promise<AurhorizeCodeResultModel | null> {
+  // getters
+  const getUserInfo = computed(() => userInfo.value || getAuthCache<AurhorizeCodeResultModel>(USER_INFO_KEY) || {});
+  const getToken = computed(() => token.value || getAuthCache<string>(TOKEN_KEY));
+  const getRoleList = computed(() => roleList.value.length > 0 ? roleList.value : getAuthCache<RoleEnum[]>(ROLES_KEY));
+  const getSessionTimeout = computed(() => !!sessionTimeout.value);
+  const getLastUpdateTime = computed(() => lastUpdateTime.value);
+
+  // actions
+  function setToken(info: string | undefined) {
+    token.value = info ? info : '';
+    setAuthCache(TOKEN_KEY, info);
+  }
+  function setRoleList(list: RoleEnum[]) {
+    roleList.value = list;
+    setAuthCache(ROLES_KEY, list);
+  }
+  function setUserInfo(info: AurhorizeCodeResultModel | null) {
+    userInfo.value = info;
+    lastUpdateTime.value = new Date().getTime();
+    setAuthCache(USER_INFO_KEY, info);
+  }
+  function setSessionTimeout(flag: boolean) {
+    sessionTimeout.value = flag;
+  }
+  function resetState() {
+    userInfo.value = null;
+    token.value = '';
+    roleList.value = [];
+    sessionTimeout.value = false;
+  }
+  async function login(params: AurhorizeCodeParamsModel & { goHome?: boolean; mode?: ErrorMessageMode; }): Promise<AurhorizeCodeResultModel | null> {
+    try {
+      const { goHome = true, ...loginParams } = params;
+      const { data } = await aurhorizeCode(loginParams);
+      const { token: tk } = data;
+      if (tk) {
+        setUserInfo(data ?? null);
+        setToken(tk);
+      }
+      return afterLoginAction(goHome, loginParams.state);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+  async function afterLoginAction(goHome?: boolean, path = '/'): Promise<AurhorizeCodeResultModel | null> {
+    if (!getToken.value) return null;
+    const user = getUserInfo.value;
+    if (sessionTimeout.value) {
+      setSessionTimeout(false);
+    } else {
+      const permissionStore = usePermissionStore();
+      if (!permissionStore.isDynamicAddedRoute) {
+        const routes = await permissionStore.buildRoutesAction();
+        routes.forEach((route) => {
+          router.addRoute(route as unknown as RouteRecordRaw);
+        });
+        router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
+        permissionStore.setDynamicAddedRoute(true);
+      }
+      if (goHome) {
+        if (!stateIsEmpty(path)) {
+          path = decodeURIComponent(path || '');
+        } else {
+          path = PageEnum.BASE_HOME;
+        }
+        router.replace(path);
+      }
+    }
+    return user;
+  }
+  async function logout(goLogin = false) {
+    const { authorizeHref, clientApiUrl } = useGlobSetting();
+    if (getToken.value) {
       try {
-        const { goHome = true, ...loginParams } = params;
-        const { data } = await aurhorizeCode(loginParams);
-
-        const { token } = data;
-        if (token) {
-          this.setUserInfo(data ?? null);
-          this.setToken(token);
-          // router.replace(path);
-        }
-        return this.afterLoginAction(goHome, loginParams.state);
-      } catch (error) {
-        return Promise.reject(error);
+        await doLogout();
+      } catch {
+        console.log('注销Token失败');
       }
-    },
-    async afterLoginAction(goHome?: boolean, path = '/'): Promise<AurhorizeCodeResultModel | null> {
-      if (!this.getToken) return null;
-      // get user info
-      const userInfo = this.getUserInfo;
+    }
+    setToken(undefined);
+    setSessionTimeout(false);
+    setUserInfo(null);
+    if (isDevMode()) {
+      goLogin && router.push(PageEnum.AUTH_PAGE);
+    } else {
+      location.href = `${clientApiUrl}${authorizeHref}`;
+    }
+  }
+  function confirmLoginOut() {
+    const { createConfirm } = useMessage();
+    createConfirm({
+      iconType: 'warning',
+      title: () => h('span', '温馨提示'),
+      content: () => h('span', '是否确认退出系统？'),
+      onOk: async () => {
+        await logout(true);
+      },
+    });
+  }
 
-      const sessionTimeout = this.sessionTimeout;
-      if (sessionTimeout) {
-        this.setSessionTimeout(false);
-      } else {
-        const permissionStore = usePermissionStore();
-
-        if (!permissionStore.isDynamicAddedRoute) {
-          const routes = await permissionStore.buildRoutesAction();
-
-          routes.forEach((route) => {
-            router.addRoute(route as unknown as RouteRecordRaw);
-          });
-          router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
-          permissionStore.setDynamicAddedRoute(true);
-        }
-
-        if (goHome) {
-          if (stateIsEmpty(path) === false) {
-            path = decodeURIComponent(path || '');
-          }
-          await router.replace(stateIsEmpty(path) ? PageEnum.BASE_HOME : path);
-        }
-      }
-      return userInfo;
-    },
-
-    /**
-     * @description: logout
-     */
-    async logout(goLogin = false) {
-      const { authorizeHref, clientApiUrl } = useGlobSetting();
-
-      if (this.getToken) {
-        try {
-          await doLogout();
-        } catch {
-          console.log('注销Token失败');
-        }
-      }
-      this.setToken(undefined);
-      this.setSessionTimeout(false);
-      this.setUserInfo(null);
-
-      if (isDevMode()) {
-        goLogin && router.push(PageEnum.AUTH_PAGE);
-      } else {
-        location.href = `${clientApiUrl}${authorizeHref}`;
-      }
-    },
-
-    /**
-     * @description: Confirm before logging out
-     */
-    confirmLoginOut() {
-      const { createConfirm } = useMessage();
-      createConfirm({
-        iconType: 'warning',
-        title: () => h('span', '温馨提示'),
-        content: () => h('span', '是否确认退出系统？'),
-        onOk: async () => {
-          await this.logout(true);
-        },
-      });
-    },
-  },
+  return {
+    // state
+    userInfo,
+    token,
+    roleList,
+    sessionTimeout,
+    lastUpdateTime,
+    // getters
+    getUserInfo,
+    getToken,
+    getRoleList,
+    getSessionTimeout,
+    getLastUpdateTime,
+    // actions
+    setToken,
+    setRoleList,
+    setUserInfo,
+    setSessionTimeout,
+    resetState,
+    login,
+    afterLoginAction,
+    logout,
+    confirmLoginOut,
+  };
 });
 
 function stateIsEmpty(state: unknown): boolean {

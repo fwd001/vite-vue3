@@ -15,13 +15,10 @@ export const useGlobSetting = (): Readonly<GlobConfig> => {
     VITE_GLOB_ZDR_YWLX = '',
     VITE_GLOB_TEXT_ZDR = '',
     VITE_GLOB_TEXT_YJ = '',
-    VITE_GLOB_QB_YWLX = '',
-    VITE_GLOB_XS_YWLX = '',
     VITE_GLOB_MAP_CONFIG_HTTP_URL = '',
     VITE_GLOB_GRID_LAYER_EXTEND_URL = '',
   } = getAppEnvConfig();
 
-  // Take global configuration
   const glob: Readonly<GlobConfig> = {
     title: VITE_GLOB_APP_TITLE,
     apiUrl: VITE_GLOB_API_URL,
@@ -33,8 +30,6 @@ export const useGlobSetting = (): Readonly<GlobConfig> => {
     authorizeHref: VITE_GLOB_AUTHORIZE_HREF,
     dictionaryUrl: VITE_GLOB_DICTIONARY_URL,
     zdrYWLX: VITE_GLOB_ZDR_YWLX,
-    qbYWLX: VITE_GLOB_QB_YWLX,
-    xsYWLX: VITE_GLOB_XS_YWLX,
     textZDR: VITE_GLOB_TEXT_ZDR,
     textYJ: VITE_GLOB_TEXT_YJ,
     mapConfHttpUrl: VITE_GLOB_MAP_CONFIG_HTTP_URL,
