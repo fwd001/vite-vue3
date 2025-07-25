@@ -3,21 +3,16 @@
   <Transition name="bounce">
     <div
       v-if="visible"
-      ref="el"
-      :class="['absolute top-0 left-0 p-12px rd-6px cursor-move', !isMove && 'move-animation']"
-      :style="{
-        '--p-x': `${position.x}px`,
-        '--p-y': `${position.y}px`,
-        backgroundColor: props.backgroundColor,
-        transform: `translate3d(${position.x}px, ${position.y}px, 0px)`,
-      }"
-      @dblclick.self="emits('dblclick')"
-      @mousedown.self="handleMouseDown"
+      ref="popupEl"
+      :class="['absolute top-0 left-0 p-12px rd-6px cursor-move', !isDragging && 'move-animation']"
+      :style="popupStyle"
+      @dblclick="emit('dblclick')"
+      @mousedown="onMouseDown"
     >
       <div class="relative">
         <div
           :class="[
-            'close c-#000 hover:bg-#0081ff hover:c-[#fff] top-4px right-4px text-14px w-24px h-24px mt-4px  rd-4px ',
+            'close c-#000 hover:bg-#0081ff hover:c-[#fff] top-4px right-4px text-14px w-24px h-24px mt-4px rd-4px',
             closeClass,
           ]"
           @click="close"
@@ -32,28 +27,27 @@
   </Transition>
 </template>
 <script setup lang="ts">
-  import { ref, onBeforeUnmount, reactive, onUnmounted } from 'vue';
+  import { ref, onBeforeUnmount, reactive, onUnmounted, computed } from 'vue';
   import { CloseOutlined } from '@ant-design/icons-vue';
   import mitter from '@/views/utils/mitt';
   import { MEventEnum } from '@/enums/mittEnum';
   import { useElementSize, useEventListener, useThrottleFn, watchDebounced } from '@vueuse/core';
 
-  const visible = ref(true);
-
-  interface Props {
+  // Props 类型定义
+  interface MapPopupProps {
     latlng: [number, number];
     width?: number;
     height?: number;
-    placement?: string;
+    placement?: 'top' | 'left' | 'right' | 'bottom';
     offsetTop?: number;
     offsetLeft?: number;
     closeClass?: string;
     backgroundColor?: string;
     map: any;
-    mapWrap: any;
+    mapWrap: { width: number; height: number };
   }
 
-  const props = withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<MapPopupProps>(), {
     height: 0,
     width: 0,
     placement: 'top',
@@ -63,166 +57,160 @@
     closeClass: '',
   });
 
-  const emits = defineEmits(['updateLatlng', 'dblclick']);
+  const emit = defineEmits<{
+    (e: 'updateLatlng', latlng: [number, number]): void;
+    (e: 'dblclick'): void;
+  }>();
 
-  const el = ref();
+  const visible = ref(true);
+  const popupEl = ref<HTMLElement | null>(null);
+  const { width: elWidth, height: elHeight } = useElementSize(popupEl);
 
-  const { width: wW, height: wH } = useElementSize(el);
+  // 弹窗像素坐标
+  const position = reactive({ x: -9999, y: -9999 });
+  const isDragging = ref(false);
 
-  const position = reactive({
-    x: -9999,
-    y: -9999,
-  });
+  // 计算弹窗样式
+  const popupStyle = computed(() => ({
+    '--p-x': `${position.x}px`,
+    '--p-y': `${position.y}px`,
+    backgroundColor: props.backgroundColor,
+    transform: `translate3d(${position.x}px, ${position.y}px, 0px)`,
+  }));
 
-  const isMove = ref(false);
-  // 地图被拖动
+  // 监听地图拖拽/缩放事件，重新定位弹窗
   mitter.on(MEventEnum.MapDragAndZoom, () => {
-    if (!visible.value) return;
-    toMapXY();
+    if (visible.value) updatePosition();
   });
-  // watch(
-  //   props.mapWrap,
-  //   () => {
-  //     toMapXY();
-  //   },
-  //   {
-  //     immediate: true,
-  //   },
-  // );
-  watchDebounced(
-    [wW, wH],
-    () => {
-      toMapXY();
-    },
-    { debounce: 100, maxWait: 1000 },
-  );
-  function toMapXY() {
-    if (!props.mapWrap) {
-      return;
-    }
-    const _mapWrap = {
-      width: props.mapWrap.width,
-      height: props.mapWrap.height,
-    };
-    const point = latLng2Point({
-      map: props.map,
-      mapWrap: _mapWrap,
-      latlng: props.latlng,
-    });
 
-    let left = point.left;
-    let top = point.top;
-    const width = props.width || wW.value;
-    const height = props.height || wH.value;
+  // 弹窗尺寸变化时重新定位
+  watchDebounced([elWidth, elHeight], updatePosition, { debounce: 100, maxWait: 1000 });
 
-    if (props.placement === 'left') {
-      left = left - width;
-      top = top - height / 2;
-    } else if (props.placement === 'top') {
-      top = top - height;
-      left = left - width / 2;
-    } else if (props.placement === 'right') {
-      top = top - height / 2;
-    } else if (props.placement === 'bottom') {
-      left = left - width / 2;
-    }
-
-    position.x = left;
-    position.y = top;
-  }
-
-  function latLng2Point(data: {
+  // 经纬度转像素点
+  function latLngToPoint({
+    map,
+    latlng,
+    mapWrap,
+  }: {
     map: any;
     latlng: [number, number];
     mapWrap: { width: number; height: number };
   }) {
-    const map = data.map;
     const center = map?.getCenter();
-    const mapWrap = data.mapWrap;
-    const originPoint = map.latLngToLayerPoint(data.latlng.map((v) => Number(v)));
+    const originPoint = map.latLngToLayerPoint(latlng.map(Number));
     const centerPoint = map.latLngToLayerPoint([center.lat, center.lng]);
-
     return {
       left: mapWrap.width / 2 - (centerPoint.x - originPoint.x) + props.offsetLeft,
       top: mapWrap.height / 2 - (centerPoint.y - originPoint.y) + props.offsetTop,
     };
   }
 
-  function point2LatLng(data: {
+  // 像素点转经纬度
+  function pointToLatLng({
+    map,
+    point,
+    mapWrap,
+  }: {
     map: any;
     point: { left: number; top: number };
     mapWrap: { width: number; height: number };
-  }) {
-    const center = data.map?.getCenter();
-    const mapWrap = data.mapWrap;
-
-    // Calculate the centerPoint in layer coordinates
-    const centerPoint = data.map.latLngToLayerPoint([center.lat, center.lng]);
-
-    // Derive the target point in layer coordinates
+  }): [number, number] {
+    const center = map?.getCenter();
+    const centerPoint = map.latLngToLayerPoint([center.lat, center.lng]);
     const targetPoint = {
-      x: centerPoint.x + (data.point.left - mapWrap.width / 2),
-      y: centerPoint.y + (data.point.top - mapWrap.height / 2),
+      x: centerPoint.x + (point.left - mapWrap.width / 2),
+      y: centerPoint.y + (point.top - mapWrap.height / 2),
     };
-
-    // Convert the target point back to geographical coordinates (lat, lng)
-    const latlng = data.map.layerPointToLatLng(BM.point(targetPoint.x, targetPoint.y));
-
+    const latlng = map.layerPointToLatLng(BM.point(targetPoint.x, targetPoint.y));
     return [latlng.lat, latlng.lng];
   }
 
-  function open() {
-    toMapXY();
-    visible.value = true;
+  // 根据经纬度和配置计算弹窗像素坐标
+  function updatePosition() {
+    if (!props.mapWrap) return;
+    const { width, height } = props.mapWrap;
+    const point = latLngToPoint({
+      map: props.map,
+      mapWrap: { width, height },
+      latlng: props.latlng,
+    });
+    let left = point.left;
+    let top = point.top;
+    const w = props.width || elWidth.value;
+    const h = props.height || elHeight.value;
+    switch (props.placement) {
+      case 'left':
+        left -= w;
+        top -= h / 2;
+        break;
+      case 'top':
+        top -= h;
+        left -= w / 2;
+        break;
+      case 'right':
+        top -= h / 2;
+        break;
+      case 'bottom':
+        left -= w / 2;
+        break;
+    }
+    position.x = left;
+    position.y = top;
   }
 
+  // 打开弹窗
+  function open() {
+    updatePosition();
+    visible.value = true;
+  }
+  // 关闭弹窗
   function close() {
     visible.value = false;
   }
 
-  function handleMouseDown(e) {
+  // 拖拽弹窗
+  function onMouseDown(e: MouseEvent) {
     if (e.buttons === 2) return;
-    isMove.value = true;
-
+    isDragging.value = true;
     const startX = e.pageX - position.x;
     const startY = e.pageY - position.y;
-    const handleDrap = useThrottleFn((ev) => {
+    const onDrag = useThrottleFn((ev: MouseEvent) => {
       position.x = ev.pageX - startX;
       position.y = ev.pageY - startY;
     }, 16);
-    // useEventListener 返回一个注销函数
-    const removeMouseMove = useEventListener(document, 'mousemove', handleDrap);
-    const removeMouseup = useEventListener(document, 'mouseup', () => {
-      isMove.value = false;
-
+    // 监听鼠标移动和松开
+    const removeMouseMove = useEventListener(document, 'mousemove', onDrag);
+    const removeMouseUp = useEventListener(document, 'mouseup', () => {
+      isDragging.value = false;
+      // 计算拖拽后新的经纬度
       let left = position.x;
       let top = position.y;
-
-      const width = props.width || wW.value;
-      const height = props.height || wH.value;
-      if (props.placement === 'left') {
-        left = left + width;
-        top = top + height / 2;
-      } else if (props.placement === 'top') {
-        top = top + height;
-        left = left + width / 2;
-      } else if (props.placement === 'right') {
-        top = top + height / 2;
-      } else if (props.placement === 'bottom') {
-        left = left + width / 2;
+      const w = props.width || elWidth.value;
+      const h = props.height || elHeight.value;
+      switch (props.placement) {
+        case 'left':
+          left += w;
+          top += h / 2;
+          break;
+        case 'top':
+          top += h;
+          left += w / 2;
+          break;
+        case 'right':
+          top += h / 2;
+          break;
+        case 'bottom':
+          left += w / 2;
+          break;
       }
-      const latlng = point2LatLng({
+      const latlng = pointToLatLng({
         map: props.map,
-        point: {
-          left,
-          top,
-        },
+        point: { left, top },
         mapWrap: props.mapWrap,
       });
-
-      emits('updateLatlng', latlng);
+      emit('updateLatlng', latlng);
       removeMouseMove();
-      removeMouseup();
+      removeMouseUp();
     });
     e.preventDefault();
   }
@@ -231,14 +219,9 @@
     mitter.off(MEventEnum.MapDragAndZoom);
   });
 
-  defineExpose({
-    open,
-    close,
-  });
+  defineExpose({ open, close });
 
-  onBeforeUnmount(() => {
-    close();
-  });
+  onBeforeUnmount(close);
 </script>
 <style lang="less" scoped>
   @keyframes bounce-in {
@@ -255,15 +238,6 @@
     }
   }
 
-  .avp-wrap {
-    width: 100%;
-    height: 100%;
-    border-radius: 1px solid #000;
-    border-radius: 6px;
-    background-color: rgba(#fff, 0.9);
-    backdrop-filter: blur(5px);
-  }
-
   .close {
     position: absolute;
     z-index: 1;
@@ -271,7 +245,6 @@
     cursor: pointer;
   }
 
-  /* fade样式 */
   .fade-enter-active {
     transition: all 0.3s ease-out;
   }
@@ -285,7 +258,6 @@
     opacity: 0;
   }
 
-  /* bounce样式 */
   .bounce-enter-active {
     animation: bounce-in 0.3s;
   }

@@ -2,7 +2,8 @@ import { cloneDeep } from 'lodash-es';
 import { toRaw, reactive } from 'vue';
 import type { Reactive } from 'vue';
 
-interface TextItem {
+// 文本标注项类型
+export interface TextItem {
   id: string;
   latlng: [number, number];
   content: string;
@@ -11,74 +12,54 @@ interface TextItem {
   width?: number;
   zIndex?: number;
 }
+
+// 工具数据仓库
 class ToolStore {
-  // 工具数据
+  // 仓库状态
   private state: Reactive<{
     textList: TextItem[];
   }>;
 
   constructor() {
     this.state = reactive({
-      textList: [
-        // {
-        //   id: '1',
-        //   latlng: [44.502783276033135, 87.04467773437501],
-        //   content: '双击编辑！',
-        //   backgroundColor: '#fff',
-        //   color: '#333',
-        //   width: 0,
-        // },
-        // {
-        //   id: '2',
-        //   latlng: [43.409390776122315, 90.93163982033731],
-        //   content: '测试测试\n测试测试',
-        //   backgroundColor: '#fff',
-        //   color: '#333',
-        //   width: 0,
-        // },
-        // {
-        //   id: '3',
-        //   latlng: [43.81708957639588, 88.78051690757276],
-        //   content: '测试测试测试测试测试测试测试测试测试测试',
-        //   backgroundColor: '#fff',
-        //   color: '#333',
-        //   width: 0,
-        // },
-      ],
+      textList: [],
     });
   }
 
-  setTextList(list: TextItem[]) {
+  // 设置全部文本标注
+  setTextList(list: TextItem[]): void {
     this.state.textList = list;
   }
 
-  setTextItem(item: TextItem) {
-    const newList = cloneDeep(this.state.textList);
-    const index = newList.findIndex((_item) => _item.id === item.id);
-    newList[index] = item;
-
-    this.state.textList = newList;
-  }
-
-  deleteTextItem(id: string) {
-    this.state.textList = cloneDeep(this.state.textList).filter((_item) => _item.id !== id);
-  }
-
-  public get textList() {
-    const info = toRaw(this.state.textList);
-    if (info) {
-      return info;
+  // 更新或新增单个文本标注
+  setTextItem(item: TextItem): void {
+    const list = cloneDeep(this.state.textList);
+    const idx = list.findIndex((i) => i.id === item.id);
+    if (idx !== -1) {
+      list[idx] = item;
     } else {
-      return [];
+      list.push(item);
     }
+    this.state.textList = list;
+  }
+
+  // 删除指定文本标注
+  removeTextItem(id: string): void {
+    this.state.textList = cloneDeep(this.state.textList).filter((i) => i.id !== id);
+  }
+
+  // 获取文本标注列表（只读）
+  get textList(): TextItem[] {
+    return toRaw(this.state.textList) || [];
   }
 }
 
-let instance: ToolStore | null = null;
+let toolStoreInstance: ToolStore | null = null;
 
+// 工具仓库单例
 export function useToolStore(): ToolStore {
-  if (!instance) {
-    instance = new ToolStore();
+  if (!toolStoreInstance) {
+    toolStoreInstance = new ToolStore();
   }
-  return instance;
+  return toolStoreInstance;
 }

@@ -1,5 +1,5 @@
 <template>
-  <BasicModal v-bind="$attrs" @register="registerModal" title="属性编辑" @ok="handleSubmit">
+  <BasicModal v-bind="$attrs" @register="registerModal" :title="modalTitle" @ok="handleSubmit">
     <BasicForm @register="registerForm">
       <template #lineColor="{ model, field }">
         <ColorPicker
@@ -22,14 +22,14 @@
         <span>{{ model[field] }}</span>
       </template>
       <template #pointIcon="{ model, field }">
-        <Select ref="select" v-model:value="model[field]" style="width: 120px">
+        <Select v-model:value="model[field]" style="width: 120px">
           <SelectOption
             v-for="item in pointOptions"
             :key="item.key"
             :value="`${item.image}@@@${item.width}x${item.height}`"
           >
-            <div class="flex items-center"
-              ><img
+            <div class="flex items-center">
+              <img
                 width="16"
                 height="16"
                 class="block mr-8px"
@@ -45,49 +45,52 @@
   </BasicModal>
 </template>
 <script lang="ts" setup>
+  import { ref } from 'vue';
   import { BasicModal, useModalInner } from '@/components/Modal';
   import { BasicForm, useForm } from '@/components/Form';
-  import { FormSchema } from '@/components/Table';
+  import type { FormSchema } from '@/components/Table';
   import { SelectOption, Select } from 'ant-design-vue';
   import { ColorPicker } from 'vue3-colorpicker';
   import 'vue3-colorpicker/style.css';
-  import { ref } from 'vue';
   import { defaultIcon, iconPublicPath } from './utils';
 
-  const emit = defineEmits(['updateAttribute', 'register']);
-  const notMarker = ref(false);
+  // 事件定义
+  const emits = defineEmits<{
+    updateAttribute: [values: AttributeValues];
+    register: any[];
+  }>();
 
-  const pointOptions = [
-    {
-      key: 1,
-      image: 'dot-blue.png',
-      width: 20,
-      height: 20,
-      label: '蓝色',
-    },
-    {
-      key: 2,
-      image: 'dot-green.png',
-      width: 20,
-      height: 20,
-      label: '绿色',
-    },
-    {
-      key: 3,
-      image: 'dot-red.png',
-      width: 20,
-      height: 20,
-      label: '红色',
-    },
-    {
-      key: 4,
-      image: 'dot-mei.gif',
-      width: 30,
-      height: 30,
-      label: '小羊',
-    },
+  // 类型定义
+  interface PointOption {
+    key: number;
+    image: string;
+    width: number;
+    height: number;
+    label: string;
+  }
+
+  interface AttributeValues {
+    id: string;
+    type: string;
+    name: string;
+    pointIcon?: string;
+    fillColor?: string;
+    lineColor?: string;
+  }
+
+  // 图标选项
+  const pointOptions: PointOption[] = [
+    { key: 1, image: 'dot-blue.png', width: 20, height: 20, label: '蓝色' },
+    { key: 2, image: 'dot-green.png', width: 20, height: 20, label: '绿色' },
+    { key: 3, image: 'dot-red.png', width: 20, height: 20, label: '红色' },
+    { key: 4, image: 'dot-mei.gif', width: 30, height: 30, label: '小羊' },
   ];
 
+  // 控制表单字段显示
+  const isMarker = ref(true);
+  const modalTitle = ref('属性编辑');
+
+  // 表单 schema 配置
   const schemas: FormSchema[] = [
     {
       field: 'id',
@@ -103,12 +106,7 @@
       defaultValue: '',
       componentProps: { disabled: true },
     },
-    {
-      field: 'name',
-      component: 'Input',
-      label: '名称',
-      defaultValue: '',
-    },
+    { field: 'name', component: 'Input', label: '名称', defaultValue: '' },
     {
       field: 'pointIcon',
       slot: 'pointIcon',
@@ -122,9 +120,7 @@
       label: '填充颜色',
       defaultValue: '#3388ff',
       ifShow: false,
-      colProps: {
-        span: 12,
-      },
+      colProps: { span: 12 },
     },
     {
       field: 'lineColor',
@@ -132,54 +128,50 @@
       label: '轮廓颜色',
       defaultValue: '#3388ff',
       ifShow: false,
-      colProps: {
-        span: 12,
-      },
+      colProps: { span: 12 },
     },
   ];
-  const [registerModal, { closeModal, setModalProps }] = useModalInner((data) => {
-    // console.log('弹窗获取属性', data);
-    const _data = data.attr;
-    notMarker.value = _data.type !== 'marker';
-    setModalProps({ title: data.attr.name + '属性编辑' });
-    attrToSchema(data.id, _data);
-    updateSchema({
-      field: 'lineColor',
-      ifShow: notMarker.value,
-    });
-    updateSchema({
-      field: 'fillColor',
-      ifShow: notMarker.value,
-    });
-    updateSchema({
-      field: 'pointIcon',
-      ifShow: !notMarker.value,
-    });
-  });
 
+  // 弹窗注册与数据初始化
+  const [registerModal, { closeModal, setModalProps }] = useModalInner(
+    (data: { id: string; attr: AttributeValues }) => {
+      const attr = data.attr;
+      isMarker.value = attr.type === 'marker';
+      modalTitle.value = attr.name + '属性编辑';
+      setModalProps({ title: modalTitle.value });
+      setFormFields(data.id, attr);
+      // 控制字段显示
+      updateSchema({ field: 'lineColor', ifShow: !isMarker.value });
+      updateSchema({ field: 'fillColor', ifShow: !isMarker.value });
+      updateSchema({ field: 'pointIcon', ifShow: isMarker.value });
+    },
+  );
+
+  // 表单注册
   const [registerForm, { setFieldsValue, validateFields, updateSchema }] = useForm({
     labelWidth: 100,
     schemas,
     baseColProps: { span: 24 },
     showActionButtonGroup: false,
-    actionColOptions: {
-      span: 24,
-    },
+    actionColOptions: { span: 24 },
   });
 
-  function attrToSchema(id: any, attr: any) {
-    setFieldsValue({ id, name: attr.name, type: attr.type });
+  // 设置表单初始值
+  function setFormFields(id: string, attr: AttributeValues) {
     setFieldsValue({
+      id,
+      name: attr.name,
+      type: attr.type,
       lineColor: attr.lineColor ?? '#3388ff',
       fillColor: attr.fillColor ?? '#3388ff',
       pointIcon: attr.pointIcon ?? defaultIcon,
     });
   }
-  const handleSubmit = async () => {
+
+  // 表单提交
+  async function handleSubmit() {
     const values = await validateFields();
-    // console.log(values);
     closeModal();
-    emit('updateAttribute', values);
-    // console.log('弹窗保存属性', values);
-  };
+    emits('updateAttribute', values as AttributeValues);
+  }
 </script>

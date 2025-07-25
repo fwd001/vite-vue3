@@ -80,56 +80,56 @@
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="拖拽"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.drag }]"
-            @click="onOperateClick(ToolTypeEnum.drag)"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.drag }]"
+            @click="handleToolAction(ToolTypeEnum.drag)"
           >
             <SvgIcon name="map-tool-drag-hand-gesture" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="标点"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.marker }]"
-            @click="onOperateClick(ToolTypeEnum.marker)"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.marker }]"
+            @click="handleToolAction(ToolTypeEnum.marker)"
           >
             <SvgIcon name="map-tool-marker" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="文本"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.text }]"
-            @click="onOperateClick(ToolTypeEnum.text)"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.text }]"
+            @click="handleToolAction(ToolTypeEnum.text)"
           >
             <SvgIcon name="map-tool-text-2-fill" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="连线"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.polyline }]"
-            @click="onOperateClick(ToolTypeEnum.polyline)"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.polyline }]"
+            @click="handleToolAction(ToolTypeEnum.polyline)"
           >
             <SvgIcon name="map-tool-baseline-polyline" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="多边形"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.polygon }]"
-            @click="onOperateClick(ToolTypeEnum.polygon)"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.polygon }]"
+            @click="handleToolAction(ToolTypeEnum.polygon)"
           >
             <SvgIcon name="map-tool-polygon-duotone" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="圆"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.circle }]"
-            @click="onOperateClick(ToolTypeEnum.circle)"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.circle }]"
+            @click="handleToolAction(ToolTypeEnum.circle)"
           >
             <SvgIcon name="map-tool-twotone-circle" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="矩形"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.rectangle }]"
-            @click="onOperateClick(ToolTypeEnum.rectangle)"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.rectangle }]"
+            @click="handleToolAction(ToolTypeEnum.rectangle)"
           >
             <SvgIcon name="map-tool-rectangle-duotone" class="icon-c" size="18" />
           </span>
@@ -150,56 +150,56 @@
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="细直箭头"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.straightArrow }]"
-            @click="onOperateClick(ToolTypeEnum.straightArrow)"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.straightArrow }]"
+            @click="handleToolAction(ToolTypeEnum.straightArrow)"
           >
             <SvgIcon name="map-tool-left-arrow" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="尖直箭头"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.fineArrow }]"
-            @click="onOperateClick(ToolTypeEnum.fineArrow)"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.fineArrow }]"
+            @click="handleToolAction(ToolTypeEnum.fineArrow)"
           >
             <SvgIcon name="map-tool-arrow-left-1" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="粗直箭头"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.assaultDirection }]"
-            @click="onOperateClick(ToolTypeEnum.assaultDirection)"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.assaultDirection }]"
+            @click="handleToolAction(ToolTypeEnum.assaultDirection)"
           >
             <SvgIcon name="map-tool-arrow-left-2" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="粗曲线箭头"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.squadCombat }]"
-            @click="onOperateClick(ToolTypeEnum.squadCombat)"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.squadCombat }]"
+            @click="handleToolAction(ToolTypeEnum.squadCombat)"
           >
             <SvgIcon name="map-tool-arrow-bounce-16-filled" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="燕尾曲线箭头"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.tailedSquadCombat }]"
-            @click="onOperateClick(ToolTypeEnum.tailedSquadCombat)"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.tailedSquadCombat }]"
+            @click="handleToolAction(ToolTypeEnum.tailedSquadCombat)"
           >
             <SvgIcon name="map-tool-enter-arrow" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="双箭头"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.doubleArrow }]"
-            @click="onOperateClick(ToolTypeEnum.doubleArrow)"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.doubleArrow }]"
+            @click="handleToolAction(ToolTypeEnum.doubleArrow)"
           >
             <SvgIcon name="map-tool-arrow-split-16-filled" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="进攻方向"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.attackArrow }]"
-            @click="onOperateClick(ToolTypeEnum.attackArrow)"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.attackArrow }]"
+            @click="handleToolAction(ToolTypeEnum.attackArrow)"
           >
             <SvgIcon name="map-tool-spine-arrow" class="icon-c" size="18" />
           </span>
@@ -220,31 +220,31 @@
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="距离测量"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.ruler }]"
-            @click="onOperateClick(ToolTypeEnum.ruler)"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.ruler }]"
+            @click="handleToolAction(ToolTypeEnum.ruler)"
           >
             <SvgIcon name="map-tool-ruler" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="区域面积"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.measure }]"
-            @click="onOperateClick(ToolTypeEnum.measure)"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.measure }]"
+            @click="handleToolAction(ToolTypeEnum.measure)"
           >
             <SvgIcon name="map-tool-area" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="导出标绘"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.downfile }]"
-            @click="downloadGeoJson"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.downfile }]"
+            @click="exportGeoJsonFile"
           >
             <SvgIcon name="map-tool-import" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
             title="导入标绘"
-            :class="[{ active: toolData.drawType === ToolTypeEnum.openfile }]"
+            :class="[{ active: toolState.drawType === ToolTypeEnum.openfile }]"
             @click="openFile"
           >
             <SvgIcon name="map-tool-export" class="icon-c" size="18" />
@@ -254,7 +254,7 @@
             type="file"
             name="file"
             ref="fileDom"
-            @change="onChangeFile"
+            @change="importGeoJsonFile"
             v-show="false"
           />
         </div>
@@ -264,8 +264,8 @@
     <GraphMenu
       @on-delete-layer="onDeleteLayer"
       @on-edit-layer-info="onEditLayerInfo"
-      @on-move-layer="onMoveLayer"
-      @on-edit-overlay="onEditOverlay"
+      @on-move-layer="moveSelectedLayer"
+      @on-edit-overlay="editSelectedOverlay"
     />
     <!-- 属性编辑框：未完成！还需根据需求完善！ -->
     <GraphicInfo @register="registerModal" @update-attribute="updateAttribute" />
@@ -331,15 +331,21 @@
   const { l2Addr } = useLatlon2Addr();
   const toolStore = useToolStore();
 
-  const { instance, onMapMounted } = useMap('bigemap-global');
+  const { instance, onReady } = useMap('bigemap-global');
 
-  const { toolData, onOperateClick, onEditOverlay, onMoveLayer, onChangeFile, downloadGeoJson } =
-    useToolHooks({
-      selectOnpanel,
-      addDrawToPanel,
-    });
+  const {
+    toolState,
+    handleToolAction,
+    editSelectedOverlay,
+    moveSelectedLayer,
+    importGeoJsonFile,
+    exportGeoJsonFile,
+  } = useToolHooks({
+    addDrawToPanel,
+    selectOnpanel,
+  });
 
-  onMapMounted(() => {
+  onReady(() => {
     map.value = instance.map;
     layerGroup.value = instance.layerGroup;
     mapWrap.value = instance.mapWrap;
@@ -458,25 +464,25 @@
   //  添加标绘节点至标绘图层面板
   function onDeleteLayer(e) {
     e.stopPropagation();
-    if (!toolData.selected) return;
-    const nodeKey = toolData.selected.overlay_id;
-    toolData.selected.remove();
-    toolData.layerGroup.removeLayer(toolData.selected);
-    delete toolData.markers[nodeKey];
+    if (!toolState.selected) return;
+    const nodeKey = toolState.selected.overlay_id;
+    toolState.selected.remove();
+    toolState.layerGroup.removeLayer(toolState.selected);
+    delete toolState.markers[nodeKey];
     mitter.emit(MEventEnum.HideContextMenu);
-    toolData.selected = undefined;
+    toolState.selected = undefined;
     console.log(nodeKey);
     // LyrListDom.value?.deleteDataFromTree(nodeKey);
   }
   //  编辑要素属性
   function onEditLayerInfo(e) {
-    onOperateClick(ToolTypeEnum.drag);
+    handleToolAction(ToolTypeEnum.drag);
     e.stopPropagation ? e.stopPropagation() : null;
     mitter.emit(MEventEnum.HideContextMenu);
-    currentGraphic = toolData.selected;
+    currentGraphic = toolState.selected;
     openModal(true, {
-      id: toolData.selected.overlay_id,
-      attr: toolData.selected.options.attribution,
+      id: toolState.selected.overlay_id,
+      attr: toolState.selected.options.attribution,
       isUpdate: false,
     });
   }
@@ -520,7 +526,7 @@
   const fileDom = ref<HTMLInputElement>();
 
   const openFile = () => {
-    onOperateClick(ToolTypeEnum.openfile);
+    handleToolAction(ToolTypeEnum.openfile);
     fileDom.value?.click();
   };
 </script>

@@ -6,9 +6,9 @@ export function useXZQHRender() {
   const mapStore = usePsMapStore();
   let map: any; // 总地图实例
   let layerGroup: any; // 地图图层组
-  const { instance, onMapMounted } = useMap('bigemap-global');
+  const { instance, onReady } = useMap('bigemap-global');
 
-  onMapMounted(() => {
+  onReady(() => {
     map = instance.map;
     layerGroup = instance.layerGroup;
     init();

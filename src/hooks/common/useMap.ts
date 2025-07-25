@@ -2,56 +2,61 @@ import { onMounted, onUnmounted } from 'vue';
 import { useGlobSetting } from '@/hooks/setting';
 import { useElementSize, type MaybeComputedElementRef } from '@vueuse/core';
 
-// 地图domid配置， 必须设置 ref = bigeMapRef
-type CBFunc = (opt: { map: any; layerGroup: any; mapWrap: any }) => void;
+// 地图回调类型
+type MapCallback = (ctx: {
+  map: any;
+  layerGroup: any;
+  mapWrap: ReturnType<typeof useElementSize>;
+}) => void;
 
-const instance: {
-  [key: string]: {
-    map?: any; // 总地图实例
-    ele18lite?: any; // 电子图层
-    layerGroup?: any; // 其他东西图层
-    mapWrap?: any; // 地图elementSize
-    bigeMapRef?: any; // 地图! ref = bigeMapRef
-    // 挂载事件列表
-    mountedEvents?: CBFunc[];
-  };
-} = {};
+// 地图实例上下文类型
+interface MapContext {
+  map?: any; // BM.Map
+  customLayer?: any; // BM.GridLayer
+  layerGroup?: any; // BM.FeatureGroup
+  mapWrap?: ReturnType<typeof useElementSize>;
+  mapRef?: MaybeComputedElementRef;
+  mountedCallbacks?: MapCallback[];
+}
+
+// 所有地图实例缓存
+const mapInstances: Record<string, MapContext> = {};
 
 const publicPath = import.meta.env.VITE_PUBLIC_PATH || '/';
 
-export function useMap(namespace: string, bigeMapRef?: MaybeComputedElementRef) {
-  // 初始化
-  if (!instance[namespace]) instance[namespace] = {};
-  if (!instance[namespace].mountedEvents?.length) {
-    instance[namespace].mountedEvents = [];
+export function useMap(namespace: string, mapRef?: MaybeComputedElementRef) {
+  // 初始化实例缓存
+  if (!mapInstances[namespace]) {
+    mapInstances[namespace] = {};
   }
-  const { mapConfHttpUrl, dridUrl } = useGlobSetting();
+  if (!mapInstances[namespace].mountedCallbacks) {
+    mapInstances[namespace].mountedCallbacks = [];
+  }
 
+  const { mapConfHttpUrl, dridUrl } = useGlobSetting();
   if (BM) BM.Config.HTTP_URL = mapConfHttpUrl;
 
-  if (!instance[namespace].bigeMapRef) {
-    const mapWrap = useElementSize(bigeMapRef);
-    instance[namespace].bigeMapRef = bigeMapRef;
-    instance[namespace].mapWrap = mapWrap;
+  // 初始化 mapWrap
+  if (!mapInstances[namespace].mapRef) {
+    mapInstances[namespace].mapRef = mapRef;
+    mapInstances[namespace].mapWrap = useElementSize(mapRef);
   }
 
-  const onMapMounted = (callback?: (opts: { map: any; layerGroup: any; mapWrap: any }) => void) => {
-    if (instance[namespace].map) {
-      callback &&
-        callback({
-          map: instance[namespace].map,
-          layerGroup: instance[namespace].layerGroup,
-          mapWrap: instance[namespace].mapWrap,
-        });
+  // 地图就绪回调注册
+  const onReady = (cb?: MapCallback) => {
+    const ctx = mapInstances[namespace];
+    if (ctx.map && ctx.layerGroup && ctx.mapWrap) {
+      cb && cb({ map: ctx.map, layerGroup: ctx.layerGroup, mapWrap: ctx.mapWrap });
     } else {
-      callback && instance[namespace].mountedEvents?.push(callback);
+      cb && ctx.mountedCallbacks?.push(cb);
     }
   };
 
-  const initializeMap = () => {
-    if (!BM) return;
-    if (instance[namespace].map) return;
-    instance[namespace].map = BM.map(namespace, null, {
+  // 地图初始化
+  const initMap = () => {
+    if (!BM || mapInstances[namespace].map) return;
+    const ctx = mapInstances[namespace];
+    ctx.map = BM.map(namespace, null, {
       center: [43.858296779161854, 87.21496514976026],
       minZoom: 3,
       zoom: 7,
@@ -60,50 +65,43 @@ export function useMap(namespace: string, bigeMapRef?: MaybeComputedElementRef) 
       attributionControl: false,
       doubleClickZoom: false,
       trackResize: true,
-      // renderer: BM.svg(),
     });
-
-    // 电子地图自定义渲染
-    const gridLayer = BM.GridLayer.extend(
-      getGridLayerExtend({
-        url: dridUrl,
-      }),
-    );
-
-    instance[namespace].ele18lite = new gridLayer();
-    instance[namespace].ele18lite.addTo(instance[namespace].map);
-    instance[namespace].layerGroup = BM.featureGroup([]);
-    instance[namespace].layerGroup.addTo(instance[namespace].map);
-    // mitter.emit(MEventEnum.MapMounted, { map, layerGroup, mapWrap });
-
-    instance[namespace].mountedEvents?.forEach((callback) => {
-      callback({
-        map: instance[namespace].map,
-        layerGroup: instance[namespace].layerGroup,
-        mapWrap: instance[namespace].mapWrap,
-      });
+    // 自定义电子图层
+    const GridLayer = BM.GridLayer.extend(createGridLayerOptions({ url: dridUrl }));
+    ctx.customLayer = new GridLayer();
+    ctx.customLayer.addTo(ctx.map);
+    ctx.layerGroup = BM.featureGroup([]);
+    ctx.layerGroup.addTo(ctx.map);
+    // 执行所有挂载回调
+    ctx.mountedCallbacks?.forEach((cb) => {
+      if (ctx.map && ctx.layerGroup && ctx.mapWrap) {
+        cb({ map: ctx.map, layerGroup: ctx.layerGroup, mapWrap: ctx.mapWrap });
+      }
     });
+    ctx.mountedCallbacks = [];
   };
 
-  onMounted(initializeMap);
-
+  onMounted(initMap);
   onUnmounted(() => {
-    instance[namespace] = {};
+    mapInstances[namespace] = {};
   });
 
   return {
-    onMapMounted,
-    instance: instance[namespace],
+    onReady,
+    instance: mapInstances[namespace],
     id: namespace,
   };
 }
 
-function getGridLayerExtend(data: { url: string }) {
+// 自定义网格图层配置
+function createGridLayerOptions(data: { url: string }) {
   return {
-    createTile: function (coords: any) {
+    createTile(coords: { x: number; y: number; z: number }) {
       const tile = new Image(256, 256);
-      const src = data.url;
-      tile.src = src.replace('{x}', coords.x).replace('{y}', coords.y).replace('{z}', coords.z);
+      tile.src = data.url
+        .replace('{x}', coords.x.toString())
+        .replace('{y}', coords.y.toString())
+        .replace('{z}', coords.z.toString());
       tile.onerror = () => {
         tile.src = publicPath + 'images/empty.png';
       };

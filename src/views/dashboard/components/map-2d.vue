@@ -30,9 +30,9 @@
   // 必须设置 ref = bigeMapRef
   const bigeMapRef = ref(null);
 
-  const { instance, onMapMounted, id: domId } = useMap('bigemap-global', bigeMapRef);
+  const { instance, onReady, id: domId } = useMap('bigemap-global', bigeMapRef);
 
-  onMapMounted(() => {
+  onReady(() => {
     eventFn();
     mitterOn();
   });

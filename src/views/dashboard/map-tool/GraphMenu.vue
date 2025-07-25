@@ -1,66 +1,100 @@
 <template>
-  <ClickOutSide
-    @click-outside="hideContextMenu"
-    class="menu-box"
-    :style="{ top: `${menuPosition.top}px`, left: `${menuPosition.left}px` }"
-  >
-    <div class="menu-item" @click="emits('onEditLayerInfo', $event)">编辑</div>
+  <ClickOutSide @click-outside="hideMenu" class="menu-box" :style="menuStyle">
+    <div class="menu-item" @click="emitEditLayerInfo">编辑</div>
     <div
-      v-if="menuPosition.type === 'overlay' || menuPosition.type === 'military'"
+      v-if="menuType === 'overlay' || menuType === 'military'"
       class="menu-item"
-      @click="emits('onEditOverlay', $event)"
+      @click="emitEditOverlay"
     >
       修改路径
     </div>
-    <div
-      v-if="menuPosition.type === 'marker'"
-      class="menu-item"
-      @click="emits('onMoveLayer', $event)"
-    >
-      移动
-    </div>
-    <div class="menu-item" @click="emits('onDeleteLayer', $event)">删除</div>
+    <div v-if="menuType === 'marker'" class="menu-item" @click="emitMoveLayer"> 移动 </div>
+    <div class="menu-item" @click="emitDeleteLayer">删除</div>
   </ClickOutSide>
 </template>
 
 <script setup lang="ts">
-  import { onBeforeUnmount, ref } from 'vue';
+  import { onBeforeUnmount, ref, computed } from 'vue';
   import { ClickOutSide } from '@/components/ClickOutSide';
   import mitter from '@/views/utils/mitt';
   import { MEventEnum } from '@/enums/mittEnum';
-  // let map: any; // 总地图实例
-  const emits = defineEmits(['onEditLayerInfo', 'onEditOverlay', 'onMoveLayer', 'onDeleteLayer']);
 
-  const menuPosition = ref({
+  // 菜单类型
+  interface MenuType {
+    top: number;
+    left: number;
+    type: 'marker' | 'overlay' | 'military' | string;
+  }
+
+  const emits = defineEmits<{
+    (e: 'onEditLayerInfo', event: MouseEvent): void;
+    (e: 'onEditOverlay', event: MouseEvent): void;
+    (e: 'onMoveLayer', event: MouseEvent): void;
+    (e: 'onDeleteLayer', event: MouseEvent): void;
+  }>();
+
+  // 菜单位置与类型
+  const menu = ref<MenuType>({
     top: -999,
     left: -999,
     type: 'marker',
   });
-  function showContextMenu(x: number, y: number, type = 'marker') {
-    menuPosition.value = { top: y, left: x, type: type };
+
+  // 计算属性：菜单样式
+  const menuStyle = computed(() => ({
+    top: `${menu.value.top}px`,
+    left: `${menu.value.left}px`,
+  }));
+
+  // 计算属性：菜单类型
+  const menuType = computed(() => menu.value.type);
+
+  // 显示菜单
+  function showMenu(x: number, y: number, type: MenuType['type'] = 'marker') {
+    menu.value = { top: y, left: x, type };
   }
-  function hideContextMenu() {
-    if (menuPosition.value.top === -999) return;
-    menuPosition.value = { top: -999, left: -999, type: 'marker' };
+  // 隐藏菜单
+  function hideMenu() {
+    if (menu.value.top === -999) return;
+    menu.value = { top: -999, left: -999, type: 'marker' };
   }
 
-  function mitterOn() {
-    mitter.on(MEventEnum.ShowContextMenu, (data: { x: number; y: number; type?: string }) => {
-      showContextMenu(data.x, data.y, data.type);
-    });
-    mitter.on(MEventEnum.HideContextMenu, () => {
-      hideContextMenu();
-    });
+  // 事件触发方法
+  function emitEditLayerInfo(e: MouseEvent) {
+    emits('onEditLayerInfo', e);
+    hideMenu();
   }
-  mitterOn();
+  function emitEditOverlay(e: MouseEvent) {
+    emits('onEditOverlay', e);
+    hideMenu();
+  }
+  function emitMoveLayer(e: MouseEvent) {
+    emits('onMoveLayer', e);
+    hideMenu();
+  }
+  function emitDeleteLayer(e: MouseEvent) {
+    emits('onDeleteLayer', e);
+    hideMenu();
+  }
 
-  function mitterOff() {
+  // mitt 事件注册
+  function registerMitt() {
+    mitter.on(
+      MEventEnum.ShowContextMenu,
+      (data: { x: number; y: number; type?: MenuType['type'] }) => {
+        showMenu(data.x, data.y, data.type);
+      },
+    );
+    mitter.on(MEventEnum.HideContextMenu, hideMenu);
+  }
+  registerMitt();
+
+  // mitt 事件注销
+  function unregisterMitt() {
     mitter.off(MEventEnum.ShowContextMenu);
     mitter.off(MEventEnum.HideContextMenu);
   }
-  onBeforeUnmount(() => {
-    mitterOff();
-  });
+  onBeforeUnmount(unregisterMitt);
 </script>
 
 <style lang="less" scoped>
