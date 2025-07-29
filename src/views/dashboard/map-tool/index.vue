@@ -315,7 +315,7 @@
   import TextEditModal from './TextEditModal.vue';
   import MapPopup from './MapPopup.vue';
   import { useMap } from '@/hooks/common/useMap';
-  import { SvgIcon } from '@/components/Icon';
+  import SvgIcon from '@/components/Icon/src/SvgIcon.vue';
   import { onKeyStroke } from '@vueuse/core';
   import { Input, Button } from 'ant-design-vue';
 

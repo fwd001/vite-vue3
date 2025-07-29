@@ -100,9 +100,7 @@
   import ImportJsonModal from './components/ImportJsonModal.vue';
   import CodeModal from './components/CodeModal.vue';
 
-  import 'codemirror/mode/javascript/javascript';
-
-  import { ref, provide, Ref } from 'vue';
+  import { onMounted, ref, provide, Ref } from 'vue';
   import { Layout, LayoutContent, LayoutSider } from 'ant-design-vue';
 
   import { IVFormComponent, IFormConfig, PropsTabKey } from '../../typings/v-form-component';
@@ -353,6 +351,10 @@
   });
 
   // endregion
+
+  onMounted(async () => {
+    await import('codemirror/mode/javascript/javascript');
+  });
 </script>
 
 <style lang="less" scoped>
