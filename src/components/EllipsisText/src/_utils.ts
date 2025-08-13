@@ -1,7 +1,7 @@
 // cancelAnimationFrame
 export const cancelAnimationFrame = window.cancelAnimationFrame;
 // 使用 requestAnimationFrame 模拟 setTimeout 和 setInterval
-export function rafTimeout(fn: Function, delay = 0, interval = false): object {
+export function rafTimeout(fn: () => void, delay = 0, interval = false): object {
   const requestAnimationFrame =
     typeof window !== 'undefined' ? window.requestAnimationFrame : () => {};
   let start: any = null;

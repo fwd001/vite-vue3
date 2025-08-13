@@ -74,7 +74,9 @@
 
       onUnmounted(() => {
         const el = unref(wrapRef);
-        el && document.body.removeChild(el);
+        if (el) {
+          document.body.removeChild(el);
+        }
       });
 
       function handleAction(item: ContextMenuItem, e: MouseEvent) {

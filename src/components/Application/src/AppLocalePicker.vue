@@ -56,7 +56,9 @@
   async function toggleLocale(lang: LocaleType | string) {
     await changeLocale(lang as LocaleType);
     selectedKeys.value = [lang as string];
-    props.reload && location.reload();
+    if (props.reload) {
+      location.reload();
+    }
   }
 
   function handleMenuEvent(menu: DropMenu) {

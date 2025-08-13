@@ -1,6 +1,6 @@
 import type { RouteLocationNormalized, RouteLocationRaw, Router } from 'vue-router';
 
-import { toRaw, unref } from 'vue';
+import { toRaw, unref, ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { store } from '@/store';
 
@@ -13,7 +13,6 @@ import { getRawRoute } from '@/utils';
 import { MULTIPLE_TABS_KEY } from '@/enums/cacheEnum';
 
 import projectSetting from '@/settings/projectSetting';
-import { ref, computed } from 'vue';
 
 export interface MultipleTabState {
   cacheTabList: Set<string>;
@@ -40,7 +39,9 @@ const cacheTab = projectSetting.multiTabsSetting.cache;
 export const useMultipleTabStore = defineStore('app-multiple-tab', () => {
   // state
   const cacheTabList = ref<Set<string>>(new Set());
-  const tabList = ref<RouteLocationNormalized[]>(cacheTab ? Persistent.getLocal(MULTIPLE_TABS_KEY) || [] : []);
+  const tabList = ref<RouteLocationNormalized[]>(
+    cacheTab ? Persistent.getLocal(MULTIPLE_TABS_KEY) || [] : [],
+  );
   const lastDragEndIndex = ref<number>(0);
 
   // getters
@@ -105,9 +106,7 @@ export const useMultipleTabStore = defineStore('app-multiple-tab', () => {
     let updateIndex = -1;
     const tabHasExits = tabList.value.some((tab, index) => {
       updateIndex = index;
-      return (
-        decodeURIComponent(tab.fullPath || tab.path) === decodeURIComponent(fullPath || path)
-      );
+      return decodeURIComponent(tab.fullPath || tab.path) === decodeURIComponent(fullPath || path);
     });
     if (tabHasExits) {
       const curTab = toRaw(tabList.value)[updateIndex];

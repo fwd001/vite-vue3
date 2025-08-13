@@ -65,7 +65,9 @@
 
   const instance = getCurrentInstance();
 
-  instance && emit('register', drawerInstance, instance.uid);
+  if (instance) {
+    emit('register', drawerInstance, instance.uid);
+  }
 
   const getMergeProps = computed(() => {
     return deepMerge(props, unref(propsRef));

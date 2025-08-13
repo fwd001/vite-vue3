@@ -14,6 +14,7 @@ module.exports = {
       options: {
         parser: 'json',
       },
+      excludeFiles: ['.browserslistrc'],
     },
   ],
 };

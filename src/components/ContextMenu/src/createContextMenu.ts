@@ -14,7 +14,9 @@ const menuManager: {
 export const createContextMenu = function (options: CreateContextOptions) {
   const { event } = options || {};
 
-  event && event?.preventDefault();
+  if (event) {
+    event.preventDefault();
+  }
 
   if (!isClient) {
     return;
@@ -49,8 +51,10 @@ export const createContextMenu = function (options: CreateContextOptions) {
     const remove = function () {
       menuManager.domList.forEach((dom: Element) => {
         try {
-          dom && body.removeChild(dom);
-        } catch (error) {
+          if (dom) {
+            body.removeChild(dom);
+          }
+        } catch {
           //
         }
       });

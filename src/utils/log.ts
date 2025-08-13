@@ -1,4 +1,4 @@
-const projectName = import.meta.env.VITE_GLOB_APP_TITLE;
+const projectName = window.__bizConfig__.title;
 
 export function warn(message: string) {
   console.warn(`[${projectName} warn]:${message}`);

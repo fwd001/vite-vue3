@@ -1,4 +1,4 @@
-import type { LocaleSetting, LocaleType } from '#/config';
+import type { LocaleSetting } from '#/config';
 
 import { defineStore } from 'pinia';
 import { store } from '@/store';
@@ -11,10 +11,6 @@ import { ref, computed } from 'vue';
 const ls = createLocalStorage();
 
 const lsLocaleSetting = (ls.get(LOCALE_KEY) || localeSetting) as LocaleSetting;
-
-interface LocaleState {
-  localInfo: LocaleSetting;
-}
 
 export const useLocaleStore = defineStore('app-locale', () => {
   // state

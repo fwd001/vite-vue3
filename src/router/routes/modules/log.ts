@@ -1,9 +1,9 @@
 import type { AppRouteModule } from '@/router/types';
-import { useGlobSetting } from '@/hooks/setting';
 import { LAYOUT } from '@/router/constant';
 
 const IFrame = () => import('@/views/sys/iframe/FrameBlank.vue');
-const { dictionaryUrl } = useGlobSetting();
+
+const dictionaryUrl = window.__bizConfig__.VITE_GLOB_DICTIONARY_URL;
 
 const iframe: AppRouteModule = {
   path: '/log',

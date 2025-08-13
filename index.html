@@ -8,8 +8,8 @@
       name="viewport"
       content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0"
     />
-    <title> <%= VITE_GLOB_APP_TITLE %> </title>
-    <link rel="icon" href="favicon.ico" />
+    <title id="_html_title"> title </title>
+    <link rel="icon" href="<%= VITE_PUBLIC_PATH %>favicon.ico" />
   </head>
 
   <body id="body">
@@ -138,11 +138,25 @@
           <div class="app-loading-dots">
             <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
           </div>
-          <div class="app-loading-title"> <%= VITE_GLOB_APP_TITLE %> </div>
+          <div class="app-loading-title"> loading... </div>
         </div>
       </div>
     </div>
+    <script src="<%= VITE_PUBLIC_PATH %>bizConfig.js"></script>
+    <script>
+      const bizTitle = window.__bizConfig__.title;
+      // 获取所有需要设置标题的元素
+      const titleElements = [
+        ...document.querySelectorAll('#_html_title'),
+        ...document.querySelectorAll('.app-loading-title'),
+      ];
+      // 设置标题内容
+      titleElements.forEach((el) => {
+        el.textContent = bizTitle;
+      });
+    </script>
     <!-- bigemap第三方库 start -->
+
     <link href="/public-fe/BM/bigemap.css" rel="stylesheet" />
     <script type="text/javascript" src="/public-fe/BM/bigemap.js"></script>
     <link rel="stylesheet" href="/public-fe/BM/mouse_draw/Bigemap.draw.css" />
@@ -174,6 +188,7 @@
     <script>
       L.shp = window.shp;
     </script>
+    <!-- bigemap第三方库 end -->
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

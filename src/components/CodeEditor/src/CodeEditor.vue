@@ -44,7 +44,7 @@
     if (isString(value)) {
       try {
         result = JSON.parse(value);
-      } catch (e) {
+      } catch {
         emit('format-error', value);
         return value as string;
       }

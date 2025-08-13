@@ -330,7 +330,7 @@
   // provide注入表单数据模型
   provide('formModel', formModel);
   // 把祖先组件的方法项注入到子组件中，子组件可通过inject获取
-  provide<(key: String, value: any) => void>('setFormModelMethod', setFormModel);
+  provide<(key: string, value: any) => void>('setFormModelMethod', setFormModel);
   // region 注入给子组件的属性
   // provide('currentItem', formConfig.value.currentItem)
 

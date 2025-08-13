@@ -14,7 +14,9 @@ export function useDescription(props?: Partial<DescriptionProps>): UseDescReturn
       return;
     }
     desc.value = instance;
-    props && instance.setDescProps(props);
+    if (props) {
+      instance.setDescProps(props);
+    }
     loaded.value = true;
   }
 

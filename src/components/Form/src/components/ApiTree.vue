@@ -40,7 +40,7 @@
   const attrs = useAttrs();
 
   const treeData = ref<DataNode[]>([]);
-  const isFirstLoaded = ref<Boolean>(false);
+  const isFirstLoaded = ref<boolean>(false);
   const loading = ref(false);
   const emitData = ref<any[]>([]);
 

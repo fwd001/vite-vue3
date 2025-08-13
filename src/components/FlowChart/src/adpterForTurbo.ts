@@ -60,8 +60,7 @@ export function toLogicFlowData(data) {
     edges: [],
   };
   const list = data.flowElementList;
-  list &&
-    list.length > 0 &&
+  if (list && list.length > 0) {
     list.forEach((element) => {
       if (element.type === TurboType.SEQUENCE_FLOW) {
         const edge = convertFlowElementToEdge(element);
@@ -71,5 +70,6 @@ export function toLogicFlowData(data) {
         lfData.nodes.push(node);
       }
     });
+  }
   return lfData;
 }

@@ -25,7 +25,7 @@
           :class="[{ active: showPanelKey === ToolEnum.search }]"
           @click="onChangePanelKey(ToolEnum.search)"
         >
-          <SvgIcon name="map-tool-search" size="18" />
+          <Icon icon="map-tool-search|svg" size="18" />
         </span>
         <div
           v-show="showPanelKey === ToolEnum.search"
@@ -43,7 +43,7 @@
           :class="[{ active: showPanelKey === ToolEnum.position }]"
           @click="onChangePanelKey(ToolEnum.position)"
         >
-          <SvgIcon name="map-tool-position" size="18" />
+          <Icon icon="map-tool-position|svg" size="18" />
         </span>
         <div
           v-show="showPanelKey === ToolEnum.position"
@@ -71,7 +71,7 @@
           :class="[{ active: showPanelKey === ToolEnum.base }]"
           @click="onChangePanelKey(ToolEnum.base)"
         >
-          <SvgIcon name="map-tool-base" size="18" />
+          <Icon icon="map-tool-base|svg" size="18" />
         </span>
         <div
           v-show="showPanelKey === ToolEnum.base"
@@ -83,7 +83,7 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.drag }]"
             @click="handleToolAction(ToolTypeEnum.drag)"
           >
-            <SvgIcon name="map-tool-drag-hand-gesture" class="icon-c" size="18" />
+            <Icon icon="map-tool-drag-hand-gesture|svg" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
@@ -91,7 +91,7 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.marker }]"
             @click="handleToolAction(ToolTypeEnum.marker)"
           >
-            <SvgIcon name="map-tool-marker" class="icon-c" size="18" />
+            <Icon icon="map-tool-marker|svg" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
@@ -99,7 +99,7 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.text }]"
             @click="handleToolAction(ToolTypeEnum.text)"
           >
-            <SvgIcon name="map-tool-text-2-fill" class="icon-c" size="18" />
+            <Icon icon="map-tool-text-2-fill|svg" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
@@ -107,7 +107,7 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.polyline }]"
             @click="handleToolAction(ToolTypeEnum.polyline)"
           >
-            <SvgIcon name="map-tool-baseline-polyline" class="icon-c" size="18" />
+            <Icon icon="map-tool-baseline-polyline|svg" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
@@ -115,7 +115,7 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.polygon }]"
             @click="handleToolAction(ToolTypeEnum.polygon)"
           >
-            <SvgIcon name="map-tool-polygon-duotone" class="icon-c" size="18" />
+            <Icon icon="map-tool-polygon-duotone|svg" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
@@ -123,7 +123,7 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.circle }]"
             @click="handleToolAction(ToolTypeEnum.circle)"
           >
-            <SvgIcon name="map-tool-twotone-circle" class="icon-c" size="18" />
+            <Icon icon="map-tool-twotone-circle|svg" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
@@ -131,7 +131,7 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.rectangle }]"
             @click="handleToolAction(ToolTypeEnum.rectangle)"
           >
-            <SvgIcon name="map-tool-rectangle-duotone" class="icon-c" size="18" />
+            <Icon icon="map-tool-rectangle-duotone|svg" class="icon-c" size="18" />
           </span>
         </div>
       </div>
@@ -141,7 +141,7 @@
           :class="[{ active: showPanelKey === ToolEnum.military }]"
           @click="onChangePanelKey(ToolEnum.military)"
         >
-          <SvgIcon name="map-tool-flag" size="18" />
+          <Icon icon="map-tool-flag|svg" size="18" />
         </span>
         <div
           v-show="showPanelKey === ToolEnum.military"
@@ -153,7 +153,7 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.straightArrow }]"
             @click="handleToolAction(ToolTypeEnum.straightArrow)"
           >
-            <SvgIcon name="map-tool-left-arrow" class="icon-c" size="18" />
+            <Icon icon="map-tool-left-arrow|svg" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
@@ -161,7 +161,7 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.fineArrow }]"
             @click="handleToolAction(ToolTypeEnum.fineArrow)"
           >
-            <SvgIcon name="map-tool-arrow-left-1" class="icon-c" size="18" />
+            <Icon icon="map-tool-arrow-left-1|svg" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
@@ -169,7 +169,7 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.assaultDirection }]"
             @click="handleToolAction(ToolTypeEnum.assaultDirection)"
           >
-            <SvgIcon name="map-tool-arrow-left-2" class="icon-c" size="18" />
+            <Icon icon="map-tool-arrow-left-2|svg" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
@@ -177,7 +177,7 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.squadCombat }]"
             @click="handleToolAction(ToolTypeEnum.squadCombat)"
           >
-            <SvgIcon name="map-tool-arrow-bounce-16-filled" class="icon-c" size="18" />
+            <Icon icon="map-tool-arrow-bounce-16-filled|svg" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
@@ -185,7 +185,7 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.tailedSquadCombat }]"
             @click="handleToolAction(ToolTypeEnum.tailedSquadCombat)"
           >
-            <SvgIcon name="map-tool-enter-arrow" class="icon-c" size="18" />
+            <Icon icon="map-tool-enter-arrow|svg" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
@@ -193,7 +193,7 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.doubleArrow }]"
             @click="handleToolAction(ToolTypeEnum.doubleArrow)"
           >
-            <SvgIcon name="map-tool-arrow-split-16-filled" class="icon-c" size="18" />
+            <Icon icon="map-tool-arrow-split-16-filled|svg" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
@@ -201,7 +201,7 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.attackArrow }]"
             @click="handleToolAction(ToolTypeEnum.attackArrow)"
           >
-            <SvgIcon name="map-tool-spine-arrow" class="icon-c" size="18" />
+            <Icon icon="map-tool-spine-arrow|svg" class="icon-c" size="18" />
           </span>
         </div>
       </div>
@@ -211,7 +211,7 @@
           :class="[{ active: showPanelKey === ToolEnum.tool }]"
           @click="onChangePanelKey(ToolEnum.tool)"
         >
-          <SvgIcon name="map-tool-gauge" size="18" />
+          <Icon icon="map-tool-gauge|svg" size="18" />
         </span>
         <div
           v-show="showPanelKey === ToolEnum.tool"
@@ -223,7 +223,7 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.ruler }]"
             @click="handleToolAction(ToolTypeEnum.ruler)"
           >
-            <SvgIcon name="map-tool-ruler" class="icon-c" size="18" />
+            <Icon icon="map-tool-ruler|svg" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
@@ -231,7 +231,7 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.measure }]"
             @click="handleToolAction(ToolTypeEnum.measure)"
           >
-            <SvgIcon name="map-tool-area" class="icon-c" size="18" />
+            <Icon icon="map-tool-area|svg" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
@@ -239,7 +239,7 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.downfile }]"
             @click="exportGeoJsonFile"
           >
-            <SvgIcon name="map-tool-import" class="icon-c" size="18" />
+            <Icon icon="map-tool-import|svg" class="icon-c" size="18" />
           </span>
           <span
             class="w-36px h-36px icon-c cursor-pointer flex items-center justify-center"
@@ -247,12 +247,12 @@
             :class="[{ active: toolState.drawType === ToolTypeEnum.openfile }]"
             @click="openFile"
           >
-            <SvgIcon name="map-tool-export" class="icon-c" size="18" />
+            <Icon icon="map-tool-export|svg" class="icon-c" size="18" />
           </span>
           <input
             :accept="'.zip, .json, .geojson'"
             type="file"
-            name="file"
+            icon="file"
             ref="fileDom"
             @change="importGeoJsonFile"
             v-show="false"
@@ -315,7 +315,6 @@
   import TextEditModal from './TextEditModal.vue';
   import MapPopup from './MapPopup.vue';
   import { useMap } from '@/hooks/common/useMap';
-  import SvgIcon from '@/components/Icon/src/SvgIcon.vue';
   import { onKeyStroke } from '@vueuse/core';
   import { Input, Button } from 'ant-design-vue';
 

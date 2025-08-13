@@ -26,7 +26,7 @@ type Upward = number | string | null | undefined;
  * @returns 响应式高度
  */
 export function useContentHeight(
-  flag: ComputedRef<Boolean>,
+  flag: ComputedRef<boolean>,
   anchorRef: Ref,
   subtractHeightRefs: Ref[],
   subtractSpaceRefs: Ref[],

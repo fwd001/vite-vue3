@@ -45,7 +45,9 @@ export function useNow(immediate = true) {
   }
 
   tryOnMounted(() => {
-    immediate && start();
+    if (immediate) {
+      start();
+    }
   });
 
   tryOnUnmounted(() => {

@@ -107,10 +107,11 @@
   watch(
     () => props.visible,
     (visible: boolean) => {
-      visible &&
-        nextTick(() => {
+      nextTick(() => {
+        if (visible) {
           unref(inputRef)?.focus();
-        });
+        }
+      });
     },
   );
 

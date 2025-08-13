@@ -86,7 +86,9 @@ export function useVFormMethods<E extends EmitsOptions = EmitsOptions>(
   const setProps: ISetProps = (field, key, value) => {
     const formItem = get(field);
     if (formItem?.componentProps) {
-      ['options', 'treeData'].includes(key) && setValue(field, undefined);
+      if (['options', 'treeData'].includes(key)) {
+        setValue(field, undefined);
+      }
 
       formItem.componentProps[key] = value;
     }
@@ -146,9 +148,11 @@ export function useVFormMethods<E extends EmitsOptions = EmitsOptions>(
    * @param {string | undefined} field
    */
   const disable: IDisable = (field) => {
-    typeof field === 'string'
-      ? setProps(field, 'disabled', true)
-      : setFormConfig('disabled', field !== false);
+    if (typeof field === 'string') {
+      setProps(field, 'disabled', true);
+    } else {
+      setFormConfig('disabled', field !== false);
+    }
   };
 
   /**

@@ -41,8 +41,8 @@
   const emit = defineEmits(['success', 'error', 'cancel']);
 
   const inputRef = ref<HTMLInputElement | null>(null);
-  const loadingRef = ref<Boolean>(false);
-  const cancelRef = ref<Boolean>(true);
+  const loadingRef = ref<boolean>(false);
+  const cancelRef = ref<boolean>(true);
 
   function shapeWorkSheel(sheet: XLSX.WorkSheet, range: XLSX.Range) {
     let str = ' ',

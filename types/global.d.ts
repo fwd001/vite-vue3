@@ -20,8 +20,10 @@ declare global {
   declare interface Window {
     // Global vue app instance
     __bizConfig__: {
+      title: string;
       VITE_GLOB_IS_XXX: boolean;
       VITE_GLOB_XXX: number[];
+      VITE_GLOB_DICTIONARY_URL: string;
     };
   }
 

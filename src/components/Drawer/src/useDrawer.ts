@@ -37,12 +37,13 @@ export function useDrawer(): UseDrawerReturnType {
   const uid = ref<number>(0);
 
   function register(drawerInstance: DrawerInstance, uuid: number) {
-    isProdMode() &&
+    if (isProdMode()) {
       tryOnUnmounted(() => {
         drawer.value = null;
         loaded.value = null;
         dataTransferRef[unref(uid)] = null;
       });
+    }
 
     if (unref(loaded) && isProdMode() && drawerInstance === unref(drawer)) {
       return;
@@ -116,10 +117,11 @@ export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
   };
 
   const register = (modalInstance: DrawerInstance, uuid: number) => {
-    isProdMode() &&
+    if (isProdMode()) {
       tryOnUnmounted(() => {
         drawerInstanceRef.value = null;
       });
+    }
 
     uidRef.value = uuid;
     drawerInstanceRef.value = modalInstance;

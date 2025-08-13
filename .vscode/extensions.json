@@ -8,6 +8,6 @@
     "lokalise.i18n-ally",
     "antfu.iconify",
     "antfu.unocss",
-    "mikestead.dotenv",
+    "mikestead.dotenv"
   ]
 }

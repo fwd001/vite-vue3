@@ -12,10 +12,9 @@ import { router } from '@/router';
 import { usePermissionStore } from '@/store/modules/permission';
 import { RouteRecordRaw } from 'vue-router';
 import { PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic';
-import { h } from 'vue';
+import { h, ref, computed } from 'vue';
 import { useGlobSetting } from '@/hooks/setting';
 import { isDevMode } from '@/utils/env';
-import { ref, computed } from 'vue';
 
 export const useUserStore = defineStore('app-user', () => {
   // state
@@ -26,9 +25,13 @@ export const useUserStore = defineStore('app-user', () => {
   const lastUpdateTime = ref<number>(0);
 
   // getters
-  const getUserInfo = computed(() => userInfo.value || getAuthCache<AurhorizeCodeResultModel>(USER_INFO_KEY) || {});
+  const getUserInfo = computed(
+    () => userInfo.value || getAuthCache<AurhorizeCodeResultModel>(USER_INFO_KEY) || {},
+  );
   const getToken = computed(() => token.value || getAuthCache<string>(TOKEN_KEY));
-  const getRoleList = computed(() => roleList.value.length > 0 ? roleList.value : getAuthCache<RoleEnum[]>(ROLES_KEY));
+  const getRoleList = computed(() =>
+    roleList.value.length > 0 ? roleList.value : getAuthCache<RoleEnum[]>(ROLES_KEY),
+  );
   const getSessionTimeout = computed(() => !!sessionTimeout.value);
   const getLastUpdateTime = computed(() => lastUpdateTime.value);
 
@@ -55,7 +58,9 @@ export const useUserStore = defineStore('app-user', () => {
     roleList.value = [];
     sessionTimeout.value = false;
   }
-  async function login(params: AurhorizeCodeParamsModel & { goHome?: boolean; mode?: ErrorMessageMode; }): Promise<AurhorizeCodeResultModel | null> {
+  async function login(
+    params: AurhorizeCodeParamsModel & { goHome?: boolean; mode?: ErrorMessageMode },
+  ): Promise<AurhorizeCodeResultModel | null> {
     try {
       const { goHome = true, ...loginParams } = params;
       const { data } = await aurhorizeCode(loginParams);
@@ -69,7 +74,10 @@ export const useUserStore = defineStore('app-user', () => {
       return Promise.reject(error);
     }
   }
-  async function afterLoginAction(goHome?: boolean, path = '/'): Promise<AurhorizeCodeResultModel | null> {
+  async function afterLoginAction(
+    goHome?: boolean,
+    path = '/',
+  ): Promise<AurhorizeCodeResultModel | null> {
     if (!getToken.value) return null;
     const user = getUserInfo.value;
     if (sessionTimeout.value) {

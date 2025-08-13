@@ -12,7 +12,6 @@
 </template>
 <script lang="ts" setup>
   import { computed, unref } from 'vue';
-  import { useGlobSetting } from '@/hooks/setting';
   import { useGo } from '@/hooks/web/usePage';
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting';
   import { useDesign } from '@/hooks/web/useDesign';
@@ -37,7 +36,7 @@
   const { prefixCls } = useDesign('app-logo');
   const { getCollapsedShowTitle } = useMenuSetting();
   const userStore = useUserStore();
-  const { title } = useGlobSetting();
+  const title = window.__bizConfig__.title;
   const go = useGo();
 
   const getAppLogoClass = computed(() => [

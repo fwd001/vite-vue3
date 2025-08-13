@@ -5,7 +5,10 @@ module.exports = {
     'at-rule-no-unknown': [
       true,
       {
-        ignoreAtRules: ['use'],
+        ignoreAtRules: [
+          'use',
+          'extend', // 添加此行
+        ],
       },
     ],
   },

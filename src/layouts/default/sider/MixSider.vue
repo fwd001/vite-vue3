@@ -95,7 +95,6 @@
   import { useMenuSetting } from '@/hooks/setting/useMenuSetting';
   import { usePermissionStore } from '@/store/modules/permission';
   import { useDragLine } from './useLayoutSider';
-  import { useGlobSetting } from '@/hooks/setting';
   import { useDesign } from '@/hooks/web/useDesign';
   import { useI18n } from '@/hooks/web/useI18n';
   import { useGo } from '@/hooks/web/usePage';
@@ -137,7 +136,7 @@
     getCollapsed,
   } = useMenuSetting();
 
-  const { title } = useGlobSetting();
+  const title = window.__bizConfig__.title;
   const permissionStore = usePermissionStore();
 
   useDragLine(sideRef, dragBarRef, true);

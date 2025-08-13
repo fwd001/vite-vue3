@@ -4,7 +4,7 @@
       <AppDarkModeToggle class="enter-x mr-2" v-if="!sessionTimeout" />
     </div>
 
-    <div class="container relative h-full py-2 mx-auto sm:px-10">
+    <div class="relative h-full py-2 mx-auto sm:px-10">
       <div class="flex h-full">
         <div class="flex w-full h-full py-5 xl:h-auto xl:py-0 xl:my-0 xl:w-6/12">
           <div

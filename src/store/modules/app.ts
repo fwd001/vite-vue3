@@ -1,8 +1,4 @@
-import type {
-  ProjectConfig,
-  MenuSetting,
-  
-} from '#/config';
+import type { ProjectConfig, MenuSetting } from '#/config';
 import type { BeforeMiniState, ApiAddress } from '#/store';
 
 import { defineStore } from 'pinia';

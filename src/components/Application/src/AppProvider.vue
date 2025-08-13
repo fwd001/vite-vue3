@@ -5,7 +5,6 @@
   import { prefixCls } from '@/settings/designSetting';
   import { useAppStore } from '@/store/modules/app';
   import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum';
-  import { useInitData } from '@/hooks/event/useInitData';
 
   const props = {
     /**
@@ -19,9 +18,6 @@
     inheritAttrs: false,
     props,
     setup(props, { slots }) {
-      const { get } = useInitData();
-      get();
-
       const isMobile = ref(false);
       const isSetState = ref(false);
       const appStore = useAppStore();
