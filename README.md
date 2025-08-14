@@ -37,3 +37,5 @@ icon查询地址：https://icon-sets.iconify.design/
 预览地址：http://172.16.11.13:8078/
 
 代码仓库：http://git.lhcz.local:83/fuwendong/vben-admin
+
+https://www.youtube.com/watch?v=7MDI54nlEbc&t=10s

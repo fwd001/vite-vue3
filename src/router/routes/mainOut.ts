@@ -10,7 +10,7 @@ export const mainOutRoutes: AppRouteModule[] = [
   {
     path: '/main-out',
     name: 'MainOut',
-    component: () => import('@/views/dashboard/index.vue'),
+    component: () => import('@/views/demo/index.vue'),
     meta: {
       title: 'MainOut',
       ignoreAuth: true,

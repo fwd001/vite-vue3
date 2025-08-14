@@ -17,10 +17,10 @@ import { router, setupRouter } from '@/router';
 import { setupRouterGuard } from '@/router/guard';
 import { setupStore } from '@/store';
 import App from './App.vue';
+import { VueQueryPlugin } from '@tanstack/vue-query';
 
 async function bootstrap() {
   const app = createApp(App);
-
   // Configure store
   // 配置 store
   setupStore(app);
@@ -57,6 +57,7 @@ async function bootstrap() {
 
   // https://next.router.vuejs.org/api/#isready
   // await router.isReady();
+  app.use(VueQueryPlugin);
 
   app.mount('#app');
 }
