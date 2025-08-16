@@ -27,6 +27,19 @@ const zdrManage: AppRouteModule = {
         // ignoreAuth: true,
       },
     },
+     {
+      path: 'detail/:id?',
+      name: 'ListDetail',
+      component: () => import('@/views/list/detail/index.vue'),
+      meta: {
+        title: 'LIST详情',
+        icon: 'simple-icons:aboutdotme',
+        hideMenu: true,
+        // 权限key
+        powerKey: 'listManage',
+        // ignoreAuth: true,
+      },
+    },
   ],
 };
 

@@ -109,6 +109,6 @@
   }
 
   function handleView(record: Recordable) {
-    go('/system/account_detail/' + record.id);
+    go('/list/detail/' + record.id);
   }
 </script>
