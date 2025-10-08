@@ -146,6 +146,9 @@ importers:
       vue3-colorpicker:
         specifier: ^2.3.0
         version: 2.3.0(@aesoper/normal-utils@0.1.5)(@popperjs/core@2.11.8)(@vueuse/core@11.3.0(vue@3.5.18(typescript@5.5.4)))(gradient-parser@1.1.1)(lodash-es@4.17.21)(tinycolor2@1.6.0)(vue-types@5.1.3(vue@3.5.18(typescript@5.5.4)))(vue@3.5.18(typescript@5.5.4))
+      vue3-tree-org:
+        specifier: ^4.2.2
+        version: 4.2.2(vue@3.5.18(typescript@5.5.4))
       vuedraggable:
         specifier: ^4.1.0
         version: 4.1.0(vue@3.5.18(typescript@5.5.4))
@@ -6251,7 +6254,7 @@ packages:
   koa-router@12.0.1:
     resolution: {integrity: sha512-gaDdj3GtzoLoeosacd50kBBTnnh3B9AYxDThQUo4sfUyXdOhY6ku1qyZKW88tQCRgc3Sw6ChXYXWZwwgjOxE0w==}
     engines: {node: '>= 12'}
-    deprecated: Please use @koa/router instead of koa-router. This is the same package maintained by the same people, but under the Koa team's control on GitHub. Versioning is identical and it is a drop-in replacement. Maintenance is supported by Forward Email @ https://forwardemail.net
+    deprecated: 'Please use @koa/router instead, starting from v9! '
 
   koa-send@5.0.1:
     resolution: {integrity: sha512-tmcyQ/wXXuxpDxyNXv5yNNkdAMdFRqwtegBXUaowiQzUKqJehttS0x2j0eOZDQAyloAth5w6wwBImnFzkUz3pQ==}
@@ -8839,6 +8842,11 @@ packages:
       tinycolor2: ^1.4.2
       vue: ^3.2.6
       vue-types: ^4.1.0
+
+  vue3-tree-org@4.2.2:
+    resolution: {integrity: sha512-AG2SykyD6dw0jIyqBm8iuF9j9GWli6KrwudxR1RjULCCBTDFsoNm7MmP/weKT7wowN/sPk+e2RsnvEJMw2OJMw==}
+    peerDependencies:
+      vue: ^3.0.0
 
   vue@3.5.18:
     resolution: {integrity: sha512-7W4Y4ZbMiQ3SEo+m9lnoNpV9xG7QVMLa+/0RFwwiAVkeYoyGXqWE85jabU4pllJNUzqfLShJ5YLptewhCWUgNA==}
@@ -19238,6 +19246,11 @@ snapshots:
       tinycolor2: 1.6.0
       vue: 3.5.18(typescript@5.5.4)
       vue-types: 5.1.3(vue@3.5.18(typescript@5.5.4))
+
+  vue3-tree-org@4.2.2(vue@3.5.18(typescript@5.5.4)):
+    dependencies:
+      core-js: 3.45.0
+      vue: 3.5.18(typescript@5.5.4)
 
   vue@3.5.18(typescript@5.5.4):
     dependencies:
