@@ -7,6 +7,7 @@ import 'ant-design-vue/dist/reset.css';
 import 'virtual:svg-icons-register';
 
 import { createApp } from 'vue';
+import { setup as updateAppInit } from '@/components/UpdatePopup';
 
 import { registerGlobComp } from '@/components/registerGlobComp';
 import { setupGlobDirectives } from '@/directives';
@@ -60,6 +61,8 @@ async function bootstrap() {
   app.use(VueQueryPlugin);
 
   app.mount('#app');
+  // 初始化前端更新检测：放在挂载后，避免阻塞首屏渲染
+  updateAppInit();
 }
 
 bootstrap();

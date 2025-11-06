@@ -25,7 +25,16 @@ declare global {
       VITE_GLOB_XXX: number[];
       VITE_GLOB_DICTIONARY_URL: string;
     };
+    /**
+     * 版本更新提示的触发函数（由 `UpdatePopup/Popup.vue` 运行时挂载）
+     */
+    __showUpdatePrompt?: (cb: () => void) => void;
   }
+
+  /**
+   * 也允许以全局变量的形式直接调用（与 Window 字段保持一致）
+   */
+  let __showUpdatePrompt: (cb: () => void) => void;
 
   // fix FullScreen type error
   interface Document {

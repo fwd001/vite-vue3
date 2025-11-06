@@ -7,6 +7,7 @@
         </AppProvider>
       </App>
     </ConfigProvider>
+    <UpdatePopup />
   </StyleProvider>
 </template>
 
@@ -20,7 +21,7 @@
     legacyLogicalPropertiesTransformer,
     App,
   } from 'ant-design-vue';
-
+  import UpdatePopup from '@/components/UpdatePopup/Popup.vue';
   import { useDarkModeTheme } from '@/hooks/setting/useDarkModeTheme';
   import 'dayjs/locale/zh-cn';
   import { computed } from 'vue';

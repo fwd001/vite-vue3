@@ -1,4 +1,6 @@
 import { defineApplicationConfig } from '@vben/vite-config';
+import fs from 'fs';
+import path from 'path';
 
 export default defineApplicationConfig({
   overrides: {
@@ -44,5 +46,25 @@ export default defineApplicationConfig({
         clientFiles: ['./index.html', './src/{views,components}/*'],
       },
     },
+    plugins: [
+      {
+        name: 'generate-version',
+        closeBundle() {
+          // 生成一个包含时间戳的 version.json 文件
+          const version = {
+            version: new Date().toISOString(), // 可换成 git hash
+          };
+          const distPath = path.resolve(__dirname, 'dist');
+          const versionFile = path.resolve(distPath, 'version.json');
+
+          if (!fs.existsSync(distPath)) {
+            fs.mkdirSync(distPath, { recursive: true });
+          }
+
+          fs.writeFileSync(versionFile, JSON.stringify(version), 'utf-8');
+          console.log('✅ webapp版本文件已生成！');
+        },
+      },
+    ],
   },
 });
