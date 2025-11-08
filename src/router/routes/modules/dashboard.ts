@@ -10,7 +10,7 @@ const routers: AppRouteModule = {
   meta: {
     hideChildrenInMenu: true,
     icon: 'ant-design:dashboard-outlined',
-    title: '数据大屏',
+    title: '数据大屏1',
     orderNo: 1,
   },
   children: [
@@ -19,7 +19,7 @@ const routers: AppRouteModule = {
       name: 'DashboardIndex',
       component: () => import('@/views/dashboard/index.vue'),
       meta: {
-        title: '数据大屏',
+        title: '数据大屏1',
         hideMenu: true,
         ignoreAuth: true,
       },
