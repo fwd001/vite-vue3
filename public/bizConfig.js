@@ -1,5 +1,5 @@
 window.__bizConfig__ = {
-  title: 'lhzc-admin',
+  title: 'lhzc-fw',
   // xxx, 运行时配置 别忘了改 
   VITE_GLOB_IS_XXX: true,
   // xxx
