@@ -24,11 +24,14 @@ declare global {
       VITE_GLOB_IS_XXX: boolean;
       VITE_GLOB_XXX: number[];
       VITE_GLOB_DICTIONARY_URL: string;
+      /** 版本检测轮询间隔（毫秒），默认 10 秒 */
+      VITE_UPDATE_INTERVAL: number;
     };
     /**
      * 版本更新提示的触发函数（由 `UpdatePopup/Popup.vue` 运行时挂载）
      */
     __showUpdatePrompt?: (cb: () => void) => void;
+    __app_version?: string;
   }
 
   /**
