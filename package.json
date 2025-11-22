@@ -65,6 +65,7 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
+    "@antv/g6": "^5.0.50",
     "@iconify/iconify": "^3.1.1",
     "@lhcz/spider-comp": "^1.1.17",
     "@logicflow/core": "^1.2.28",
@@ -104,6 +105,7 @@
     "vditor": "^3.11.1",
     "vfonts": "^0.0.3",
     "vue": "^3.5.18",
+    "vue-echarts": "^8.0.1",
     "vue-i18n": "^9.14.5",
     "vue-json-pretty": "^2.5.0",
     "vue-request": "^2.0.4",
