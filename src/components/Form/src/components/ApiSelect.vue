@@ -134,7 +134,10 @@
   watch(
     () => searchParams.value,
     (value, oldValue) => {
-      if (isEmpty(value) || isEqual(value, oldValue)) return;
+      // 如果value是空对象，直接返回，避免清空searchParams时触发重复请求
+      const isEmptyObj =
+        typeof value === 'object' && value !== null && Object.keys(value).length === 0;
+      if (isEmpty(value) || isEmptyObj || isEqual(value, oldValue)) return;
       (async () => {
         await fetch();
         searchParams.value = {};
